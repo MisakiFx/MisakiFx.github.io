@@ -264,7 +264,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/08/【Linux】Linux编程-vim篇-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/08/【Linux】Linux编程-vim篇/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MisakiFx">
@@ -283,7 +283,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/08/【Linux】Linux编程-vim篇-1/" itemprop="url">【Linux】Linux编程-vim篇-1</a></h1>
+                <a class="post-title-link" href="/2018/12/08/【Linux】Linux编程-vim篇/" itemprop="url">【Linux】Linux编程-vim篇</a></h1>
         
 
         <div class="post-meta">
@@ -377,7 +377,7 @@
         
           
             <h1 id="Linux编程-vim篇"><a href="#Linux编程-vim篇" class="headerlink" title="Linux编程 vim篇"></a>Linux编程 vim篇</h1><h2 id="第1节"><a href="#第1节" class="headerlink" title="第1节"></a>第1节</h2><h3 id="vim是什么"><a href="#vim是什么" class="headerlink" title="vim是什么"></a>vim是什么</h3><p>&emsp;&emsp;vim是一种基于Linux环境下的编辑器，上节也给大家已经提过，我们要想在Linux下编程需要四样东西来替代vs这个集成的开发环境，其中最为核心的载体就是这个vim的编辑器，没有它，我们甚至无法书写代码。<br><br>&emsp;&emsp;在Linux下除过vim这个编辑器十分经典之外，还有一款编辑器也深受大家喜爱，就是<strong>emacs</strong>。这两款编辑器之所以受大家欢迎以至于后续几十年的编辑器都无法超越有几点最主要的原因。<br><br>&emsp;&emsp;1、支持丰富的快捷键和编辑方式。<br><br>&emsp;&emsp;2、支持非常强大的扩展能力。<br><br>&emsp;&emsp;3、都有一门强大的编程语言作为支撑。<br><br>&emsp;&emsp;说到支撑他们的编程语言就不得不提emacs背后的编程语言<strong>lisp</strong>。之前我们说万物都出自C语言，其实并非如此，除过C语言外还有一个编程语言的祖师爷就是<strong>lisp</strong>。这是两款风格相差很大的编程语言，如果大家有兴趣可以去自行了解。这里不再赘述<br><br>&emsp;&emsp;虽说vim和emacs这两款编辑器各有各的千秋，都是编辑器中的祖师爷，但我选择emacs作为我的首选编辑器，也作为接下来讲解的重点（如果有同学对emacs感兴趣自然可以选择emacs作为自己的首选），并且最好的是在每一个Linux系统中都自带了vim编辑器，因此我们无需在自行安装了。</p>
-<h3 id="vim使用"><a href="#vim使用" class="headerlink" title="vim使用"></a>vim使用</h3><h4 id="vim基础介绍"><a href="#vim基础介绍" class="headerlink" title="vim基础介绍"></a>vim基础介绍</h4><p>&emsp;&emsp;由于我们的Linux已经自带了vim，所以我们可以直接使用。输入<code>vim</code>即可看到它的界面了。<br><br><img src="/2018/12/08/【Linux】Linux编程-vim篇-1/1.png" alt="vim使用"><br><br>&emsp;&emsp;会发现vim的界面十分的丑，毕竟是在控制台下，这也是无可奈何啊。那么如何退出界面呢？输入<code>:q</code>即可退出了。<strong>注意：前面要有个冒号才行！</strong>。<br><br>&emsp;&emsp;关于vim使用呢其实vim官方有一篇教学文档，大家退出vim界面后输入<code>vimtutor</code>即可进入官方教学文档。（输入<code>vimt</code>+<code>tab</code>即可补全了，<code>tab</code>是补全键可以帮助我们快速输入指令，要常用）。<br><br>&emsp;&emsp;在官方教学文档里大家跟着教学步骤一步一步练习，多多练习即可掌握vim的所有常用操作，一定切记一点：<strong>千万不要硬背指令或者快捷键，在使用中记忆才为上策。</strong><br><br>&emsp;&emsp;在vim下一共有<strong>普通，插入，命令，可视，替换</strong>五种模式，在我们用vim打开一篇文档，我们默认进入的就是普通模式，在普通模式下更为方便我们进行文档浏览，在这个模式下我们有丰富的快捷键供我们在页面间进行条件及光标移动。插入模式是当我们想要修改文档时才会进入的模式。命令模式里有一些命令方便我们对vim进行配置修改，页面跳转等等，用法丰富。可视模式下我们最常用的操作是选中文档片段进行删除，复制或剪切。替换模式则允许我们对文本内容进行替换。</p>
+<h3 id="vim使用"><a href="#vim使用" class="headerlink" title="vim使用"></a>vim使用</h3><h4 id="vim基础介绍"><a href="#vim基础介绍" class="headerlink" title="vim基础介绍"></a>vim基础介绍</h4><p>&emsp;&emsp;由于我们的Linux已经自带了vim，所以我们可以直接使用。输入<code>vim</code>即可看到它的界面了。<br><br><img src="/2018/12/08/【Linux】Linux编程-vim篇/1.png" alt="vim使用"><br><br>&emsp;&emsp;会发现vim的界面十分的丑，毕竟是在控制台下，这也是无可奈何啊。那么如何退出界面呢？输入<code>:q</code>即可退出了。<strong>注意：前面要有个冒号才行！</strong>。<br><br>&emsp;&emsp;关于vim使用呢其实vim官方有一篇教学文档，大家退出vim界面后输入<code>vimtutor</code>即可进入官方教学文档。（输入<code>vimt</code>+<code>tab</code>即可补全了，<code>tab</code>是补全键可以帮助我们快速输入指令，要常用）。<br><br>&emsp;&emsp;在官方教学文档里大家跟着教学步骤一步一步练习，多多练习即可掌握vim的所有常用操作，一定切记一点：<strong>千万不要硬背指令或者快捷键，在使用中记忆才为上策。</strong><br><br>&emsp;&emsp;在vim下一共有<strong>普通，插入，命令，可视，替换</strong>五种模式，在我们用vim打开一篇文档，我们默认进入的就是普通模式，在普通模式下更为方便我们进行文档浏览，在这个模式下我们有丰富的快捷键供我们在页面间进行条件及光标移动。插入模式是当我们想要修改文档时才会进入的模式。命令模式里有一些命令方便我们对vim进行配置修改，页面跳转等等，用法丰富。可视模式下我们最常用的操作是选中文档片段进行删除，复制或剪切。替换模式则允许我们对文本内容进行替换。</p>
 <h4 id="vim指令"><a href="#vim指令" class="headerlink" title="vim指令"></a>vim指令</h4><p>&emsp;&emsp;vim的快捷键及指令很多，在此我们着重介绍常用的几条指令。同时为了方便快捷键操作vim分为了几个模式，而我们大多数快捷键都是在<strong>普通模式</strong>下使用的。<br><br>&emsp;&emsp;1、在vim中我们除了上下左右方向键可以移动光标外，还提供了新的四个快捷键供我们进行光标移动。<code>j:下</code>；<code>k:上</code>；<code>h:左</code>；<code>l:右</code>。在vim下尤为推荐大家使用这四个控制光标移动的方向键，因为使用起来更为方便，最主要这是你学习过vim的象征！<br><br>&emsp;&emsp;2、普通模式进入其他模式的方式有很多种，最为普通的是按<code>i</code>进入插入模式，<code>:</code>进入命令模式，<code>v</code>进入可视模式，<code>R</code>进入替换模式。而其他模式回到普通模式下最为常用的方法永远是按<code>esc</code>。因此常按<code>esc</code>往往也会成为使用vim的程序员的习惯<br><br>&emsp;&emsp;3、<code>x</code>进行单个字符的删除。<br><br>&emsp;&emsp;4、在一个目录下输入指令<code>vim 文件名</code>打开一个已有的文件或创建一个新文件。输入<code>:</code>进入命令模式下输入<code>w</code>进行保存，<code>q</code>进行退出，<code>wq</code>保存并退出，<code>q!</code>不保存强制退出。<br><br>&emsp;&emsp;5、<code>w</code>可将光标从目前位置移动到下一个单词的头部，<code>e</code>可将光标从目前位置移动到下一个单词的尾部，<code>$</code>则可以将光标移动到行末，<code>b</code>表示移动到上个单词头。<br><br>&emsp;&emsp;6、<code>d</code>表示删除指令，一般和光标跳转指令连用。<code>dw</code>表示从光标目前位置删除到下一个单词头部位置（不包含头部），<code>de</code>表示从光标目前为止删除到下一个单词的尾部位置（包含尾部），<code>d$</code>表示从光标当前位置删除到行尾（删除整行）。<br><br>&emsp;&emsp;7、同时我们可以使用数字加指令的方式对很多指令进行重复执行。例如<code>2w</code> == <code>w</code>+<code>w</code>，<code>d2w</code>==<code>dw</code> + <code>dw</code>，等等，可自行尝试。<br><br>&emsp;&emsp;8、普通模式下<code>u</code>表示撤销操作，<code>U</code>表示撤销对整行的操作。<code>Ctrl r</code>表示重做，及撤销撤销操作。<br><br>&emsp;&emsp;9、<code>dd</code>将整行进行删除/剪切，<code>p</code>将剪切板里的内容往光标后进行粘贴，<code>P</code>将剪贴板里的内容往光标前进行粘贴。<br><br>&emsp;&emsp;10、<code>r</code>将单个字符进行替换，<code>R</code>将进入替换模式接下来输入的内容都替换为输入内容，知道返回普通模式。<br><br>&emsp;&emsp;11、<code>c</code>命令于<code>d</code>命令类似，依然于其他命令构成组合命令，例如<code>cw</code>，<code>ce</code>等，但不同是<code>c</code>命令使用完后会进入插入模式。<br><br>&emsp;&emsp;12、输入<code>:</code>进入命令模式下，输入<code>set nu</code>可现实行号。<br><br>&emsp;&emsp;13、<code>ctrl g</code>显示当前行数，并显示光标位置信息。<br><br>&emsp;&emsp;14、<code>shift g</code>跳转至文本尾，<code>gg</code>跳转至文本头，<code>&#39;</code>回到跳转前行数。<br><br>&emsp;&emsp;15、<code>/查找内容</code>进入命令模式下，输入查找内容进行查找，并且<code>n</code>寻找下一个，<code>N</code>寻找上一个。<br><br>&emsp;&emsp;16、光标在括号上按<code>%</code>进行括号匹配快速移动，自动跳转至匹配括号处。<br><br>&emsp;&emsp;17、输入<code>:</code>进入命令模式之后输入<code>s/查找内容/替换结果/gc</code>进行一行的内容替换，<code>%s/查找内容/替换结果/gc</code>进行全文的内容替换，其中<code>g</code>表示搜索整个一行，<code>c</code>表示替换前询问<code>%s</code>表示全文替换。<br><br>&emsp;&emsp;18、<code>o</code>在本行下创建新行并进入插入模式，<code>O</code>在本行上面创建新行并进入插入模式。<br><br>&emsp;&emsp;19、<code>v</code>进入可视模式，光标移动选中语句后按<code>y</code>可进行复制。同时<code>yy</code>可复制一行。同样的使用<code>p</code>或<code>P</code>进行粘贴。<br><br>&emsp;&emsp;20、<code>a</code>进入插入模式表示在光标后插入，与<code>i</code>类似。同时使用<code>I</code>或<code>A</code>在行首或行尾插入。<br><br>&emsp;&emsp;vim的基础指令介绍就到此为止了，vim的使用远不止这些快捷键及指令，想要更好的更熟练的使用vim还需要不断地练习，在实践中学习才是最高效的。</p>
 
           
@@ -431,7 +431,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/【Linux】Linux编程-基础-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/【Linux】Linux编程-基础/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MisakiFx">
@@ -450,7 +450,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/05/【Linux】Linux编程-基础-1/" itemprop="url">【Linux】Linux编程-基础-1</a></h1>
+                <a class="post-title-link" href="/2018/12/05/【Linux】Linux编程-基础/" itemprop="url">【Linux】Linux编程-基础</a></h1>
         
 
         <div class="post-meta">
@@ -545,9 +545,9 @@
           
             <h1 id="Linux编程-基础"><a href="#Linux编程-基础" class="headerlink" title="Linux编程 基础"></a>Linux编程 基础</h1><p>&emsp;&emsp;我们学习Linux的主要目的就是为了在让我们所写的代码可以在Linux环境下稳定运行，因为作为一个服务端程序员，我们将来所接触的服务器的系统内核全部都为Linux，也就是说我们所写的所有代码都要求在Linux服务器上依然可以稳定运行，这是作为服务端程序员的基本素养。因此Linux环境下的编程也是我们必须要学习的。</p>
 <h2 id="第1节"><a href="#第1节" class="headerlink" title="第1节"></a>第1节</h2><h3 id="Linux编程准备材料"><a href="#Linux编程准备材料" class="headerlink" title="Linux编程准备材料"></a>Linux编程准备材料</h3><p>&emsp;&emsp;我们将来并不是直接在服务器上对Linux服务器进行编程，更多的是用远程链接的方式来操作服务器，因此作为远程链接的桥梁有一款软件是我们今后会经常使用的，也是之前我所提过的<strong>Xshell</strong>。其实在Linux系统内核外壳有一门独到的脚本编程语言，我们利用这款脚本语言来控制Linux，这款语言就叫<strong>shell</strong>。我们之前所说的Linux基本命令其实就是在利用shell脚本语言来控制Linux系统。而在这里所说的<strong>Xshell</strong>这么一款模拟Linux终端的模拟软件，在Xshell里链接到我们的Linux系统后的操作就与直接在Linux终端里的操作几乎完全一样了（<del>实际上还是有一些区别</del>）。因此我们之后的所有操作都会利用Xshell来远程控制我们的虚拟机。因此在Linux编程中<strong>Xshell</strong>是必不可少的。<br><br>&emsp;&emsp;Xshell下载地址：<a href="https://gitee.com/HGtz2222/xshell_install_package/raw/master/Xshell-6.0.0082p.exe" target="_blank" rel="noopener">https://gitee.com/HGtz2222/xshell_install_package/raw/master/Xshell-6.0.0082p.exe</a></p>
-<h3 id="将Xshell连接到Linux"><a href="#将Xshell连接到Linux" class="headerlink" title="将Xshell连接到Linux"></a>将Xshell连接到Linux</h3><p>&emsp;&emsp;1、打开Linux虚拟机和Xshell。我们要将Linux连接到Xshell首先当然肯定是要先打开我们的虚拟机啦,当然Xshell也要打开<br><br>&emsp;&emsp;2、在Linux终端输入<code>ifconfig</code>指令，然后在下图红框处找到自己的ip地址。<br><br><img src="/2018/12/05/【Linux】Linux编程-基础-1/1.png" alt="Xshell连接"><br><br>&emsp;&emsp;然后在Xshell中输入如下图的命令。<br><br><img src="/2018/12/05/【Linux】Linux编程-基础-1/2.png" alt="Xshell连接"><br><br>&emsp;&emsp;之后按要求输入Linux中的用户名及密码即可连接上虚拟机。<br><br><img src="/2018/12/05/【Linux】Linux编程-基础-1/3.png" alt="Xshell连接"><br><br>&emsp;&emsp;连接上之后的操作都和Linux终端中的一致了。同时Xshell比Linux的终端好看了不止一点，可以改变界面透明度和背景，使用起来心情舒畅多了。</p>
+<h3 id="将Xshell连接到Linux"><a href="#将Xshell连接到Linux" class="headerlink" title="将Xshell连接到Linux"></a>将Xshell连接到Linux</h3><p>&emsp;&emsp;1、打开Linux虚拟机和Xshell。我们要将Linux连接到Xshell首先当然肯定是要先打开我们的虚拟机啦,当然Xshell也要打开<br><br>&emsp;&emsp;2、在Linux终端输入<code>ifconfig</code>指令，然后在下图红框处找到自己的ip地址。<br><br><img src="/2018/12/05/【Linux】Linux编程-基础/1.png" alt="Xshell连接"><br><br>&emsp;&emsp;然后在Xshell中输入如下图的命令。<br><br><img src="/2018/12/05/【Linux】Linux编程-基础/2.png" alt="Xshell连接"><br><br>&emsp;&emsp;之后按要求输入Linux中的用户名及密码即可连接上虚拟机。<br><br><img src="/2018/12/05/【Linux】Linux编程-基础/3.png" alt="Xshell连接"><br><br>&emsp;&emsp;连接上之后的操作都和Linux终端中的一致了。同时Xshell比Linux的终端好看了不止一点，可以改变界面透明度和背景，使用起来心情舒畅多了。</p>
 <h3 id="如何在Linux中编程"><a href="#如何在Linux中编程" class="headerlink" title="如何在Linux中编程"></a>如何在Linux中编程</h3><p>&emsp;&emsp;正如我们之前在Windows中使用的vs2017这个ide一样，在Windows中我们大多使用类如这样方便的集成式ide来进行编程，ide将我们编写程序所需要用到的工具进行整合，合为一体供我们使用，十分方便快捷。<br><br>&emsp;&emsp;而在Linux中不同于Windows的是，Linux这类操作系统更崇尚的是利用简而精的软件而并非Windows使用所崇尚的这种一站集成式的软件，因此在Linux中编程我们并不会接触到类似于vs2017这样的集成式的开发环境，而是将其打散成多个小软件分别使用。这样的方式是类Windows操作系统与类Unix操作系统关键性的区别。<br><br>&emsp;&emsp;那么在vs2017这个继承开发环境中都包含了哪些基本的功能供我们使用呢？可以大致分为以下四种，并且我们在Linux中都找到了对应的软件来代替vs2017中这一功能，我也一并将其列出来。<br><br>&emsp;&emsp;1、代码编辑器 —— vim。<br><br>&emsp;&emsp;2、编译器 —— gcc。<br><br>&emsp;&emsp;3、调试器 —— gdb。<br><br>&emsp;&emsp;4、项目组织 —— makefile。<br><br>&emsp;&emsp;以上这四款基本软件我们今后在Linux编程中会经常使用，可以说只要是在Linux下编程就必定会用到这四款软件。那么我们怎么在Linux下找到这四款软件呢？<br></p>
-<h3 id="yum使用"><a href="#yum使用" class="headerlink" title="yum使用"></a>yum使用</h3><p>&emsp;&emsp;在Linux中内置了一个类似于应用商店的东西，我们称之为<strong>包管理器</strong>。在这个应用商店中我们可以找到一些我们常用的包，来提供给我们的Linux一些新的扩展功能。接下来我会以在yum下载<strong>rzsz</strong>这个软件包为例讲解如何使用yum。<strong><em>以下流程均需虚拟机联网</em></strong>。<br><br>&emsp;&emsp;1、我们先利用yum来搜索rzsz的软件包。输入<code>yum list | grep rzsz</code>命令，稍等即可出现搜索结果。如果过长时间未出现结果可取消重试或检查网络连接后重试。(<code>ctrl+c</code>取消命令)<br><br><img src="/2018/12/05/【Linux】Linux编程-基础-1/4.png" alt="Xshell连接"><br><br>&emsp;&emsp;2、切换到root管理员下载安装rzsz既可。确保自己在root管理员权限下输入<code>yum install 包名</code>即可自动安装，其中包名为我们刚刚搜索出来的软件包的名称。<br><br>&emsp;&emsp;<strong>注意</strong>：在Linux下安装删除软件均需切换到root管理员才可执行。<br><br>&emsp;&emsp;（输入<code>su</code>命令后输入root密码后即可切换为root管理员。）<br><br><img src="/2018/12/05/【Linux】Linux编程-基础-1/5.png" alt="Xshell连接"><br><br>&emsp;&emsp;之后我们的rzsz就安装成功了，如果需要删除这个包，则也需要在root管理员权限下，输入<code>yum erase 包名</code>即可。当操作结束后最好退出root权限（输入<code>exit</code>即可退出）。<del>毕竟还是用普通用户比较安全。</del><br><br>&emsp;&emsp;虽说我们安装好了rzsz但是这个包到底有什么用处呢？大致作用可以解释为让Windows和Linux两个系统上的文件可以自由快速传输，如果没有这个软件包纯粹利用FTP进行文件传输有着极高的延迟，而且不够方便，而有了rzsz这可以大大改善这一点，是我们将来工作的必备软件包之一。</p>
+<h3 id="yum使用"><a href="#yum使用" class="headerlink" title="yum使用"></a>yum使用</h3><p>&emsp;&emsp;在Linux中内置了一个类似于应用商店的东西，我们称之为<strong>包管理器</strong>。在这个应用商店中我们可以找到一些我们常用的包，来提供给我们的Linux一些新的扩展功能。接下来我会以在yum下载<strong>rzsz</strong>这个软件包为例讲解如何使用yum。<strong><em>以下流程均需虚拟机联网</em></strong>。<br><br>&emsp;&emsp;1、我们先利用yum来搜索rzsz的软件包。输入<code>yum list | grep rzsz</code>命令，稍等即可出现搜索结果。如果过长时间未出现结果可取消重试或检查网络连接后重试。(<code>ctrl+c</code>取消命令)<br><br><img src="/2018/12/05/【Linux】Linux编程-基础/4.png" alt="Xshell连接"><br><br>&emsp;&emsp;2、切换到root管理员下载安装rzsz既可。确保自己在root管理员权限下输入<code>yum install 包名</code>即可自动安装，其中包名为我们刚刚搜索出来的软件包的名称。<br><br>&emsp;&emsp;<strong>注意</strong>：在Linux下安装删除软件均需切换到root管理员才可执行。<br><br>&emsp;&emsp;（输入<code>su</code>命令后输入root密码后即可切换为root管理员。）<br><br><img src="/2018/12/05/【Linux】Linux编程-基础/5.png" alt="Xshell连接"><br><br>&emsp;&emsp;之后我们的rzsz就安装成功了，如果需要删除这个包，则也需要在root管理员权限下，输入<code>yum erase 包名</code>即可。当操作结束后最好退出root权限（输入<code>exit</code>即可退出）。<del>毕竟还是用普通用户比较安全。</del><br><br>&emsp;&emsp;虽说我们安装好了rzsz但是这个包到底有什么用处呢？大致作用可以解释为让Windows和Linux两个系统上的文件可以自由快速传输，如果没有这个软件包纯粹利用FTP进行文件传输有着极高的延迟，而且不够方便，而有了rzsz这可以大大改善这一点，是我们将来工作的必备软件包之一。</p>
 <h3 id="之后的准备"><a href="#之后的准备" class="headerlink" title="之后的准备"></a>之后的准备</h3><p>&emsp;&emsp;在介绍完yum的使用后，我们平时使用的很多软件包都可以直接从yum上进行下载，但也并非所有东西yum里都有。<br>&emsp;&emsp;但是在Linux编程上我们要经常使用<strong>vim、gcc、gdb、makefile</strong>这四款软件，但是好消息是这四款软件有的在Linux上已经提前安装好了，我们直接使用即可。关于这四款软件的具体使用会在<strong>Linux编程</strong>的其他章节继续介绍。</p>
 
           
@@ -940,7 +940,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/【C语言】第七章-结构体-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/【C语言】第七章-结构体/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MisakiFx">
@@ -959,7 +959,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/27/【C语言】第七章-结构体-1/" itemprop="url">【C语言】第七章-结构体-1</a></h1>
+                <a class="post-title-link" href="/2018/11/27/【C语言】第七章-结构体/" itemprop="url">【C语言】第七章-结构体</a></h1>
         
 
         <div class="post-meta">
@@ -1123,7 +1123,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/26/【C语言】第六章-指针-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/26/【C语言】第六章-指针/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MisakiFx">
@@ -1142,7 +1142,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/26/【C语言】第六章-指针-1/" itemprop="url">【C语言】第六章-指针-1</a></h1>
+                <a class="post-title-link" href="/2018/11/26/【C语言】第六章-指针/" itemprop="url">【C语言】第六章-指针</a></h1>
         
 
         <div class="post-meta">
@@ -1470,7 +1470,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/【C语言】第五章-操作符-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/【C语言】第五章-操作符/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MisakiFx">
@@ -1489,7 +1489,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/19/【C语言】第五章-操作符-1/" itemprop="url">【C语言】第五章-操作符-1</a></h1>
+                <a class="post-title-link" href="/2018/11/19/【C语言】第五章-操作符/" itemprop="url">【C语言】第五章-操作符</a></h1>
         
 
         <div class="post-meta">
@@ -1653,7 +1653,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/18/【C语言】第四章-数组-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/18/【C语言】第四章-数组/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MisakiFx">
@@ -1672,7 +1672,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/18/【C语言】第四章-数组-1/" itemprop="url">【C语言】第四章-数组-1</a></h1>
+                <a class="post-title-link" href="/2018/11/18/【C语言】第四章-数组/" itemprop="url">【C语言】第四章-数组</a></h1>
         
 
         <div class="post-meta">
