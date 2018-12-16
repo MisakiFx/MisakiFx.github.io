@@ -264,7 +264,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/【Linux】Linux编程-gcc-gdb-makefile篇/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/【MySQL】第零章-MySQL安装及配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MisakiFx">
@@ -283,7 +283,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/14/【Linux】Linux编程-gcc-gdb-makefile篇/" itemprop="url">【Linux】Linux编程-gcc,gdb,makefile篇</a></h1>
+                <a class="post-title-link" href="/2018/12/16/【MySQL】第零章-MySQL安装及配置/" itemprop="url">【MySQL】第零章-MySQL安装及配置</a></h1>
         
 
         <div class="post-meta">
@@ -295,8 +295,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T18:00:29+08:00">
-                2018-12-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T22:15:51+08:00">
+                2018-12-16
               </time>
             
 
@@ -355,6 +355,180 @@
         
           
             
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/【Linux】Linux编程-gcc-gdb-makefile篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/14/【Linux】Linux编程-gcc-gdb-makefile篇/" itemprop="url">【Linux】Linux编程-gcc,gdb,makefile篇</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T18:00:29+08:00">
+                2018-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.4k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="【Linux】Linux编程-gcc-gdb-makefile篇"><a href="#【Linux】Linux编程-gcc-gdb-makefile篇" class="headerlink" title="【Linux】Linux编程-gcc,gdb,makefile篇"></a>【Linux】Linux编程-gcc,gdb,makefile篇</h1><p>&emsp;&emsp;在介绍了vim的使用后我们已经可以在Linux中的vim书写代码了，但是如果想要vim使用更加舒畅我们还需要向vim的配置文件中增加相关配置才行，这些都交给大家自行选择了。但是真正想要在Linux中运行代码光靠vim是不够的，我们还需要编译器，调试器，以及文件管理工具共同配合才行。</p>
+<h2 id="gcc"><a href="#gcc" class="headerlink" title="gcc"></a>gcc</h2><p>&emsp;&emsp;在Linux中我们有现成的编译器可供我们使用，这个编译器就是<strong>gcc</strong>，gcc的编译标准是C标准委员会所提供的最为官方的编译准则，因此学会使用gcc的使用后我们不光可以在Linux中使用gcc编程也可以在Windows下使用记事本+gcc的方式进行编程。<br></p>
+<h3 id="基本指令"><a href="#基本指令" class="headerlink" title="基本指令"></a>基本指令</h3><p>&emsp;&emsp;我们可以使用<code>man gcc</code>打开gcc的说明文档，可以发现，gcc的使用还是比较复杂的，里面有各种指令选项可供我们选择，但是大多的选项我们目前还使用不到，最为常用的语法大家只需要记住一条即可。<br><br>&emsp;&emsp;<code>gcc 文件名.c -g -o 编译结果文件名</code><br><br>&emsp;&emsp;<code>-o</code>选项是改名选项，我们在后面跟上自己目标想要使用的名字即可。如果不适用<code>-o</code>选项会自动将结果命名为<code>a.out</code>。<code>-g</code>则是生成Debug版本方便我们后面用gdb进行调试。</p>
+<h3 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h3><p>&emsp;&emsp;在之前我们在Windows下使用ide进行编程的时候，我们总是一个编译运行，ide就自动执行整个编译过程并且执行显示结果了，我们往往无需关心编译过程中编译器都做了哪些事情，但是在Linux下编程的时候往往就更能感受到编译器在编译过程中都做了哪些事，这个过程对我们来说也显得更为重要。<br><br>&emsp;&emsp;<strong>1、宏替换</strong><br><br>&emsp;&emsp;在这个过程下，编译器会将我们在.c文件中以<code>#</code>开头的宏定义和引入头文件预先编译一遍并且加到代码中，这也是以<code>#</code>开头的语句我们叫他预处理语句的原因。我们可以对一个<code>.c</code>文件执行以下命令。<br><br>&emsp;&emsp;<code>gcc -E 文件名.c -o 结果文件名.i</code><br><br>&emsp;&emsp;执行过后就会发现当前目录下产生了预处理过后的<code>.i</code>文件，用vim打开文件会发现代码与我们之前所书写的略有不同，因为所有的预处理指令都不见了，因为他们已经和我们所写的代码结合起来了。在这条指令中<code>-E</code>是<strong>预处理选项</strong>。<br><br>&emsp;&emsp;<strong>2、编译</strong><br><br>&emsp;&emsp;编译过程是将我们之前生成的预处理结果<code>.i</code>文件转换为汇编语言文件的过程，这是一个将高级语言向底层转换的过程。<br><br>&emsp;&emsp;<code>gcc -S 文件名.i -o 结果文件名.s</code><br><br>&emsp;&emsp;执行过语句过后目录下便会出现编译过后的<code>.s</code>汇编语言文件，用vim打开后会发现我们的代码已经全部转换为汇编语言的版本了。<code>-S</code>是汇编选项。<br><br>&emsp;&emsp;<strong>3、汇编</strong><br><br>&emsp;&emsp;汇编过程是将我们之前生成的汇编文件转换为机器码的过程，因为我们的计算机只认得机器码，也就是二进制文件，因此我们还需做一步转换才能让计算机识别。<br><br>&emsp;&emsp;<code>gcc -c 文件名.s -o 结果文件名.o</code><br><br>&emsp;&emsp;要注意这条语句中的<code>-c</code>是小写的，之前的命令中<code>-S</code>和<code>-E</code>都是大写。在这条语句执行过后我们就会发现目录下多出了<code>-o</code>二进制文件，也就是我们所说的目标文件，同样用vim打开这个文件，会发现全是乱码，因为我们的文件已经转换为二进制文件了。<code>-c</code>是汇编选项。<br><br>&emsp;&emsp;<strong>4、链接</strong><br><br>&emsp;&emsp;在转换为目标文件后我们的编译过程就只需要最后一步了。在C语言程序中我们往往会写很多个C语言文件，最后一步则就是将我们所写的多个文件进行整合汇总的过程。<br><br>&emsp;&emsp;<code>gcc 文件名.o -o 结果可执行文件名</code><br><br>&emsp;&emsp;在链接指令中我们无需其他选项，执行完成后即可发现我们的目录中多出了可执行文件，到此编译全部结束。<br></p>
+<h2 id="gdb"><a href="#gdb" class="headerlink" title="gdb"></a>gdb</h2><p>&emsp;&emsp;在Linux上的调试器上手有一定的门槛，因为gdb是作为控制台的编译器的是没有图形界面的，这就对我们的操作和调试带来了一定的难度。<br></p>
+<h3 id="基本指令-1"><a href="#基本指令-1" class="headerlink" title="基本指令"></a>基本指令</h3><p>&emsp;&emsp;<strong>最好在编译时加上<code>-g</code>选项生成Debug版本，否则会导致gdb部分指令无法使用。</strong><br><br>&emsp;&emsp;1、<code>gdb 可执行文件</code>进入gdb调试。<br><br>&emsp;&emsp;2、<code>break + 行号/函数名</code>打断点。<br><br>&emsp;&emsp;3、<code>info break</code>查看断点信息。<br><br>&emsp;&emsp;4、<code>delte + 断点编号</code>删除断点。<br><br>&emsp;&emsp;5、<code>run</code>让程序从头开始运行，遇到断点停止。<br><br>&emsp;&emsp;6、<code>continue</code>让程序继续运行。<strong>当程序遇到断点停止想要继续运行时使用<code>continue</code>，使用<code>run</code>会让程序重新开始运行。</strong><br><br>&emsp;&emsp;7、<code>print 变量名</code>查看当前状态下变量信息。<br><br>&emsp;&emsp;8、<code>list</code>查看当前执行到的语句附近的语句。<br><br>&emsp;&emsp;9、<code>bt</code>查看调用栈。<br><br>&emsp;&emsp;10、<code>next</code>单步执行下一条语句。<br><br>&emsp;&emsp;11、<code>quit</code>退出gdb调试器。<br></p>
+<h3 id="核心转储文件"><a href="#核心转储文件" class="headerlink" title="核心转储文件"></a>核心转储文件</h3><p>&emsp;&emsp;当我们在ide中对于内存操作不当读取了不合法的内存后我们的程序会强制终止，并且ide会报错，那么我们在Linux中如果执行了类似于读取了非法的内存之类的内存使用不当的错误后会发生什么呢？<br><br>&emsp;&emsp;我们可以尝试写一个文件专门用来读取一个非法的内存，来看看会发生什么。<br><br>&emsp;&emsp;将我们写好的错误代码编译之后执行。会发现出现了<code>段错误（吐核）</code>的错误信息。对，这就是Linux下内存出错的表现。段错误是Linux内存出错的错误代称，我们暂时先不研究，那么后面的吐核是什么意思呢？所谓吐核就是生成一个错误报告告诉我们哪出错了，更像是车祸现场。但是我们查看这个目录下也没有新的文件生成啊，那么核吐到哪了呢？<br><br>&emsp;&emsp;其实核普遍很大，因此不是想吐就能吐的除了来的，那么我们想要这个核能够吐出来该怎么做呢？<br><br>&emsp;&emsp;执行指令<code>ulimit -a</code>，然后再执行<code>ulimit -c unlimited</code>指令，之后再去运行我们有错的代码生成的可执行文件即可看到我们当前目录下多出了一个<code>core</code>文件，这个就是所谓的核，那么我们怎么查看这个核的信息呢？我们的每个核都对应一个可执行文件，因此为了查看到正确的信息我们需要将可执行文件与核配对才能查看因此执行以下命令即可用gdb查看核了。<code>gdb 可执行文件 core文件名</code>。这个核也被称为<strong>核心转储文件</strong>。用gdb打开后即可发现gdb已经将报错的具体信息核代码的行数都列出来了。<br><br>&emsp;&emsp;其实在实际编程中我们有很多情况下无法使用gdb进行调试，比如说遇到几率性bug，因此我们要学会用诸如输出的方式来进行调试，归根到底gdb不过是一个辅助我们调试的工具罢了，千万不要依赖于此调试工具，gdb往往更擅长于解决程序崩溃的问题。</p>
+<h2 id="makefile"><a href="#makefile" class="headerlink" title="makefile"></a>makefile</h2><p>&emsp;&emsp;makefile工具与前两者有很大区别之处就在于其需要哦我们完全自定义指令所执行的内容，也就是说在使用makefile前我们需要首先自行编写一个<strong>Makefile</strong>文件。<br></p>
+<h3 id="Makefile配置"><a href="#Makefile配置" class="headerlink" title="Makefile配置"></a>Makefile配置</h3><p>&emsp;&emsp;首先我们用vim创建一个Makefile文件。<code>vim Makefile</code>。<br><br>&emsp;&emsp;Makefile的配置每一条语句都基本有三个模块组成。<br><br>&emsp;&emsp;<code>[目标]:[依赖](可无)</code><br><br>&emsp;&emsp;&emsp;&emsp;<code>[操作]</code><br><br>&emsp;&emsp;我们首先在Makefile文件中输入以下操作来讲我们编写好的<code>.c</code>文件编译出来。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">目标文件:.c文件</span><br><span class="line">    gcc -g .c文件 -o 目标文件</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;随后保存退出vim，在控制台中执行<code>make 目标文件</code>命令，即可发现我们我们自动执行了编译语句，<code>.c</code>文件已经被自动编译并生成了目标文件。<br><br>&emsp;&emsp;关于makefile的用法有很多十分多样，其中主要体现在Makefile配置的编写，不过一般情况下我们不会经常去编写Makefile文件，一般都是借助工具进行编写。关于Makefile的其他语法还需进一步学习。</p>
+
           
         
       
@@ -1782,181 +1956,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/18/【C语言】第四章-数组/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/18/【C语言】第四章-数组/" itemprop="url">【C语言】第四章-数组</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-18T22:53:47+08:00">
-                2018-11-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C语言初阶/" itemprop="url" rel="index">
-                    <span itemprop="name">C语言初阶</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.5k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第四章-数组"><a href="#第四章-数组" class="headerlink" title="第四章 数组"></a>第四章 数组</h1><p>&emsp;&emsp;数组能帮助我们批量定义一些变量，省去我们在需要大量使用变量需要一个个定义变量的麻烦。而且利用数组所定义的变量又一个最大的特点就是这些变量在内存空间上都是连续的。这一章我们将详细介绍数组及其应用。</p>
-<h2 id="第1节"><a href="#第1节" class="headerlink" title="第1节"></a>第1节</h2><h3 id="一维数组"><a href="#一维数组" class="headerlink" title="一维数组"></a>一维数组</h3><h4 id="数组的创建及初始化"><a href="#数组的创建及初始化" class="headerlink" title="数组的创建及初始化"></a>数组的创建及初始化</h4><p>&emsp;&emsp;数组是一组同类型元素的集合。数组的定义方式：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>type_t arr_name[const_n]</code><br><br>&emsp;&emsp;数组的创建及初始化示例。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int arr1[10];//创建一个10个元素大小的整形数组</span><br><span class="line">	int arr2[10] = &#123; 1,2,3 &#125;;//创建一个10个元素大小的整形数组，并将前3个元素赋值，未赋值元素默认为0</span><br><span class="line">	int arr3[] = &#123; 1,2,3 &#125;;//创建一个3个元素大小的整形数组，并且赋值</span><br><span class="line">	char arr4[] = &quot;abcdef&quot;;//创建一个字符数组用来存储字符串&quot;abcdef&quot;</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;在数组创建后我依旧建议立刻进行赋值，就像变量创建后也应该立刻进行赋值一样。如果数组不立刻使用我们应该将他们全部初始化为0。我们可以这么写。<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>int arr[10] = { 0 };</code><br></p>
-<h4 id="一维数组的使用"><a href="#一维数组的使用" class="headerlink" title="一维数组的使用"></a>一维数组的使用</h4><p>&emsp;&emsp;我们可以通过<code>数组名[下标]</code>的方式来取到数组中的某一个元素，不过值得说明的是，<strong>数组中的下标是从0开始的</strong>，也就是说，<strong>下标的最大值 == 数组元素总个数 - 1。</strong>下面是数组使用的例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int arr[10] = &#123; 0 &#125;;//数组的创建及初始化</span><br><span class="line">	//计算数组元素的个数</span><br><span class="line">	int sz = sizeof(arr) / sizeof(arr[0]);</span><br><span class="line">	//让数组中每个元素的值等于在数组中的下标</span><br><span class="line">	for (int i = 0; i &lt; sz; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		arr[i] = i;</span><br><span class="line">	&#125;</span><br><span class="line">	//打印数组的内容</span><br><span class="line">	for (int i = 0; i &lt; sz; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;%d\t&quot;, arr[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	printf(&quot;\n&quot;);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="一维数组在内存中的存储"><a href="#一维数组在内存中的存储" class="headerlink" title="一维数组在内存中的存储"></a>一维数组在内存中的存储</h4><p>&emsp;&emsp;<strong>数组在内存中的存储是连续的，</strong> 不间断的，也正因此我们才可以通过下标来逐个访问到数组的每一个元素。同时<strong>数组名就是数组元素的首地址。</strong><br><br>&emsp;&emsp;数组在内存中的存储时连续的我们可以通过以下这个程序来进行验证。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int arr[10] = &#123; 0 &#125;;</span><br><span class="line">	for (int i = 0; i &lt; sizeof(arr) / sizeof(arr[0]); i++)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;&amp;arr[%d] = %p\n&quot;, i, &amp;arr[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;从程序执行结果大家就可以看出，整形数组中每个元素的地址之间刚好间隔4个字节，也就是一个整形的空间大小，因此可以得出结论，<strong>数组中元素在内存中都是连续排列的。</strong></p>
-<h3 id="二维数组"><a href="#二维数组" class="headerlink" title="二维数组"></a>二维数组</h3><h4 id="二维数组的定义及初始化"><a href="#二维数组的定义及初始化" class="headerlink" title="二维数组的定义及初始化"></a>二维数组的定义及初始化</h4><p>&emsp;&emsp;我们可以使用以下的语法进行对一个二维数组的定义：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>int arr[3][4];</code><br><br>&emsp;&emsp;在这个例子中我定义了一个三行四列的二维数组。在定义之后我们即可对它进行初始化，而二维数组的初始化和一维数组极为相似。<br><br>&emsp;&emsp;二维数组定义及初始化示例。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int arr1[3][4] = &#123;</span><br><span class="line">		&#123;1, 2, 3, 4&#125;,</span><br><span class="line">		&#123;2, 2, 3, 4&#125;,</span><br><span class="line">		&#123;3, 2, 3, 4&#125;,</span><br><span class="line">	&#125;;</span><br><span class="line">	//定义的数组是这样的</span><br><span class="line">	//	1 2 3 4</span><br><span class="line">	//	2 2 3 4</span><br><span class="line">	//	3 2 3 4</span><br><span class="line">	int arr[3][4] = &#123; 1, 2, 3, 4 &#125;;</span><br><span class="line">	//定义的数组是这样的</span><br><span class="line">	//	1 2 3 4</span><br><span class="line">	//	0 0 0 0</span><br><span class="line">	//	0 0 0 0</span><br><span class="line">	int arr[3][4] = &#123;</span><br><span class="line">		&#123;1, 2&#125;,</span><br><span class="line">		&#123;3, 4&#125;,</span><br><span class="line">	&#125;;</span><br><span class="line">	//定义的数组是这样的</span><br><span class="line">	//	1 2 0 0</span><br><span class="line">	//	3 4 0 0</span><br><span class="line">	//	0 0 0 0</span><br><span class="line">	int arr[][4] = &#123;</span><br><span class="line">		&#123;2, 3&#125;,</span><br><span class="line">		&#123;4, 5&#125;,</span><br><span class="line">	&#125;;</span><br><span class="line">	//定义的数组是这样的</span><br><span class="line">	//	2 3 0 0</span><br><span class="line">	//	4 5 0 0</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这这段示例中可以看出二维数组与一维数组定义十分相似，但是不同的是二维数组的列下标在定义时不能省略，而行下标是可以省略的。</p>
-<h4 id="二维数组的使用"><a href="#二维数组的使用" class="headerlink" title="二维数组的使用"></a>二维数组的使用</h4><p>&emsp;&emsp;二维数组的使用也和一维数组类似，不过我们这时候要是想要取得元素中的某个下标我们需要用两个下标来进行表示，两个下标也都是从0开始计数的。因此我们要想遍历一个二维数组至少需要使用两重循环。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int arr[3][4] = &#123; 0 &#125;;</span><br><span class="line">	for (int i = 0; i &lt; 3; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		for (int j = 0; j &lt; 4; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			arr[i][j] = 4 * i + j;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	for (int i = 0; i &lt; 3; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		for (int j = 0; j &lt; 4; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;%d\t&quot;, arr[i][j]);</span><br><span class="line">		&#125;</span><br><span class="line">		printf(&quot;\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="二维数组的存储"><a href="#二维数组的存储" class="headerlink" title="二维数组的存储"></a>二维数组的存储</h4><p>&emsp;&emsp;二维数组与一维数组一样在内存中存储元素都是相连着的，在这里我们不再细致讨论。</p>
-<h3 id="数组作为函数参数"><a href="#数组作为函数参数" class="headerlink" title="数组作为函数参数"></a>数组作为函数参数</h3><p>&emsp;&emsp;数组传入函数时，会将数组隐式转换为指针。因此在数组传入函数时并不会记录原数组的长度大小等信息，需要我们传值进去。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//一定要设置一个参数用来传入函数的大小</span><br><span class="line">void bubble_sort(int arr[], int sz)</span><br><span class="line">&#123;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2011,7 +2010,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2130,7 +2129,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共36.5k字</span>
+  <span class="post-count">博客全站共38.8k字</span>
 </div>
 
         ﻿
