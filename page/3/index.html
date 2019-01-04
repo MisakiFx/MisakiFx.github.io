@@ -264,6 +264,182 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/31/【C语言】第一章-初始C语言-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/31/【C语言】第一章-初始C语言-3/" itemprop="url">【C语言】第一章-初始C语言-3</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-31T20:50:47+08:00">
+                2018-10-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C语言初阶/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言初阶</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.3k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第一章-初识C语言"><a href="#第一章-初识C语言" class="headerlink" title="第一章 初识C语言"></a>第一章 初识C语言</h1><h2 id="第3节"><a href="#第3节" class="headerlink" title="第3节"></a>第3节</h2><h3 id="常见关键字"><a href="#常见关键字" class="headerlink" title="常见关键字"></a>常见关键字</h3><p>&emsp;&emsp;<strong>C语言一共有32个关键字，</strong> 而关键字是我们写程序使用的关键，而最为重要的是，关键字是不被允许用作定义为变量名的。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">auto break case char const continue default do double </span><br><span class="line">else enum extern float for goto if int long register </span><br><span class="line">return short signed sizeof static struct switch typedef </span><br><span class="line">union unsigned void volatile while</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;接下来我们简单介绍几个常用的关键字。<br><br>&emsp;&emsp;1、<code>typedef</code>关键字是类型定义关键字，这里应理解为烈性重命名。例：<code>typedef unsigned int uint_32;</code>在写过这一条语句后，我们之后使用<code>uint_32</code>定义变量的效果就和使用<code>unsigned int</code>定义变量的效果是一样的了，可以说是为我们书写代码省了不少功夫。<br><br>&emsp;&emsp;2、<code>static</code>关键字常用的有三个用途：<br><br>&emsp;&emsp;1）修饰局部变量，使局部变量的生命期延长至整个程序的存在时间。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">void test()//test函数</span><br><span class="line">&#123;</span><br><span class="line">	static int i = 0;//定义局部静态变量</span><br><span class="line">	i++;</span><br><span class="line">	printf(&quot;%d &quot;, i);</span><br><span class="line">&#125;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	for (int i = 0; i &lt; 10; i++)//利用循环调用十次函数</span><br><span class="line">	&#123;</span><br><span class="line">		test();</span><br><span class="line">	&#125;</span><br><span class="line">	printf(&quot;\n&quot;);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;大家可以在这段程序中尝试将test()函数中定义i变量前的static去掉，看看运行结果有什么不同。<br><br>&emsp;&emsp;2）修饰全局变量：经static修饰过得全局变量将不能再在其它源文件中进行使用。<br><br>&emsp;&emsp;3）修饰函数：经static修饰的函数也将不能在其它源文件中进行使用，编译会报错。</p>
+<h3 id="define定义常量和宏"><a href="#define定义常量和宏" class="headerlink" title="define定义常量和宏"></a>define定义常量和宏</h3><p>&emsp;&emsp;我们之前在讲解常量的时候已经讲解过使用define来定义常量，但是define的作用却不止定义常量这么简单。<strong>define的本质是文本替换，</strong> 因此我们也可以利用这一点进行宏的定义。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#define ADD(x, y) ((x) + (y))//宏定义</span><br><span class="line">#define MAX 1000</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int sum = ADD(2, 3);//调用宏</span><br><span class="line">	printf(&quot;%d\t&quot;, sum);</span><br><span class="line">	sum = 10 * ADD(2, 3);</span><br><span class="line">	printf(&quot;%d\n&quot;, sum);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;根据上面这段代码大家可以看出利用define可以实现类似于函数定义的功能，但是define虽然功能强大，但也有着缺陷，就是他只能进行简单的文本替换，大家可以试着降ADD中定义的外层括号去掉，只保留内层括号，看看结果有什么变化？</p>
+<h3 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h3><p>&emsp;&emsp;或许小伙伴们在学习C语言之前，都对C语言有着或多或少的了解，但是我相信大家肯定都听说过C语言中最难的就是指针了，指针太难了。。。但是在这里我要告诉大家，<strong><em>指针并不难学</em></strong>，真正难的是C语言的内存管理，这才是让人头大的地方，而内存管理就与指针有着密切的关联。那么究竟什么才是指针呢？<br><br>&emsp;&emsp;在提指针之前大家请先联想出这样一个场景，我们在上大学的时候应该都住过宿舍，而每个宿舍为了方便管理上面都有着一个门牌号（<del>这样我们在卫生检查的时候宿管可以轻松的说出哪个宿舍不合格扣分等等</del>），再假设我们一个宿舍里面住4个人，建立好这个场景后我们就可以开始讲解我们的计算机内存了。在计算机内存中，也有着类似的管理模式，我们的整个计算机内存就是一个大大的宿舍楼，这个宿舍楼有多大呢我们一会再讨论。在这个宿舍楼内部有着一个一个小的房间（存储空间），这么一个房间就是一个字节，然后为了方便管理这些房间，我们给每个房间都按照顺序标上了对应的号码，这些号码我们称为<strong>内存地址</strong>，而我们住在房间里面的人呢，刚才说过假设一个房间住4个人，那么我们一个房间中住的四个人就相当于是一个字节中对应的四个二进制位这么大的数据信息，因为<strong>1byte = 4 bit</strong>,一个字节 = 四位二进制数。相信这样大家对计算机内存应该有了一个大概的了解了。<br><br>&emsp;&emsp;那么指针又是什么呢？指针不过是一种数据类型，不过它比较特殊，它里面存放的就是内存地址，也就是门牌号，是为了方便根据门牌号找到住在房间中的人而使用的，利用内存地址来查找数据是最为准确和快捷的方式，但是之后我们也会了解到在指针使用的便捷之余也存在着很多很多的危险。<br><br>&emsp;&emsp;<strong>1、如果取出变量的地址？</strong><br><br>&emsp;&emsp;在这个问题中我们需要讲解一个之前我们已经遇到了的操作符——‘&amp;’。之前已经提过这个操作符除了按位与的功能外还有着取地址的功能，或许之前大家不了解，但是在C语言中不得不说它的用途主要就是用于取地址。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int num = 10;</span><br><span class="line">	printf(&quot;%p\n&quot;, &amp;num);//打印num变量的地址</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;上面这个程序主要功能就是定义一个变量并且打印出这个变量的内存地址。其中的<code>%p</code>是用来输出地址的占位符。通过运行结果大家可以发现，是一串十六进制数，其实内存的地址在内存中为了方便计数多是用十六进制进行表示的，因为四位二进制数的上限恰好等于一位十六进制数的上限。对变量进行取地址的操作也很简单，使用<code>&amp;变量名</code>即可。<br><br>&emsp;&emsp;<strong>2、指针的定义与初始化</strong><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int num = 10;</span><br><span class="line">	int* p;</span><br><span class="line">	p = &amp;num;//int* p = &amp;num;</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;在这段代码中我首先定义了一个变量num使他初始化为10，之后定义了一个指针p，并随后将它的内容存储为num的内存地址，这样这个指针p也就被我们叫做指向了变量num。至于对指针的定义语法也很简单，我们只需要像定义普通变量一样定义即可，不同的是在定义时我们需要在数据类型后变量名前加一个<code>*</code>。在此我们一定要注意一点，<strong><em>在指针被定义后一定要尽快初始化，即使暂时不用它也应将它的值赋为NULL。</em></strong> <code>int* p = NULL;</code>这一点十分重要，否则在之后我们的程序编写中将及其容易出现野指针来干扰我们的工作。（<del>说多了都是泪</del>）<br><br>&emsp;&emsp;<strong>3、指针的使用</strong><br><br>&emsp;&emsp;指针的使用过于博大精深，这里先用最为简单的例子作为示范。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int num = 10;</span><br><span class="line">	int* p = &amp;num;</span><br><span class="line">	*p = 20;</span><br><span class="line">	printf(&quot;%d\n&quot;, num);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;以上这段代码主要是用指针p指向了事先定义好的一个一个变量，但是重点来了我们在<code>*p = 20;</code>中操控了指针对变量进行了重新赋值（<code>*</code>也是解引符，简单来说就是用来利用指针找到指针所指向的内存空间的操作符）。这是怎么做到的呢？其实就像我们之前介绍内存所说的那样，我们将宿舍的房间号存入指针中，利用指针找到指定的房间号，我们程序员就相当于是宿管，房间号都有了想让这个房间里面的人换几个还不是轻轻松松的事。因此利用指针找到指定的内存空间进行内存空间内数据的修改是指针的拿手好戏。也正因为高度的便捷性反倒给我们的程序带来了很多不安全的地方，如果指针管理不当出现野指针那么可能会出现意想不到的后果。因此<strong>使用请谨慎，管理请当心。</strong><br>&emsp;&emsp;同时，因为指针是一个数据类型，呢么他肯定也是在内存中会被分配空间进行数据储存的，那么指针占多少的内存空间呢？<strong>在32位系统下无论任何类型的指针都是只占用4个字节的内存空间。</strong>这点需要大家牢牢记住，在日后的指针深入学习中我们对指针也会有更深的了解和认识，最终也会明白，指针真的是C语言中的“屠龙刀”。<br></p>
+<h3 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h3><p>&emsp;&emsp;说到结构体，就不得不提一提面向对象编程了，众所周知，C语言是一门古老的语言，因此古人设计C语言之处并没有考虑到要用它来制作很多大型的程序，他们也无法想象将来的程序会进化到什么程度。因此，C语言被设计的可以说是很难用于现在的大规模程序的编写，其中的较为主要的原因就是C语言是面向过程编程，在这种面向过程编程语言中编写大型程序十分不便于项目管理，因此在比较先进的编程语言的设计中，设计者普遍都是用了一种叫做面向对象编程的编程语言设计模式，这种面向对象的设计更易于大型项目的管理，更易于编写，像CPP，java，VB等等都是面向对象的编程语言。呢么在CPP中是怎么进行从面向过程到面向对象的跨越的呢？这要用到一个叫做类的板块，其实在C语言中我们就能找到类似的面向对象编程前身的东西，这个对象就是结构体。<br><br>&emsp;&emsp;<strong>1、结构体的定义</strong><br><br>&emsp;&emsp;结构体，可以理解为是一种自定义类型。用户根据需要定义一些具有实际意义的变量类型。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">struct Stu//自定义学生结构体</span><br><span class="line">&#123;</span><br><span class="line">	char name[1024];//名字</span><br><span class="line">	int age;//年龄</span><br><span class="line">	char sex[5];//性别</span><br><span class="line">	char id[15];//学号</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;以上的这段代码就是利用struct关键字进行了一个结构体的定义，在结构体内部可以自定义成员变量，这些全部都是由程序员我们自己决定的，而这么一个自己定义的类型自然也可以由我们自己随意进行使用。<br><br>&emsp;&emsp;<strong>2、结构体定义变量并进行初始化</strong><br><br>&emsp;&emsp;在结构体类型自定义完成后我们就要开始用这个类型定义变量并且使用这个变量了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">struct Stu//自定义学生结构体</span><br><span class="line">&#123;</span><br><span class="line">	char name[1024];//名字</span><br><span class="line">	int age;//年龄</span><br><span class="line">	char sex[5];//性别</span><br><span class="line">	char id[15];//学号</span><br><span class="line">&#125;;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	//struct Stu s = &#123; &quot;Misaki&quot;, 20, &quot;男&quot;, &quot;20181031&quot; &#125;;//可以用这种方法直接进行初始化</span><br><span class="line">	struct Stu s;</span><br><span class="line">	strcpy(s.name, &quot;Misaki&quot;);</span><br><span class="line">	s.age = 20;</span><br><span class="line">	strcpy(s.sex, &quot;男&quot;);</span><br><span class="line">	strcpy(s.id, &quot;20181031&quot;);</span><br><span class="line">	printf(&quot;姓名：%s\n&quot;, s.name);</span><br><span class="line">	printf(&quot;年龄：%d\n&quot;, s.age);</span><br><span class="line">	printf(&quot;性别：%s\n&quot;, s.sex);</span><br><span class="line">	printf(&quot;学号：%s\n&quot;, s.id);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;以上这段代码我们就用自己所定义的结构体类型定义了一个变量，当然这里提供了两种初始化方式，用哪一种根据情况而定。在初始化之后我们又使用结构体进行了操作，输出了初始化好的变量内部的信息，相信可以看出来在这个地方我们使用<strong>结构体变量名.成员变量</strong>的方式就可以随意调用结构体里的变量了，十分方便快捷。<br><br>&emsp;&emsp;关于结构体我们日后在大型程序开发中十分常用，这里只做初步介绍，之后深入学习中会有更详细的讲解。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/29/【C语言】第一章-初识C语言-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -656,7 +832,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -745,7 +921,7 @@
       <div class="footer-inner">
         ﻿<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
