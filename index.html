@@ -264,6 +264,180 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/21/【C语言】第八章-数据的存储/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/21/【C语言】第八章-数据的存储/" itemprop="url">【C语言】第八章-数据的存储</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-21T02:50:42+08:00">
+                2019-01-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C语言进阶/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言进阶</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.2k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第八章-数据的存储"><a href="#第八章-数据的存储" class="headerlink" title="第八章 数据的存储"></a>第八章 数据的存储</h1><p>&emsp;&emsp;从本章开始就正式进入了C语言进阶篇的学习，我们将从更为底层的角度思考C语言中更为复杂的机制和语法。</p>
+<h2 id="第一节"><a href="#第一节" class="headerlink" title="第一节"></a>第一节</h2><h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><p>&emsp;&emsp;C语言中的基本数据类型在初阶篇已经探讨过了，分为整形，浮点型，字符型与构造类型几个大类，每个类型都有着不同的容量，所占的内存大小也不尽相同，有的甚至在不同系统下都有着不同的大小因此必须在实核情境下选择合适的数据类型进行使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">char        //字符数据类型，占1字节</span><br><span class="line">short       //短整型，占2字节</span><br><span class="line">int         //整形，占4字节</span><br><span class="line">long        //长整型，占4字节</span><br><span class="line">long long   //更长的整形，占8字节</span><br><span class="line">float       //单精度浮点数，占4字节</span><br><span class="line">double      //双精度浮点数，占8字节</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;其中整形数组类型分为有符号和无符号类型，无符号类型不能表示负数，否则会导致很严重的数据出错问题，关于为什么出错与数据在内存中的存储有很大的关系，之后我们会进行解释。</p>
+<h3 id="整形在内存中的存储"><a href="#整形在内存中的存储" class="headerlink" title="整形在内存中的存储"></a>整形在内存中的存储</h3><h4 id="大端字节序、小端字节序"><a href="#大端字节序、小端字节序" class="headerlink" title="大端字节序、小端字节序"></a>大端字节序、小端字节序</h4><p>&emsp;&emsp;数据在内存中的存储形式都是以二进制数的方式所表示的，比如说我们要将<code>int</code>型<code>8</code>这个十进制数存入内存，编译器会帮助我们将其转换为二进制形式<code>00000000 00000000 00000000 00001000</code>，一共32位，这里我们先不探讨数据在内存中是怎么转换为二进制形式进行存储的。这32位二进制一共是4个字节，系统会以每个字节为一个单位继续宁内存存储，因此为了方便起见，我们往往将内存中的数据以<strong>十六进制</strong>进行表示，因为1位十六进制数等于4位二进制数，也就是一个字节原本需要8位二进制表示，现在只需要用2位十六进制进行表示即可，通常我们在内存监视器中所看到的数据存储也大多是以十六进制进行表示的。将这么一串二进制转换为八进制即可表示为<code>00 00 00 08</code>。<strong>但是实际在内存中是以二进制进行存储的，在这里用十六进制是为了方便我们进行观察。</strong><br><br>&emsp;&emsp;之后就要将这么一串数据存入内存中了，但是就在这里问题出现了，我们是要将最高位1个字节的数据首先存储在低地址区，还是要将最低位1个字节的数据首先存储在低地址区呢？其实这两种存储方式都得到了实施，而具体的存储方式与我们电脑的<strong>CPU</strong>密切相关（其实也并不仅有CPU决定，具体来说是和环境也就是平台密切相关，但CPU占大头），因此在当前的市场就有了大小端字节序之称，专门用来用来区分这两种不同的数据在内存中的存储方式。<br><br>&emsp;&emsp;<strong>1、大端字节序：低位存储在高地址上，依然以以上的例子为例，则在内存中以这样的方式进行存储：<code>00 00 00 08</code>。</strong><br><br>&emsp;&emsp;<strong>2、小端字节序：低位存储在低地址上，依然以以上的例子为例，则在内存中以这样的方式进行存储：<code>08 00 00 00</code>。</strong><br><br>&emsp;&emsp;<strong><em>注意：大小端字节序仅仅决定数据在内存中的存储，并不会因此改变数据本身的值！！！</em></strong><br>&emsp;&emsp;有了以上的原理，我们即可使用代码验证我们当前的环境是大端还是小端了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int a = 0x11223344;</span><br><span class="line">  char* p = (char*)&amp;a;</span><br><span class="line">  if(*p == 0x11)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;大端！\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;小端！\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;通过以上的代码，我们将内存中的数据取头一个字节的数据进行验证的方法即可判断是大端还是小端。</p>
+<h4 id="整形在内存中的存储-1"><a href="#整形在内存中的存储-1" class="headerlink" title="整形在内存中的存储"></a>整形在内存中的存储</h4><p>&emsp;&emsp;接下来就是数据是如何转换为二进制并且在内存中进行储存的问题了。首先是整型是如何在内存中进行存储的呢？这就要牵扯到<strong>原码，补码，反码</strong>三个紧密联系的二进制码了。<br><br>&emsp;&emsp;计算机在内存中都是以<strong>补码</strong>的形式进行存储的，而我们直接将一个数转换成二进制的所形成的最多只能被称为<strong>原码</strong>其重要进行两步转换。<br></p>
+<h5 id="有符号整形"><a href="#有符号整形" class="headerlink" title="有符号整形"></a>有符号整形</h5><p>&emsp;&emsp;这里我们先以有符号进行演示，之后再讨论无符号。这次我们以<code>(int)-8</code>为例，在有符号的情况下，我们的数据会将第一位二进制留出来作为符号位，<code>0</code>表示正数，<code>1</code>表示负数，这也是为什么32位的整形在有符号的情况下最大值只能到21亿的原因，因为有一位被保留出来做了符号位。除过第一位我们将数据原本的值转换为二进制即可表示为<code>10000000 00000000 00000000 00001000</code>，这段代码即被称为<strong>原码</strong>。之后我们想要转换为补码还得先将其转换为反码，就是在原码的基础上，除过符号位外全部按位取反即可变为<code>11111111 11111111 11111111 11110111</code>这就是<strong>反码</strong>。之后我们只需再将反码 +1即可变为<strong>补码</strong><code>11111111 11111111 11111111 11111000</code>这就是实际上有符号整形在内存中的存储形式了。<br><br>&emsp;&emsp;而以上的转换过程只对负整数适用，而<strong>正整数的原反补码都相同。</strong></p>
+<h5 id="无符号整形"><a href="#无符号整形" class="headerlink" title="无符号整形"></a>无符号整形</h5><p>&emsp;&emsp;无符号整形与有符号整形基本类似，只是其省略了最高位的符号位而已，因此使得无符号的最大值比有符号整形最大值大了一倍，但也因此使得无符号整型无法表示负数。<br><br>&emsp;&emsp;但是在这里值得强调的一点是，一个数据存储在内存中进行存储，尽管存储的形式完全一致，内容也完全一致，但是我们使用不同的理解方法去理解，就会有完全不同的结果。这点我们从以下这个例子就可以看出来。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  unsigned int a = -1;</span><br><span class="line">  printf(&quot;%u\n&quot;, a);  </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">4294967295</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;从执行结果就可以看出其中的问题，在存储数据的时候我们虽然定义了一个无符号的整形，但是当我们存储负数时编译器也并不会报错，此使-1会按照有符号负整数的方式进行存储在内存中，<code>11111111 11111111 11111111 11111111</code>，但是当我们使用无符号将其进行打印时，编译器又会将此数据以无符号正整数的方式将其编译转换成十进制就得出了我们最终的结果，因此可以看出同一个数据有多种理解方式因此得出的结果也不尽相同，并且无符号数据类型同时也是十分危险的，十分容易出错，因此我并不推荐经常使用它们。<br><br>&emsp;&emsp;但是说了这么多我们为什么要如此大费周章使用补码存储数据呢？这又与我们电脑的cpu密切相关<br>了，由于我们的cpu只有加法器，我们想要更为方便与简单的处理减法以及表示负数我们就需要想出一种最为合理和简单方式，因此补码诞生了，这使得cpu可以将符号域与数值域共同参与运算，大大提高了运算效率，因此将数据存储为补码是必要的。</p>
+<h4 id="浮点型在内存中的存储"><a href="#浮点型在内存中的存储" class="headerlink" title="浮点型在内存中的存储"></a>浮点型在内存中的存储</h4><p>&emsp;&emsp;关于浮点型在内存中的存储十分复杂，在这里只作简单讲解。<br><br>&emsp;&emsp;首先浮点型在内存中的存储与整形可以说是天差地别。根据国际标准IEEE的规定，任意一个二进制浮点数可以表示为以下的形式<code>(-1) ^ S * M * 2 ^ E</code>，然而其中E和M的大小共同决定着这个数据的精度，而<code>double</code>之所以比<code>float</code>进度更高也是因为其在数据存储域的划分上有着更多的存储空间，关于其中的细节，还有着十分严密甚至是严苛的规定和标准，具体请参考<strong>IEEE 754</strong>。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/20/【MySQL】第四章-数据类型/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1848,189 +2022,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/【C语言】第七章-结构体/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/27/【C语言】第七章-结构体/" itemprop="url">【C语言】第七章-结构体</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-27T23:53:07+08:00">
-                2018-11-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C语言初阶/" itemprop="url" rel="index">
-                    <span itemprop="name">C语言初阶</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.5k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第七章-结构体"><a href="#第七章-结构体" class="headerlink" title="第七章 结构体"></a>第七章 结构体</h1><h2 id="第1节"><a href="#第1节" class="headerlink" title="第1节"></a>第1节</h2><p>&emsp;&emsp;在程序编写中，我们难免会遇到一些复杂的数据类型无法用单一的普通数据类型表示，于是我们便可以通过使用结构体来定义属于我们自己的数据类型。所谓结构体是一些值的集合，这些值成为成员变量。结构体的每个成员可以是不同类型的变量。我们将一个个对象进行抽象，提取其中最关键的最核心的信息，加以表示，并通过结构体的方式表现出来，这样的模式，有点类似于CPP的面向对象的编程，但在CPP中对象和类的概念还要更为强大，更为广泛。</p>
-<h3 id="结构体的声明"><a href="#结构体的声明" class="headerlink" title="结构体的声明"></a>结构体的声明</h3><p>&emsp;&emsp;例如我们要描述一个学生，我们可以将学生的基本信息声明为一个结构体，有了学生类型的结构体我们想要定义学生类型的变量则易如反掌了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct Student</span><br><span class="line">&#123;</span><br><span class="line">	char name[1024];//姓名</span><br><span class="line">	int id;//学号</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;通过以上的代码，我们则定义好了一个名为<code>Student</code>,有两个成员变量<code>name</code>和<code>id</code>的结构体，但是由于在C语言中单纯使用结构体定义变量要加上<code>struct</code>关键字例如<code>struct Student stu1;</code>，十分麻烦，因此，我们往往用<code>typedef</code>关键字将其进行重命名来简化使用，例如以下的代码段。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">typedef struct _student</span><br><span class="line">&#123;</span><br><span class="line">	char name[1024];//姓名</span><br><span class="line">	int id;//学号</span><br><span class="line">&#125;Student;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;有了这样的声明，我们则可以更简单的定义结构体变量，例如<code>Student stu1;</code>。</p>
-<h3 id="结构体变量的定义及初始化"><a href="#结构体变量的定义及初始化" class="headerlink" title="结构体变量的定义及初始化"></a>结构体变量的定义及初始化</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>&emsp;&emsp;结构体变量的定义主要分为两种方法，一种是在声明时进行定义，另一种是在使用时进行定义。我们先来学习如何在声明时进行定义。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct student</span><br><span class="line">&#123;</span><br><span class="line">	char name[1024];//姓名</span><br><span class="line">	int id;//学号</span><br><span class="line">&#125;stu1, stu2;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;使用以上的方法我们则在声明结构体的同时定义了两个个名为<code>stu1</code>和<code>stu2</code>类型为<code>Student</code>的变量。但是要奇迹这种方法如果在使用<code>typedef</code>关键字的情况下无法使用。<br><br>&emsp;&emsp;接下来我们在使用时再进行变量的定义。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">typedef struct student</span><br><span class="line">&#123;</span><br><span class="line">	char name[1024];//姓名</span><br><span class="line">	int id;//学号</span><br><span class="line">&#125;Student;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	Student stu1, stu2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;可以看出使用结构体定义变量的方法和使用普通数据类型定义变量的方法别无二致。在此我依然提倡大家使用<code>typedef</code>关键字对结构体进行重命名，这样使得我们使用起来更为方便，不过这种习惯在CPP中就可以摒弃了，因为在CPP中哪怕不使用 <code>typedef</code>关键字，结构体类型定义变量时也不需要加<code>struct</code>关键字。</p>
-<h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><p>&emsp;&emsp;在定义完结构体变量后我们就可以对结构体变量进行初始化，同样的，分为在声明时进行初始化和在使用时进行初始化。我们先学习第一种情况。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct student</span><br><span class="line">&#123;</span><br><span class="line">	char name[1024];//姓名</span><br><span class="line">	int id;//学号</span><br><span class="line">&#125;stu1 = &#123; &quot;Misaki&quot;, 111 &#125;, stu2 = &#123;&quot;张三&quot;, 112&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这种初始的方式是和在声明时定义变量的方式一起连用的，达到可以快速定义变量并初始化的效果。这种初始化的语法与数组初始化的语法十分相似，我们都要按照结构体内成员变量的顺序依次初始化，<br><br>&emsp;&emsp;接下来是在使用时定义变量的情况。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">typedef struct student</span><br><span class="line">&#123;</span><br><span class="line">	char name[1024];//姓名</span><br><span class="line">	int id;//学号</span><br><span class="line">&#125;Student;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	Student stu1 = &#123; &quot;Misaki&quot;, 111 &#125;;</span><br><span class="line">	Student stu2 = &#123; &quot;张三&quot;, 112 &#125;;</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;结构体初始化的方式大同小异，都与数组的初始化十分相似，大家在实际使用中，视情况进行使用。</p>
-<h3 id="结构体成员的访问"><a href="#结构体成员的访问" class="headerlink" title="结构体成员的访问"></a>结构体成员的访问</h3><h4 id="结构体变量访问成员"><a href="#结构体变量访问成员" class="headerlink" title="结构体变量访问成员"></a>结构体变量访问成员</h4><p>&emsp;&emsp;在结构体的使用过程中，最常使用的就是访问一个结构体变量的成员变量，不过好在C语言中结构体成员的访问十分的方便和快捷。我们只需要使用一个我们之前提到过的访问结构体成员变量操作符<code>.</code>即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">typedef struct student</span><br><span class="line">&#123;</span><br><span class="line">	char name[1024];//姓名</span><br><span class="line">	int id;//学号</span><br><span class="line">&#125;Student;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	Student stu1 = &#123; &quot;Misaki&quot;, 111 &#125;;</span><br><span class="line">	Student stu2 = &#123; &quot;张三&quot;, 112 &#125;;</span><br><span class="line">	printf(&quot;stu1的姓名为：%s，学号为：%d\n&quot;, stu1.name, stu1.id);</span><br><span class="line">	printf(&quot;stu2的姓名为：%s，学号为：%d\n&quot;, stu2.name, stu2.id);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;结构体的成员变量也不过是一个普通数据类型的变量，使用起来与普通数据类型别无二致，前提是我们要将其从结构体变量中访问到。从代码中大家可以看出我使用<code>结构体变量.成员变量名</code>的方式即可轻易访问到一个结构体变量的成员变量。</p>
-<h4 id="结构体指针访问成员变量"><a href="#结构体指针访问成员变量" class="headerlink" title="结构体指针访问成员变量"></a>结构体指针访问成员变量</h4><p>&emsp;&emsp;结构体指针访问结构体成员变量的方法与结构体变量访问成员变量的方法类似，只不过我们要将其中的<code>.</code>换为<code>-&gt;</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">typedef struct student</span><br><span class="line">&#123;</span><br><span class="line">	char name[1024];//姓名</span><br><span class="line">	int id;//学号</span><br><span class="line">&#125;Student;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	Student stu1 = &#123; &quot;Misaki&quot;, 111 &#125;;</span><br><span class="line">	Student* stu2 = &amp;stu1;</span><br><span class="line">	printf(&quot;stu1的姓名为：%s，学号为：%d\n&quot;, stu2-&gt;name, stu2-&gt;id);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="结构体嵌套"><a href="#结构体嵌套" class="headerlink" title="结构体嵌套"></a>结构体嵌套</h3><p>&emsp;&emsp;在结构体使用的过程中，我们声明一个结构体的成员变量为另外一个结构体类型，这样来达到多重嵌套表达复杂数据类型的效果。以下我将展示一个结构体多重嵌套的例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">typedef struct student</span><br><span class="line">&#123;</span><br><span class="line">	char name[50];//姓名</span><br><span class="line">	int id;//学号</span><br><span class="line">&#125;Student;</span><br><span class="line">typedef struct area</span><br><span class="line">&#123;</span><br><span class="line">	Student students[10];</span><br><span class="line">&#125;Area;</span><br><span class="line">typedef struct city</span><br><span class="line">&#123;</span><br><span class="line">	Area areas[10];</span><br><span class="line">&#125;City;</span><br><span class="line">typedef struct province</span><br><span class="line">&#123;</span><br><span class="line">	City cities[10];</span><br><span class="line">&#125;Province;</span><br><span class="line">typedef struct country</span><br><span class="line">&#123;</span><br><span class="line">	Province provinces[10];</span><br><span class="line">&#125;Country;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	Country country;</span><br><span class="line">	Country* pCountry = &amp;country;</span><br><span class="line">	country.provinces[0].cities[0].areas[0].students[0].id = 111;</span><br><span class="line">	strcpy(pCountry-&gt;provinces[0].cities[0].areas[0].students[0].name, &quot;Misaki&quot;);</span><br><span class="line">	printf(&quot;学生的学号为：%d，姓名为：%s\n&quot;, country.provinces[0].cities[0].areas[0].students[0].id,country.provinces[0].cities[0].areas[0].students[0].name);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;大家在使用结构体嵌套来表示数据类型时务必要注意开辟合适的内寸空间，在上面的例子中我们每一个嵌套中的结构体都有着10倍的<code>Student</code>类型的变量的大小，综合起来已经开辟了十分多的内寸空间，如果我们此时将<code>Student</code>中的大小改为1024大家就会发现程序已经闪退了，这就是我们过度占用内存系统为了保护自身所作出的反应机制。</p>
-<h3 id="结构体传参"><a href="#结构体传参" class="headerlink" title="结构体传参"></a>结构体传参</h3><p>&emsp;&emsp;结构体变量的参数传递与普通变量几乎完全一样，因此我们依旧分为两种方式进行讲解。</p>
-<h4 id="形参传递"><a href="#形参传递" class="headerlink" title="形参传递"></a>形参传递</h4><p>&emsp;&emsp;与普通参数传递一样，这种只传入形参的方法不会对原本结构体变量的内容进行改变。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">typedef struct student</span><br><span class="line">&#123;</span><br><span class="line">	char name[50];//姓名</span><br><span class="line">	int id;//学号</span><br><span class="line">&#125;Student;</span><br><span class="line">void Func(Student stu)</span><br><span class="line">&#123;</span><br><span class="line">	stu.id = 110;</span><br><span class="line">	printf(&quot;在函数内部学生的学号为：%d\n&quot;, stu.id);</span><br><span class="line">&#125;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	Student stu = &#123; &quot;Misaki&quot;, 111 &#125;;</span><br><span class="line">	Func(stu);</span><br><span class="line">	printf(&quot;在函数外部学生的学号为：%d\n&quot;, stu.id);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="指针传递"><a href="#指针传递" class="headerlink" title="指针传递"></a>指针传递</h4><p>&emsp;&emsp;传入结构体指针来进行结构体变量的传递使得结构体在过大的情况下更为方便，省去了编译器将变量重新复制一份的时间，更节省空间和时间，是我最为推荐的传递方式。即使我们并不想函数随意更改我们的结构体变量，我们也只需要传递<strong>指向常量的结构体指针</strong>即可，这样的指针如何定义我在指针章节已经详细讲过。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">typedef struct student</span><br><span class="line">&#123;</span><br><span class="line">	char name[50];//姓名</span><br><span class="line">	int id;//学号</span><br><span class="line">&#125;Student;</span><br><span class="line">void Func(Student* stu)//如果需要给一个指向常量的指针则需要改为 const Student* stu;</span><br><span class="line">&#123;</span><br><span class="line">	stu-&gt;id = 110;</span><br><span class="line">	printf(&quot;在函数内部学生的学号为：%d\n&quot;, stu-&gt;id);</span><br><span class="line">&#125;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	Student stu = &#123; &quot;Misaki&quot;, 111 &#125;;</span><br><span class="line">	Func(&amp;stu);</span><br><span class="line">	printf(&quot;在函数外部学生的学号为：%d\n&quot;, stu.id);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;以上则为结构体章节的全部内容，结构体在大型程序的编写中十分重要，由于C语言中没有类和对象的概念，因此我们只能依靠力量单薄的结构体来进行大型程序中数据类型的管理来达到类似于面向对象编程的效果，不过这样远远不够，因此想要更好的理解“抽象”“泛型”“多态”则需要进行对CPP的学习。<br>&emsp;&emsp;到此C语言初阶部分章节全部结束，本教程目前仅仅教授了C语言最为基本的语法部分，C语言更为深层的使用我们在<strong><em>C语言进阶</em></strong>进行详细讲解。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2085,7 +2076,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2096,7 +2087,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2107,7 +2098,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2204,7 +2195,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共45.2k字</span>
+  <span class="post-count">博客全站共47.4k字</span>
 </div>
 
         ﻿

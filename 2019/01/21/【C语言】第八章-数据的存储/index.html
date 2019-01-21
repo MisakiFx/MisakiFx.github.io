@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Linux,Linux编程," />
+  <meta name="keywords" content="C语言,进阶," />
 
 
 
@@ -79,20 +79,18 @@
 
 
 
-<meta name="description" content="Linux编程 vim篇第1节vim是什么&amp;emsp;&amp;emsp;vim是一种基于Linux环境下的编辑器，上节也给大家已经提过，我们要想在Linux下编程需要四样东西来替代vs这个集成的开发环境，其中最为核心的载体就是这个vim的编辑器，没有它，我们甚至无法书写代码。&amp;emsp;&amp;emsp;在Linux下除过vim这个编辑器十分经典之外，还有一款编辑器也深受大家喜爱，就是emacs。这两款编辑器">
-<meta name="keywords" content="Linux,Linux编程">
+<meta name="description" content="第八章 数据的存储&amp;emsp;&amp;emsp;从本章开始就正式进入了C语言进阶篇的学习，我们将从更为底层的角度思考C语言中更为复杂的机制和语法。 第一节基本数据类型&amp;emsp;&amp;emsp;C语言中的基本数据类型在初阶篇已经探讨过了，分为整形，浮点型，字符型与构造类型几个大类，每个类型都有着不同的容量，所占的内存大小也不尽相同，有的甚至在不同系统下都有着不同的大小因此必须在实核情境下选择合适的数据类型进">
+<meta name="keywords" content="C语言,进阶">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Linux】Linux编程-vim篇">
-<meta property="og:url" content="http://yoursite.com/2018/12/08/【Linux】Linux编程-vim篇/index.html">
+<meta property="og:title" content="【C语言】第八章-数据的存储">
+<meta property="og:url" content="http://yoursite.com/2019/01/21/【C语言】第八章-数据的存储/index.html">
 <meta property="og:site_name" content="Misaki`s blog">
-<meta property="og:description" content="Linux编程 vim篇第1节vim是什么&amp;emsp;&amp;emsp;vim是一种基于Linux环境下的编辑器，上节也给大家已经提过，我们要想在Linux下编程需要四样东西来替代vs这个集成的开发环境，其中最为核心的载体就是这个vim的编辑器，没有它，我们甚至无法书写代码。&amp;emsp;&amp;emsp;在Linux下除过vim这个编辑器十分经典之外，还有一款编辑器也深受大家喜爱，就是emacs。这两款编辑器">
+<meta property="og:description" content="第八章 数据的存储&amp;emsp;&amp;emsp;从本章开始就正式进入了C语言进阶篇的学习，我们将从更为底层的角度思考C语言中更为复杂的机制和语法。 第一节基本数据类型&amp;emsp;&amp;emsp;C语言中的基本数据类型在初阶篇已经探讨过了，分为整形，浮点型，字符型与构造类型几个大类，每个类型都有着不同的容量，所占的内存大小也不尽相同，有的甚至在不同系统下都有着不同的大小因此必须在实核情境下选择合适的数据类型进">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/12/08/【Linux】Linux编程-vim篇/1.png">
-<meta property="og:updated_time" content="2018-12-12T11:09:50.693Z">
+<meta property="og:updated_time" content="2019-01-21T09:24:29.479Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【Linux】Linux编程-vim篇">
-<meta name="twitter:description" content="Linux编程 vim篇第1节vim是什么&amp;emsp;&amp;emsp;vim是一种基于Linux环境下的编辑器，上节也给大家已经提过，我们要想在Linux下编程需要四样东西来替代vs这个集成的开发环境，其中最为核心的载体就是这个vim的编辑器，没有它，我们甚至无法书写代码。&amp;emsp;&amp;emsp;在Linux下除过vim这个编辑器十分经典之外，还有一款编辑器也深受大家喜爱，就是emacs。这两款编辑器">
-<meta name="twitter:image" content="http://yoursite.com/2018/12/08/【Linux】Linux编程-vim篇/1.png">
+<meta name="twitter:title" content="【C语言】第八章-数据的存储">
+<meta name="twitter:description" content="第八章 数据的存储&amp;emsp;&amp;emsp;从本章开始就正式进入了C语言进阶篇的学习，我们将从更为底层的角度思考C语言中更为复杂的机制和语法。 第一节基本数据类型&amp;emsp;&amp;emsp;C语言中的基本数据类型在初阶篇已经探讨过了，分为整形，浮点型，字符型与构造类型几个大类，每个类型都有着不同的容量，所占的内存大小也不尽相同，有的甚至在不同系统下都有着不同的大小因此必须在实核情境下选择合适的数据类型进">
 
 
 
@@ -122,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/08/【Linux】Linux编程-vim篇/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/01/21/【C语言】第八章-数据的存储/"/>
 
 
 
 
 
-  <title>【Linux】Linux编程-vim篇 | Misaki`s blog</title>
+  <title>【C语言】第八章-数据的存储 | Misaki`s blog</title>
   
 
 
@@ -267,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/08/【Linux】Linux编程-vim篇/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/21/【C语言】第八章-数据的存储/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MisakiFx">
@@ -284,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【Linux】Linux编程-vim篇</h1>
+          <h1 class="post-title" itemprop="name headline">【C语言】第八章-数据的存储</h1>
         
 
         <div class="post-meta">
@@ -296,8 +294,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-08T21:21:41+08:00">
-                2018-12-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-21T02:50:42+08:00">
+                2019-01-21
               </time>
             
 
@@ -319,8 +317,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/categories/C语言进阶/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言进阶</span>
                   </a>
                 </span>
 
@@ -350,7 +348,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2k
+                  2.2k
                 </span>
               
 
@@ -375,9 +373,16 @@
       
 
       
-        <h1 id="Linux编程-vim篇"><a href="#Linux编程-vim篇" class="headerlink" title="Linux编程 vim篇"></a>Linux编程 vim篇</h1><h2 id="第1节"><a href="#第1节" class="headerlink" title="第1节"></a>第1节</h2><h3 id="vim是什么"><a href="#vim是什么" class="headerlink" title="vim是什么"></a>vim是什么</h3><p>&emsp;&emsp;vim是一种基于Linux环境下的编辑器，上节也给大家已经提过，我们要想在Linux下编程需要四样东西来替代vs这个集成的开发环境，其中最为核心的载体就是这个vim的编辑器，没有它，我们甚至无法书写代码。<br><br>&emsp;&emsp;在Linux下除过vim这个编辑器十分经典之外，还有一款编辑器也深受大家喜爱，就是<strong>emacs</strong>。这两款编辑器之所以受大家欢迎以至于后续几十年的编辑器都无法超越有几点最主要的原因。<br><br>&emsp;&emsp;1、支持丰富的快捷键和编辑方式。<br><br>&emsp;&emsp;2、支持非常强大的扩展能力。<br><br>&emsp;&emsp;3、都有一门强大的编程语言作为支撑。<br><br>&emsp;&emsp;说到支撑他们的编程语言就不得不提emacs背后的编程语言<strong>lisp</strong>。之前我们说万物都出自C语言，其实并非如此，除过C语言外还有一个编程语言的祖师爷就是<strong>lisp</strong>。这是两款风格相差很大的编程语言，如果大家有兴趣可以去自行了解。这里不再赘述<br><br>&emsp;&emsp;虽说vim和emacs这两款编辑器各有各的千秋，都是编辑器中的祖师爷，但我选择emacs作为我的首选编辑器，也作为接下来讲解的重点（如果有同学对emacs感兴趣自然可以选择emacs作为自己的首选），并且最好的是在每一个Linux系统中都自带了vim编辑器，因此我们无需在自行安装了。</p>
-<h3 id="vim使用"><a href="#vim使用" class="headerlink" title="vim使用"></a>vim使用</h3><h4 id="vim基础介绍"><a href="#vim基础介绍" class="headerlink" title="vim基础介绍"></a>vim基础介绍</h4><p>&emsp;&emsp;由于我们的Linux已经自带了vim，所以我们可以直接使用。输入<code>vim</code>即可看到它的界面了。<br><br><img src="/2018/12/08/【Linux】Linux编程-vim篇/1.png" alt="vim使用"><br><br>&emsp;&emsp;会发现vim的界面十分的丑，毕竟是在控制台下，这也是无可奈何啊。那么如何退出界面呢？输入<code>:q</code>即可退出了。<strong>注意：前面要有个冒号才行！</strong>。<br><br>&emsp;&emsp;关于vim使用呢其实vim官方有一篇教学文档，大家退出vim界面后输入<code>vimtutor</code>即可进入官方教学文档。（输入<code>vimt</code>+<code>tab</code>即可补全了，<code>tab</code>是补全键可以帮助我们快速输入指令，要常用）。<br><br>&emsp;&emsp;在官方教学文档里大家跟着教学步骤一步一步练习，多多练习即可掌握vim的所有常用操作，一定切记一点：<strong>千万不要硬背指令或者快捷键，在使用中记忆才为上策。</strong><br><br>&emsp;&emsp;在vim下一共有<strong>普通，插入，命令，可视，替换</strong>五种模式，在我们用vim打开一篇文档，我们默认进入的就是普通模式，在普通模式下更为方便我们进行文档浏览，在这个模式下我们有丰富的快捷键供我们在页面间进行条件及光标移动。插入模式是当我们想要修改文档时才会进入的模式。命令模式里有一些命令方便我们对vim进行配置修改，页面跳转等等，用法丰富。可视模式下我们最常用的操作是选中文档片段进行删除，复制或剪切。替换模式则允许我们对文本内容进行替换。</p>
-<h4 id="vim指令"><a href="#vim指令" class="headerlink" title="vim指令"></a>vim指令</h4><p>&emsp;&emsp;vim的快捷键及指令很多，在此我们着重介绍常用的几条指令。同时为了方便快捷键操作vim分为了几个模式，而我们大多数快捷键都是在<strong>普通模式</strong>下使用的。<br><br>&emsp;&emsp;1、在vim中我们除了上下左右方向键可以移动光标外，还提供了新的四个快捷键供我们进行光标移动。<code>j:下</code>；<code>k:上</code>；<code>h:左</code>；<code>l:右</code>。在vim下尤为推荐大家使用这四个控制光标移动的方向键，因为使用起来更为方便，最主要这是你学习过vim的象征！<br><br>&emsp;&emsp;2、普通模式进入其他模式的方式有很多种，最为普通的是按<code>i</code>进入插入模式，<code>:</code>进入命令模式，<code>v</code>进入可视模式，<code>R</code>进入替换模式。而其他模式回到普通模式下最为常用的方法永远是按<code>esc</code>。因此常按<code>esc</code>往往也会成为使用vim的程序员的习惯<br><br>&emsp;&emsp;3、<code>x</code>进行单个字符的删除。<br><br>&emsp;&emsp;4、在一个目录下输入指令<code>vim 文件名</code>打开一个已有的文件或创建一个新文件。输入<code>:</code>进入命令模式下输入<code>w</code>进行保存，<code>q</code>进行退出，<code>wq</code>保存并退出，<code>q!</code>不保存强制退出。<br><br>&emsp;&emsp;5、<code>w</code>可将光标从目前位置移动到下一个单词的头部，<code>e</code>可将光标从目前位置移动到下一个单词的尾部，<code>$</code>则可以将光标移动到行末，<code>b</code>表示移动到上个单词头。<br><br>&emsp;&emsp;6、<code>d</code>表示删除指令，一般和光标跳转指令连用。<code>dw</code>表示从光标目前位置删除到下一个单词头部位置（不包含头部），<code>de</code>表示从光标目前为止删除到下一个单词的尾部位置（包含尾部），<code>d$</code>表示从光标当前位置删除到行尾（删除整行）。<br><br>&emsp;&emsp;7、同时我们可以使用数字加指令的方式对很多指令进行重复执行。例如<code>2w</code> == <code>w</code>+<code>w</code>，<code>d2w</code>==<code>dw</code> + <code>dw</code>，等等，可自行尝试。<br><br>&emsp;&emsp;8、普通模式下<code>u</code>表示撤销操作，<code>U</code>表示撤销对整行的操作。<code>Ctrl r</code>表示重做，及撤销撤销操作。<br><br>&emsp;&emsp;9、<code>dd</code>将整行进行删除/剪切，<code>p</code>将剪切板里的内容往光标后进行粘贴，<code>P</code>将剪贴板里的内容往光标前进行粘贴。<br><br>&emsp;&emsp;10、<code>r</code>将单个字符进行替换，<code>R</code>将进入替换模式接下来输入的内容都替换为输入内容，知道返回普通模式。<br><br>&emsp;&emsp;11、<code>c</code>命令于<code>d</code>命令类似，依然于其他命令构成组合命令，例如<code>cw</code>，<code>ce</code>等，但不同是<code>c</code>命令使用完后会进入插入模式。<br><br>&emsp;&emsp;12、输入<code>:</code>进入命令模式下，输入<code>set nu</code>可现实行号。<br><br>&emsp;&emsp;13、<code>ctrl g</code>显示当前行数，并显示光标位置信息。<br><br>&emsp;&emsp;14、<code>shift g</code>跳转至文本尾，<code>gg</code>跳转至文本头，<code>&#39;</code>回到跳转前行数。<br><br>&emsp;&emsp;15、<code>/查找内容</code>进入命令模式下，输入查找内容进行查找，并且<code>n</code>寻找下一个，<code>N</code>寻找上一个。<br><br>&emsp;&emsp;16、光标在括号上按<code>%</code>进行括号匹配快速移动，自动跳转至匹配括号处。<br><br>&emsp;&emsp;17、输入<code>:</code>进入命令模式之后输入<code>s/查找内容/替换结果/gc</code>进行一行的内容替换，<code>%s/查找内容/替换结果/gc</code>进行全文的内容替换，其中<code>g</code>表示搜索整个一行，<code>c</code>表示替换前询问<code>%s</code>表示全文替换。<br><br>&emsp;&emsp;18、<code>o</code>在本行下创建新行并进入插入模式，<code>O</code>在本行上面创建新行并进入插入模式。<br><br>&emsp;&emsp;19、<code>v</code>进入可视模式，光标移动选中语句后按<code>y</code>可进行复制。同时<code>yy</code>可复制一行。同样的使用<code>p</code>或<code>P</code>进行粘贴。<br><br>&emsp;&emsp;20、<code>a</code>进入插入模式表示在光标后插入，与<code>i</code>类似。同时使用<code>I</code>或<code>A</code>在行首或行尾插入。<br><br>&emsp;&emsp;vim的基础指令介绍就到此为止了，vim的使用远不止这些快捷键及指令，想要更好的更熟练的使用vim还需要不断地练习，在实践中学习才是最高效的。</p>
+        <h1 id="第八章-数据的存储"><a href="#第八章-数据的存储" class="headerlink" title="第八章 数据的存储"></a>第八章 数据的存储</h1><p>&emsp;&emsp;从本章开始就正式进入了C语言进阶篇的学习，我们将从更为底层的角度思考C语言中更为复杂的机制和语法。</p>
+<h2 id="第一节"><a href="#第一节" class="headerlink" title="第一节"></a>第一节</h2><h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><p>&emsp;&emsp;C语言中的基本数据类型在初阶篇已经探讨过了，分为整形，浮点型，字符型与构造类型几个大类，每个类型都有着不同的容量，所占的内存大小也不尽相同，有的甚至在不同系统下都有着不同的大小因此必须在实核情境下选择合适的数据类型进行使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">char        //字符数据类型，占1字节</span><br><span class="line">short       //短整型，占2字节</span><br><span class="line">int         //整形，占4字节</span><br><span class="line">long        //长整型，占4字节</span><br><span class="line">long long   //更长的整形，占8字节</span><br><span class="line">float       //单精度浮点数，占4字节</span><br><span class="line">double      //双精度浮点数，占8字节</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;其中整形数组类型分为有符号和无符号类型，无符号类型不能表示负数，否则会导致很严重的数据出错问题，关于为什么出错与数据在内存中的存储有很大的关系，之后我们会进行解释。</p>
+<h3 id="整形在内存中的存储"><a href="#整形在内存中的存储" class="headerlink" title="整形在内存中的存储"></a>整形在内存中的存储</h3><h4 id="大端字节序、小端字节序"><a href="#大端字节序、小端字节序" class="headerlink" title="大端字节序、小端字节序"></a>大端字节序、小端字节序</h4><p>&emsp;&emsp;数据在内存中的存储形式都是以二进制数的方式所表示的，比如说我们要将<code>int</code>型<code>8</code>这个十进制数存入内存，编译器会帮助我们将其转换为二进制形式<code>00000000 00000000 00000000 00001000</code>，一共32位，这里我们先不探讨数据在内存中是怎么转换为二进制形式进行存储的。这32位二进制一共是4个字节，系统会以每个字节为一个单位继续宁内存存储，因此为了方便起见，我们往往将内存中的数据以<strong>十六进制</strong>进行表示，因为1位十六进制数等于4位二进制数，也就是一个字节原本需要8位二进制表示，现在只需要用2位十六进制进行表示即可，通常我们在内存监视器中所看到的数据存储也大多是以十六进制进行表示的。将这么一串二进制转换为八进制即可表示为<code>00 00 00 08</code>。<strong>但是实际在内存中是以二进制进行存储的，在这里用十六进制是为了方便我们进行观察。</strong><br><br>&emsp;&emsp;之后就要将这么一串数据存入内存中了，但是就在这里问题出现了，我们是要将最高位1个字节的数据首先存储在低地址区，还是要将最低位1个字节的数据首先存储在低地址区呢？其实这两种存储方式都得到了实施，而具体的存储方式与我们电脑的<strong>CPU</strong>密切相关（其实也并不仅有CPU决定，具体来说是和环境也就是平台密切相关，但CPU占大头），因此在当前的市场就有了大小端字节序之称，专门用来用来区分这两种不同的数据在内存中的存储方式。<br><br>&emsp;&emsp;<strong>1、大端字节序：低位存储在高地址上，依然以以上的例子为例，则在内存中以这样的方式进行存储：<code>00 00 00 08</code>。</strong><br><br>&emsp;&emsp;<strong>2、小端字节序：低位存储在低地址上，依然以以上的例子为例，则在内存中以这样的方式进行存储：<code>08 00 00 00</code>。</strong><br><br>&emsp;&emsp;<strong><em>注意：大小端字节序仅仅决定数据在内存中的存储，并不会因此改变数据本身的值！！！</em></strong><br>&emsp;&emsp;有了以上的原理，我们即可使用代码验证我们当前的环境是大端还是小端了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int a = 0x11223344;</span><br><span class="line">  char* p = (char*)&amp;a;</span><br><span class="line">  if(*p == 0x11)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;大端！\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;小端！\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;通过以上的代码，我们将内存中的数据取头一个字节的数据进行验证的方法即可判断是大端还是小端。</p>
+<h4 id="整形在内存中的存储-1"><a href="#整形在内存中的存储-1" class="headerlink" title="整形在内存中的存储"></a>整形在内存中的存储</h4><p>&emsp;&emsp;接下来就是数据是如何转换为二进制并且在内存中进行储存的问题了。首先是整型是如何在内存中进行存储的呢？这就要牵扯到<strong>原码，补码，反码</strong>三个紧密联系的二进制码了。<br><br>&emsp;&emsp;计算机在内存中都是以<strong>补码</strong>的形式进行存储的，而我们直接将一个数转换成二进制的所形成的最多只能被称为<strong>原码</strong>其重要进行两步转换。<br></p>
+<h5 id="有符号整形"><a href="#有符号整形" class="headerlink" title="有符号整形"></a>有符号整形</h5><p>&emsp;&emsp;这里我们先以有符号进行演示，之后再讨论无符号。这次我们以<code>(int)-8</code>为例，在有符号的情况下，我们的数据会将第一位二进制留出来作为符号位，<code>0</code>表示正数，<code>1</code>表示负数，这也是为什么32位的整形在有符号的情况下最大值只能到21亿的原因，因为有一位被保留出来做了符号位。除过第一位我们将数据原本的值转换为二进制即可表示为<code>10000000 00000000 00000000 00001000</code>，这段代码即被称为<strong>原码</strong>。之后我们想要转换为补码还得先将其转换为反码，就是在原码的基础上，除过符号位外全部按位取反即可变为<code>11111111 11111111 11111111 11110111</code>这就是<strong>反码</strong>。之后我们只需再将反码 +1即可变为<strong>补码</strong><code>11111111 11111111 11111111 11111000</code>这就是实际上有符号整形在内存中的存储形式了。<br><br>&emsp;&emsp;而以上的转换过程只对负整数适用，而<strong>正整数的原反补码都相同。</strong></p>
+<h5 id="无符号整形"><a href="#无符号整形" class="headerlink" title="无符号整形"></a>无符号整形</h5><p>&emsp;&emsp;无符号整形与有符号整形基本类似，只是其省略了最高位的符号位而已，因此使得无符号的最大值比有符号整形最大值大了一倍，但也因此使得无符号整型无法表示负数。<br><br>&emsp;&emsp;但是在这里值得强调的一点是，一个数据存储在内存中进行存储，尽管存储的形式完全一致，内容也完全一致，但是我们使用不同的理解方法去理解，就会有完全不同的结果。这点我们从以下这个例子就可以看出来。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  unsigned int a = -1;</span><br><span class="line">  printf(&quot;%u\n&quot;, a);  </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">4294967295</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;从执行结果就可以看出其中的问题，在存储数据的时候我们虽然定义了一个无符号的整形，但是当我们存储负数时编译器也并不会报错，此使-1会按照有符号负整数的方式进行存储在内存中，<code>11111111 11111111 11111111 11111111</code>，但是当我们使用无符号将其进行打印时，编译器又会将此数据以无符号正整数的方式将其编译转换成十进制就得出了我们最终的结果，因此可以看出同一个数据有多种理解方式因此得出的结果也不尽相同，并且无符号数据类型同时也是十分危险的，十分容易出错，因此我并不推荐经常使用它们。<br><br>&emsp;&emsp;但是说了这么多我们为什么要如此大费周章使用补码存储数据呢？这又与我们电脑的cpu密切相关<br>了，由于我们的cpu只有加法器，我们想要更为方便与简单的处理减法以及表示负数我们就需要想出一种最为合理和简单方式，因此补码诞生了，这使得cpu可以将符号域与数值域共同参与运算，大大提高了运算效率，因此将数据存储为补码是必要的。</p>
+<h4 id="浮点型在内存中的存储"><a href="#浮点型在内存中的存储" class="headerlink" title="浮点型在内存中的存储"></a>浮点型在内存中的存储</h4><p>&emsp;&emsp;关于浮点型在内存中的存储十分复杂，在这里只作简单讲解。<br><br>&emsp;&emsp;首先浮点型在内存中的存储与整形可以说是天差地别。根据国际标准IEEE的规定，任意一个二进制浮点数可以表示为以下的形式<code>(-1) ^ S * M * 2 ^ E</code>，然而其中E和M的大小共同决定着这个数据的精度，而<code>double</code>之所以比<code>float</code>进度更高也是因为其在数据存储域的划分上有着更多的存储空间，关于其中的细节，还有着十分严密甚至是严苛的规定和标准，具体请参考<strong>IEEE 754</strong>。</p>
 
       
     </div>
@@ -430,9 +435,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Linux/" rel="tag"># Linux</a>
+            <a href="/tags/C语言/" rel="tag"># C语言</a>
           
-            <a href="/tags/Linux编程/" rel="tag"># Linux编程</a>
+            <a href="/tags/进阶/" rel="tag"># 进阶</a>
           
         </div>
       
@@ -445,8 +450,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/05/【Linux】Linux编程-基础/" rel="next" title="【Linux】Linux编程-基础">
-                <i class="fa fa-chevron-left"></i> 【Linux】Linux编程-基础
+              <a href="/2019/01/20/【MySQL】第四章-数据类型/" rel="next" title="【MySQL】第四章-数据类型">
+                <i class="fa fa-chevron-left"></i> 【MySQL】第四章-数据类型
               </a>
             
           </div>
@@ -454,10 +459,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/14/【Linux】Linux编程-gcc-gdb-makefile篇/" rel="prev" title="【Linux】Linux编程-gcc,gdb,makefile篇">
-                【Linux】Linux编程-gcc,gdb,makefile篇 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -621,7 +622,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux编程-vim篇"><span class="nav-number">1.</span> <span class="nav-text">Linux编程 vim篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第1节"><span class="nav-number">1.1.</span> <span class="nav-text">第1节</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#vim是什么"><span class="nav-number">1.1.1.</span> <span class="nav-text">vim是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vim使用"><span class="nav-number">1.1.2.</span> <span class="nav-text">vim使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vim基础介绍"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">vim基础介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vim指令"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">vim指令</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第八章-数据的存储"><span class="nav-number">1.</span> <span class="nav-text">第八章 数据的存储</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一节"><span class="nav-number">1.1.</span> <span class="nav-text">第一节</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本数据类型"><span class="nav-number">1.1.1.</span> <span class="nav-text">基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整形在内存中的存储"><span class="nav-number">1.1.2.</span> <span class="nav-text">整形在内存中的存储</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#大端字节序、小端字节序"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">大端字节序、小端字节序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#整形在内存中的存储-1"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">整形在内存中的存储</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#有符号整形"><span class="nav-number">1.1.2.2.1.</span> <span class="nav-text">有符号整形</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#无符号整形"><span class="nav-number">1.1.2.2.2.</span> <span class="nav-text">无符号整形</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#浮点型在内存中的存储"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">浮点型在内存中的存储</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
