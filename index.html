@@ -264,148 +264,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/24/【MySQL】字符串函数与内存操作函数/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/24/【MySQL】字符串函数与内存操作函数/" itemprop="url">【MySQL】字符串函数与内存操作函数</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-24T23:40:03+08:00">
-                2019-01-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  0
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/【C语言】第九章-指针进阶/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -889,8 +747,8 @@
             <h1 id="第四章-数据类型"><a href="#第四章-数据类型" class="headerlink" title="第四章 数据类型"></a>第四章 数据类型</h1><h2 id="数据类型及分类"><a href="#数据类型及分类" class="headerlink" title="数据类型及分类"></a>数据类型及分类</h2><p>&emsp;&emsp;在MySQL中有着类似于C语言的各种数据类型，他们分别有着不同的大小，适用于不同的数据表示情况。<br><br><img src="/2019/01/20/【MySQL】第四章-数据类型/1.png" alt="数据类型"><br></p>
 <h3 id="数值类型"><a href="#数值类型" class="headerlink" title="数值类型"></a>数值类型</h3><p><img src="/2019/01/20/【MySQL】第四章-数据类型/2.png" alt="数据类型"><br><br>&emsp;&emsp;在数值类型中与C语言基本类似，每个类型都有<strong>有符号</strong>与无符号<strong>两种</strong>，表示范围也在上表中有所描述，接下来我挑几个比较特殊的类型进行讲解。</p>
 <h4 id="tinyint类型"><a href="#tinyint类型" class="headerlink" title="tinyint类型"></a>tinyint类型</h4><p>&emsp;&emsp;<code>tinyint</code>能表示刚好一个字节大小的数值，与c语言中<code>char</code>类型十分类似，不过在MySQL中此类型作为数值类型而非字符类型出现。接下来看看MySQL中对于数值越界的表现。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; create table test </span><br><span class="line">(</span><br><span class="line">    id tinyint  </span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; insert into test values(128);</span><br><span class="line">ERROR 1264 (22003): Out of range value for column &apos;id&apos; at row 1</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;很明显，MySQL提醒我们我们所插入的数值越界了。<br>&emsp;&emsp;接下来我们定义一个无符号的<code>tityint</code>类型，并插入一个负数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Query OK, 0 rows affected (0.03 sec)               </span><br><span class="line">Records: 0  Duplicates: 0  Warnings: 0</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; desc test;</span><br><span class="line">+-------+---------------------+------+-----+---------+-------+</span><br><span class="line">| Field | Type                | Null | Key | Default | Extra |</span><br><span class="line">+-------+---------------------+------+-----+---------+-------+</span><br><span class="line">| id    | tinyint(3) unsigned | YES  |     | NULL    |       |</span><br><span class="line">+-------+---------------------+------+-----+---------+-------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; insert into test values(-1);</span><br><span class="line">ERROR 1264 (22003): Out of range value for column &apos;id&apos; at row 1</span><br><span class="line">MariaDB [student]&gt; select * from test;</span><br><span class="line">Empty set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;在MySQL中可以指定有符号与无符号，默认是有符号的。</p>
+<p>&emsp;&emsp;很明显，MySQL提醒我们我们所插入的数值越界了。<br><br>&emsp;&emsp;接下来我们定义一个无符号的<code>tityint</code>类型，并插入一个负数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; create table test </span><br><span class="line">    -&gt; (</span><br><span class="line">    -&gt;     id tinyint unsigned</span><br><span class="line">    -&gt; );</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; desc test;</span><br><span class="line">+-------+---------------------+------+-----+---------+-------+</span><br><span class="line">| Field | Type                | Null | Key | Default | Extra |</span><br><span class="line">+-------+---------------------+------+-----+---------+-------+</span><br><span class="line">| id    | tinyint(3) unsigned | YES  |     | NULL    |       |</span><br><span class="line">+-------+---------------------+------+-----+---------+-------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; insert into test values(-1);</span><br><span class="line">ERROR 1264 (22003): Out of range value for column &apos;id&apos; at row 1</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;在这里对无符号插入负数也会显示越界。在MySQL中可以指定有符号与无符号，默认是有符号的。</p>
 <h4 id="bit类型"><a href="#bit类型" class="headerlink" title="bit类型"></a>bit类型</h4><p>&emsp;&emsp;<code>bit(N)</code>类型能表示任意位大小的数值，N的数值是<strong>1-64</strong>如果忽略N则默认是1。<br><br>&emsp;&emsp;<code>bit</code>最为特殊的地方是它在显示的时候默认是按照字符型进行显示的，这和其他数值类型都不同。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; create table test </span><br><span class="line">    -&gt; (</span><br><span class="line">    -&gt; id int,</span><br><span class="line">    -&gt; Bit bit(8)</span><br><span class="line">    -&gt; );</span><br><span class="line">Query OK, 0 rows affected (0.11 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; insert into test values(10, 10), (65, 65);</span><br><span class="line">Query OK, 2 rows affected (0.00 sec)</span><br><span class="line">Records: 2  Duplicates: 0  Warnings: 0</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; select * from test;</span><br><span class="line">+------+------+</span><br><span class="line">| id   | Bit  |</span><br><span class="line">+------+------+</span><br><span class="line">|   10 |      |</span><br><span class="line">|   65 | A    |</span><br><span class="line">+------+------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
 <p>&emsp;&emsp;可以发现<code>bit</code>类型为10的显示无法出现，而65出现了A，由此则可以说明<code>bit</code>类型特殊的显示方式。同时，如果一个字段只需要显示0或1用bit(1)可以大大的减少空间。</p>
 <h4 id="float类型"><a href="#float类型" class="headerlink" title="float类型"></a>float类型</h4><p>&emsp;&emsp;<code>float(M, D)</code>，M表示显示的长度，D表示小数的位数，MySQL会自动四舍五入。占用空间四个字节。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; insert into test values(99.991), (99.99);</span><br><span class="line">Query OK, 2 rows affected (0.00 sec)</span><br><span class="line">Records: 2  Duplicates: 0  Warnings: 0</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; select * from test;</span><br><span class="line">+--------+</span><br><span class="line">| salary |</span><br><span class="line">+--------+</span><br><span class="line">|  99.99 |</span><br><span class="line">|  99.99 |</span><br><span class="line">+--------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
@@ -2019,6 +1877,175 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/04/【Linux】Linux基础-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/04/【Linux】Linux基础-2/" itemprop="url">【Linux】Linux基础-2</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-04T16:12:39+08:00">
+                2018-12-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.2k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Linux基础"><a href="#Linux基础" class="headerlink" title="Linux基础"></a>Linux基础</h1><h2 id="第2节"><a href="#第2节" class="headerlink" title="第2节"></a>第2节</h2><p>&emsp;&emsp;在此章节着重介绍Linux的基本指令，并且穿插一些Linux的基本知识点进行讲解，同时学习Linux最重要的一点是<strong>不要去背</strong>，在使用中学习，用的多了自然就会了，并且一开始学习Linux大家可能会觉得各种不顺手，但是学习久了大家就会被Linux的魅力所吸引，欲罢不能！。</p>
+<h3 id="终端简介"><a href="#终端简介" class="headerlink" title="终端简介"></a>终端简介</h3><h4 id="基础介绍"><a href="#基础介绍" class="headerlink" title="基础介绍"></a>基础介绍</h4><p>&emsp;&emsp;在Linux的使用中，我们最为经常使用的就是终端，我们之后可以说一切的指令都会在终端中进行输入，那么如何打开终端呢？<strong>鼠标右键点击Linux桌面</strong>，就会出现<strong>打开终端</strong>选项，点击后会出现一个如下图一般的类似于Windows控制台的窗口，这就是Linux的终端了。所谓终端类似于Windows下的控制台，大家可以理解为控制Linux的神经中枢，我们的操作之后都会在这个终端中进行，不过之后会讲解如何使用Xshell，大家就可以通过远程的方式链接到终端了。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/1.png" alt="终端"><br></p>
+<h4 id="Linux的目录"><a href="#Linux的目录" class="headerlink" title="Linux的目录"></a>Linux的目录</h4><p>&emsp;&emsp;大家可以注意到在终端中命令前都会加上这么一行字。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/2.png" alt="目录"><br><br>&emsp;&emsp;正如图中所示，这三个标签都有各自的含义，其中当前目录名尤为重要，因为我们在一个地方输入命令我们首先就得清楚我们当前在哪个目录下，不然可能会出现不必要的错误。而目录中最为特殊的目录有两个<code>~</code>表示的是<strong>家目录，</strong><code>/</code>表示的是<strong>根目录</strong>。<br><br>&emsp;&emsp;我们可以把Linux想象成一栋大厦，这栋大厦中有很多很多的住户，只有一个神一般的存在我们称其为楼管。我们是其中一个住户我们在这栋大厦中有自己的家，我们可以在自己家中为所欲为，不收任何限制，那么其实<strong>家目录</strong>就好比这栋大厦中我们自己的家一样，完全受我们自己控制，我们之后的大部分操作也都是在家目录中进行的。而<strong>根目录</strong>就好比这栋大楼的根基一样，十分危险也有重重保障，我们在根目录中的权限受到限制，毕竟我们不能说把一栋楼拆了就把一栋楼拆了，这栋楼没了Linux也就凉凉了，上面所有的用户都得来找你算账。然而在Linux这种大厦中有一个神一般的楼管，他可以在整栋大厦中为所欲为，这个楼管就是<strong>root管理员</strong>。<br><br>&emsp;&emsp;但在实际中Linux的目录结构更像是一棵树，是数据结构中的树，就是一棵跟实际中的树正好相反的树。（大致如下图）<br><br><img src="/2018/12/04/【Linux】Linux基础-2/3.png" alt="目录"><br><br>&emsp;&emsp;可以发现这样的目录结构与Windows十分相似，没错这样的目录结构方便管理，更符合大家对目录的思想。可以看出<strong>根目录</strong>在树的最顶端（在数据结构中应该叫做树根），是一切目录的根目录，因此可以看出<strong>根目录</strong>在Linux中举足轻重的地位，是整个系统的根本。</p>
+<h4 id="文件信息"><a href="#文件信息" class="headerlink" title="文件信息"></a>文件信息</h4><p>&emsp;&emsp;接下来我们可以尝试在终端中输入<code>ll</code>这个指令，这个指令的具体功能可以大概描述为查看当前目录下文件以及目录的信息，输入后大概会出现以下的信息。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/4.jpg" alt="文件信息"><br><br>&emsp;&emsp;在列表中列出的标蓝字体的为<strong>目录</strong>，也就是我们俗称的文件夹，未标蓝的则为文件。可以看出不论是目录还是文件夹的前都有一行信息，关于这行信息我们是接下来要详细说明的。<br><img src="/2018/12/04/【Linux】Linux基础-2/5.png" alt="文件信息"><br><br>&emsp;&emsp;我用红线将这行信息分为7段，其中每一段都有自己不同的含义。<br><br>&emsp;&emsp;段1：<strong>文件属性</strong>，这个之后详细解释；段2：<strong>文件个数</strong>，如果是目录可能包含有多个文件，如果是文件，则当然是1了；段3：<strong>文件拥有者(Owner)</strong>，创建文件的用户，如果实在家目录下一般都是用户本身；段4：<strong>表示拥有者所属的组(Group)</strong>，如果没有添加新的组，则默认会将用户名作为组名；段5：<strong>文件大小</strong>，单位是byte；段6：<strong>创建时间</strong>；段7：<strong>文件名</strong>。<br><br>&emsp;&emsp;在段1中，我们要重要介绍。段1的第一个字母表示的是文件所属类型，如果是目录则显示的是<code>d</code>，如果是文件则显示的是<code>-</code>，还有一些其他文件属性。之后的九个栏位，表示文件的权限。Linux的文件基本上分为三个权限：可读（r），可写（w），可执行（x）。剩下的格子就以每3格为一个单位表示不同用户的权限。因为Linux是多用户多任务系统，所以一个文件可能同时被许多人使用，所以我们一定要设好每个文件的权限，其文件的权限位置排列顺序是（以drwxr-xr-x为例）：<br><br>&emsp;&emsp;d(所属类型)-rwx(拥有者)r-x(拥有者所在的组)r-x(其他用户)<br><br>&emsp;&emsp;这个例子表示的信息是：这是一个目录，并且拥有者自己可读，可写，可执行；同一组的用户可读，不可写，可执行；其它用户可读，不可写，可执行。另外，有一些程序属性的执行部分不是X,而是S,这表示执行这个程序的使用者，临时可以有和拥有者一样权力的身份来执行该程序。一般出现在系统管理之类的指令或程序，让使用者执行时，拥有root身份。<br><br>&emsp;&emsp;文件的使用权限身为root管理员是可以随时更改的，具体更改方法和关于文件权限的更多内容我们会在之后讲解。</p>
+<h3 id="基础指令"><a href="#基础指令" class="headerlink" title="基础指令"></a>基础指令</h3><p>&emsp;&emsp;1、<code>ls</code>：显示当前目录下文件，效果类似于<code>ll</code>，但没有其强大。<br><br>&emsp;&emsp;2、<code>ll</code>：显示当前目录下文件，已经做过演示，十分常用。<br><br>&emsp;&emsp;3、<code>ctrl+l</code>：清屏，十分常用。<br><br>&emsp;&emsp;4、<code>cd 目录</code>：目录跳转。cd的使用十分灵活我们可以使用它进入Linux的各种目录之中。举几个例子。<br><br>&emsp;&emsp;进入根目录：<code>cd /</code>；再回到家目录<code>cd ~</code>；<code>cd</code>也可以回到家目录；<code>cd /home/misaki/</code>也可以回到家目录，其中<code>misaki</code>是我的用户名，大家改为自己的用户名即可，不难发现我们的家目录的真正目录就在<code>/</code>目录中的<code>home</code>目录中的<code>用户名</code>目录中。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/6.png" alt="基础指令"><br><br>&emsp;&emsp;5、<code>Ctrl+Insert</code>：复制，<code>Shift+Insert</code>：粘贴。在Linux中复制粘贴的快捷键与Windows的略有不同，大家要注意。<br><br>&emsp;&emsp;6、<code>touch 文件名</code>：在当前目录下创建一个新的文件，创建后可以用<code>ll</code>查看。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/7.jpg" alt="基础指令"><br><br>&emsp;&emsp;7、<code>echo 内容 &gt; 文件名</code>：向文件中写入内容。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/8.jpg" alt="基础指令"><br><br>&emsp;&emsp;8、<code>cat 文件名</code>：读取文件。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/9.jpg" alt="基础指令"><br><br>&emsp;&emsp;9、<code>rm 文件名</code>：删除文件。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/10.png" alt="基础指令"><br><br>&emsp;&emsp;10、<code>mkdir 目录名</code>：创建目录。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/11.png" alt="基础指令"><br><br>&emsp;&emsp;11、<code>mkdir -p 目录1/目录2/目录3</code>：创建复杂目录。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/12.png" alt="基础指令"><br><br>&emsp;&emsp;12、<code>pwd</code>：显示当前目录的绝对路径。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/13.png" alt="基础指令"><br><br>&emsp;&emsp;从这里也可以看出家目录的确是在跟目录下的<code>home</code>目录里的。<br><br>&emsp;&emsp;13、<code>rm -r 目录名</code>：删除目录。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/14.png" alt="基础指令"><br><br>&emsp;&emsp;14、<code>rm -rf 目录名</code>：强制删除目录。<br><br>&emsp;&emsp;其中<code>-</code>后的指令被称为指令的选项，可以为这条命令添加很多额外效果，例如<code>-i</code>表示执行前提问，<code>-f</code>表示强制等等。<br>&emsp;&emsp;15、<code>mv 原文件 目标文件</code>：改名。<code>mv 原文件 目录</code>：移动文件。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/15.png" alt="基础指令"><br><br><img src="/2018/12/04/【Linux】Linux基础-2/16.png" alt="基础指令"><br><br>&emsp;&emsp;16、<code>man</code>：帮助手册。操作指令可在这里查看官方文档。要会使用。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/17.png" alt="基础指令"><br><br><img src="/2018/12/04/【Linux】Linux基础-2/18.png" alt="基础指令"><br><br>&emsp;&emsp;17、<code>cp 原文件 目标文件</code>：拷贝文件到此目录下并命名为目标文件。<code>cp 原文件 目录</code>：拷贝文件到目录下。<code>cp -r a b</code>：拷贝a目录到b目录下。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/19.png" alt="基础指令"><br><br>&emsp;&emsp;到此为止Linux的基本常用指令就全部介绍完毕了，正如我一开始说的呢样，不要去背Linux指令，在使用中理解，用的多了自然就熟悉了，在下个章节我们会介绍如何使用<strong>Xshell</strong>远程控制终端，并且如何在终端上编写程序，还请大家准备下<strong>Xshell</strong>这款软件。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -2073,7 +2100,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2192,7 +2219,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共50.6k字</span>
+  <span class="post-count">博客全站共50.7k字</span>
 </div>
 
         ﻿
