@@ -264,6 +264,178 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/08/【C语言】第三章-函数-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/08/【C语言】第三章-函数-1/" itemprop="url">【C语言】第三章-函数-1</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-08T00:16:11+08:00">
+                2018-11-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C语言初阶/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言初阶</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.4k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第三章-函数"><a href="#第三章-函数" class="headerlink" title="第三章 函数"></a>第三章 函数</h1><h2 id="第1节"><a href="#第1节" class="headerlink" title="第1节"></a>第1节</h2><p>&emsp;&emsp;之前有简单介绍过函数，函数时C语言中不可缺少的一环，可以极大的将代码重复利用，提高我们的工作效率，也会使代码的可读性更高，使代码更加好看。因此这个章节我们将详细讲讲C语言中的函数。</p>
+<h3 id="函数的分类"><a href="#函数的分类" class="headerlink" title="函数的分类"></a>函数的分类</h3><h4 id="库函数"><a href="#库函数" class="headerlink" title="库函数"></a>库函数</h4><p>&emsp;&emsp;C语言基础库中有一些大佬们提前写好的函数放在文件中，一共我们进行更方便更快捷的使用，要使用对应的库函数只需要在文件开头引入对应的头文件即可，这可对我们程序编写带来了不少方便。例如<code>#include &lt;stdio.h&gt;</code>；<code>#include &lt;string.h&gt;</code>。<br><br>&emsp;&emsp;有些同学或许会有疑问，那么库函数这么方便那么我们需不需要把库函数背下来呢？<strong>答案当然是不需要的。</strong> 因为常用的库函数我们用多了自然就熟记于心，然而不常用的库函数等我们需要用他们的时候再去查看<strong>官方文档</strong>即可，注意我这里是的是官方的文档，作为一个程序员要养成多看文档，及时看文档的习惯，相比把库函数背下来冒着有可能出错的风险我们不如到用的时候花一些时间去查看官方文档。在此我推荐一个网址：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="http://www.cplusplus.com/" target="_blank" rel="noopener">http://www.cplusplus.com/</a><br><br>&emsp;&emsp;这个是C语言国际委员会官方编写的文档，也是最为准确的文档。也许有的同学更喜欢上MSDN查看文档，但是我要说的是，MSDN是微软发布的，和官方的比谁更有权威相信大家都能轻易评判出来的吧！<br><br>&emsp;&emsp;对于C语言的基础库函数来说，我只能用一个字来形容：<strong>弱。</strong> 弱爆了的弱，而且C语言要是想要添加第三方库函数还及其麻烦，十分不辩解，相比下JAVA简直是一股清流啊。因此既然库函数无法满足我们的日常需求，就得要我们自己动手了，接下来我接着介绍<strong>自定义函数</strong>。</p>
+<h4 id="自定义函数"><a href="#自定义函数" class="headerlink" title="自定义函数"></a>自定义函数</h4><p>&emsp;&emsp;自定义函数，正如其名，就是我们自己定义的函数，那么自定义函数需要遵循什么格式呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ret_type fun_name(para 1,* )</span><br><span class="line">&#123;</span><br><span class="line">    statement;//语句项</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;没错以上这个就是自定义函数的模版了，返回值+函数名+（括号内参数）+大括号包含语句项的方式即可定义出一个供我们自己使用的函数。下面是一个判断数字大小的简单的例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int get_max(int x, int y)</span><br><span class="line">&#123;</span><br><span class="line">    return (x &gt; y) ? x : y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;在这个函数中我用了一个三目运算符，用来判断x, y中更大的值并且返回。于是这么一个比较大小的函数就被我定义出来了。</p>
+<h3 id="函数的参数"><a href="#函数的参数" class="headerlink" title="函数的参数"></a>函数的参数</h3><p>&emsp;&emsp;在函数被调用的时候，函数中的参数会发生一些微妙的改变。在调用的时候传给函数的值，这样的参数我们称之为<strong>实参</strong>，而在函数定义时，后面括号的值我们则称之为<strong>形参</strong>，这里十分容易搞混，简单来说就是函数定义时的参数是形参，调用时的参数是实参。为什么我们要区分实参和形参呢？<br><br>&emsp;&emsp;在函数调用过程中，我们将函数值传递进函数体中的时候，实际在函数体内形成了一份新的内存空间用来存储我们传递进去的值，因此形参在函数体内无论再怎么改变都不会影响调用函数时使用的实参。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">void exchange(int num1, int num2)</span><br><span class="line">&#123;</span><br><span class="line">	int t = num1;</span><br><span class="line">	num1 = num2;</span><br><span class="line">	num2 = t;</span><br><span class="line">&#125;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int num1 = 1;</span><br><span class="line">	int num2 = 2;</span><br><span class="line">	exchange(num1, num2);</span><br><span class="line">	printf(&quot;num1 = %d,num2 = %d\n&quot;, num1, num2);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;运行以上的代码就会发现在函数内部我们明明已经交换num1和num2的值但是为什么在主函数中却没有任何改变呢？这就是我们所说的实参与形参以及函数<strong>副本传递参数</strong>的特性，大家只需要记住一句话即可：<strong><em>传给函数的形参不过是实参的一个副本</em></strong>。<br><br>&emsp;&emsp;但是如果我们要是想在函数中对实参进行改变我们该怎么做呢？没错这里我们就要用到C语言的灵魂工具——指针。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">void exchange(int* num1, int* num2)</span><br><span class="line">&#123;</span><br><span class="line">	int t = *num1;</span><br><span class="line">	*num1 = *num2;</span><br><span class="line">	*num2 = t;</span><br><span class="line">&#125;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int num1 = 1;</span><br><span class="line">	int num2 = 2;</span><br><span class="line">	exchange(&amp;num1, &amp;num2);</span><br><span class="line">	printf(&quot;num1 = %d,num2 = %d\n&quot;, num1, num2);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;我们将代码稍作修改，将函数类型转为指针型，大家就会发现，num1和num2的值已经交换了，这其中能够交换都得多亏我们使用指针找到了实参的地址，才能在函数内对其进行修改。<br><br>&emsp;&emsp;关于函数的调用在下一节会有详细讲解。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/【C语言】第二章-分支和循环语句-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1184,7 +1356,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
