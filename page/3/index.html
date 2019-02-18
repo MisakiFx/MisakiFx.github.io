@@ -264,6 +264,173 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/【C语言】项目-扫雷/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/19/【C语言】项目-扫雷/" itemprop="url">【C语言】项目-扫雷</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-19T23:22:25+08:00">
+                2018-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C语言项目/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言项目</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.4k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="C语言项目"><a href="#C语言项目" class="headerlink" title="C语言项目"></a>C语言项目</h1><h2 id="扫雷"><a href="#扫雷" class="headerlink" title="扫雷"></a>扫雷</h2><h3 id="实现思想"><a href="#实现思想" class="headerlink" title="实现思想"></a>实现思想</h3><p>&emsp;&emsp;扫雷的实现是使用两个数组，一个数组是用来显示的地图数组，而另一个数组是雷阵，每当玩家输入坐标后会根据雷阵判断该位置是否有雷，如果没有会计算出该位置周围地雷的数量并返回打印出来。不过值得一提的是，地图的初始化要多设计出一个边框，这个边框不需要打印，但是在计算周围地雷数量的时候却会格外方便。</p>
+<h3 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#define MAX_ROW 10</span><br><span class="line">#define MAX_COL 10</span><br><span class="line">#define MINE_NUM 10</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;time.h&gt;</span><br><span class="line">/*!</span><br><span class="line"> * \项目名 扫雷</span><br><span class="line"> * \日期 2018/11/19 23:19</span><br><span class="line"> *</span><br><span class="line"> * \作者 Misaki</span><br><span class="line"> * 联系方式  1761607418@qq.com</span><br><span class="line"> *</span><br><span class="line"> * 文件描述: 10 * 10扫雷游戏初步实现</span><br><span class="line"> *</span><br><span class="line">*/</span><br><span class="line">/*</span><br><span class="line">菜单</span><br><span class="line">返回：用户输入</span><br><span class="line">*/</span><br><span class="line">int Menu()</span><br><span class="line">&#123;</span><br><span class="line">	system(&quot;cls&quot;);</span><br><span class="line">	printf(&quot;*********************************\n&quot;);</span><br><span class="line">	printf(&quot;1、开始游戏！\n&quot;);</span><br><span class="line">	printf(&quot;2、游戏说明！\n&quot;);</span><br><span class="line">	printf(&quot;0、退出游戏！\n&quot;);</span><br><span class="line">	printf(&quot;*********************************\n&quot;);</span><br><span class="line">	printf(&quot;请选择：&quot;);</span><br><span class="line">	int choose = 0;</span><br><span class="line">	rewind(stdin);</span><br><span class="line">	if(scanf(&quot;%d&quot;, &amp;choose) != 1) return 3;</span><br><span class="line">	return choose;</span><br><span class="line">&#125;</span><br><span class="line">/*</span><br><span class="line">初始化地图</span><br><span class="line">参数：两张地图</span><br><span class="line">*/</span><br><span class="line">void InitMap (char show_map[MAX_ROW + 2][MAX_COL + 2], char mine_map[MAX_ROW + 2][MAX_COL + 2])</span><br><span class="line">&#123;</span><br><span class="line">	//现将两个地图全部初始化</span><br><span class="line">	for (int i = 0; i &lt; MAX_ROW + 2; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		for (int j = 0; j &lt; MAX_COL + 2; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			show_map[i][j] = &apos;*&apos;;</span><br><span class="line">			mine_map[i][j] = &apos;0&apos;;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	//设置随机雷阵</span><br><span class="line">	for (int i = 0; i &lt; MINE_NUM; )</span><br><span class="line">	&#123;</span><br><span class="line">		int it = rand() % 10 + 1;</span><br><span class="line">		int jt = rand() % 10 + 1;</span><br><span class="line">		if (mine_map[it][jt] != &apos;1&apos;)</span><br><span class="line">		&#123;</span><br><span class="line">			mine_map[it][jt] = &apos;1&apos;;</span><br><span class="line">			i++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">/*</span><br><span class="line">打印地图</span><br><span class="line">参数：地图</span><br><span class="line">*/</span><br><span class="line">void PrintMap(char map[MAX_ROW + 2][MAX_COL + 2])</span><br><span class="line">&#123;</span><br><span class="line">	system(&quot;cls&quot;);</span><br><span class="line">	printf(&quot;   &quot;);</span><br><span class="line">	for (int i = 1; i &lt; MAX_ROW + 1; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;%d  &quot;, i);</span><br><span class="line">	&#125;</span><br><span class="line">	printf(&quot;\n&quot;);</span><br><span class="line">	printf(&quot;   &quot;);</span><br><span class="line">	for (int i = 1; i &lt; MAX_ROW + 1; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;___&quot;, i);</span><br><span class="line">	&#125;</span><br><span class="line">	printf(&quot;\n&quot;);</span><br><span class="line">	for (int i = 1; i &lt; MAX_ROW + 1; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;%02d|&quot;, i);</span><br><span class="line">		for (int j = 1; j &lt; MAX_COL + 1; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;%c  &quot;, map[i][j]);</span><br><span class="line">		&#125;</span><br><span class="line">		printf(&quot;\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	printf(&quot;\n&quot;);</span><br><span class="line">&#125;</span><br><span class="line">/*</span><br><span class="line">判断周围有几个雷</span><br><span class="line">参数：地雷地图，用户选择的坐标</span><br><span class="line">返回：雷的个数</span><br><span class="line">*/</span><br><span class="line">int MineNum(char mine_map[MAX_ROW + 2][MAX_COL + 2], int row, int col)</span><br><span class="line">&#123;</span><br><span class="line">	int count = (mine_map[row][col - 1] - &apos;0&apos;) + (mine_map[row - 1][col - 1] - &apos;0&apos;) + (mine_map[row - 1][col] - &apos;0&apos;)</span><br><span class="line">		+ (mine_map[row - 1][col + 1] - &apos;0&apos;) + (mine_map[row][col + 1] - &apos;0&apos;) + (mine_map[row + 1][col + 1] - &apos;0&apos;)</span><br><span class="line">		+ (mine_map[row + 1][col] - &apos;0&apos;) + (mine_map[row + 1][col - 1] - &apos;0&apos;);</span><br><span class="line">	return count;</span><br><span class="line">&#125;</span><br><span class="line">/*</span><br><span class="line">更新游戏显示地图</span><br><span class="line">参数：两张地图和用户选择的坐标</span><br><span class="line">*/</span><br><span class="line">void UpdateMap(char show_map[MAX_ROW + 2][MAX_COL + 2], char mine_map[MAX_ROW + 2][MAX_COL + 2], int row, int col)</span><br><span class="line">&#123;</span><br><span class="line">	int count = MineNum(mine_map, row, col);</span><br><span class="line">	show_map[row][col] = &apos;0&apos; + count;</span><br><span class="line">	if (count == 0)</span><br><span class="line">	&#123;</span><br><span class="line">		if (row &gt;= 1 &amp;&amp; col - 1 &gt;= 1)</span><br><span class="line">		&#123;</span><br><span class="line">			int count1 = MineNum(mine_map, row, col - 1);</span><br><span class="line">			show_map[row][col - 1] = &apos;0&apos; + count1;</span><br><span class="line">		&#125;</span><br><span class="line">		if (row - 1 &gt;= 1 &amp;&amp; col - 1 &gt;= 1)</span><br><span class="line">		&#123;</span><br><span class="line">			int count2 = MineNum(mine_map, row - 1, col - 1);</span><br><span class="line">			show_map[row - 1][col - 1] = &apos;0&apos; + count2;</span><br><span class="line">		&#125;</span><br><span class="line">		if (row - 1 &gt;= 1 &amp;&amp; col &gt;= 1)</span><br><span class="line">		&#123;</span><br><span class="line">			int count3 = MineNum(mine_map, row - 1, col);</span><br><span class="line">			show_map[row - 1][col] = &apos;0&apos; + count3;</span><br><span class="line">		&#125;</span><br><span class="line">		if (row - 1 &gt;= 1 &amp;&amp; col + 1 &lt;= 10)</span><br><span class="line">		&#123;</span><br><span class="line">			int count4 = MineNum(mine_map, row - 1, col + 1);</span><br><span class="line">			show_map[row - 1][col + 1] = &apos;0&apos; + count4;</span><br><span class="line">		&#125;</span><br><span class="line">		if (row &gt;= 1 &amp;&amp; col + 1 &lt;= 10)</span><br><span class="line">		&#123;</span><br><span class="line">			int count5 = MineNum(mine_map, row, col + 1);</span><br><span class="line">			show_map[row][col + 1] = &apos;0&apos; + count5;</span><br><span class="line">		&#125;</span><br><span class="line">		if (row + 1 &lt;= 10 &amp;&amp; col + 1 &lt;= 10)</span><br><span class="line">		&#123;</span><br><span class="line">			int count6 = MineNum(mine_map, row + 1, col + 1);</span><br><span class="line">			show_map[row + 1][col + 1] = &apos;0&apos; + count6;</span><br><span class="line">		&#125;</span><br><span class="line">		if (row + 1 &lt;= 10 &amp;&amp; col &gt;= 1)</span><br><span class="line">		&#123;</span><br><span class="line">			int count7 = MineNum(mine_map, row + 1, col);</span><br><span class="line">			show_map[row + 1][col] = &apos;0&apos; + count7;</span><br><span class="line">		&#125;</span><br><span class="line">		if (row + 1 &lt;= 10 &amp;&amp; col - 1 &gt;= 1)</span><br><span class="line">		&#123;</span><br><span class="line">			int count8 = MineNum(mine_map, row + 1, col - 1);</span><br><span class="line">			show_map[row + 1][col - 1] = &apos;0&apos; + count8;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">int LostMineNum(char show_map[MAX_ROW + 2][MAX_COL + 2])</span><br><span class="line">&#123;</span><br><span class="line">	int count = 0;</span><br><span class="line">	for (int i = 1; i &lt; MAX_ROW + 1; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		for (int j = 1; j &lt; MAX_COL + 1; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			if (show_map[i][j] == &apos;*&apos;)</span><br><span class="line">			&#123;</span><br><span class="line">				count++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return count;</span><br><span class="line">&#125;</span><br><span class="line">/*游戏主体*/</span><br><span class="line">void Game()</span><br><span class="line">&#123;</span><br><span class="line">	//将地图加个边框，目的为了后续方便设计计算雷数算法</span><br><span class="line">	char show_map[MAX_ROW + 2][MAX_COL + 2];//显示地图</span><br><span class="line">	char mine_map[MAX_ROW + 2][MAX_COL + 2];//地雷地图</span><br><span class="line">	//初始化地图</span><br><span class="line">	InitMap(show_map, mine_map);</span><br><span class="line">	PrintMap(mine_map);</span><br><span class="line">	while (1)</span><br><span class="line">	&#123;</span><br><span class="line">		//打印地图</span><br><span class="line">		PrintMap(show_map);</span><br><span class="line">		printf(&quot;当前未扫区域 / 总雷数：%d / %d\n&quot;, LostMineNum(show_map), MINE_NUM);</span><br><span class="line">		//用户输入（判断是否合法）</span><br><span class="line">		int row = 0, col = 0;</span><br><span class="line">		while (1)</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;请输入坐标（x y）：&quot;);</span><br><span class="line">			rewind(stdin);</span><br><span class="line">			int result = scanf(&quot;%d%d&quot;, &amp;row, &amp;col);</span><br><span class="line">			if (row &lt; 1 || row &gt; 10 || col &lt; 1 || col &gt; 10 || result != 2)</span><br><span class="line">			&#123;</span><br><span class="line">				printf(&quot;看好再输！\n&quot;);</span><br><span class="line">			&#125;</span><br><span class="line">			else</span><br><span class="line">			&#123;</span><br><span class="line">				break;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		//判断该处是否有雷，有雷直接GG跳出循环</span><br><span class="line">		if (mine_map[row][col] == &apos;1&apos;)</span><br><span class="line">		&#123;</span><br><span class="line">			PrintMap(mine_map);</span><br><span class="line">			printf(&quot;pa!你死了\n&quot;);</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">		//没扫完继续，计算该处附近有及个雷，填入显示地图中如果没有雷，继续计算周边一圈全部显示到地图中</span><br><span class="line">		UpdateMap(show_map, mine_map, row, col);</span><br><span class="line">		//没雷判断是否是最后一个，全部扫完游戏结束跳出循环</span><br><span class="line">		if (LostMineNum(show_map) &lt;= 10)</span><br><span class="line">		&#123;</span><br><span class="line">			PrintMap(mine_map);</span><br><span class="line">			printf(&quot;你赢啦，牛逼！\n&quot;);</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	//游戏结束打印地雷地图</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br><span class="line">void GameExplain()</span><br><span class="line">&#123;</span><br><span class="line">	system(&quot;cls&quot;);</span><br><span class="line">	printf(&quot;扫雷都不玩你有没有童年！\n&quot;);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	srand(time(NULL));</span><br><span class="line">	int choose = 0;</span><br><span class="line">	while (choose = Menu())</span><br><span class="line">	&#123;</span><br><span class="line">		if (choose == 1)</span><br><span class="line">		&#123;</span><br><span class="line">			//开始游戏</span><br><span class="line">			Game();</span><br><span class="line">			continue;</span><br><span class="line">		&#125;</span><br><span class="line">		if (choose == 2)</span><br><span class="line">		&#123;</span><br><span class="line">			//游戏说明</span><br><span class="line">			GameExplain();</span><br><span class="line">			continue;</span><br><span class="line">		&#125;</span><br><span class="line">		else</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;别瞎b输！\n&quot;);</span><br><span class="line">			system(&quot;pause&quot;);</span><br><span class="line">			continue;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;扫雷的实现十分简单，但是在这个版本中我并没有做出当周围地雷数为0时会一直清理直到周围全部有地雷为止的算法，这个会在后续进行实现。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/【C语言】第五章-操作符/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1832,186 +1999,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/27/【C语言】第一章-初识C语言-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/27/【C语言】第一章-初识C语言-1/" itemprop="url">【C语言】第一章-初识C语言-1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-27T01:54:57+08:00">
-                2018-10-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C语言初阶/" itemprop="url" rel="index">
-                    <span itemprop="name">C语言初阶</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.6k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>&emsp;&emsp;本专题博客主要内容为本人在C语言学习过程中遇到的主要问题和C语言相关知识点的讲解，是系统性的技术学习博客，使用的环境为<strong>VS2017</strong>。本教程本着先浅后深的学习理念由浅至深进行学习，并且每一章都会附有代码及案例讲解。在学习过程中如果读者有相关问题请移步我的私人博客，或发送问题到我的邮箱或者QQ一起探讨！</p>
-<h1 id="第一章-初识C语言"><a href="#第一章-初识C语言" class="headerlink" title="第一章 初识C语言"></a>第一章 初识C语言</h1><h2 id="第1节"><a href="#第1节" class="headerlink" title="第1节"></a>第1节</h2><h3 id="为什么学习C语言"><a href="#为什么学习C语言" class="headerlink" title="为什么学习C语言"></a>为什么学习C语言</h3><p>&emsp;&emsp;C语言是一门通用计算机编程语言，广泛用于底层开发。C语言虽然并不是最完美的语言，但是可以说目前很多的高级编程语言的前身都是C语言，所以C语言绝对是开发学习中的第一门语言，他可以帮助你很好的理解计算机原理，理解计算机内存管理。而且同时C语言有着简介的语法，十分简单易上手，但是想要精通使用C语言还需要长期的学习和锻炼才能掌握。目前2011年12月8日，<strong>国际标准化组织（ISO）</strong>和<strong>国际电工委员会（IEC）</strong> 发布的 <strong><em>C11标准</em></strong>是C语言的第三个官方标准，也是C语言最新标准，在以前C语言版本基础上加上了很多新的语法，而本系列博客也会以C11标准进行C语言讲解。</p>
-<h3 id="第一个C语言项目"><a href="#第一个C语言项目" class="headerlink" title="第一个C语言项目"></a>第一个C语言项目</h3><p>&emsp;&emsp;1、接下来我会在VS2017的环境中展示第一个C语言项目。首先是进行项目创建。<br><br>&emsp;&emsp;1）点击新建-&gt;项目<br><br>&emsp;&emsp;2）在左侧边框栏选择VisualC++选择右侧边框栏的空项目<br><br>&emsp;&emsp;3）右键点击源文件选择添加-&gt;点击新建项-&gt;添加<br><br>&emsp;&emsp;<strong>这样既可创建好一个CPP源文件</strong><br><br>&emsp;&emsp;虽说我们写的是C语言但是创建CPP源文件照样是可以写C语言代码的，互不影响，如果你想创建一个C语言源文件在第三部点添加之前把文件名称后缀改为 <strong>.c</strong>文件既可！！<br><br>&emsp;&emsp;2、在创建好源文件后我们就可以正式开始快乐的敲代码啦！<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	printf(&quot;This is my world!!\n&quot;);//输出“This is my world!!”</span><br><span class="line">	return 0;//主函数返回值，可以忽略这一条语句</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;上面这一段代码的主要作用就是实现在屏幕上打印一句话的功能。接下来我给大家注意讲解每一行代码的含义。<br><br>&emsp;&emsp;第一行代码是引用了一个标准输入输出流的头文件&lt;stdio.h&gt;，这个可以说是写C语言代码必备的。可能有小伙伴会有疑问，这句话有什么用？其实写代码的过程中并不是所有代码都由我们自己写的，在编译器中会实现留有很多的代码都是由大佬们实现写好留下来的，而这些代码都会被封装为一个又一个的头文件，提供给开发者使用，这样会给开发者带来不小的便利，比如说我们下面printf()这个函数就是这个头文件所提供给我们的。<br><br>&emsp;&emsp;第二行代码包括下面的一对大括号都被成为<strong>主函数</strong>。主函数是一个程序的入口函数，<strong><em>程序的启动和运行都会先从主函数开始</em></strong>，所以在一个程序中主函数是必不可少的。<br><br>&emsp;&emsp;主函数里面的函数<strong>printf()</strong> 这个函数的主要功能是将括号里面的内容输出到屏幕上，在这个函数中大家可以看到目前有一个参数，是一个由双引号括起来的字符串（<del>字符串的概念之后会学习</del>），字符串里面的内容大家可以随意改动，输出自己想要的内容。<br><br>&emsp;&emsp;还可以注意到还有一个语句<strong>return 0</strong>这句话是函数的返回值。主函数是可以有返回值的，但是<strong>这句话不写编译器也不会报错</strong>，之后学了函数的知识后大家会对返回值有更深的理解。<br><br>&emsp;&emsp;在写完了以上这几行代码后就可以编译运行了，大家可以使用快捷键<strong>ctrl+f5</strong>进行编译和运行，或者<strong>点击调试里面的开始执行（不调试）</strong> 进行执行。<br><br>&emsp;&emsp;在运行后大家可能会发现程序运行一闪而过，根本无法看到结果，这是因为程序运行太快了并且没有暂停所以程序结束了，所以之后我们将代码改成这个样子让他暂停下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	printf(&quot;This is my world!!\n&quot;);//输出“This is my world!!”</span><br><span class="line">	system(&quot;pause&quot;);//暂停语句</span><br><span class="line">	return 0;//主函数返回值，可以忽略这一条语句</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;可以注意到我们在第6行加了个system语句，这个语句的作用就是<strong>让程序暂停运行</strong>。改完之后大家可以重新编译运行下，就可以看到运行的结果了。</p>
-<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><p><strong>&emsp;&emsp;1、为什么会有不同的数据类型？</strong><br><br>&emsp;&emsp;这个问题其实很简单，因为众所周知程序在运行时会将数据暂时存储在内存中以方便程序使用，但是在系统给程序分配内存空间是就会产生问题，为了解决这个问题我该分配多少内存给它呢？多了的话浪费资源，少了的话不够用，而且<strong>不同的数据不可能使用同一种方式存储</strong>（例如字符和整形以及浮点型的存储方式都有很大的区别），于是在编程语言设计之初，不同的数据类型就产生了。<br><br>&emsp;&emsp;2、在C语言中常用的数据类型一共有7种，接下来统一给大家介绍，这在大家之后的编程中是必不可少的。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">   char //字符型：1字节</span><br><span class="line">short //短整型：2字节</span><br><span class="line">int //整型：4字节</span><br><span class="line">long //长整型：4字节</span><br><span class="line">long long //更长整型：8字节</span><br><span class="line">float //单精度浮点型：4字节</span><br><span class="line">double //双精度浮点型：8字节</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;每个不同的数据类型都有不同的所占空间大小，而数据在内存中都是以<strong>二进制</strong>形式进行存储的。举个例子，int型占4个字节，一个字节是8个bit，就是<strong>4 * 8 = 32 个</strong>二进制位，所能存储的数据大小（默认无符号）就是从<strong>0 ~ 2 ^ 32 - 1</strong>大概就是<strong>42亿</strong>，依次类推。要说明的是整形是存储整数的无法处理小数，而浮点型是专门处理小数的（<del>自然也能处理整数</del>），而字符型则是处理字符的。数据在内存中存储方式也随着数据类型的不同而不尽相同，其中整形的存储是根据<strong>补码</strong>进行存储，而字符型则是根据<strong>ASCII码</strong>进行换算然后进行存储。<br><br>&emsp;&emsp;所谓ASCII码不过是将键盘上的每一个字符都根据序号进行排序，每一个字符都有着自己编号，而进行内存存储时与ASCII表进行比对，找到自己的编号，然后<strong>将字符型转换为整形数字</strong>然后再进行存储。</p>
-<h3 id="变量、常量"><a href="#变量、常量" class="headerlink" title="变量、常量"></a>变量、常量</h3><p>&emsp;&emsp;1、所谓变量就是可以改变的量，而常量则是无法被改变的值。<br><br>&emsp;&emsp;2、定义变量的方式也十分简单。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">   int age = 10;</span><br><span class="line">float weight = 45.5f;</span><br><span class="line">char ch = &apos;w&apos;;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;大家可以看出来定义变量不过是<strong>数据类型（<del>空格</del>）变量名称</strong>即可定义。<strong>而定义一个变量后最立刻对它进行初始化赋值，否则变量会存储一个随机的值，</strong>这十分不便于变量管理。<strong>在定义浮点型变量时如果初始化内容后不加f则默认为双精度浮点型。</strong><br><br>&emsp;&emsp;3、变量的分类大致可以分为：<strong>局部变量和全局变量</strong>，每个变量都有着自己的作用域和生命周期。<strong>局部变量的作用域和生命周期都是大括号，全局变量的作用域和生命周期则是当前整个程序</strong><br><br>&emsp;&emsp;具体可以参考以下代码段：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int global = 2019;//全局变量</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int local = 2018;//局部变量</span><br><span class="line">	//下面定义的global不会有问题</span><br><span class="line">	int global = 2010;</span><br><span class="line">	printf(&quot;global = %d\n&quot;, global);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;值得一提的是全局变量在已经定义的前提下，定义相同变量名的局部变量不会报错，那么在局部变量的作用域内打印局部变量会出现什么结果呢？执行过大家肯定会看到，global = 2010。这是因为<strong>在局部变量作用域内局部变量会覆盖同名称的全局变量。</strong><br><br>&emsp;&emsp;4、常量则是不能被改变的量，在C语言中常量分为<strong>字面常量、const修饰的常变量、#dfine定义的标识符常量、枚举常量。</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#define PIE 3.14</span><br><span class="line">enum Sex//枚举常量</span><br><span class="line">&#123;</span><br><span class="line">	MALE,</span><br><span class="line">	FEMALE,</span><br><span class="line">	SECRET,</span><br><span class="line">&#125;;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	3.14;//字面常量</span><br><span class="line">	1000;//字面常量</span><br><span class="line">	const float pai = 3.14f;//const修饰的常量</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;关于常量如代码演示，其中较为特殊的是enum常量，枚举常量默认元素从0开始赋值，是快速定义连续常量的一种方式。<strong>#define所用到的宏定义只是单纯的文本替换</strong>，具体使用之后会详细讲解。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2061,7 +2053,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
