@@ -1,0 +1,867 @@
+﻿<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux,操作系统," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第四章 进程控制进程创建fork()&amp;emsp;&amp;emsp;fork()可以用于创建一个子进程，并且父进程返回其子进程的PID，子进程返回0。子进程会完全复制父进程的PCB并且会优先执行父进程。123456789101112131415161718192021222324252627282930313233343536/** * * fork初使用 * 通过复制调用进程，创建一个新的进程（子进程）">
+<meta name="keywords" content="Linux,操作系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Linux】第四章-进程控制">
+<meta property="og:url" content="http://yoursite.com/2019/04/24/【Linux】第四章-进程控制/index.html">
+<meta property="og:site_name" content="Misaki`s blog">
+<meta property="og:description" content="第四章 进程控制进程创建fork()&amp;emsp;&amp;emsp;fork()可以用于创建一个子进程，并且父进程返回其子进程的PID，子进程返回0。子进程会完全复制父进程的PCB并且会优先执行父进程。123456789101112131415161718192021222324252627282930313233343536/** * * fork初使用 * 通过复制调用进程，创建一个新的进程（子进程）">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-24T13:42:57.562Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【Linux】第四章-进程控制">
+<meta name="twitter:description" content="第四章 进程控制进程创建fork()&amp;emsp;&amp;emsp;fork()可以用于创建一个子进程，并且父进程返回其子进程的PID，子进程返回0。子进程会完全复制父进程的PCB并且会优先执行父进程。123456789101112131415161718192021222324252627282930313233343536/** * * fork初使用 * 通过复制调用进程，创建一个新的进程（子进程）">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/24/【Linux】第四章-进程控制/"/>
+
+
+
+
+
+  <title>【Linux】第四章-进程控制 | Misaki`s blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+<a href="https://github.com/MisakiFx" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Misaki`s blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习是一种态度</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/24/【Linux】第四章-进程控制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【Linux】第四章-进程控制</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-24T23:56:48+08:00">
+                2019-04-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.8k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="第四章-进程控制"><a href="#第四章-进程控制" class="headerlink" title="第四章 进程控制"></a>第四章 进程控制</h1><h2 id="进程创建"><a href="#进程创建" class="headerlink" title="进程创建"></a>进程创建</h2><h3 id="fork"><a href="#fork" class="headerlink" title="fork()"></a>fork()</h3><p>&emsp;&emsp;<code>fork()</code>可以用于创建一个子进程，并且父进程返回其子进程的PID，子进程返回0。子进程会完全复制父进程的PCB并且会优先执行父进程。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> *</span><br><span class="line"> * fork初使用</span><br><span class="line"> * 通过复制调用进程，创建一个新的进程（子进程）</span><br><span class="line"> */</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  printf(&quot;parent pid = %d\n&quot;, getpid());</span><br><span class="line">  pid_t pid = fork();//复制了父进程的PCB，因此程序计数器也会跟父进程一致，因此子进程下一句执行的代码和父进程一致</span><br><span class="line">  printf(&quot;child1:%d\n&quot;, pid);</span><br><span class="line">  if(pid &lt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  else if(pid == 0)//fork有返回值，子进程返回0，父进程返回的是子进程的pid</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;child:%d\n&quot;, getpid());//得到当前进程的PID</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;parent:%d\n&quot;, getpid());//得到当前进程的PID                                                         </span><br><span class="line">  &#125;</span><br><span class="line">  printf(&quot;Misaki\n&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第三章]$ ./Creat</span><br><span class="line">parent pid = 6751</span><br><span class="line">child1:6752</span><br><span class="line">parent:6751</span><br><span class="line">Misaki</span><br><span class="line">child1:0</span><br><span class="line">child:6752</span><br><span class="line">Misaki</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;在创建子进程时，系统会完全复制一份相同的物理内存，共用相同的代码，但是这样会极大的浪费内存，在有些情况下如果我们只是单纯的让子进程重复父进程执行的操作，我们完全不需要复制一份物理内存，因此<strong>写时拷贝技术</strong>就会帮上我们很大的忙，在创建子进程时，并不会立刻复制一份物理内存，会优先使用同一份物理内存，直到父进程或者子进程出现了数据或者代码的修改才会分配新的物理内存空间，这样可以大大的减少内存空间的占用。<br><br>&emsp;&emsp;<code>fork()</code>创建的子进程会完全复制父进程的PCB但是完全复制一份PCB有时在对空间要求很严格的情况下会导致浪费很多的空间，因此我们就有了<code>vfork()</code>。</p>
+<h3 id="vfork"><a href="#vfork" class="headerlink" title="vfork()"></a>vfork()</h3><p>&emsp;&emsp;<code>vfork()</code>函数的基本功能与<code>fork()</code>一致但有不同的地方是<code>vfork()</code>创建完子进程会优先执行子进程，并且子进程不会完全复制父进程的PCB，为了节省空间子进程会和父进程共用一块虚拟内存，为了不导致调用栈混乱，子进程会阻塞父进程，也就是说父进程会在子进程退出或替换后才会执行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;                                </span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  pid_t pid = vfork();//创建子进程，阻塞父进程</span><br><span class="line">  while(1)</span><br><span class="line">  &#123;</span><br><span class="line">    if(pid == 0)</span><br><span class="line">    &#123;</span><br><span class="line">      //child</span><br><span class="line">      printf(&quot;----child!! pid:[%d]\n&quot;, getpid());</span><br><span class="line">      _exit(0);</span><br><span class="line">    &#125;</span><br><span class="line">    if(pid &gt; 0)</span><br><span class="line">    &#123;</span><br><span class="line">      printf(&quot;----parent!! pid:[%d]\n&quot;, getpid());</span><br><span class="line">    &#125;</span><br><span class="line">    sleep(1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;<code>vfork</code>和<code>fork</code>也会有调用失败的情况，比如说在系统中已经有了太多的进程或者用户的实际进程达到了上限，这样则系统不再允许我们创建新的进程。</p>
+<h2 id="进程终止"><a href="#进程终止" class="headerlink" title="进程终止"></a>进程终止</h2><p>&emsp;&emsp;进程退出往往分为以下几种方式，程序运行完毕正常退出和代码异常中止，我们平常使用的<code>ctrl + c</code>终止进程就是一种进程异常退出的方式，我们也可以通过调用接口和函数进行带退出状态的方式退出进程。</p>
+<h3 id="exit"><a href="#exit" class="headerlink" title="_exit()"></a>_exit()</h3><p>&emsp;&emsp;<code>_exit()</code>是一个函数，原型为：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<br><code>void _exit(int status);</code><br><br>&emsp;&emsp;可以让程序带状态进行退出，<code>status</code>是程序的退出状态，这个状态可以通过<code>wait()</code>函数接收到，也可以在命令行中通过<code>echo $?</code>命令进行查看。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;errno.h&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int pid = fork();</span><br><span class="line">    if (pid &lt; 0) &#123;</span><br><span class="line">        perror(&quot;fork error&quot;);</span><br><span class="line">        printf(&quot;fork error :%s\n&quot;, strerror(errno));</span><br><span class="line">    &#125;</span><br><span class="line">    sleep(1);                                       </span><br><span class="line">    _exit(-1);</span><br><span class="line">&#125;      </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost process]$ echo $?</span><br><span class="line">255</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;明明我们返回了-1为什么终端中查看返回值却返回了255呢？<br><br>&emsp;&emsp;因为<code>status</code>只有<strong>低8位</strong>可以被父进程查看到返回值信息，也就是说返回值信息一共只有255条，如果我们返回-1，实际上返回了255。</p>
+<h3 id="exit-1"><a href="#exit-1" class="headerlink" title="exit"></a>exit</h3><p>&emsp;&emsp;<code>exit()</code>也为退出函数，但是在退出进程前会对进程多很多的处理随后调用<code>_exit()</code>退出进程。这些退出前的处理包括：<br><br>&emsp;&emsp;1、执行用户自定义的清理函数——<code>atexit</code>或<code>on_exit</code>。<br><br>&emsp;&emsp;2、会关闭所有打开的流，所有的缓存数据都会被写入。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">exit1.c</span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;                  </span><br><span class="line">  printf(&quot;Misaki&quot;);</span><br><span class="line">  exit(0);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exit2.c</span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt; </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  printf(&quot;Misaki&quot;);</span><br><span class="line">  _exit(0);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[misaki@localhost process]$ ./exit2</span><br><span class="line">[misaki@localhost process]$ ./exit1</span><br><span class="line">Misaki[misaki@localhost process]$</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这个例子可以看出<code>exit()</code>退出进程会将缓冲区中的数据全部写入，但是<code>_exit()</code>却没有这些处理。</p>
+<h2 id="进程等待"><a href="#进程等待" class="headerlink" title="进程等待"></a>进程等待</h2><p>&emsp;&emsp;所谓进程等待是父进程等待子进程的终止并且得到子进程的退出信息，防止产生僵尸进程。进程等待是一种防止僵尸进程长生的重要方法，在合适的时间进行进程等待可以防止僵尸进程，确保不会产生内存泄漏，白白浪费资源。</p>
+<h3 id="wait"><a href="#wait" class="headerlink" title="wait()"></a>wait()</h3><p>&emsp;&emsp;这个函数是最为基本的进程等待函数，原型为：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<br>pid_t wait(int *status);<br><br>&emsp;&emsp;返回等待到的子进程的pid，<code>status</code>为返回型参数，返回等待到的子进程的退出信息。但是如果在等待期间为等待到子进程会阻塞父进程一直等待子进程，因此必须要在合适的时间进行进程等待，不然也会影响父进程的执行速度。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">/*进程等待-避免产生建时进程*/                </span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;sys/wait.h&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int pid = fork();</span><br><span class="line">    if (pid &lt; 0) &#123;</span><br><span class="line">        perror(&quot;fork error&quot;);</span><br><span class="line">        exit(-1);</span><br><span class="line">    &#125;else if (pid == 0) &#123;</span><br><span class="line">      //child</span><br><span class="line">      printf(&quot;child = %d\n&quot;, getpid());</span><br><span class="line">      sleep(5);</span><br><span class="line">      exit(1);</span><br><span class="line">    &#125;</span><br><span class="line">    //pid_t wait(int *status);</span><br><span class="line">    //  等待任意一个子进程退出</span><br><span class="line">    //  status：用于退出返回值</span><br><span class="line">    //  返回值：返回退出子进程的pid； 出错:-1</span><br><span class="line">    int status;</span><br><span class="line">    pid_t pid2 = wait(&amp;status);</span><br><span class="line">    printf(&quot;pid = %d\n&quot;, pid2);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;            </span><br><span class="line"></span><br><span class="line">[misaki@localhost process]$ ./wait</span><br><span class="line">child = 4843</span><br><span class="line">pid = 4843</span><br><span class="line">status = 256</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这里我们已经等待到了我们的子进程退出，但是会发现返回的信息却不对，这是为什么呢？<br><br>&emsp;&emsp;<code>status</code>的值不能单纯的看作是一个整形，而是应该用位图来理解。我们只讨论<code>status</code>的低16位。<br><br>&emsp;&emsp;<code>status</code>的低7位用来保存异常终止信息，如果程序正常退出则低7位为0，否则会在低七位保存终止信号以及<code>core dump标志</code>及产生核心转储文件的标志。而高位才会保留我们自己返回的退出信息。并且C语言已经为我们实现准备好了宏来验证低7位是否为0以及提取高位返回信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">/*进程等待-避免产生建时进程*/                </span><br><span class="line">                               </span><br><span class="line">#include &lt;stdio.h&gt;                           </span><br><span class="line">#include &lt;unistd.h&gt;         </span><br><span class="line">#include &lt;stdlib.h&gt;               </span><br><span class="line">#include &lt;sys/wait.h&gt;             </span><br><span class="line">                                  </span><br><span class="line">int main()           </span><br><span class="line">&#123;                                            </span><br><span class="line">    int pid = fork();                        </span><br><span class="line">    if (pid &lt; 0) &#123;                           </span><br><span class="line">        perror(&quot;fork error&quot;);             </span><br><span class="line">        exit(-1);  </span><br><span class="line">    &#125;else if (pid == 0) &#123;</span><br><span class="line">      //child           </span><br><span class="line">      printf(&quot;child = %d\n&quot;, getpid());     </span><br><span class="line">      exit(1);              </span><br><span class="line">    &#125;                                        </span><br><span class="line">    //pid_t wait(int *status);</span><br><span class="line">    //  等待任意一个子进程退出               </span><br><span class="line">    //  status：用于退出返回值</span><br><span class="line">    //  返回值：返回退出子进程的pid； 出错:-1</span><br><span class="line">    int status;</span><br><span class="line">    pid_t pid2 = wait(&amp;status);</span><br><span class="line">    printf(&quot;pid = %d\n&quot;, pid2);</span><br><span class="line">    if (WIFEXITED(status)) &#123;</span><br><span class="line">        printf(&quot;child exit code:%d\n&quot;, WEXITSTATUS(status));</span><br><span class="line">    &#125;</span><br><span class="line">    //WIFSIGNALED()若WIFEXITED为真则提取子进程退出码。</span><br><span class="line">    if (WIFSIGNALED(status)) &#123;</span><br><span class="line">        printf(&quot;exit signal:%d\n&quot;, WTERMSIG(status));</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost process]$ ./wait</span><br><span class="line">child = 5529</span><br><span class="line">pid = 5529</span><br><span class="line">child exit code:1</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这样我们返回的信息码就被打印出来了。</p>
+<h3 id="waitpid"><a href="#waitpid" class="headerlink" title="waitpid()"></a>waitpid()</h3><p>&emsp;&emsp;<code>waitpid()</code>比<code>wait()</code>功能更加全面，它拥有更多的选项，可以在不阻塞父进程的情况下进行进程等待。原型：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>pid_t waitpid(pid_t pid, int *status, int options);</code><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">/*进程等待-避免产生建时进程*/           </span><br><span class="line">                     </span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;          </span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;sys/wait.h&gt;    </span><br><span class="line">             </span><br><span class="line">int main()                             </span><br><span class="line">&#123;              </span><br><span class="line">    int pid = fork();</span><br><span class="line">    if (pid &lt; 0) &#123;</span><br><span class="line">        perror(&quot;fork error&quot;); </span><br><span class="line">        exit(-1);             </span><br><span class="line">    &#125;else if (pid == 0) &#123;     </span><br><span class="line">      //child                           </span><br><span class="line">      printf(&quot;child = %d\n&quot;, getpid());</span><br><span class="line">      sleep(5);                         </span><br><span class="line">      exit(1);              </span><br><span class="line">    &#125;                             </span><br><span class="line">    int status;</span><br><span class="line">    //pid_t waitpid(pid_t pid, int *status, int options);</span><br><span class="line">    //  pid:    指定的进程id</span><br><span class="line">    //          -1  等待任意子进程</span><br><span class="line">    //          &gt;0  等待指定子进程</span><br><span class="line">    //  status：    用于获取返回值</span><br><span class="line">    //  options：选项</span><br><span class="line">    //          WNOHANG     将waitpid设置为非阻塞</span><br><span class="line">    //  返回值：&lt;0:出错     ==0:没有子进程退出   &gt;0: 退出子进程的pid</span><br><span class="line">    while (waitpid(pid, &amp;status, WNOHANG) == 0) &#123;</span><br><span class="line">      printf(&quot;no exit~~~smoking~~\n&quot;);</span><br><span class="line">      sleep(1);</span><br><span class="line">    &#125;</span><br><span class="line">    //低7位为0则正常退出</span><br><span class="line">    //WIFEXITED()验证低7为是否为0，为0则为真</span><br><span class="line">    if (WIFEXITED(status)) &#123;</span><br><span class="line">        printf(&quot;child exit code:%d\n&quot;, WEXITSTATUS(status));</span><br><span class="line">    &#125;</span><br><span class="line">    //WIFSIGNALED()若WIFEXITED为真则提取子进程退出码。</span><br><span class="line">    if (WIFSIGNALED(status)) &#123;</span><br><span class="line">        printf(&quot;exit signal:%d\n&quot;, WTERMSIG(status));</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;           </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost process]$ ./wait</span><br><span class="line">no exit~~~smoking~~</span><br><span class="line">child = 6031</span><br><span class="line">no exit~~~smoking~~</span><br><span class="line">no exit~~~smoking~~</span><br><span class="line">no exit~~~smoking~~</span><br><span class="line">no exit~~~smoking~~</span><br><span class="line">child exit code:1</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;<code>waitpid()</code>可以不阻塞父进程，只等待一下如果当前没有子进程终止则便会继续执行父进程。</p>
+<h2 id="进程替换"><a href="#进程替换" class="headerlink" title="进程替换"></a>进程替换</h2><p>&emsp;&emsp;我们在创建子进程时现在往往只能让子进程执行和父进程一样的代码，这样我们想让子进程去执行另外的功能就需要用到进程替换。进程替换要用到<code>exec</code>系函数。我们先把他们的函数原型都先列出来再进行分析。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">int execl(const char *path, const char *arg, ...);</span><br><span class="line">int execlp(const char *file, const char *arg, ...);</span><br><span class="line">int execle(const char *path, const char *arg, ...,char *const envp[]);</span><br><span class="line">int execv(const char *path, char *const argv[]);</span><br><span class="line">int execvp(const char *file, char *const argv[]);</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;<code>exec</code>后跟不同的字符表示不同的功能：<br><br>&emsp;&emsp;1、<code>l</code>：参数使用列表列出，结尾用<code>NULL</code>表示结束。<br><br>&emsp;&emsp;2、<code>p</code>表示在环境变量中搜索参数，搜索到替换为环境变量中指定的文件。<br><br>&emsp;&emsp;3、<code>v</code>表示参数用数组传递，数组最后一个元素用<code>NULL</code>表示结束。<br><br>&emsp;&emsp;4、<code>e</code>表示需要自己传递环境变量。<br><br>&emsp;&emsp;在系统中<code>exec</code>族函数最终都会调用<code>execve</code>，系统中只有这一个是系统接口，而其他函数不过是在<code>execve</code>上进行了一次封装。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">exec.c:</span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  printf(&quot;Misaki\n&quot;);               </span><br><span class="line">  execl(&quot;./env&quot;, &quot;env&quot;, &quot;-l&quot;, NULL);</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">env.c:</span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">int main(int argc, char *argv[], char *env[])</span><br><span class="line">&#123;</span><br><span class="line">    int i;</span><br><span class="line">    for(i = 0; i &lt; argc; i++) &#123;                   </span><br><span class="line">        printf(&quot;argv[%d]=[%s]\n&quot;, i, argv[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    extern char **environ;</span><br><span class="line">    for (i = 0; environ[i] != NULL; i++) &#123;</span><br><span class="line">        printf(&quot;env[%d] = [%s]\n&quot;, i, environ[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    char *ptr = getenv(&quot;MYENV&quot;);</span><br><span class="line">    printf(&quot;MYENV:[%s]\n&quot;, ptr);</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost process]$ ./exec</span><br><span class="line">Misaki</span><br><span class="line">argv[0]=[env]</span><br><span class="line">argv[1]=[-l]</span><br><span class="line">env[0] = [XDG_SESSION_ID=1]</span><br><span class="line">env[1] = [HOSTNAME=localhost.localdomain]</span><br><span class="line">env[2] = [SELINUX_ROLE_REQUESTED=]</span><br><span class="line">env[3] = [TERM=xterm]</span><br><span class="line">env[4] = [SHELL=/bin/bash]</span><br><span class="line">env[5] = [HISTSIZE=1000]</span><br><span class="line">…………</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这样我们在<code>exec.c</code>中执行了进程替换代码后就用<code>env.c</code>中的代码替换了<code>exec.c</code>中剩下的代码，于是打印出了我们传入的参数和环境变量。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读!-------------</div>
+    
+    </div>
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>记录学习每一分，感谢您的赞助</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="MisakiFx 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="MisakiFx 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/操作系统/" rel="tag"># 操作系统</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/14/【Linux】第六章-进程间通讯/" rel="next" title="【Linux】第六章-进程间通讯">
+                <i class="fa fa-chevron-left"></i> 【Linux】第六章-进程间通讯
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="MisakiFx" />
+            
+              <p class="site-author-name" itemprop="name">MisakiFx</p>
+              <p class="site-description motion-element" itemprop="description">Hard working or giving up!!!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/MisakiFx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1761607418@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope-open"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://music.163.com/#/user/home?id=432551242" target="_blank" title="网易云音乐">
+                      
+                        <i class="fa fa-fw fa-music"></i>网易云音乐</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/qq_41669298" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-crosshairs"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第四章-进程控制"><span class="nav-number">1.</span> <span class="nav-text">第四章 进程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程创建"><span class="nav-number">1.1.</span> <span class="nav-text">进程创建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fork"><span class="nav-number">1.1.1.</span> <span class="nav-text">fork()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vfork"><span class="nav-number">1.1.2.</span> <span class="nav-text">vfork()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程终止"><span class="nav-number">1.2.</span> <span class="nav-text">进程终止</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#exit"><span class="nav-number">1.2.1.</span> <span class="nav-text">_exit()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exit-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">exit</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程等待"><span class="nav-number">1.3.</span> <span class="nav-text">进程等待</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#wait"><span class="nav-number">1.3.1.</span> <span class="nav-text">wait()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#waitpid"><span class="nav-number">1.3.2.</span> <span class="nav-text">waitpid()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程替换"><span class="nav-number">1.4.</span> <span class="nav-text">进程替换</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        ﻿<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MisakiFx</span>
+
+  
+</div>
+
+
+<div class="powered-by">
+  <i class="fa fa-user-md"></i>
+  <span id="busuanzi_container_site_uv">
+    我的网站的访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+</div>
+
+
+
+<span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共83.1k字</span>
+</div>
+
+        ﻿
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+        <script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

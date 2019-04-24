@@ -264,7 +264,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/08/【Linux】第四章-进程控制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/24/【Linux】第四章-进程控制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MisakiFx">
@@ -283,7 +283,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/08/【Linux】第四章-进程控制/" itemprop="url">【Linux】第四章-进程控制</a></h1>
+                <a class="post-title-link" href="/2019/04/24/【Linux】第四章-进程控制/" itemprop="url">【Linux】第四章-进程控制</a></h1>
         
 
         <div class="post-meta">
@@ -295,8 +295,190 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-08T23:56:48+08:00">
-                2019-04-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-24T23:56:48+08:00">
+                2019-04-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.8k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第四章-进程控制"><a href="#第四章-进程控制" class="headerlink" title="第四章 进程控制"></a>第四章 进程控制</h1><h2 id="进程创建"><a href="#进程创建" class="headerlink" title="进程创建"></a>进程创建</h2><h3 id="fork"><a href="#fork" class="headerlink" title="fork()"></a>fork()</h3><p>&emsp;&emsp;<code>fork()</code>可以用于创建一个子进程，并且父进程返回其子进程的PID，子进程返回0。子进程会完全复制父进程的PCB并且会优先执行父进程。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> *</span><br><span class="line"> * fork初使用</span><br><span class="line"> * 通过复制调用进程，创建一个新的进程（子进程）</span><br><span class="line"> */</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  printf(&quot;parent pid = %d\n&quot;, getpid());</span><br><span class="line">  pid_t pid = fork();//复制了父进程的PCB，因此程序计数器也会跟父进程一致，因此子进程下一句执行的代码和父进程一致</span><br><span class="line">  printf(&quot;child1:%d\n&quot;, pid);</span><br><span class="line">  if(pid &lt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  else if(pid == 0)//fork有返回值，子进程返回0，父进程返回的是子进程的pid</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;child:%d\n&quot;, getpid());//得到当前进程的PID</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;parent:%d\n&quot;, getpid());//得到当前进程的PID                                                         </span><br><span class="line">  &#125;</span><br><span class="line">  printf(&quot;Misaki\n&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第三章]$ ./Creat</span><br><span class="line">parent pid = 6751</span><br><span class="line">child1:6752</span><br><span class="line">parent:6751</span><br><span class="line">Misaki</span><br><span class="line">child1:0</span><br><span class="line">child:6752</span><br><span class="line">Misaki</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;在创建子进程时，系统会完全复制一份相同的物理内存，共用相同的代码，但是这样会极大的浪费内存，在有些情况下如果我们只是单纯的让子进程重复父进程执行的操作，我们完全不需要复制一份物理内存，因此<strong>写时拷贝技术</strong>就会帮上我们很大的忙，在创建子进程时，并不会立刻复制一份物理内存，会优先使用同一份物理内存，直到父进程或者子进程出现了数据或者代码的修改才会分配新的物理内存空间，这样可以大大的减少内存空间的占用。<br><br>&emsp;&emsp;<code>fork()</code>创建的子进程会完全复制父进程的PCB但是完全复制一份PCB有时在对空间要求很严格的情况下会导致浪费很多的空间，因此我们就有了<code>vfork()</code>。</p>
+<h3 id="vfork"><a href="#vfork" class="headerlink" title="vfork()"></a>vfork()</h3><p>&emsp;&emsp;<code>vfork()</code>函数的基本功能与<code>fork()</code>一致但有不同的地方是<code>vfork()</code>创建完子进程会优先执行子进程，并且子进程不会完全复制父进程的PCB，为了节省空间子进程会和父进程共用一块虚拟内存，为了不导致调用栈混乱，子进程会阻塞父进程，也就是说父进程会在子进程退出或替换后才会执行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;                                </span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  pid_t pid = vfork();//创建子进程，阻塞父进程</span><br><span class="line">  while(1)</span><br><span class="line">  &#123;</span><br><span class="line">    if(pid == 0)</span><br><span class="line">    &#123;</span><br><span class="line">      //child</span><br><span class="line">      printf(&quot;----child!! pid:[%d]\n&quot;, getpid());</span><br><span class="line">      _exit(0);</span><br><span class="line">    &#125;</span><br><span class="line">    if(pid &gt; 0)</span><br><span class="line">    &#123;</span><br><span class="line">      printf(&quot;----parent!! pid:[%d]\n&quot;, getpid());</span><br><span class="line">    &#125;</span><br><span class="line">    sleep(1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;<code>vfork</code>和<code>fork</code>也会有调用失败的情况，比如说在系统中已经有了太多的进程或者用户的实际进程达到了上限，这样则系统不再允许我们创建新的进程。</p>
+<h2 id="进程终止"><a href="#进程终止" class="headerlink" title="进程终止"></a>进程终止</h2><p>&emsp;&emsp;进程退出往往分为以下几种方式，程序运行完毕正常退出和代码异常中止，我们平常使用的<code>ctrl + c</code>终止进程就是一种进程异常退出的方式，我们也可以通过调用接口和函数进行带退出状态的方式退出进程。</p>
+<h3 id="exit"><a href="#exit" class="headerlink" title="_exit()"></a>_exit()</h3><p>&emsp;&emsp;<code>_exit()</code>是一个函数，原型为：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<br><code>void _exit(int status);</code><br><br>&emsp;&emsp;可以让程序带状态进行退出，<code>status</code>是程序的退出状态，这个状态可以通过<code>wait()</code>函数接收到，也可以在命令行中通过<code>echo $?</code>命令进行查看。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;errno.h&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int pid = fork();</span><br><span class="line">    if (pid &lt; 0) &#123;</span><br><span class="line">        perror(&quot;fork error&quot;);</span><br><span class="line">        printf(&quot;fork error :%s\n&quot;, strerror(errno));</span><br><span class="line">    &#125;</span><br><span class="line">    sleep(1);                                       </span><br><span class="line">    _exit(-1);</span><br><span class="line">&#125;      </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost process]$ echo $?</span><br><span class="line">255</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;明明我们返回了-1为什么终端中查看返回值却返回了255呢？<br><br>&emsp;&emsp;因为<code>status</code>只有<strong>低8位</strong>可以被父进程查看到返回值信息，也就是说返回值信息一共只有255条，如果我们返回-1，实际上返回了255。</p>
+<h3 id="exit-1"><a href="#exit-1" class="headerlink" title="exit"></a>exit</h3><p>&emsp;&emsp;<code>exit()</code>也为退出函数，但是在退出进程前会对进程多很多的处理随后调用<code>_exit()</code>退出进程。这些退出前的处理包括：<br><br>&emsp;&emsp;1、执行用户自定义的清理函数——<code>atexit</code>或<code>on_exit</code>。<br><br>&emsp;&emsp;2、会关闭所有打开的流，所有的缓存数据都会被写入。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">exit1.c</span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;                  </span><br><span class="line">  printf(&quot;Misaki&quot;);</span><br><span class="line">  exit(0);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exit2.c</span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt; </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  printf(&quot;Misaki&quot;);</span><br><span class="line">  _exit(0);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[misaki@localhost process]$ ./exit2</span><br><span class="line">[misaki@localhost process]$ ./exit1</span><br><span class="line">Misaki[misaki@localhost process]$</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这个例子可以看出<code>exit()</code>退出进程会将缓冲区中的数据全部写入，但是<code>_exit()</code>却没有这些处理。</p>
+<h2 id="进程等待"><a href="#进程等待" class="headerlink" title="进程等待"></a>进程等待</h2><p>&emsp;&emsp;所谓进程等待是父进程等待子进程的终止并且得到子进程的退出信息，防止产生僵尸进程。进程等待是一种防止僵尸进程长生的重要方法，在合适的时间进行进程等待可以防止僵尸进程，确保不会产生内存泄漏，白白浪费资源。</p>
+<h3 id="wait"><a href="#wait" class="headerlink" title="wait()"></a>wait()</h3><p>&emsp;&emsp;这个函数是最为基本的进程等待函数，原型为：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<br>pid_t wait(int *status);<br><br>&emsp;&emsp;返回等待到的子进程的pid，<code>status</code>为返回型参数，返回等待到的子进程的退出信息。但是如果在等待期间为等待到子进程会阻塞父进程一直等待子进程，因此必须要在合适的时间进行进程等待，不然也会影响父进程的执行速度。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">/*进程等待-避免产生建时进程*/                </span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;sys/wait.h&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int pid = fork();</span><br><span class="line">    if (pid &lt; 0) &#123;</span><br><span class="line">        perror(&quot;fork error&quot;);</span><br><span class="line">        exit(-1);</span><br><span class="line">    &#125;else if (pid == 0) &#123;</span><br><span class="line">      //child</span><br><span class="line">      printf(&quot;child = %d\n&quot;, getpid());</span><br><span class="line">      sleep(5);</span><br><span class="line">      exit(1);</span><br><span class="line">    &#125;</span><br><span class="line">    //pid_t wait(int *status);</span><br><span class="line">    //  等待任意一个子进程退出</span><br><span class="line">    //  status：用于退出返回值</span><br><span class="line">    //  返回值：返回退出子进程的pid； 出错:-1</span><br><span class="line">    int status;</span><br><span class="line">    pid_t pid2 = wait(&amp;status);</span><br><span class="line">    printf(&quot;pid = %d\n&quot;, pid2);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;            </span><br><span class="line"></span><br><span class="line">[misaki@localhost process]$ ./wait</span><br><span class="line">child = 4843</span><br><span class="line">pid = 4843</span><br><span class="line">status = 256</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这里我们已经等待到了我们的子进程退出，但是会发现返回的信息却不对，这是为什么呢？<br><br>&emsp;&emsp;<code>status</code>的值不能单纯的看作是一个整形，而是应该用位图来理解。我们只讨论<code>status</code>的低16位。<br><br>&emsp;&emsp;<code>status</code>的低7位用来保存异常终止信息，如果程序正常退出则低7位为0，否则会在低七位保存终止信号以及<code>core dump标志</code>及产生核心转储文件的标志。而高位才会保留我们自己返回的退出信息。并且C语言已经为我们实现准备好了宏来验证低7位是否为0以及提取高位返回信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">/*进程等待-避免产生建时进程*/                </span><br><span class="line">                               </span><br><span class="line">#include &lt;stdio.h&gt;                           </span><br><span class="line">#include &lt;unistd.h&gt;         </span><br><span class="line">#include &lt;stdlib.h&gt;               </span><br><span class="line">#include &lt;sys/wait.h&gt;             </span><br><span class="line">                                  </span><br><span class="line">int main()           </span><br><span class="line">&#123;                                            </span><br><span class="line">    int pid = fork();                        </span><br><span class="line">    if (pid &lt; 0) &#123;                           </span><br><span class="line">        perror(&quot;fork error&quot;);             </span><br><span class="line">        exit(-1);  </span><br><span class="line">    &#125;else if (pid == 0) &#123;</span><br><span class="line">      //child           </span><br><span class="line">      printf(&quot;child = %d\n&quot;, getpid());     </span><br><span class="line">      exit(1);              </span><br><span class="line">    &#125;                                        </span><br><span class="line">    //pid_t wait(int *status);</span><br><span class="line">    //  等待任意一个子进程退出               </span><br><span class="line">    //  status：用于退出返回值</span><br><span class="line">    //  返回值：返回退出子进程的pid； 出错:-1</span><br><span class="line">    int status;</span><br><span class="line">    pid_t pid2 = wait(&amp;status);</span><br><span class="line">    printf(&quot;pid = %d\n&quot;, pid2);</span><br><span class="line">    if (WIFEXITED(status)) &#123;</span><br><span class="line">        printf(&quot;child exit code:%d\n&quot;, WEXITSTATUS(status));</span><br><span class="line">    &#125;</span><br><span class="line">    //WIFSIGNALED()若WIFEXITED为真则提取子进程退出码。</span><br><span class="line">    if (WIFSIGNALED(status)) &#123;</span><br><span class="line">        printf(&quot;exit signal:%d\n&quot;, WTERMSIG(status));</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost process]$ ./wait</span><br><span class="line">child = 5529</span><br><span class="line">pid = 5529</span><br><span class="line">child exit code:1</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这样我们返回的信息码就被打印出来了。</p>
+<h3 id="waitpid"><a href="#waitpid" class="headerlink" title="waitpid()"></a>waitpid()</h3><p>&emsp;&emsp;<code>waitpid()</code>比<code>wait()</code>功能更加全面，它拥有更多的选项，可以在不阻塞父进程的情况下进行进程等待。原型：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>pid_t waitpid(pid_t pid, int *status, int options);</code><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">/*进程等待-避免产生建时进程*/           </span><br><span class="line">                     </span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;          </span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;sys/wait.h&gt;    </span><br><span class="line">             </span><br><span class="line">int main()                             </span><br><span class="line">&#123;              </span><br><span class="line">    int pid = fork();</span><br><span class="line">    if (pid &lt; 0) &#123;</span><br><span class="line">        perror(&quot;fork error&quot;); </span><br><span class="line">        exit(-1);             </span><br><span class="line">    &#125;else if (pid == 0) &#123;     </span><br><span class="line">      //child                           </span><br><span class="line">      printf(&quot;child = %d\n&quot;, getpid());</span><br><span class="line">      sleep(5);                         </span><br><span class="line">      exit(1);              </span><br><span class="line">    &#125;                             </span><br><span class="line">    int status;</span><br><span class="line">    //pid_t waitpid(pid_t pid, int *status, int options);</span><br><span class="line">    //  pid:    指定的进程id</span><br><span class="line">    //          -1  等待任意子进程</span><br><span class="line">    //          &gt;0  等待指定子进程</span><br><span class="line">    //  status：    用于获取返回值</span><br><span class="line">    //  options：选项</span><br><span class="line">    //          WNOHANG     将waitpid设置为非阻塞</span><br><span class="line">    //  返回值：&lt;0:出错     ==0:没有子进程退出   &gt;0: 退出子进程的pid</span><br><span class="line">    while (waitpid(pid, &amp;status, WNOHANG) == 0) &#123;</span><br><span class="line">      printf(&quot;no exit~~~smoking~~\n&quot;);</span><br><span class="line">      sleep(1);</span><br><span class="line">    &#125;</span><br><span class="line">    //低7位为0则正常退出</span><br><span class="line">    //WIFEXITED()验证低7为是否为0，为0则为真</span><br><span class="line">    if (WIFEXITED(status)) &#123;</span><br><span class="line">        printf(&quot;child exit code:%d\n&quot;, WEXITSTATUS(status));</span><br><span class="line">    &#125;</span><br><span class="line">    //WIFSIGNALED()若WIFEXITED为真则提取子进程退出码。</span><br><span class="line">    if (WIFSIGNALED(status)) &#123;</span><br><span class="line">        printf(&quot;exit signal:%d\n&quot;, WTERMSIG(status));</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;           </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost process]$ ./wait</span><br><span class="line">no exit~~~smoking~~</span><br><span class="line">child = 6031</span><br><span class="line">no exit~~~smoking~~</span><br><span class="line">no exit~~~smoking~~</span><br><span class="line">no exit~~~smoking~~</span><br><span class="line">no exit~~~smoking~~</span><br><span class="line">child exit code:1</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;<code>waitpid()</code>可以不阻塞父进程，只等待一下如果当前没有子进程终止则便会继续执行父进程。</p>
+<h2 id="进程替换"><a href="#进程替换" class="headerlink" title="进程替换"></a>进程替换</h2><p>&emsp;&emsp;我们在创建子进程时现在往往只能让子进程执行和父进程一样的代码，这样我们想让子进程去执行另外的功能就需要用到进程替换。进程替换要用到<code>exec</code>系函数。我们先把他们的函数原型都先列出来再进行分析。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">int execl(const char *path, const char *arg, ...);</span><br><span class="line">int execlp(const char *file, const char *arg, ...);</span><br><span class="line">int execle(const char *path, const char *arg, ...,char *const envp[]);</span><br><span class="line">int execv(const char *path, char *const argv[]);</span><br><span class="line">int execvp(const char *file, char *const argv[]);</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;<code>exec</code>后跟不同的字符表示不同的功能：<br><br>&emsp;&emsp;1、<code>l</code>：参数使用列表列出，结尾用<code>NULL</code>表示结束。<br><br>&emsp;&emsp;2、<code>p</code>表示在环境变量中搜索参数，搜索到替换为环境变量中指定的文件。<br><br>&emsp;&emsp;3、<code>v</code>表示参数用数组传递，数组最后一个元素用<code>NULL</code>表示结束。<br><br>&emsp;&emsp;4、<code>e</code>表示需要自己传递环境变量。<br><br>&emsp;&emsp;在系统中<code>exec</code>族函数最终都会调用<code>execve</code>，系统中只有这一个是系统接口，而其他函数不过是在<code>execve</code>上进行了一次封装。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">exec.c:</span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  printf(&quot;Misaki\n&quot;);               </span><br><span class="line">  execl(&quot;./env&quot;, &quot;env&quot;, &quot;-l&quot;, NULL);</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">env.c:</span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">int main(int argc, char *argv[], char *env[])</span><br><span class="line">&#123;</span><br><span class="line">    int i;</span><br><span class="line">    for(i = 0; i &lt; argc; i++) &#123;                   </span><br><span class="line">        printf(&quot;argv[%d]=[%s]\n&quot;, i, argv[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    extern char **environ;</span><br><span class="line">    for (i = 0; environ[i] != NULL; i++) &#123;</span><br><span class="line">        printf(&quot;env[%d] = [%s]\n&quot;, i, environ[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    char *ptr = getenv(&quot;MYENV&quot;);</span><br><span class="line">    printf(&quot;MYENV:[%s]\n&quot;, ptr);</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost process]$ ./exec</span><br><span class="line">Misaki</span><br><span class="line">argv[0]=[env]</span><br><span class="line">argv[1]=[-l]</span><br><span class="line">env[0] = [XDG_SESSION_ID=1]</span><br><span class="line">env[1] = [HOSTNAME=localhost.localdomain]</span><br><span class="line">env[2] = [SELINUX_ROLE_REQUESTED=]</span><br><span class="line">env[3] = [TERM=xterm]</span><br><span class="line">env[4] = [SHELL=/bin/bash]</span><br><span class="line">env[5] = [HISTSIZE=1000]</span><br><span class="line">…………</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这样我们在<code>exec.c</code>中执行了进程替换代码后就用<code>env.c</code>中的代码替换了<code>exec.c</code>中剩下的代码，于是打印出了我们传入的参数和环境变量。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/14/【Linux】第六章-进程间通讯/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/14/【Linux】第六章-进程间通讯/" itemprop="url">【Linux】第六章-进程间通讯</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T11:13:07+08:00">
+                2019-04-14
               </time>
             
 
@@ -1766,195 +1948,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/13/【MySQL】第七章-复合查询/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/13/【MySQL】第七章-复合查询/" itemprop="url">【MySQL】第七章-复合查询</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-13T16:51:53+08:00">
-                2019-02-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index">
-                    <span itemprop="name">MySQL</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.8k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第七章-复合查询"><a href="#第七章-复合查询" class="headerlink" title="第七章 复合查询"></a>第七章 复合查询</h1><p>&emsp;&emsp;之前我们所讲的查询都是来自于一张表，然后有很多种方式进行查询，但在实际开发中这可能远远不够，因此本章的复合查询就是一些关于多表张表一块进行查询的操作。</p>
-<h2 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h2><p>&emsp;&emsp;本次示例一共用三张表来进行，建表过程省略，以下进行表内容的展示。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [scott]&gt; show tables;</span><br><span class="line">+-----------------+</span><br><span class="line">| Tables_in_scott |</span><br><span class="line">+-----------------+</span><br><span class="line">| dept            |</span><br><span class="line">| emp             |</span><br><span class="line">| salgrade        |</span><br><span class="line">+-----------------+</span><br><span class="line">3 rows in set (0.00 sec)</span><br><span class="line">MariaDB [scott]&gt; select * from dept;</span><br><span class="line">+--------+------------+----------+</span><br><span class="line">| deptno | dname      | loc      |</span><br><span class="line">+--------+------------+----------+</span><br><span class="line">|     10 | ACCOUNTING | NEW YORK |</span><br><span class="line">|     20 | RESEARCH   | DALLAS   |</span><br><span class="line">|     30 | SALES      | CHICAGO  |</span><br><span class="line">|     40 | OPERATIONS | BOSTON   |</span><br><span class="line">+--------+------------+----------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br><span class="line">MariaDB [scott]&gt; select * from emp;</span><br><span class="line">+--------+--------+-----------+------+---------------------+---------+---------+--------+</span><br><span class="line">| empno  | ename  | job       | mgr  | hiredate            | sal     | comm    | deptno |</span><br><span class="line">+--------+--------+-----------+------+---------------------+---------+---------+--------+</span><br><span class="line">| 007369 | SMITH  | CLERK     | 7902 | 1980-12-17 00:00:00 |  800.00 |    NULL |     20 |</span><br><span class="line">| 007499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 00:00:00 | 1600.00 |  300.00 |     30 |</span><br><span class="line">| 007521 | WARD   | SALESMAN  | 7698 | 1981-02-22 00:00:00 | 1250.00 |  500.00 |     30 |</span><br><span class="line">| 007566 | JONES  | MANAGER   | 7839 | 1981-04-02 00:00:00 | 2975.00 |    NULL |     20 |</span><br><span class="line">| 007654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 00:00:00 | 1250.00 | 1400.00 |     30 |</span><br><span class="line">| 007698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 00:00:00 | 2850.00 |    NULL |     30 |</span><br><span class="line">| 007782 | CLARK  | MANAGER   | 7839 | 1981-06-09 00:00:00 | 2450.00 |    NULL |     10 |</span><br><span class="line">| 007788 | SCOTT  | ANALYST   | 7566 | 1987-04-19 00:00:00 | 3000.00 |    NULL |     20 |</span><br><span class="line">| 007839 | KING   | PRESIDENT | NULL | 1981-11-17 00:00:00 | 5000.00 |    NULL |     10 |</span><br><span class="line">| 007844 | TURNER | SALESMAN  | 7698 | 1981-09-08 00:00:00 | 1500.00 |    0.00 |     30 |</span><br><span class="line">| 007876 | ADAMS  | CLERK     | 7788 | 1987-05-23 00:00:00 | 1100.00 |    NULL |     20 |</span><br><span class="line">| 007900 | JAMES  | CLERK     | 7698 | 1981-12-03 00:00:00 |  950.00 |    NULL |     30 |</span><br><span class="line">| 007902 | FORD   | ANALYST   | 7566 | 1981-12-03 00:00:00 | 3000.00 |    NULL |     20 |</span><br><span class="line">| 007934 | MILLER | CLERK     | 7782 | 1982-01-23 00:00:00 | 1300.00 |    NULL |     10 |</span><br><span class="line">+--------+--------+-----------+------+---------------------+---------+---------+--------+</span><br><span class="line">14 rows in set (0.00 sec)</span><br><span class="line">MariaDB [scott]&gt; select * from salgrade;</span><br><span class="line">+-------+-------+-------+</span><br><span class="line">| grade | losal | hisal |</span><br><span class="line">+-------+-------+-------+</span><br><span class="line">|     1 |   700 |  1200 |</span><br><span class="line">|     2 |  1201 |  1400 |</span><br><span class="line">|     3 |  1401 |  2000 |</span><br><span class="line">|     4 |  2001 |  3000 |</span><br><span class="line">|     5 |  3001 |  9999 |</span><br><span class="line">+-------+-------+-------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;接下来我们要显示雇员名、雇员工资以及所在部门的名字，由于这几条信息分布在<code>emp</code>表及<code>dept</code>表中，所以我们需要用到多表查询。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [scott]&gt; select emp.ename, emp.sal, dept.dname from emp, dept where emp.deptno = dept.deptno;</span><br><span class="line">+--------+---------+------------+</span><br><span class="line">| ename  | sal     | dname      |</span><br><span class="line">+--------+---------+------------+</span><br><span class="line">| SMITH  |  800.00 | RESEARCH   |</span><br><span class="line">| ALLEN  | 1600.00 | SALES      |</span><br><span class="line">| WARD   | 1250.00 | SALES      |</span><br><span class="line">| JONES  | 2975.00 | RESEARCH   |</span><br><span class="line">| MARTIN | 1250.00 | SALES      |</span><br><span class="line">| BLAKE  | 2850.00 | SALES      |</span><br><span class="line">| CLARK  | 2450.00 | ACCOUNTING |</span><br><span class="line">| SCOTT  | 3000.00 | RESEARCH   |</span><br><span class="line">| KING   | 5000.00 | ACCOUNTING |</span><br><span class="line">| TURNER | 1500.00 | SALES      |</span><br><span class="line">| ADAMS  | 1100.00 | RESEARCH   |</span><br><span class="line">| JAMES  |  950.00 | SALES      |</span><br><span class="line">| FORD   | 3000.00 | RESEARCH   |</span><br><span class="line">| MILLER | 1300.00 | ACCOUNTING |</span><br><span class="line">+--------+---------+------------+</span><br><span class="line">14 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;以上这段指令就是显示了<code>emp</code>表中的<code>ename,sal</code>和<code>dept</code>表中的<code>dname</code>字段，并且在最后加入了限定条件要求<code>emp</code>表中的<code>deptno</code>要和<code>dept</code>表中的<code>deptno</code>值相同，由此即可打印出相匹配的信息。<br><br>&emsp;&emsp;那么我们不加限定条件的话会怎样呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [scott]&gt; select emp.ename, emp.sal, dept.dname from emp, dept;</span><br><span class="line">+--------+---------+------------+</span><br><span class="line">| ename  | sal     | dname      |</span><br><span class="line">+--------+---------+------------+</span><br><span class="line">| SMITH  |  800.00 | ACCOUNTING |</span><br><span class="line">| SMITH  |  800.00 | RESEARCH   |</span><br><span class="line">| SMITH  |  800.00 | SALES      |</span><br><span class="line">| SMITH  |  800.00 | OPERATIONS |</span><br><span class="line">| ALLEN  | 1600.00 | ACCOUNTING |</span><br><span class="line">| ALLEN  | 1600.00 | RESEARCH   |</span><br><span class="line">| ALLEN  | 1600.00 | SALES      |</span><br><span class="line">| ALLEN  | 1600.00 | OPERATIONS |</span><br><span class="line">| WARD   | 1250.00 | ACCOUNTING |</span><br><span class="line">| WARD   | 1250.00 | RESEARCH   |</span><br><span class="line">| WARD   | 1250.00 | SALES      |</span><br><span class="line">| WARD   | 1250.00 | OPERATIONS |</span><br><span class="line">| JONES  | 2975.00 | ACCOUNTING |</span><br><span class="line">| JONES  | 2975.00 | RESEARCH   |</span><br><span class="line">| JONES  | 2975.00 | SALES      |</span><br><span class="line">| JONES  | 2975.00 | OPERATIONS |</span><br><span class="line">| MARTIN | 1250.00 | ACCOUNTING |</span><br><span class="line">| MARTIN | 1250.00 | RESEARCH   |</span><br><span class="line">| MARTIN | 1250.00 | SALES      |</span><br><span class="line">| MARTIN | 1250.00 | OPERATIONS |</span><br><span class="line">| BLAKE  | 2850.00 | ACCOUNTING |</span><br><span class="line">| BLAKE  | 2850.00 | RESEARCH   |</span><br><span class="line">| BLAKE  | 2850.00 | SALES      |</span><br><span class="line">| BLAKE  | 2850.00 | OPERATIONS |</span><br><span class="line">| CLARK  | 2450.00 | ACCOUNTING |</span><br><span class="line">| CLARK  | 2450.00 | RESEARCH   |</span><br><span class="line">| CLARK  | 2450.00 | SALES      |</span><br><span class="line">| CLARK  | 2450.00 | OPERATIONS |</span><br><span class="line">| SCOTT  | 3000.00 | ACCOUNTING |</span><br><span class="line">| SCOTT  | 3000.00 | RESEARCH   |</span><br><span class="line">| SCOTT  | 3000.00 | SALES      |</span><br><span class="line">| SCOTT  | 3000.00 | OPERATIONS |</span><br><span class="line">| KING   | 5000.00 | ACCOUNTING |</span><br><span class="line">| KING   | 5000.00 | RESEARCH   |</span><br><span class="line">| KING   | 5000.00 | SALES      |</span><br><span class="line">| KING   | 5000.00 | OPERATIONS |</span><br><span class="line">| TURNER | 1500.00 | ACCOUNTING |</span><br><span class="line">| TURNER | 1500.00 | RESEARCH   |</span><br><span class="line">| TURNER | 1500.00 | SALES      |</span><br><span class="line">| TURNER | 1500.00 | OPERATIONS |</span><br><span class="line">| ADAMS  | 1100.00 | ACCOUNTING |</span><br><span class="line">| ADAMS  | 1100.00 | RESEARCH   |</span><br><span class="line">| ADAMS  | 1100.00 | SALES      |</span><br><span class="line">| ADAMS  | 1100.00 | OPERATIONS |</span><br><span class="line">| JAMES  |  950.00 | ACCOUNTING |</span><br><span class="line">| JAMES  |  950.00 | RESEARCH   |</span><br><span class="line">| JAMES  |  950.00 | SALES      |</span><br><span class="line">| JAMES  |  950.00 | OPERATIONS |</span><br><span class="line">| FORD   | 3000.00 | ACCOUNTING |</span><br><span class="line">| FORD   | 3000.00 | RESEARCH   |</span><br><span class="line">| FORD   | 3000.00 | SALES      |</span><br><span class="line">| FORD   | 3000.00 | OPERATIONS |</span><br><span class="line">| MILLER | 1300.00 | ACCOUNTING |</span><br><span class="line">| MILLER | 1300.00 | RESEARCH   |</span><br><span class="line">| MILLER | 1300.00 | SALES      |</span><br><span class="line">| MILLER | 1300.00 | OPERATIONS |</span><br><span class="line">+--------+---------+------------+</span><br><span class="line">56 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;结果会如上所示，这有点像集合中的笛卡尔积，会将所有记录以此都匹配一遍。以下还有几个例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [scott]&gt; select ename, sal, dname from emp, dept where emp.deptno = dept.deptno and dept.deptno = 10;</span><br><span class="line">+--------+---------+------------+</span><br><span class="line">| ename  | sal     | dname      |</span><br><span class="line">+--------+---------+------------+</span><br><span class="line">| CLARK  | 2450.00 | ACCOUNTING |</span><br><span class="line">| KING   | 5000.00 | ACCOUNTING |</span><br><span class="line">| MILLER | 1300.00 | ACCOUNTING |</span><br><span class="line">+--------+---------+------------+</span><br><span class="line">3 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这个例子是打印部门号为10的部门名，员工和工资。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [scott]&gt; select ename, sal, grade from emp, salgrade where emp.sal between losal and hisal;</span><br><span class="line">+--------+---------+-------+</span><br><span class="line">| ename  | sal     | grade |</span><br><span class="line">+--------+---------+-------+</span><br><span class="line">| SMITH  |  800.00 |     1 |</span><br><span class="line">| ALLEN  | 1600.00 |     3 |</span><br><span class="line">| WARD   | 1250.00 |     2 |</span><br><span class="line">| JONES  | 2975.00 |     4 |</span><br><span class="line">| MARTIN | 1250.00 |     2 |</span><br><span class="line">| BLAKE  | 2850.00 |     4 |</span><br><span class="line">| CLARK  | 2450.00 |     4 |</span><br><span class="line">| SCOTT  | 3000.00 |     4 |</span><br><span class="line">| KING   | 5000.00 |     5 |</span><br><span class="line">| TURNER | 1500.00 |     3 |</span><br><span class="line">| ADAMS  | 1100.00 |     1 |</span><br><span class="line">| JAMES  |  950.00 |     1 |</span><br><span class="line">| FORD   | 3000.00 |     4 |</span><br><span class="line">| MILLER | 1300.00 |     2 |</span><br><span class="line">+--------+---------+-------+</span><br><span class="line">14 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这个例子是打印各个员工的姓名，工资，及工资级别。</p>
-<h2 id="自连接"><a href="#自连接" class="headerlink" title="自连接"></a>自连接</h2><p>&emsp;&emsp;自连接是在一张表中进行的连接查询<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [scott]&gt; select empno, ename from emp where emp.empno=(select mgr from emp where ename = &apos;ford&apos;);</span><br><span class="line">+--------+-------+</span><br><span class="line">| empno  | ename |</span><br><span class="line">+--------+-------+</span><br><span class="line">| 007566 | JONES |</span><br><span class="line">+--------+-------+</span><br><span class="line">1 row in set (0.02 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这个例子中，我们首先进行了后面括号中的查询，查询到了<code>ename</code>为<code>ford</code>的员工信息的<code>mgr</code>字段信息，然后再进行前半部分查询，查找<code>empno</code>为后半部分查找结果的所有员工的<code>empno</code>和<code>ename</code>信息。所以连起来就是查找了<code>empno</code>与<code>ename</code>为<code>ford</code>的<code>mgr</code>相等的员工的<code>empno</code>及<code>ename</code>值。这里用到了子查询的知识，在后面有详细讲解。<br><br>&emsp;&emsp;除了单一表的自连接我们还有多表的自连接，这里需要用到别名的配合。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [scott]&gt; select leader.empno, leader.ename from emp leader, emp worker where leader.empno = worker.mgr and worker.ename = &apos;ford&apos;;</span><br><span class="line">+--------+-------+</span><br><span class="line">| empno  | ename |</span><br><span class="line">+--------+-------+</span><br><span class="line">| 007566 | JONES |</span><br><span class="line">+--------+-------+</span><br><span class="line">1 row in set (0.01 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这里的功能和第一个例子的功能是一样的，但是用到了两张表，虽然两张表是相同的但是我们通过赋予不同的别名来达到识别不同的表的功能。</p>
-<h2 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h2><p>&emsp;&emsp;子查询是指嵌入在其他查询语句中的查询语句，往往能完成多次的更为复杂的查询工作。</p>
-<h3 id="单行子查询"><a href="#单行子查询" class="headerlink" title="单行子查询"></a>单行子查询</h3><p>&emsp;&emsp;单行子查询只满足查询结果的一个条件，往往最先执行的查询结果也只有一行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [scott]&gt; select * from emp where deptno = (select deptno from emp where ename = &apos;smith&apos;);</span><br><span class="line">+--------+-------+---------+------+---------------------+---------+------+--------+</span><br><span class="line">| empno  | ename | job     | mgr  | hiredate            | sal     | comm | deptno |</span><br><span class="line">+--------+-------+---------+------+---------------------+---------+------+--------+</span><br><span class="line">| 007369 | SMITH | CLERK   | 7902 | 1980-12-17 00:00:00 |  800.00 | NULL |     20 |</span><br><span class="line">| 007566 | JONES | MANAGER | 7839 | 1981-04-02 00:00:00 | 2975.00 | NULL |     20 |</span><br><span class="line">| 007788 | SCOTT | ANALYST | 7566 | 1987-04-19 00:00:00 | 3000.00 | NULL |     20 |</span><br><span class="line">| 007876 | ADAMS | CLERK   | 7788 | 1987-05-23 00:00:00 | 1100.00 | NULL |     20 |</span><br><span class="line">| 007902 | FORD  | ANALYST | 7566 | 1981-12-03 00:00:00 | 3000.00 | NULL |     20 |</span><br><span class="line">+--------+-------+---------+------+---------------------+---------+------+--------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这个例子是查找了和<code>smith</code>相同部门的员工的信息。这里我这先查找了<code>smith</code>的部门编号，然后找和他编号相同的员工的信息。</p>
-<h3 id="多行子查询"><a href="#多行子查询" class="headerlink" title="多行子查询"></a>多行子查询</h3><p>&emsp;&emsp;多行子查询往往首先查询的查询结果有很多条，这里需要用到几个关键字来进行条件控制。<br><br>&emsp;&emsp;<code>in</code>：表示某某条件其中一条相同即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [scott]&gt; select ename,job,sal,empno from emp where job in (select distinct job from emp</span><br><span class="line">    -&gt; where deptno=10) and deptno&lt;&gt;10;</span><br><span class="line">+-------+---------+---------+--------+</span><br><span class="line">| ename | job     | sal     | empno  |</span><br><span class="line">+-------+---------+---------+--------+</span><br><span class="line">| SMITH | CLERK   |  800.00 | 007369 |</span><br><span class="line">| JONES | MANAGER | 2975.00 | 007566 |</span><br><span class="line">| BLAKE | MANAGER | 2850.00 | 007698 |</span><br><span class="line">| ADAMS | CLERK   | 1100.00 | 007876 |</span><br><span class="line">| JAMES | CLERK   |  950.00 | 007900 |</span><br><span class="line">+-------+---------+---------+--------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;查询和10号部门的工作相同的雇员的名字，岗位，工资，部门号。（不包括10号部门本身的雇员）<br>&emsp;&emsp;<code>all</code>：表示全部。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [scott]&gt; select ename, sal, deptno from emp where sal &gt; all(select sal from emp where deptno=30);</span><br><span class="line">+-------+---------+--------+</span><br><span class="line">| ename | sal     | deptno |</span><br><span class="line">+-------+---------+--------+</span><br><span class="line">| JONES | 2975.00 |     20 |</span><br><span class="line">| SCOTT | 3000.00 |     20 |</span><br><span class="line">| KING  | 5000.00 |     10 |</span><br><span class="line">| FORD  | 3000.00 |     20 |</span><br><span class="line">+-------+---------+--------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;显示工资比30号部门的所有员工的工资还要搞得员工的姓名、工资和部门号。<br>&emsp;&emsp;<code>any</code>：表示多个里面选取任意个。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [scott]&gt; select ename, sal, deptno from emp where sal &gt; any(select sal from emp where deptno=30);</span><br><span class="line">+--------+---------+--------+</span><br><span class="line">| ename  | sal     | deptno |</span><br><span class="line">+--------+---------+--------+</span><br><span class="line">| ALLEN  | 1600.00 |     30 |</span><br><span class="line">| WARD   | 1250.00 |     30 |</span><br><span class="line">| JONES  | 2975.00 |     20 |</span><br><span class="line">| MARTIN | 1250.00 |     30 |</span><br><span class="line">| BLAKE  | 2850.00 |     30 |</span><br><span class="line">| CLARK  | 2450.00 |     10 |</span><br><span class="line">| SCOTT  | 3000.00 |     20 |</span><br><span class="line">| KING   | 5000.00 |     10 |</span><br><span class="line">| TURNER | 1500.00 |     30 |</span><br><span class="line">| ADAMS  | 1100.00 |     20 |</span><br><span class="line">| FORD   | 3000.00 |     20 |</span><br><span class="line">| MILLER | 1300.00 |     10 |</span><br><span class="line">+--------+---------+--------+</span><br><span class="line">12 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;显示工资比部门30的任意员工的工资搞得员工的姓名、工资和部门号。</p>
-<h3 id="多列子查询"><a href="#多列子查询" class="headerlink" title="多列子查询"></a>多列子查询</h3><p>&emsp;&emsp;我们之前的查找无论单行还是多行子查询返回的都只是一列数据，子查询所查找的都是单一字段。那么多列子查询中的子查询所返回就是多行多列的结果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [scott]&gt; select ename from emp where (deptno, job)=(select deptno, job from emp where ename=&apos;smith&apos;) and ename != &apos;smith&apos;;</span><br><span class="line">+-------+</span><br><span class="line">| ename |</span><br><span class="line">+-------+</span><br><span class="line">| ADAMS |</span><br><span class="line">+-------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这里就是利用了多列子查询做到了多个字段之间匹配的情况，查询出了和<code>smith</code>的部门和岗位完全相同的所有雇员，并且不含<code>smith</code>本人。</p>
-<h3 id="在from子句中使用子查询"><a href="#在from子句中使用子查询" class="headerlink" title="在from子句中使用子查询"></a>在from子句中使用子查询</h3><p>&emsp;&emsp;我们之前的子查询都是在<code>where</code>子句中进行嵌套查询的。而我们也可以在<code>from</code>子句中使用子查询，这样我们所查找的目标表就是子查询所返回的表。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [scott]&gt; select ename, deptno, sal, format(asal,2) from emp,(select avg(sal) asal, deptno dt from emp group by deptno) tmp where emp.sal &gt; tmp.asal and emp.deptno = tmp.dt;</span><br><span class="line">+-------+--------+---------+----------------+</span><br><span class="line">| ename | deptno | sal     | format(asal,2) |</span><br><span class="line">+-------+--------+---------+----------------+</span><br><span class="line">| ALLEN |     30 | 1600.00 | 1,566.67       |</span><br><span class="line">| JONES |     20 | 2975.00 | 2,175.00       |</span><br><span class="line">| BLAKE |     30 | 2850.00 | 1,566.67       |</span><br><span class="line">| SCOTT |     20 | 3000.00 | 2,175.00       |</span><br><span class="line">| KING  |     10 | 5000.00 | 2,916.67       |</span><br><span class="line">| FORD  |     20 | 3000.00 | 2,175.00       |</span><br><span class="line">+-------+--------+---------+----------------+</span><br><span class="line">6 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;显示高于自己部门平均工资的员工的姓名、部门、工资、平均工资。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [scott]&gt; select emp.ename, emp.sal, emp.deptno, ms from emp, (select max(sal) ms, deptno from emp group by deptno) tmp</span><br><span class="line">    -&gt; where emp.deptno = tmp.deptno and emp.sal = tmp.ms;</span><br><span class="line">+-------+---------+--------+---------+</span><br><span class="line">| ename | sal     | deptno | ms      |</span><br><span class="line">+-------+---------+--------+---------+</span><br><span class="line">| BLAKE | 2850.00 |     30 | 2850.00 |</span><br><span class="line">| SCOTT | 3000.00 |     20 | 3000.00 |</span><br><span class="line">| KING  | 5000.00 |     10 | 5000.00 |</span><br><span class="line">| FORD  | 3000.00 |     20 | 3000.00 |</span><br><span class="line">+-------+---------+--------+---------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;查找每个部门工资最高的人的姓名、工资、部门、最高工资。</p>
-<h3 id="合并查询"><a href="#合并查询" class="headerlink" title="合并查询"></a>合并查询</h3><p>&emsp;&emsp;在实际操作中我们往往会遇到需要将多个查询结果合并起来的查询，这样的操作我们成为合并查询。在这里我们要用到两个关键字。<br>&emsp;&emsp;<code>union</code>：该操作符用于取地两个结果集的并集。当使用该操作符时，会自动去掉结果集中的重复行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [scott]&gt; select ename, sal, job from emp where sal &gt; 2500 union</span><br><span class="line">    -&gt; select ename, sal, job from emp where job = &apos;manager&apos;;</span><br><span class="line">+-------+---------+-----------+</span><br><span class="line">| ename | sal     | job       |</span><br><span class="line">+-------+---------+-----------+</span><br><span class="line">| JONES | 2975.00 | MANAGER   |</span><br><span class="line">| BLAKE | 2850.00 | MANAGER   |</span><br><span class="line">| SCOTT | 3000.00 | ANALYST   |</span><br><span class="line">| KING  | 5000.00 | PRESIDENT |</span><br><span class="line">| FORD  | 3000.00 | ANALYST   |</span><br><span class="line">| CLARK | 2450.00 | MANAGER   |</span><br><span class="line">+-------+---------+-----------+</span><br><span class="line">6 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这样就将两个查询结果进行了合并。相当于取了查询结果的并集。<br>&emsp;&emsp;<code>union all</code>这个操作符是将两个结果集完全合并到一起，不会去掉其中的重复行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [scott]&gt; select ename, sal, job from emp where sal &gt; 2500 union all select ename, sal, job from emp where job = &apos;manager&apos;;</span><br><span class="line">+-------+---------+-----------+</span><br><span class="line">| ename | sal     | job       |</span><br><span class="line">+-------+---------+-----------+</span><br><span class="line">| JONES | 2975.00 | MANAGER   |</span><br><span class="line">| BLAKE | 2850.00 | MANAGER   |</span><br><span class="line">| SCOTT | 3000.00 | ANALYST   |</span><br><span class="line">| KING  | 5000.00 | PRESIDENT |</span><br><span class="line">| FORD  | 3000.00 | ANALYST   |</span><br><span class="line">| JONES | 2975.00 | MANAGER   |</span><br><span class="line">| BLAKE | 2850.00 | MANAGER   |</span><br><span class="line">| CLARK | 2450.00 | MANAGER   |</span><br><span class="line">+-------+---------+-----------+</span><br><span class="line">8 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;和<code>union</code>对比<code>union all</code>并没有去掉两个结果中的重复结果，比如<code>jones</code>的数据就在最终结果中出现了两次。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2009,7 +2002,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2128,7 +2121,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共80.3k字</span>
+  <span class="post-count">博客全站共83.1k字</span>
 </div>
 
         ﻿
