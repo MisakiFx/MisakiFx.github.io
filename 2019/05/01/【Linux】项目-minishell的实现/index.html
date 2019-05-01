@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="C语言,进阶," />
+  <meta name="keywords" content="项目,Linux," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="第八章 数据的存储&amp;emsp;&amp;emsp;从本章开始就正式进入了C语言进阶篇的学习，我们将从更为底层的角度思考C语言中更为复杂的机制和语法。 第一节基本数据类型&amp;emsp;&amp;emsp;C语言中的基本数据类型在初阶篇已经探讨过了，分为整形，浮点型，字符型与构造类型几个大类，每个类型都有着不同的容量，所占的内存大小也不尽相同，有的甚至在不同系统下都有着不同的大小因此必须在实核情境下选择合适的数据类型进">
-<meta name="keywords" content="C语言,进阶">
+<meta name="description" content="minishell的实现实现原理&amp;emsp;&amp;emsp;我们在这里手动实现一个小型的shell，可以用来处理我们一般常规的指令如ls，还可以附加参数-l，并且还可以进行重定向操作。&amp;emsp;&amp;emsp;实现原理很简单，我们将用户输入的字符串读取到我们的缓冲区中，然后首先遍历一遍整个缓冲区看是否存在重定向符&amp;gt;或者&amp;gt;&amp;gt;，并且将重定向符改为\0并且读取出重定向的文件，随后保存判断结果">
+<meta name="keywords" content="项目,Linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【C语言】第八章-数据的存储">
-<meta property="og:url" content="http://yoursite.com/2019/01/21/【C语言】第八章-数据的存储/index.html">
+<meta property="og:title" content="【Linux】项目-minishell的实现">
+<meta property="og:url" content="http://yoursite.com/2019/05/01/【Linux】项目-minishell的实现/index.html">
 <meta property="og:site_name" content="Misaki`s blog">
-<meta property="og:description" content="第八章 数据的存储&amp;emsp;&amp;emsp;从本章开始就正式进入了C语言进阶篇的学习，我们将从更为底层的角度思考C语言中更为复杂的机制和语法。 第一节基本数据类型&amp;emsp;&amp;emsp;C语言中的基本数据类型在初阶篇已经探讨过了，分为整形，浮点型，字符型与构造类型几个大类，每个类型都有着不同的容量，所占的内存大小也不尽相同，有的甚至在不同系统下都有着不同的大小因此必须在实核情境下选择合适的数据类型进">
+<meta property="og:description" content="minishell的实现实现原理&amp;emsp;&amp;emsp;我们在这里手动实现一个小型的shell，可以用来处理我们一般常规的指令如ls，还可以附加参数-l，并且还可以进行重定向操作。&amp;emsp;&amp;emsp;实现原理很简单，我们将用户输入的字符串读取到我们的缓冲区中，然后首先遍历一遍整个缓冲区看是否存在重定向符&amp;gt;或者&amp;gt;&amp;gt;，并且将重定向符改为\0并且读取出重定向的文件，随后保存判断结果">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-21T09:24:29.479Z">
+<meta property="og:updated_time" content="2019-05-01T13:36:47.468Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【C语言】第八章-数据的存储">
-<meta name="twitter:description" content="第八章 数据的存储&amp;emsp;&amp;emsp;从本章开始就正式进入了C语言进阶篇的学习，我们将从更为底层的角度思考C语言中更为复杂的机制和语法。 第一节基本数据类型&amp;emsp;&amp;emsp;C语言中的基本数据类型在初阶篇已经探讨过了，分为整形，浮点型，字符型与构造类型几个大类，每个类型都有着不同的容量，所占的内存大小也不尽相同，有的甚至在不同系统下都有着不同的大小因此必须在实核情境下选择合适的数据类型进">
+<meta name="twitter:title" content="【Linux】项目-minishell的实现">
+<meta name="twitter:description" content="minishell的实现实现原理&amp;emsp;&amp;emsp;我们在这里手动实现一个小型的shell，可以用来处理我们一般常规的指令如ls，还可以附加参数-l，并且还可以进行重定向操作。&amp;emsp;&amp;emsp;实现原理很简单，我们将用户输入的字符串读取到我们的缓冲区中，然后首先遍历一遍整个缓冲区看是否存在重定向符&amp;gt;或者&amp;gt;&amp;gt;，并且将重定向符改为\0并且读取出重定向的文件，随后保存判断结果">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/21/【C语言】第八章-数据的存储/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/05/01/【Linux】项目-minishell的实现/"/>
 
 
 
 
 
-  <title>【C语言】第八章-数据的存储 | Misaki`s blog</title>
+  <title>【Linux】项目-minishell的实现 | Misaki`s blog</title>
   
 
 
@@ -265,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/21/【C语言】第八章-数据的存储/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/01/【Linux】项目-minishell的实现/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MisakiFx">
@@ -282,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【C语言】第八章-数据的存储</h1>
+          <h1 class="post-title" itemprop="name headline">【Linux】项目-minishell的实现</h1>
         
 
         <div class="post-meta">
@@ -294,8 +294,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-21T02:50:42+08:00">
-                2019-01-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-01T17:00:10+08:00">
+                2019-05-01
               </time>
             
 
@@ -317,8 +317,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C语言进阶/" itemprop="url" rel="index">
-                    <span itemprop="name">C语言进阶</span>
+                  <a href="/categories/项目/" itemprop="url" rel="index">
+                    <span itemprop="name">项目</span>
                   </a>
                 </span>
 
@@ -348,7 +348,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.2k
+                  926
                 </span>
               
 
@@ -373,16 +373,8 @@
       
 
       
-        <h1 id="第八章-数据的存储"><a href="#第八章-数据的存储" class="headerlink" title="第八章 数据的存储"></a>第八章 数据的存储</h1><p>&emsp;&emsp;从本章开始就正式进入了C语言进阶篇的学习，我们将从更为底层的角度思考C语言中更为复杂的机制和语法。</p>
-<h2 id="第一节"><a href="#第一节" class="headerlink" title="第一节"></a>第一节</h2><h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><p>&emsp;&emsp;C语言中的基本数据类型在初阶篇已经探讨过了，分为整形，浮点型，字符型与构造类型几个大类，每个类型都有着不同的容量，所占的内存大小也不尽相同，有的甚至在不同系统下都有着不同的大小因此必须在实核情境下选择合适的数据类型进行使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">char        //字符数据类型，占1字节</span><br><span class="line">short       //短整型，占2字节</span><br><span class="line">int         //整形，占4字节</span><br><span class="line">long        //长整型，占4字节</span><br><span class="line">long long   //更长的整形，占8字节</span><br><span class="line">float       //单精度浮点数，占4字节</span><br><span class="line">double      //双精度浮点数，占8字节</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;其中整形数组类型分为有符号和无符号类型，无符号类型不能表示负数，否则会导致很严重的数据出错问题，关于为什么出错与数据在内存中的存储有很大的关系，之后我们会进行解释。</p>
-<h3 id="整形在内存中的存储"><a href="#整形在内存中的存储" class="headerlink" title="整形在内存中的存储"></a>整形在内存中的存储</h3><h4 id="大端字节序、小端字节序"><a href="#大端字节序、小端字节序" class="headerlink" title="大端字节序、小端字节序"></a>大端字节序、小端字节序</h4><p>&emsp;&emsp;数据在内存中的存储形式都是以二进制数的方式所表示的，比如说我们要将<code>int</code>型<code>8</code>这个十进制数存入内存，编译器会帮助我们将其转换为二进制形式<code>00000000 00000000 00000000 00001000</code>，一共32位，这里我们先不探讨数据在内存中是怎么转换为二进制形式进行存储的。这32位二进制一共是4个字节，系统会以每个字节为一个单位继续宁内存存储，因此为了方便起见，我们往往将内存中的数据以<strong>十六进制</strong>进行表示，因为1位十六进制数等于4位二进制数，也就是一个字节原本需要8位二进制表示，现在只需要用2位十六进制进行表示即可，通常我们在内存监视器中所看到的数据存储也大多是以十六进制进行表示的。将这么一串二进制转换为八进制即可表示为<code>00 00 00 08</code>。<strong>但是实际在内存中是以二进制进行存储的，在这里用十六进制是为了方便我们进行观察。</strong><br><br>&emsp;&emsp;之后就要将这么一串数据存入内存中了，但是就在这里问题出现了，我们是要将最高位1个字节的数据首先存储在低地址区，还是要将最低位1个字节的数据首先存储在低地址区呢？其实这两种存储方式都得到了实施，而具体的存储方式与我们电脑的<strong>CPU</strong>密切相关（其实也并不仅有CPU决定，具体来说是和环境也就是平台密切相关，但CPU占大头），因此在当前的市场就有了大小端字节序之称，专门用来用来区分这两种不同的数据在内存中的存储方式。<br><br>&emsp;&emsp;<strong>1、大端字节序：低位存储在高地址上，依然以以上的例子为例，则在内存中以这样的方式进行存储：<code>00 00 00 08</code>。</strong><br><br>&emsp;&emsp;<strong>2、小端字节序：低位存储在低地址上，依然以以上的例子为例，则在内存中以这样的方式进行存储：<code>08 00 00 00</code>。</strong><br><br>&emsp;&emsp;<strong><em>注意：大小端字节序仅仅决定数据在内存中的存储，并不会因此改变数据本身的值！！！</em></strong><br>&emsp;&emsp;有了以上的原理，我们即可使用代码验证我们当前的环境是大端还是小端了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int a = 0x11223344;</span><br><span class="line">  char* p = (char*)&amp;a;</span><br><span class="line">  if(*p == 0x11)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;大端！\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;小端！\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;通过以上的代码，我们将内存中的数据取头一个字节的数据进行验证的方法即可判断是大端还是小端。</p>
-<h4 id="整形在内存中的存储-1"><a href="#整形在内存中的存储-1" class="headerlink" title="整形在内存中的存储"></a>整形在内存中的存储</h4><p>&emsp;&emsp;接下来就是数据是如何转换为二进制并且在内存中进行储存的问题了。首先是整型是如何在内存中进行存储的呢？这就要牵扯到<strong>原码，补码，反码</strong>三个紧密联系的二进制码了。<br><br>&emsp;&emsp;计算机在内存中都是以<strong>补码</strong>的形式进行存储的，而我们直接将一个数转换成二进制的所形成的最多只能被称为<strong>原码</strong>其重要进行两步转换。<br></p>
-<h5 id="有符号整形"><a href="#有符号整形" class="headerlink" title="有符号整形"></a>有符号整形</h5><p>&emsp;&emsp;这里我们先以有符号进行演示，之后再讨论无符号。这次我们以<code>(int)-8</code>为例，在有符号的情况下，我们的数据会将第一位二进制留出来作为符号位，<code>0</code>表示正数，<code>1</code>表示负数，这也是为什么32位的整形在有符号的情况下最大值只能到21亿的原因，因为有一位被保留出来做了符号位。除过第一位我们将数据原本的值转换为二进制即可表示为<code>10000000 00000000 00000000 00001000</code>，这段代码即被称为<strong>原码</strong>。之后我们想要转换为补码还得先将其转换为反码，就是在原码的基础上，除过符号位外全部按位取反即可变为<code>11111111 11111111 11111111 11110111</code>这就是<strong>反码</strong>。之后我们只需再将反码 +1即可变为<strong>补码</strong><code>11111111 11111111 11111111 11111000</code>这就是实际上有符号整形在内存中的存储形式了。<br><br>&emsp;&emsp;而以上的转换过程只对负整数适用，而<strong>正整数的原反补码都相同。</strong></p>
-<h5 id="无符号整形"><a href="#无符号整形" class="headerlink" title="无符号整形"></a>无符号整形</h5><p>&emsp;&emsp;无符号整形与有符号整形基本类似，只是其省略了最高位的符号位而已，因此使得无符号的最大值比有符号整形最大值大了一倍，但也因此使得无符号整型无法表示负数。<br><br>&emsp;&emsp;但是在这里值得强调的一点是，一个数据存储在内存中进行存储，尽管存储的形式完全一致，内容也完全一致，但是我们使用不同的理解方法去理解，就会有完全不同的结果。这点我们从以下这个例子就可以看出来。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  unsigned int a = -1;</span><br><span class="line">  printf(&quot;%u\n&quot;, a);  </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">4294967295</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;从执行结果就可以看出其中的问题，在存储数据的时候我们虽然定义了一个无符号的整形，但是当我们存储负数时编译器也并不会报错，此使-1会按照有符号负整数的方式进行存储在内存中，<code>11111111 11111111 11111111 11111111</code>，但是当我们使用无符号将其进行打印时，编译器又会将此数据以无符号正整数的方式将其编译转换成十进制就得出了我们最终的结果，因此可以看出同一个数据有多种理解方式因此得出的结果也不尽相同，并且无符号数据类型同时也是十分危险的，十分容易出错，因此我并不推荐经常使用它们。<br><br>&emsp;&emsp;但是说了这么多我们为什么要如此大费周章使用补码存储数据呢？这又与我们电脑的cpu密切相关<br>了，由于我们的cpu只有加法器，我们想要更为方便与简单的处理减法以及表示负数我们就需要想出一种最为合理和简单方式，因此补码诞生了，这使得cpu可以将符号域与数值域共同参与运算，大大提高了运算效率，因此将数据存储为补码是必要的。</p>
-<h4 id="浮点型在内存中的存储"><a href="#浮点型在内存中的存储" class="headerlink" title="浮点型在内存中的存储"></a>浮点型在内存中的存储</h4><p>&emsp;&emsp;关于浮点型在内存中的存储十分复杂，在这里只作简单讲解。<br><br>&emsp;&emsp;首先浮点型在内存中的存储与整形可以说是天差地别。根据国际标准IEEE的规定，任意一个二进制浮点数可以表示为以下的形式<code>(-1) ^ S * M * 2 ^ E</code>，然而其中E和M的大小共同决定着这个数据的精度，而<code>double</code>之所以比<code>float</code>进度更高也是因为其在数据存储域的划分上有着更多的存储空间，关于其中的细节，还有着十分严密甚至是严苛的规定和标准，具体请参考<strong>IEEE 754</strong>。</p>
+        <h1 id="minishell的实现"><a href="#minishell的实现" class="headerlink" title="minishell的实现"></a>minishell的实现</h1><h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><p>&emsp;&emsp;我们在这里手动实现一个小型的shell，可以用来处理我们一般常规的指令如<code>ls</code>，还可以附加参数<code>-l</code>，并且还可以进行重定向操作。<br><br>&emsp;&emsp;实现原理很简单，我们将用户输入的字符串读取到我们的缓冲区中，然后首先遍历一遍整个缓冲区看是否存在重定向符<code>&gt;</code>或者<code>&gt;&gt;</code>，并且将重定向符改为<code>\0</code>并且读取出重定向的文件，随后保存判断结果。之后我们再次遍历一遍进行指令处理，我们利用字符指针数组让每一个指针指向每一个指令，并且将之间的空白符如<code>(空格)</code>改为<code>\0</code>。做完以上这一切，创建子进程利用进程替换将其替换为目标指令中的程序让其执行指定功能，如果有重定向符要先打开指定文件并且将标准输入重定向到指定文件中，者必须在子进程中完成，然后等待子进程关闭，父进程阻塞，并且让以上过程不断循环即可。</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><span class="line">/*minishell实现*/                                          </span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;    </span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;                </span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;ctype.h&gt;       </span><br><span class="line">#include &lt;sys/wait.h&gt;</span><br><span class="line">char buf[1024] = &#123;0&#125;;</span><br><span class="line">char* argv[32];      </span><br><span class="line">int argc = 0;                                              </span><br><span class="line">                                              </span><br><span class="line">//指令输入到缓冲区中</span><br><span class="line">void do_face()      </span><br><span class="line">&#123;                             </span><br><span class="line">  printf(&quot;[san@localhost]$ &quot;);</span><br><span class="line">  fflush(stdout);             </span><br><span class="line">  memset(buf, 0x00, 1024);                                 </span><br><span class="line">  //%[^\n]    获取数据直到遇到\n              </span><br><span class="line">  //%*c 取出一个字符丢弃        </span><br><span class="line">  //利用正则表达式，取出指令输入字符串</span><br><span class="line">  if (scanf(&quot;%[^\n]&quot;, buf) != 1)      </span><br><span class="line">  &#123;                             </span><br><span class="line">    //如果没有输入指令我们需要处理回车，将回车从缓冲区取出</span><br><span class="line">    getchar();                                            </span><br><span class="line">  &#125;           </span><br><span class="line">  return ;     </span><br><span class="line">&#125;</span><br><span class="line">//处理指令，将字符指针数组每个指针指向每个指令</span><br><span class="line">void do_parse()</span><br><span class="line">&#123;                                                         </span><br><span class="line">  char *ptr = buf;</span><br><span class="line">  argc = 0;</span><br><span class="line">  while(*ptr != &apos;\0&apos;) </span><br><span class="line">  &#123;</span><br><span class="line">    //当前位置非空白字符</span><br><span class="line">    if (!isspace(*ptr)) </span><br><span class="line">    &#123;</span><br><span class="line">      argv[argc++] = ptr;</span><br><span class="line">      while(!isspace(*ptr) &amp;&amp; *ptr != &apos;\0&apos;)</span><br><span class="line">      &#123;</span><br><span class="line">        ptr++;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //所有空字符都换为&apos;\0&apos;</span><br><span class="line">    else </span><br><span class="line">    &#123;</span><br><span class="line">      *ptr = &apos;\0&apos;;</span><br><span class="line">      ptr++;</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  argv[argc] = NULL;</span><br><span class="line">  return;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  // ls &gt;&gt;  &gt;   a.txt</span><br><span class="line">  // int fd = open(a.txt);</span><br><span class="line">  // dup2(fd, 1);</span><br><span class="line">  // 将原先要写入到标准输出1中的数据，写入到指定文件中</span><br><span class="line">  while(1) </span><br><span class="line">  &#123;</span><br><span class="line">    do_face();</span><br><span class="line">    //ls  &gt;&gt; a.txt</span><br><span class="line">    //解析命令中是否有重定向指令                            </span><br><span class="line">    //没有则跳过此步骤</span><br><span class="line">    int redirect = 0;</span><br><span class="line">    char *file = NULL;</span><br><span class="line">    char *ptr = buf;</span><br><span class="line">    while(*ptr != &apos;\0&apos;) </span><br><span class="line">    &#123;</span><br><span class="line">      if (*ptr == &apos;&gt;&apos;)</span><br><span class="line">      &#123;</span><br><span class="line">        redirect = 1;//清空重定向</span><br><span class="line">        *ptr++ = &apos;\0&apos;;</span><br><span class="line">        if (*ptr == &apos;&gt;&apos;) </span><br><span class="line">        &#123;</span><br><span class="line">          redirect = 2;//追加重定向</span><br><span class="line">          *ptr++ = &apos;\0&apos;;</span><br><span class="line">        &#125;</span><br><span class="line">        //isspace如果是空字符（制表符回车空格等则返回1）</span><br><span class="line">        //循环跳过中间所有空字符</span><br><span class="line">        while(isspace(*ptr) &amp;&amp; *ptr != &apos;\0&apos;) </span><br><span class="line">        &#123;</span><br><span class="line">          ptr++; </span><br><span class="line">        &#125;</span><br><span class="line">        file = ptr;</span><br><span class="line">        //拿到要写入的文件名存入file</span><br><span class="line">        while(!isspace(*ptr) &amp;&amp; *ptr != &apos;\0&apos;) </span><br><span class="line">        &#123;</span><br><span class="line">          ptr++; </span><br><span class="line">        &#125;                                                       </span><br><span class="line">        *ptr = &apos;\0&apos;;</span><br><span class="line">      &#125;</span><br><span class="line">      ptr++;</span><br><span class="line">    &#125;</span><br><span class="line">    //解析流程：取出空白字符，获取程序名称和参数</span><br><span class="line">    do_parse();</span><br><span class="line">    //创建子进程</span><br><span class="line">    int pid = fork();                                              </span><br><span class="line">    if (pid &lt; 0) </span><br><span class="line">    &#123;</span><br><span class="line">      exit(-1);</span><br><span class="line">    &#125;</span><br><span class="line">    else if (pid == 0) </span><br><span class="line">    &#123;</span><br><span class="line">      //重定向必须在子进程当中完成</span><br><span class="line">      //重定向处理</span><br><span class="line">      if (redirect == 1) </span><br><span class="line">      &#123;</span><br><span class="line"></span><br><span class="line">        //清空重定向</span><br><span class="line">        int fd = open(file, O_CREAT|O_WRONLY|O_TRUNC, 0664);</span><br><span class="line">        //将标准输出重定向到file所指向的文件中</span><br><span class="line">        dup2(fd, 1);</span><br><span class="line">      &#125;</span><br><span class="line">      else if (redirect == 2) </span><br><span class="line">      &#123;</span><br><span class="line">        //追加重定向</span><br><span class="line">        int fd = open(file, O_CREAT|O_WRONLY|O_APPEND, 0664);</span><br><span class="line">        //将标准输出重定向到file所指向的文件中</span><br><span class="line">        dup2(fd, 1);</span><br><span class="line">      &#125;</span><br><span class="line">      //将子进程替换为指令中要求的程序，执行相应的指令</span><br><span class="line">      execvp(argv[0], argv);</span><br><span class="line">      //防止子进程替换失败</span><br><span class="line">      exit(0);</span><br><span class="line">    &#125;</span><br><span class="line">    wait(NULL);</span><br><span class="line">  &#125;</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -435,9 +427,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/C语言/" rel="tag"># C语言</a>
+            <a href="/tags/项目/" rel="tag"># 项目</a>
           
-            <a href="/tags/进阶/" rel="tag"># 进阶</a>
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
           
         </div>
       
@@ -450,8 +442,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/20/【MySQL】第四章-数据类型/" rel="next" title="【MySQL】第四章-数据类型">
-                <i class="fa fa-chevron-left"></i> 【MySQL】第四章-数据类型
+              <a href="/2019/04/25/【Linux】第六章-进程间通讯/" rel="next" title="【Linux】第六章-进程间通讯">
+                <i class="fa fa-chevron-left"></i> 【Linux】第六章-进程间通讯
               </a>
             
           </div>
@@ -459,10 +451,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/23/【C语言】第九章-指针进阶/" rel="prev" title="【C语言】第九章-指针进阶">
-                【C语言】第九章-指针进阶 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -626,7 +614,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第八章-数据的存储"><span class="nav-number">1.</span> <span class="nav-text">第八章 数据的存储</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一节"><span class="nav-number">1.1.</span> <span class="nav-text">第一节</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本数据类型"><span class="nav-number">1.1.1.</span> <span class="nav-text">基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整形在内存中的存储"><span class="nav-number">1.1.2.</span> <span class="nav-text">整形在内存中的存储</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#大端字节序、小端字节序"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">大端字节序、小端字节序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#整形在内存中的存储-1"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">整形在内存中的存储</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#有符号整形"><span class="nav-number">1.1.2.2.1.</span> <span class="nav-text">有符号整形</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#无符号整形"><span class="nav-number">1.1.2.2.2.</span> <span class="nav-text">无符号整形</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#浮点型在内存中的存储"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">浮点型在内存中的存储</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#minishell的实现"><span class="nav-number">1.</span> <span class="nav-text">minishell的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现原理"><span class="nav-number">1.1.</span> <span class="nav-text">实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现"><span class="nav-number">1.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li></ol></div>
             
 
           </div>

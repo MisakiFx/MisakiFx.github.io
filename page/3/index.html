@@ -264,6 +264,193 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/21/【MySQL】第二章-库的操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/21/【MySQL】第二章-库的操作/" itemprop="url">【MySQL】第二章-库的操作</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-21T00:43:37+08:00">
+                2018-12-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.5k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第二章-库的操作"><a href="#第二章-库的操作" class="headerlink" title="第二章 库的操作"></a>第二章 库的操作</h1><p>&emsp;&emsp;<strong>注意接下来几章大多数的指令和操作都是在数据库中进行的。从Linux进入MySQL的指令为<code>mysql -uroot -p</code>之后输入密码即可进入。使用<code>quit</code>即可退出</strong></p>
+<h2 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h2><p>&emsp;&emsp;语法：<code>[]</code>为可省略项<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE DATABASE [IF NOT EXISTS] db_name [create_specification [, create_specification]</span><br><span class="line">...]</span><br><span class="line">create_specification:</span><br><span class="line">[DEFAULT] CHARACTER SET charset_name</span><br><span class="line">[DEFAULT] COLLATE collation_name</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;在这里有几点需要说明的是在创建数据库的语法中，附加选项<code>collate</code>表示的是<strong>校验规则</strong>，这个对字符排序有一些影响，我们后面会详细讲解。<code>character</code>表示的是字符编码规范。我们知道常用的编码规范有<code>UTF-8</code>，<code>GB2312</code>，<code>GBK</code>等等，不同的编码格式对字符的处理方式不同，而如果用不符的编码规范去打开别的编码规范的文本文件则会造成乱码，这是很我们经常会遇到的麻烦之一，但是有一种通用的变长编码，虽然所占空间可能会更多但是也使得编码更加方便容易，能减少很多麻烦，这种规范就是<code>UTF-8</code>，我们在安装MariaDB的时候所做的配置中就已经将数据库默认的编码规范更改为<code>UTF-8</code>了，因此我们在编码规范上也就不用做其他设置，使用默认的<code>UTF-8</code>即可。如果需要使用别的编码也只需要在建库的时候加上<code>character set charaset_name</code>语句即可。<br><br>&emsp;&emsp;<strong>创建实例：</strong><br><br>&emsp;&emsp;1、<code>create database db1;</code>：创建一个校对规则和字符规范全为默认值的数据库<code>db1</code>。<br><br>&emsp;&emsp;2、<code>create database db2 charset=utf8;</code>：创建一个使用<code>utf-8</code>字符集，校对规则默认的数据库<code>db2</code>。<br><br>&emsp;&emsp;3、<code>create database db3 charset=utf8 collate utf8_general_ci;</code>：创建一个使用<code>utf-8</code>校对规则为<code>utf8_general_ci</code>的数据库<code>db3</code>。<br></p>
+<h2 id="字符集和校验规则"><a href="#字符集和校验规则" class="headerlink" title="字符集和校验规则"></a>字符集和校验规则</h2><h3 id="查看系统默认字符集及校验规则"><a href="#查看系统默认字符集及校验规则" class="headerlink" title="查看系统默认字符集及校验规则"></a>查看系统默认字符集及校验规则</h3><p>&emsp;&emsp;1、<code>show variables like &#39;character_set_database&#39;;</code>：查看系统默认的字符集。<br><br>&emsp;&emsp;2、<code>show variables like &#39;collation_database&#39;;</code>：查看系统默认校验规则。<br></p>
+<h3 id="查看系统支持的字符集及校验规则"><a href="#查看系统支持的字符集及校验规则" class="headerlink" title="查看系统支持的字符集及校验规则"></a>查看系统支持的字符集及校验规则</h3><p>&emsp;&emsp;1、<code>show charset;</code>：查看系统支持的字符集。<br><br>&emsp;&emsp;2、<code>show  collation;</code>：查看系统支持的校验规则。</p>
+<h3 id="校验规则对数据库的影响"><a href="#校验规则对数据库的影响" class="headerlink" title="校验规则对数据库的影响"></a>校验规则对数据库的影响</h3><p>&emsp;&emsp;1、首先我们分别创建两个库分别使用不同的校验规则<code>utf8_general_ci</code>和<code>utf8_bin</code>分别命名为<code>db1</code>和<code>db2</code>。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">create database db1 collate utf8_general_ci;</span><br><span class="line">create database db2 collate utf8_bin;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;2、向数据库<code>db1</code>中创建一个表，并且存入相应的数据。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">use db1;</span><br><span class="line">create table person </span><br><span class="line">(</span><br><span class="line">name varchar(20)</span><br><span class="line">);</span><br><span class="line">insert into person values(&apos;a&apos;),(&apos;A&apos;),(&apos;b&apos;),(&apos;B&apos;);</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;对数据库<code>db2</code>执行同样的操作。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">use db2;</span><br><span class="line">create table person </span><br><span class="line">(</span><br><span class="line">name varchar(20)</span><br><span class="line">);</span><br><span class="line">insert into person values(&apos;a&apos;),(&apos;A&apos;),(&apos;b&apos;),(&apos;B&apos;);</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;3、对数据库<code>db1</code>中的数据进行查询，根据<code>name</code>进行排序。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use db1;</span><br><span class="line">select * from person order by name;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;<strong>结果如下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">+------+</span><br><span class="line">| name |</span><br><span class="line">+------+</span><br><span class="line">| a    |</span><br><span class="line">| A    |</span><br><span class="line">| b    |</span><br><span class="line">| B    |</span><br><span class="line">+------+</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;对数据库<code>db2</code>进行同样的查询。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use db2;</span><br><span class="line">select * from person order by name;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;<strong>结果如下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">+------+</span><br><span class="line">| name |</span><br><span class="line">+------+</span><br><span class="line">| A    |</span><br><span class="line">| B    |</span><br><span class="line">| a    |</span><br><span class="line">| b    |</span><br><span class="line">+------+</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;可以看出同样的操作因为校验规则的不同，导致查询的排序结果不同，这是因为一个排序区分大小写，而另一个不区分所造成的，为了达到统一，我们统一默认使用<code>utf8_general_ci</code>的校验规则。</p>
+<h2 id="操作数据库"><a href="#操作数据库" class="headerlink" title="操作数据库"></a>操作数据库</h2><h3 id="查看当前数据库"><a href="#查看当前数据库" class="headerlink" title="查看当前数据库"></a>查看当前数据库</h3><p>&emsp;&emsp;<code>show databases;</code>：查看当前已有的数据库。<br><br>&emsp;&emsp;<strong>示例：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [Misaki]&gt; show databases;</span><br><span class="line">+--------------------+</span><br><span class="line">| Database           |</span><br><span class="line">+--------------------+</span><br><span class="line">| information_schema |</span><br><span class="line">| Misaki             |</span><br><span class="line">| mysql              |</span><br><span class="line">| performance_schema |</span><br><span class="line">+--------------------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<h3 id="显示创建语句"><a href="#显示创建语句" class="headerlink" title="显示创建语句"></a>显示创建语句</h3><p>&emsp;&emsp;<code>show create database 数据库名</code>。<br><br>&emsp;&emsp;<strong>示例：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [Misaki]&gt; show create table hero;</span><br><span class="line">+-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| Table | Create Table                                                                                                                                                                                                                                                                                                                                                   |</span><br><span class="line">+-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| hero  | CREATE TABLE `hero` (</span><br><span class="line">  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT &apos;编号&apos;,</span><br><span class="line">  `name` varchar(20) NOT NULL COMMENT &apos;名称&apos;,</span><br><span class="line">  `hp` int(11) DEFAULT NULL COMMENT &apos;血量&apos;,</span><br><span class="line">  `mp` int(11) DEFAULT NULL COMMENT &apos;蓝条&apos;,</span><br><span class="line">  `describle` varchar(50) DEFAULT NULL COMMENT &apos;描述&apos;,</span><br><span class="line">  PRIMARY KEY (`id`)</span><br><span class="line">) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8           |</span><br><span class="line">+-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<h3 id="修改数据库"><a href="#修改数据库" class="headerlink" title="修改数据库"></a>修改数据库</h3><p>&emsp;&emsp;<strong>语法：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ALTER DATABASE db_name</span><br><span class="line">[alter_spacification [,alter_spacification]...]</span><br><span class="line">alter_spacification:</span><br><span class="line">[DEFAULT] CHARACTER SET charset_name</span><br><span class="line">[DEFAULT] COLLATE collation_name</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;对数据库的修改主要是修改字符集和校验规则。<br><br>&emsp;&emsp;<strong>实例：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [Misaki]&gt; alter database Misaki charset=utf8;</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;将<code>Misaki</code>数据库的字符集改为<code>utf-8</code>。</p>
+<h3 id="数据库删除"><a href="#数据库删除" class="headerlink" title="数据库删除"></a>数据库删除</h3><p>&emsp;&emsp;<strong>语法：</strong><code>DROP DATABASE [IF EXISTS] db_ name;</code><br><br>&emsp;&emsp;<strong>示例：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [Misaki]&gt; show databases;</span><br><span class="line">+--------------------+</span><br><span class="line">| Database           |</span><br><span class="line">+--------------------+</span><br><span class="line">| information_schema |</span><br><span class="line">| Misaki             |</span><br><span class="line">| db1                |</span><br><span class="line">| mysql              |</span><br><span class="line">| performance_schema |</span><br><span class="line">+--------------------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [Misaki]&gt; drop database db1;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [Misaki]&gt; show databases;</span><br><span class="line">+--------------------+</span><br><span class="line">| Database           |</span><br><span class="line">+--------------------+</span><br><span class="line">| information_schema |</span><br><span class="line">| Misaki             |</span><br><span class="line">| mysql              |</span><br><span class="line">| performance_schema |</span><br><span class="line">+--------------------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<h3 id="数据库备份和删除"><a href="#数据库备份和删除" class="headerlink" title="数据库备份和删除"></a>数据库备份和删除</h3><p>&emsp;&emsp;<strong><em>以下操作前<code>#</code>表示在退出MySQL在Linux下执行，<code>mysql</code>表示在MySQL下执行。</em></strong></p>
+<h4 id="数据库备份"><a href="#数据库备份" class="headerlink" title="数据库备份"></a>数据库备份</h4><p>&emsp;&emsp;<strong>语法：</strong><code># mysqldump -u root -p 数据库名 &gt; 数据库备份存储的文件路径</code><br><br>&emsp;&emsp;<strong>示例：</strong><code># mysqldump -u root -p db1 &gt; mytest1.sql</code><br><br>&emsp;&emsp;之后即可发现目录下多出了mytest1.sql的文件，这个文件就存储了数据库的有关信息。<br></p>
+<h4 id="数据库恢复"><a href="#数据库恢复" class="headerlink" title="数据库恢复"></a>数据库恢复</h4><p>&emsp;&emsp;<strong>语法：</strong><code># mysql -u root -p 数据库名 &lt; 数据库备份存储的文件路径</code><br><br>&emsp;&emsp;<strong>示例：</strong><code># mysql -u root -p db1 &lt; mytest1.sql</code><br><br>&emsp;&emsp;以上这种数据库备份及恢复的方法可适用于大多数情况，不过在恢复前需要在数据库中先建立一个空库用于恢复备份。数据库备份还有很多种方式，但是推荐使用这种，因为更为方便和便于使用。</p>
+<h3 id="查看连接情况"><a href="#查看连接情况" class="headerlink" title="查看连接情况"></a>查看连接情况</h3><p>&emsp;&emsp;<code>show processlist</code>。<br><br>&emsp;&emsp;可以告诉我们有哪些用户连接到了我们的MySQL，如果查出有哪个用户不是正常登录，则数据库有可能被入侵了。<br><br>&emsp;&emsp;以上就是关于库的基本操作，多操作才能完全掌握，熟能生巧。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/【MySQL】第一章-数据库基础/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1803,189 +1990,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/【C语言】第五章-操作符/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/19/【C语言】第五章-操作符/" itemprop="url">【C语言】第五章-操作符</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-19T21:36:20+08:00">
-                2018-11-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C语言初阶/" itemprop="url" rel="index">
-                    <span itemprop="name">C语言初阶</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.3k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第五章-操作符"><a href="#第五章-操作符" class="headerlink" title="第五章 操作符"></a>第五章 操作符</h1><p>&emsp;&emsp;操作符在C语言中的使用是十分经典且典型的，因为在C语言的引导下，后世很多编程语言也都和C语言有着极其相似的操作符使用方法，因此学好这一章也会为日后学习更多的编程语言打下基础。</p>
-<h2 id="第1节"><a href="#第1节" class="headerlink" title="第1节"></a>第1节</h2><h3 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h3><h4 id="算术操作符"><a href="#算术操作符" class="headerlink" title="算术操作符"></a>算术操作符</h4><p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>+ - * / %</code><br><br>&emsp;&emsp;这是C语言中最为常用的几个操作符，使用也十分简单，除了<code>%</code>操作符外，其它操作符可以用于整数和浮点数。<code>%</code>操作符，的两个操作数必须是整数，返回的是整除后的余数。</p>
-<h4 id="移位操作数"><a href="#移位操作数" class="headerlink" title="移位操作数"></a>移位操作数</h4><p>&emsp;&emsp;左移操作数：<code>&lt;&lt;</code><br><br>&emsp;&emsp;左移规则：将数字的在内存中的二进制表示<strong>左移一位，右边补0，</strong> 等同于将变量中的数本身乘以2并且值重新赋给变量。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int num = 10;</span><br><span class="line">	//未移位前：00000000000000000000000000001010</span><br><span class="line">	printf(&quot;%d\n&quot;, num &lt;&lt; 1);//打印20</span><br><span class="line">	//左移一位后：00000000000000000000000000010100</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;右移操作数：<code>&gt;&gt;</code><br><br>&emsp;&emsp;右移规则：右移规则分为两种。<br><br>&emsp;&emsp;1、逻辑移位：左边用0填充，右边丢弃<br><br>&emsp;&emsp;2、算数移位：左边用符号位填充，右边丢弃。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int num = -1;</span><br><span class="line">	//右移位前：11111111111111111111111111111111</span><br><span class="line">	printf(&quot;%d\n&quot;, num &gt;&gt; 1);//打印-1	//右移移位后：11111111111111111111111111111111</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;从结果可见，我们右移后在左边用了符号位1来填充，可见编译器默认使用了算数移位。<br>&emsp;&emsp;对移位运算符来说，有一点是十分致命的，就是永远不要移动负数位，这个标准是未定义的，会发生无法意想的错误。</p>
-<h4 id="位操作符"><a href="#位操作符" class="headerlink" title="位操作符"></a>位操作符</h4><p>&emsp;&emsp;位操作符主要针对的是两个数的二进制表示中各位上的数字进行运算。<br><br>&emsp;&emsp;按位与：<code>&amp;</code>，都为1则为1，否则为0。<br><br>&emsp;&emsp;按位或：<code>|</code>，一个为1就为1，否则为0。<br><br>&emsp;&emsp;按位异或：<code>^</code>，不同则为1，相同为0。<br><br>&emsp;&emsp;按位取反：<code>~</code>，1变0，0变1。<br><br>&emsp;&emsp;<strong>位操作符两边的操作数都必须是整数。</strong> 通过位操作符，我们可以实现一些针对于整数的二进制表示的算法，例如我们可以实现计算一个整数二进制表示中有多少个<code>1</code>。<br>&emsp;&emsp;方法1：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int BitOneCount(int num)</span><br><span class="line">&#123;</span><br><span class="line">	int count = 0;</span><br><span class="line">	while (num != 0)</span><br><span class="line">	&#123;</span><br><span class="line">		if (num % 2 == 1)</span><br><span class="line">		&#123;</span><br><span class="line">			count++;</span><br><span class="line">		&#125;</span><br><span class="line">		num /= 2;</span><br><span class="line">	&#125;</span><br><span class="line">	return count;</span><br><span class="line">&#125;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	printf(&quot;%d\n&quot;, BitOneCount(3));//打印2</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这一种方法是较为简单的算法，写起来也十分直观，但是有一个致命的缺点就是它对负数的计算就并不是那么准确了，因此我们通过改进得出了一下这个方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int BitOneCount(int num)</span><br><span class="line">&#123;</span><br><span class="line">	int count = 0;</span><br><span class="line">	for (int i = 0; i &lt; 32; i++)//一个整形最多有32位，因此我们需要从第一位开始进行32个循环逐步计数</span><br><span class="line">	&#123;</span><br><span class="line">		if (num &gt;&gt; i &amp; 1 != 0)//右移验证最低位是否是1，是1则计数器+1</span><br><span class="line">		&#123;</span><br><span class="line">			count++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return count;</span><br><span class="line">&#125;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	printf(&quot;%d\n&quot;, BitOneCount(-1));//打印32</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;以上的这种算法利用位运算符直接对二进制数进行计算，即适用于正数，也适用于负数，是十分推荐使用的算法。</p>
-<h4 id="赋值操作符"><a href="#赋值操作符" class="headerlink" title="赋值操作符"></a>赋值操作符</h4><p>&emsp;&emsp;赋值预算符：<code>=</code>，我们之前已经多次使用了，这里不在介绍了，不过基于普通的赋值运算符，C语言中给我们提供了更多的方便我们使用的复合赋值符。这里举其中一两个例子。<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>a += 1</code> =&gt; <code>a = a + 1</code>；<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>a -= 1</code> =&gt; <code>a = a - 1</code>；<br><br>&emsp;&emsp;以此类推，有很多的运算符都可与<code>=</code>号结合方便我们的使用。</p>
-<h4 id="单目操作符"><a href="#单目操作符" class="headerlink" title="单目操作符"></a>单目操作符</h4><p>&emsp;&emsp;单目操作符是指只有一个操作数的操作符。<br><br>&emsp;&emsp;逻辑反操作：<code>!</code>，这个操作符可以将语句的逻辑取反，在C语言中，0是表示假，非0表示真，因此在使用这个操作符时，可以将逻辑取到与之相反的一方。<br><br>&emsp;&emsp;负值/正值：<code>-/+</code>，与加减法不同，负值个操作符可以将数值编程他的相反数。<br><br>&emsp;&emsp;取地址：<code>&amp;</code>，取地址操作符可以取到一个变量在内存中存储的地址。<br><br>&emsp;&emsp;sizeof：<code>sizeof()</code>，可以取到变量在内存中所占的空间大小，单位是字节。<br><br>&emsp;&emsp;自增/自减操作符：<code>++/--</code>，自增自减操作符写在操作数的前或后有着不同的效果，在日常使用中机器容易出错，因此在很多情况下不推荐使用。<br><br>&emsp;&emsp;解引用操作符：<code>*</code>，这个操作符可以通过指针找到指针所指变量中的数据，并将其返回，在指针使用中非常常见。<br><br>&emsp;&emsp;强制类型转换操作符：<code>(类型)</code>，这个操作符可以将C语言中的类型进行强制转换，比如说<code>double a = (double)1;</code>，有非常大的使用空间。</p>
-<h4 id="关系操作符"><a href="#关系操作符" class="headerlink" title="关系操作符"></a>关系操作符</h4><p>&emsp;&emsp;关系操作符主要常用于判断，在C语言中有以下关系操作符。<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>&gt; &gt;= &lt; &lt;= == !=</code><br></p>
-<h4 id="逻辑操作符"><a href="#逻辑操作符" class="headerlink" title="逻辑操作符"></a>逻辑操作符</h4><p>&emsp;&emsp;逻辑操作符多用于同时需要多个条件或多个条件只要一个满足即可的情况。<br><br>&emsp;&emsp;逻辑与：<code>&amp;&amp;</code>，逻辑或：<code>||</code>。<br><br>&emsp;<code>1 &amp;&amp; 1 == 1</code>，<code>1 &amp;&amp; 0 == 0</code>，<code>1 || 0 == 1</code>，<code>0 || 0 == 0</code>。 </p>
-<h4 id="条件操作符（三目操作符）"><a href="#条件操作符（三目操作符）" class="headerlink" title="条件操作符（三目操作符）"></a>条件操作符（三目操作符）</h4><p>&emsp;&emsp;这是C语言中唯一的一个三目操作符，具体使用如下。<br><br>&emsp;&emsp;<code>exp 1 ? exp2 : exp3</code>：如果exp1为真则执行exp2，否则执行exp3。有时使用三目运算符比使用if语句要更加方便。</p>
-<h4 id="逗号表达式"><a href="#逗号表达式" class="headerlink" title="逗号表达式"></a>逗号表达式</h4><p>&emsp;&emsp;<code>exp1, exp2, exp3...expn</code>：如果一个表达式中出现了逗号，则表达式从左向右一次执行，但整个表达式的结果是最后一个表达式的结果。</p>
-<h4 id="下标引用，函数调用和结构成员"><a href="#下标引用，函数调用和结构成员" class="headerlink" title="下标引用，函数调用和结构成员"></a>下标引用，函数调用和结构成员</h4><p>&emsp;&emsp;下标引用：<code>数组名[]</code>，下标引用在数组中经常使用。<br><br>&emsp;&emsp;函数调用：<code>函数名()</code>，在函数调用时会经常使用。<br><br>&emsp;&emsp;结构体成员：<code>./-&gt;</code>，前者在结构体变量中可以取到结构的成员，后者在结构体指针中可以取到结构体成员，这两个操作符在结构体操作中都十分常用。</p>
-<h3 id="表达式求值"><a href="#表达式求值" class="headerlink" title="表达式求值"></a>表达式求值</h3><p>&emsp;&emsp;</p>
-<h4 id="隐式转换"><a href="#隐式转换" class="headerlink" title="隐式转换"></a>隐式转换</h4><p>&emsp;&emsp;在C语言中整形算数运算总是至少以缺省整形的精度进行运算的，为了获得这个精度，表达式中的字符和短整型的操作数在使用前都会先隐式转换为整形才会进行运算，这个也叫做整形提升。<br><br>&emsp;&emsp;那么是如何进行整形提升的呢？<br><br>&emsp;&emsp;当<code>char</code>中的值为有符号的负数时，<code>char a = -1</code>原本的char只有8个符号位为<code>11111111</code>，在提升后会在高位补符号位变为<code>11111111111111111111111111111111</code>。而如果对于没有符号位的<code>char a = 1</code>,原本的<code>char</code>为<code>00000001</code>，提升后会在高位补符号位变为<code>00000000000000000000000000000001</code>。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	unsigned char a = 255;</span><br><span class="line">	printf(&quot;%d\n&quot;, (a &lt;&lt; 1) &gt;&gt; 1);</span><br><span class="line">	//计算前先整形提升为00 00 00 ff</span><br><span class="line">	//左移后变为00 00 01 fe</span><br><span class="line">	//右移后又变为00 00 00 ff</span><br><span class="line">	//正因为整形提升的存在才不会造成溢出</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="算术转换"><a href="#算术转换" class="headerlink" title="算术转换"></a>算术转换</h4><p>&emsp;&emsp;在表达式的计算中，如果某个操作符量的操作数为不同类型，那么其中一个操作数就会转换为另外一个操作数的类型来方便运算，并且转换总是从低级向高级进行转换。<br><br><code>int -&gt; unsigned int -&gt; long int -&gt; unsigned long int -&gt; float -&gt; double -&gt; long double</code><br><br>&emsp;&emsp;<code>int</code>以下的类型都会自动先转换为int，之前的隐式类型转换已经说过了。<br><br>&emsp;&emsp;不过算数转换也要合理不然会造成数据丢失。<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>float f = 3.14; int num = f</code></p>
-<h3 id="一些常见问题"><a href="#一些常见问题" class="headerlink" title="一些常见问题"></a>一些常见问题</h3><p>&emsp;&emsp;1、操作符的求值有三个影响的因素：（1）操作符的优先级；（2）操作符的结合性；（3）是否控制求值顺序。<br>&emsp;&emsp;2、有一些表达式的运算在标准中未进行定义，因此在不同环境下的运行结果不尽相同，需要多多注意。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2040,7 +2044,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2159,7 +2163,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共89.7k字</span>
+  <span class="post-count">博客全站共90.7k字</span>
 </div>
 
         ﻿
