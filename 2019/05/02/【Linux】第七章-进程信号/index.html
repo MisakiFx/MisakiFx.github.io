@@ -1,0 +1,874 @@
+﻿<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux,进程信号," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第七章-进程信号信号基本认识&amp;emsp;&amp;emsp;生活中处处充满信号，信号的存在就是是为了传递和表达信息，通知事件的发生。并且信号是有生命周期的，信号在产生后到处理完毕之前才是信号的有效期。&amp;emsp;&amp;emsp;在对于系统来说，当软件中断，便会产生信号，通知发生了某件事情，为了说明不同的事件，所以系统中的信号有不同的种类。 信号的种类&amp;emsp;&amp;emsp;在Linux下我们可以使用kill">
+<meta name="keywords" content="Linux,进程信号">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Linux】第七章-进程信号">
+<meta property="og:url" content="http://yoursite.com/2019/05/02/【Linux】第七章-进程信号/index.html">
+<meta property="og:site_name" content="Misaki`s blog">
+<meta property="og:description" content="第七章-进程信号信号基本认识&amp;emsp;&amp;emsp;生活中处处充满信号，信号的存在就是是为了传递和表达信息，通知事件的发生。并且信号是有生命周期的，信号在产生后到处理完毕之前才是信号的有效期。&amp;emsp;&amp;emsp;在对于系统来说，当软件中断，便会产生信号，通知发生了某件事情，为了说明不同的事件，所以系统中的信号有不同的种类。 信号的种类&amp;emsp;&amp;emsp;在Linux下我们可以使用kill">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-02T07:41:35.056Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【Linux】第七章-进程信号">
+<meta name="twitter:description" content="第七章-进程信号信号基本认识&amp;emsp;&amp;emsp;生活中处处充满信号，信号的存在就是是为了传递和表达信息，通知事件的发生。并且信号是有生命周期的，信号在产生后到处理完毕之前才是信号的有效期。&amp;emsp;&amp;emsp;在对于系统来说，当软件中断，便会产生信号，通知发生了某件事情，为了说明不同的事件，所以系统中的信号有不同的种类。 信号的种类&amp;emsp;&amp;emsp;在Linux下我们可以使用kill">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/02/【Linux】第七章-进程信号/"/>
+
+
+
+
+
+  <title>【Linux】第七章-进程信号 | Misaki`s blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+<a href="https://github.com/MisakiFx" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Misaki`s blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习是一种态度</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/02/【Linux】第七章-进程信号/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【Linux】第七章-进程信号</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-02T15:40:40+08:00">
+                2019-05-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.6k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="第七章-进程信号"><a href="#第七章-进程信号" class="headerlink" title="第七章-进程信号"></a>第七章-进程信号</h1><h2 id="信号基本认识"><a href="#信号基本认识" class="headerlink" title="信号基本认识"></a>信号基本认识</h2><p>&emsp;&emsp;生活中处处充满信号，信号的存在就是是为了传递和表达信息，通知事件的发生。并且信号是有生命周期的，信号在产生后到处理完毕之前才是信号的有效期。<br><br>&emsp;&emsp;在对于系统来说，当软件中断，便会产生信号，通知发生了某件事情，为了说明不同的事件，所以系统中的信号有不同的种类。</p>
+<h3 id="信号的种类"><a href="#信号的种类" class="headerlink" title="信号的种类"></a>信号的种类</h3><p>&emsp;&emsp;在Linux下我们可以使用<code>kill -l</code>产看信号的种类，会发现一共有62种不同的信号。其中1-31号信号每个都有各自对应的事件，它们继承于Unix，被称为<strong>非可靠信号/非实时信号</strong>；而34-64号信号是后续添加的信号，并无对应的事件，成为<strong>可靠信号/实时信号</strong>。所谓可靠信号与非可靠信号的区别在于非可靠信号是可能会丢失的，有可能产生多次信号才只会处理一次，而可靠信号产生多少次信号就必定会执行多少次。实时信号与非实时信号的区别在于实时信号在信号产生后便会立刻处理，而非实时信号则可能会延时处理。<br></p>
+<h3 id="信号的生命周期"><a href="#信号的生命周期" class="headerlink" title="信号的生命周期"></a>信号的生命周期</h3><p>&emsp;&emsp;操作系统产生信号，注册在进程中，进程就收到了信号，但并不会立刻处理，在处理前会先注销信号，之后才会处理信号。<br><br>&emsp;&emsp;&emsp;&emsp;<code>产生-&gt;信号在进程中注册-&gt;信号在进程中注销-&gt;处理信号</code></p>
+<h2 id="信号的产生"><a href="#信号的产生" class="headerlink" title="信号的产生"></a>信号的产生</h2><p>&emsp;&emsp;信号的产生分为两个途径：<strong>硬件产生</strong>，<strong>软件产生</strong>。</p>
+<h3 id="硬件产生"><a href="#硬件产生" class="headerlink" title="硬件产生"></a>硬件产生</h3><p>&emsp;&emsp;我们在终止我们的进程时往往会使用快捷键<code>ctrl + c</code>，其实这个快捷键原理就是操作系统向进程发送了<code>SIGINT</code>信号造成进程结束，这就是硬件产生的信号。由硬件产生的信号还有很多例如<code>ctrl + |:终止信号</code>，<code>ctrl + z 停止信号</code>等等。</p>
+<h3 id="软件产生"><a href="#软件产生" class="headerlink" title="软件产生"></a>软件产生</h3><p>&emsp;&emsp;我们在强杀进程时会使用<code>kill -9 pid</code>，这里<code>kill</code>就是一个软件，会向指定进程发送指定信号，在使用强杀时则是发送了9号信号，将进程强制杀死。<br><br>&emsp;&emsp;同时我们还可以在进程中向进程发送信号，C语言中将信号已经提前定义成了宏为了方便我们使用一些函数来发送信号。</p>
+<h4 id="kill"><a href="#kill" class="headerlink" title="kill()"></a>kill()</h4><p>&emsp;&emsp;<code>int kill(pid_t pid, int sig);</code>函数来向指定进程发送指定信号。</p>
+<h4 id="raise"><a href="#raise" class="headerlink" title="raise"></a>raise</h4><p>&emsp;&emsp;使用<code>int raise(int sig);</code>向调用进程发送指定信号。</p>
+<h4 id="abort"><a href="#abort" class="headerlink" title="abort"></a>abort</h4><p>&emsp;&emsp;使用<code>abort()</code>向调用进程发送<code>SIGABRT</code>信号。</p>
+<h4 id="alarm"><a href="#alarm" class="headerlink" title="alarm"></a>alarm</h4><p>&emsp;&emsp;使用<code>unsigned int alarm(unsigned int seconds);</code>在<code>seconds</code>秒后向调用进程发送信号。</p>
+<h3 id="核心转储"><a href="#核心转储" class="headerlink" title="核心转储"></a>核心转储</h3><p>&emsp;&emsp;核心转储文件(core dump)是在事件发生后记录事件发生的过程和原因的文件，方便我们事后调试，由于核心转储文件占用空间，默认是关闭的。我们可以用<code>ulimit -a</code>查看core dump是否开启，使用<code>ulimit -c 大小</code>设置核心转储文件大小，开启核心转储。在发生段错误后我们即可使用<code>gdb core.pid</code>来查看核心转储文件的信息。<br><br>&emsp;&emsp;不过，我们直到在发生内存错误的时候Linux会报错说产生段错误并且退出进程，产生核心转储文件，但其实进程退出并非是由进程自己退出的，而是收到了操作系统发出的11号信号<code>SIGSEGV</code>，一旦进程收到这个信号便会终止并且报错说产生段错误随后生成核心转储文件，因此进程的退出和终止其实是由这个信号导致的。当发生内存错误时系统会自动调用<code>kill()</code>函数发送<code>SIGSEGV</code>信号到该进程，终止进程。</p>
+<h2 id="信号的注册"><a href="#信号的注册" class="headerlink" title="信号的注册"></a>信号的注册</h2><p>&emsp;&emsp;给一个进程注册信号是在进程的pcb中进行了一个标记，这个标记由一个结构体<code>sigset_t</code>利用位图构成<strong>信号集</strong>进行标记，并且存入pcb中的<code>pending</code>信号集中，用来对应62种信号是否已经注册到进程中。同时还有另外一个<code>sigqueque</code>队列，用来按照注册顺序逐一处理信号。信号传入进程将<code>pending</code>上对应位置1表示此类信号存在，随后将信号存入<code>sigqueque</code>队列。但非可靠信号和可靠信号的注册还有区别。</p>
+<h3 id="非可靠信号的注册"><a href="#非可靠信号的注册" class="headerlink" title="非可靠信号的注册"></a>非可靠信号的注册</h3><p>&emsp;&emsp;当信号传给进程时，进程会判断<code>pending</code>集合位图相应位是否为1；若为0则将其置1，并将其组织到<code>sigqueque</code>队列中；若为1则什么都不做（信号丢失）。</p>
+<h3 id="可靠信号的注册"><a href="#可靠信号的注册" class="headerlink" title="可靠信号的注册"></a>可靠信号的注册</h3><p>&emsp;&emsp;信号传递给进程时，进程不管位图上是否为1，都会将位图置1，并且再添加到<code>sigqueque</code>队列中，如果有多次传入则拥有多个结点（信号不会丢失）。</p>
+<h2 id="信号的注销"><a href="#信号的注销" class="headerlink" title="信号的注销"></a>信号的注销</h2><h3 id="非可靠信号的注销"><a href="#非可靠信号的注销" class="headerlink" title="非可靠信号的注销"></a>非可靠信号的注销</h3><p>&emsp;&emsp;因为非可靠信号的信号结点只有一个，因此删除结点，位图直接置0；</p>
+<h3 id="可靠信号的注销"><a href="#可靠信号的注销" class="headerlink" title="可靠信号的注销"></a>可靠信号的注销</h3><p>&emsp;&emsp;因为可靠信号的信号结点可能有多个，若还有相同结点，则位图依然置1，否则置0。</p>
+<h2 id="信号的处理"><a href="#信号的处理" class="headerlink" title="信号的处理"></a>信号的处理</h2><p>&emsp;&emsp;信号处理有三大方式：默认，忽略，自定义。</p>
+<h3 id="信号捕捉初识"><a href="#信号捕捉初识" class="headerlink" title="信号捕捉初识"></a>信号捕捉初识</h3><h4 id="signal"><a href="#signal" class="headerlink" title="signal()"></a>signal()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;                           </span><br><span class="line">#include &lt;unistd.h&gt;            </span><br><span class="line">#include &lt;stdlib.h&gt;  </span><br><span class="line">#include &lt;signal.h&gt;</span><br><span class="line">/**                            </span><br><span class="line"> *                      </span><br><span class="line"> * typedef void (*sighandler_t)(int);</span><br><span class="line"> * sighandler_t signal(int signum, sighandler_t handler);</span><br><span class="line"> * signum: 信号编号</span><br><span class="line"> * handler: 信号处理方式，函数指针</span><br><span class="line"> *          SIG_DFL    默认处理方式                                            </span><br><span class="line"> *          SIG_IGN    忽略处理方式                                      </span><br><span class="line"> * 修改信号的处理方式                                                 </span><br><span class="line"> */                        </span><br><span class="line">void sigcb(int signo)</span><br><span class="line">&#123;                             </span><br><span class="line">  printf(&quot;signal:%d\n&quot;, signo);      </span><br><span class="line">&#125;                                         </span><br><span class="line">int main()</span><br><span class="line">&#123;  </span><br><span class="line">  //signal(SIGINT, SIG_DFL);//执行默认的SIGINT功能</span><br><span class="line">  //signal(SIGINT, SIG_IGN);//忽略SIGINT信号的处理</span><br><span class="line">  signal(SIGINT, sigcb);//按自定义方式处理</span><br><span class="line">  while(1)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;----------\n&quot;);</span><br><span class="line">    sleep(1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第七章-进程信号]$ ./signal</span><br><span class="line">----------</span><br><span class="line">----------</span><br><span class="line">^Csignal:2</span><br><span class="line">----------</span><br><span class="line">----------</span><br><span class="line">----------</span><br><span class="line">----------</span><br><span class="line">^Csignal:2</span><br><span class="line">----------</span><br><span class="line">^Csignal:2</span><br><span class="line">----------</span><br><span class="line">^Csignal:2</span><br><span class="line">----------</span><br><span class="line">^Csignal:2</span><br><span class="line">----------</span><br><span class="line">----------</span><br><span class="line">----------</span><br><span class="line">----------</span><br><span class="line">^\退出(吐核)</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;可以看到我们再向进程发送<code>SIGINT</code>信号时，执行的已经是我们自定义的功能了。<br><br>&emsp;&emsp;信号默认的处理方式和忽略处理方式都是在内核中定义好的，那么自定义处理方式又是怎么捕捉的呢？<br><br>&emsp;&emsp;当进程因为系统调用、中断或者异常进入内核态，当完成内核功能，准备返回用户态主控流程时检测是否有信号待处理，如果有调用<code>do_signal()</code>函数处理信号，如果信号处理方式是自定义的则返回用户态执行自定义处理函数，再通过<code>sigreturn()</code>返回内核态，再次检查是否有信号待处理，若无则调用<code>sys_sigreturn</code>返回用户态从主控流程上次被中断的地方继续执行。</p>
+<h4 id="sigaction"><a href="#sigaction" class="headerlink" title="sigaction()"></a>sigaction()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;                                                           </span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;signal.h&gt;</span><br><span class="line">struct sigaction act, oldact;</span><br><span class="line">void sigcb(int signo)</span><br><span class="line">&#123;</span><br><span class="line">  printf(&quot;signal:%d\n&quot;, signo);</span><br><span class="line">  //将原本的处理方式还原</span><br><span class="line">  sigaction(SIGINT, &amp;oldact, NULL);</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  //int sigaction(int signum, struct sigaction* act, struct sigaction* oldact);</span><br><span class="line">  //使用act动作替换signum原有的处理动作，并且将原有处理动作拷贝到oldact中</span><br><span class="line">  //struct sigaction是预先定义好的结构体，用于存放信号修改的功能的数据</span><br><span class="line">  act.sa_handler = sigcb;  </span><br><span class="line">  act.sa_flags = 0;   </span><br><span class="line">  //清空信号集合</span><br><span class="line">  sigemptyset(&amp;act.sa_mask);</span><br><span class="line">  sigaction(SIGINT, &amp;act, &amp;oldact);</span><br><span class="line">  while(1)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;----------\n&quot;);</span><br><span class="line">    sleep(1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第七章-进程信号]$ ./signal</span><br><span class="line">----------</span><br><span class="line">----------</span><br><span class="line">^Csignal:2</span><br><span class="line">----------</span><br><span class="line">----------</span><br><span class="line">^C</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;这段代码中我们先将<code>SIGINT</code>的处理方式替换为我们自定义的方式，调用一次自定义处理的同时又将其还原。</p>
+<h2 id="信号的阻塞"><a href="#信号的阻塞" class="headerlink" title="信号的阻塞"></a>信号的阻塞</h2><p>&emsp;&emsp;暂时阻止信号被递达，信号依然可以注册，只是暂时不处理，解除阻塞之后才会处理。<br><br>&emsp;&emsp;信号的递达：动作-信号的处理。<br><br>&emsp;&emsp;信号的未决：状态-信号冲产生到处理之前的状态。<br><br>&emsp;&emsp;在进程的pcb中有一个<code>blocked</code>集合，当某一种信号被阻塞时，会将<code>blocked</code>集合中对应的位置1，表示这种信号被阻塞。因此信号的阻塞过程实际就是在pcb的<code>blocked</code>信号阻塞集合中标记信号，信号到来之后暂时不处理。<br><br>&emsp;&emsp;但是有两个信号无法被阻塞——<code>SIGKILL-9,SIGSTOP-19</code>无法被阻塞，无法被自定义，无法被忽略。<br></p>
+<h2 id="竞态条件"><a href="#竞态条件" class="headerlink" title="竞态条件"></a>竞态条件</h2><p>&emsp;&emsp;因为运行时序而造成数据竞争——导致数据二义性。函数中所完成的操作并非原子性操作，并且操作的数据是一个全局数据。如果一个函数中操作了全局性数据，并且这个操作不是原子性操作，并且这个操作不受保护，则这个函数是一个不可重入函数。不可重入函数指不能在多个时序的运行中重复调用（重复调用有可能会造成数据二义性）。可重入函数指在多个是虚的运行中重复调用，不会造成异常影响。<code>malloc/free</code>就是不可重入函数。<br></p>
+<h2 id="volatile关键字"><a href="#volatile关键字" class="headerlink" title="volatile关键字"></a>volatile关键字</h2><p>&emsp;&emsp;保持内存可见性——每次操作变量都需要重新从内存中获取。防止编译器过度优化。</p>
+<h2 id="SIGCHLD"><a href="#SIGCHLD" class="headerlink" title="SIGCHLD"></a>SIGCHLD</h2><p>&emsp;&emsp;自定义信号处理方式<code>sigcb</code>，当子进程退出，操作系统发送信号给父进程，直接触发信号回调<code>sigcb</code>，用户主要在<code>sigcb</code>中调用<code>wait/waitpid</code>就可以处理子进程的退出。<br><br>&emsp;&emsp;<code>SIGCHLD</code>是一个非可靠信号，假如有多个子进程同时退出了，则有可能造成时间丢失，造成<code>sigcb</code>只被回调一次，只处理了一个子进程。<br><br>&emsp;&emsp;必须使用非阻塞，否则没有子进程退出的时候waitpid将阻塞导致程序无法回到主控流程。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读!-------------</div>
+    
+    </div>
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>记录学习每一分，感谢您的赞助</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="MisakiFx 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="MisakiFx 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/进程信号/" rel="tag"># 进程信号</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/01/【Linux】项目-minishell的实现/" rel="next" title="【Linux】项目-minishell的实现">
+                <i class="fa fa-chevron-left"></i> 【Linux】项目-minishell的实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="MisakiFx" />
+            
+              <p class="site-author-name" itemprop="name">MisakiFx</p>
+              <p class="site-description motion-element" itemprop="description">Hard working or giving up!!!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/MisakiFx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1761607418@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope-open"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://music.163.com/#/user/home?id=432551242" target="_blank" title="网易云音乐">
+                      
+                        <i class="fa fa-fw fa-music"></i>网易云音乐</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/qq_41669298" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-crosshairs"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第七章-进程信号"><span class="nav-number">1.</span> <span class="nav-text">第七章-进程信号</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#信号基本认识"><span class="nav-number">1.1.</span> <span class="nav-text">信号基本认识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#信号的种类"><span class="nav-number">1.1.1.</span> <span class="nav-text">信号的种类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信号的生命周期"><span class="nav-number">1.1.2.</span> <span class="nav-text">信号的生命周期</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信号的产生"><span class="nav-number">1.2.</span> <span class="nav-text">信号的产生</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#硬件产生"><span class="nav-number">1.2.1.</span> <span class="nav-text">硬件产生</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#软件产生"><span class="nav-number">1.2.2.</span> <span class="nav-text">软件产生</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#kill"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">kill()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#raise"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">raise</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#abort"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">abort</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#alarm"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">alarm</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心转储"><span class="nav-number">1.2.3.</span> <span class="nav-text">核心转储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信号的注册"><span class="nav-number">1.3.</span> <span class="nav-text">信号的注册</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#非可靠信号的注册"><span class="nav-number">1.3.1.</span> <span class="nav-text">非可靠信号的注册</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可靠信号的注册"><span class="nav-number">1.3.2.</span> <span class="nav-text">可靠信号的注册</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信号的注销"><span class="nav-number">1.4.</span> <span class="nav-text">信号的注销</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#非可靠信号的注销"><span class="nav-number">1.4.1.</span> <span class="nav-text">非可靠信号的注销</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可靠信号的注销"><span class="nav-number">1.4.2.</span> <span class="nav-text">可靠信号的注销</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信号的处理"><span class="nav-number">1.5.</span> <span class="nav-text">信号的处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#信号捕捉初识"><span class="nav-number">1.5.1.</span> <span class="nav-text">信号捕捉初识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#signal"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">signal()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sigaction"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">sigaction()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信号的阻塞"><span class="nav-number">1.6.</span> <span class="nav-text">信号的阻塞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#竞态条件"><span class="nav-number">1.7.</span> <span class="nav-text">竞态条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile关键字"><span class="nav-number">1.8.</span> <span class="nav-text">volatile关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SIGCHLD"><span class="nav-number">1.9.</span> <span class="nav-text">SIGCHLD</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        ﻿<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MisakiFx</span>
+
+  
+</div>
+
+
+<div class="powered-by">
+  <i class="fa fa-user-md"></i>
+  <span id="busuanzi_container_site_uv">
+    我的网站的访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+</div>
+
+
+
+<span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共93.3k字</span>
+</div>
+
+        ﻿
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+        <script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
