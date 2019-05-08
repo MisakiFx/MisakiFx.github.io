@@ -264,6 +264,182 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/29/【C语言】第一章-初识C语言-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/29/【C语言】第一章-初识C语言-2/" itemprop="url">【C语言】第一章-初识C语言-2</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-29T21:08:04+08:00">
+                2018-10-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C语言初阶/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言初阶</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.9k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第一章-初识C语言"><a href="#第一章-初识C语言" class="headerlink" title="第一章 初识C语言"></a>第一章 初识C语言</h1><h2 id="第2节"><a href="#第2节" class="headerlink" title="第2节"></a>第2节</h2><h3 id="字符串-转义字符-注释"><a href="#字符串-转义字符-注释" class="headerlink" title="字符串+转义字符+注释"></a>字符串+转义字符+注释</h3><p>&emsp;&emsp;1、字符串：<br><br>&emsp;&emsp;<code>&quot;hello Misaki.\n&quot;;</code><br><br>&emsp;&emsp;诸如这样由<strong>双引号</strong>引起来的一串字符称为字符串字面值，或者简称<strong>字符串</strong>。<br><br>&emsp;&emsp;值得一提的是，由于C语言过于古老，所以在C语言中是没有字符串类型的，不过好在CPP中有了字符串类型。在C语言中字符串是由一个<strong>字符数组</strong>构成的，但与字符数组不同的是，字符串会在数组的结尾添加上一个<strong>空字符</strong>‘\0’作为结尾的标识符，这是为了更加方便的确定字符串的结束，方便输出等操作。关于字符串的具体知识我们会在后期详细讲解。<br><br>&emsp;&emsp;2、转义字符：<br><br>&emsp;&emsp;如果我们要在屏幕上打印一个目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	printf(&quot;C:\code\test.c\n&quot;);</span><br><span class="line">	ststem(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;我们能顺利打印出这个目录么？大家可以主动尝试一下。<br>&emsp;&emsp;经过尝试之后我们会发现这是不可能做到的，会发生一些很有意思的事情，其中的某些字符消失了反倒多出了很多的类似于空格的东西。我在这里我们就不得不提一下转义字符了。<br><br>&emsp;&emsp;在C语言中为了显示一些特殊的文本效果，例如换行，制表符（Tab），’ \ ‘等等的包括某些特殊的会与代码产生歧义的字符，于是出现了一种较为特殊的字符，这种字符就是<strong>转义字符</strong>。因为这种字符并不是可以直接输出往往需要使用特殊的代码进行代替。以下举几个常用的转义字符以供参考。<br><br>&emsp;&emsp;<code>\&#39;            表示字符常量&#39;</code><br><br>&emsp;&emsp;<code>\&quot;            表示字符常量&quot;</code><br><br>&emsp;&emsp;<code>\\            表示一个反斜杠</code><br><br>&emsp;&emsp;<code>\n            换行符</code><br><br>&emsp;&emsp;<code>\t            制表符tab</code><br><br>&emsp;&emsp;在转义字符的帮助下我相信我们就可以很好的输出上面的呢个目录了。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	printf(&quot;C:\\code\\test.c\n&quot;);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;3、注释：<br><br>&emsp;&emsp;在用任何一门语言进行程序的编写时，注释都是必不可少的，因为我们的程序不光是需要给我们自己写完算结束，我们还需要让别人能一模了然，全部看懂，更需要让几个月后的我们自己也可以依然能够看懂，如果你写完一个程序几个月后你自己都不想再看第二遍或者是看不懂第二遍，那么这个程序的书写就是失败的，<strong><em>因此除了我们需要有整齐良好的代码书写风格还需要在适当的位置加上合适的注释。</em></strong><br><br>&emsp;&emsp;在C语言中有两种风格的注释，一种是单行注释（CPP风格注释）：这种注释用<strong>双斜线</strong>‘//‘标注，本行双斜线后的内容编译器会默认按照注释进行处理。<br><br>&emsp;&emsp;<code>// 我要好好学习C语言！</code><br><br>&emsp;&emsp;而另一种则是多行注释（C语言风格注释），这种注释用’/<em>‘和’</em>/‘进行标注，在编译器中默认从’/<em>‘往后的所有内容全部按照注释处理，知道遇到下一个’</em>/‘为止。<br><br>&emsp;&emsp;<code>/* 我要好好学习C语言 */</code><br><br>&emsp;&emsp;再次强调，好的注释和代码风格是一个程序员必备的基础素养，只有做好这点才能在团队中更好的进行合作与沟通。</p>
+<h3 id="选择语句"><a href="#选择语句" class="headerlink" title="选择语句"></a>选择语句</h3><p>&emsp;&emsp;选择语句（分支语句）是C语言重要的语法之一，因为在程序中我们往往要面临多种选择，根据用户的行为选择程序的走向，此时就需要选择语句派上用场了。<br><br>&emsp;&emsp;在C语言中有多种选择语句，而每种选择语句的使用灵活多变，在此我选用<strong>if选择语句</strong>作为例子，为大家简单介绍选择语句的用法与用途。剩下的我们之后会详细讲解。<br><br>&emsp;&emsp;例：如果我们要表达以下这样一个逻辑：如果你会好好敲代码，那么你就会在大学毕业时拿到一个好offer，否则就只能回家种田。那么这么一个逻辑我们怎么使用代码表示呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int coding = 0;</span><br><span class="line">	printf(&quot;你会每天好好敲代码么？（1 or 0）&quot;);</span><br><span class="line">	scanf_s(&quot;%d&quot;, &amp;coding);</span><br><span class="line">	if (coding == 1)//进行判断如果coding为1</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;加油，你会成功！\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	else//其他情况</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;你完了，回家种田！\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;大家可以试着在自己的编译器上写这么一个小的程序，多运行几次，输出不同的选项，查看结果。不过值得一提的是，或许有的同学会有疑问，为什么if语句中的括号里用了一个’==’符号？而不是’=’?因为在C语言中对等于号进行了区分，分为了用于判断的双等号和用于赋值的单等号，在进行判断时我们只能使用双等号进行判断，如果改为单等号编译器虽然不会报错但有可能会使程序出现逻辑错误。</p>
+<h3 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h3><p>&emsp;&emsp; 循环语句和选择语句一样，在C语言中有着举足轻重的地位，因为计算机最擅长做的事情就是不断的循环，因此在编写程序中，我们可以利用循环进行在日常生活中我们执行起来很麻烦或是繁琐的事情。<br><br>&emsp;&emsp;C语言中循环语句依然有着很多的形式，很多的语法，在此我使用最简单的循环语句<strong>while循环语句</strong>作为示范。<br><br>&emsp;&emsp;比如说我们要完成这样一件事，我们要不断不断的敲代码，直到代码行数从0加到2000为止，每循环一次我们就为我们的代码行数加上1，直到行数到达或者多于2000为止。（<del>希望大家可以不要这样自己欺骗自己，这里只是举个例子- _ -</del>）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int line = 0;</span><br><span class="line">	printf(&quot;今天要开始敲代码了！目前行数为%d\n&quot;, line);</span><br><span class="line">	while (line &lt; 2000)//循环开始，满足条件循环继续</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;目前代码行数%d,我要继续努力敲代码!\n&quot;, line);</span><br><span class="line">		line = line + 1;</span><br><span class="line">	&#125;</span><br><span class="line">	printf(&quot;代码行数总算到%d啦！我成功啦！\n&quot;, line);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;瞬间计算机就将循环执行了2000次，运行后大家就可以看到自己的代码行数一下从0飙到了2000，但是在现实中敲代码还是一行一行脚踏实地连起，就像唐僧取经每一步都要脚踏实地，是没有任何捷径可以走的。</p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>&emsp;&emsp;说到函数，这就是C语言中相当重要的概念之一了，因为程序就是由一个个函数构成的，当我们开始写C语言代码时我们首先要写的就是一个入口函数——<strong>main()</strong> 函数，而除了main函数外，C语言允许我们可以自己定义很多很多自己的函数并且可以适当的时候进行调用，可以说是函数给我们的代码编写带来了很多的便利。<br><br>&emsp;&emsp;比如说我要将连个数进行相加，这个程序很简单，但是如果我们在程序中需要经常将两个数进行相加的话，每次相加我们都再单独写一遍代码或许显得程序略显复杂，而且缺失可读性，因此<strong>使用自定义函数取而代之就显得格外重要。</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int add(int a, int b)//自定义相加函数，两个int型参数，返回值也为int型</span><br><span class="line">&#123;</span><br><span class="line">	return a + b;</span><br><span class="line">&#125;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int num1 = 0;</span><br><span class="line">	int num2 = 0;</span><br><span class="line">	printf(&quot;请输入两个操作数：&quot;);</span><br><span class="line">	scanf_s(&quot;%d%d&quot;, &amp;num1, &amp;num2);</span><br><span class="line">	printf(&quot;相加结果为：%d\n&quot;, add(num1, num2));//调用写好的add函数</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;从这个例子大家就可以看出来函数的好处最明显的就是可以简化代码，简化书写，使代码看上去一目了然，尤其在之后我们写更为复杂的程序时程序的函数化就显得格外重要了。</p>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>&emsp;&emsp;在介绍数组之前首先引入一个问题，如果我们要定义连续的成批的同种变量，我们应该怎么定义？用普通定义变量的方式一个一个定义么？如果数目少一些我们或许还可以使用这种方式，但如果数目很多要定义1000个甚至10000个呢？那这种普通的定义方式或许究竟行不通了。因此我们需要引入一种特殊的数据类型——数组。<br><br>&emsp;&emsp;所谓数组在内存上的表示不过是一段连续的内存空间，我们用这段连续的内存空间存储类型相同的不同元素，而借用数组的下标的方式来进行数组内每一元素的调用。而在后面的深入学习中大家会了解到，所谓数组不过是一个指针，被分配了一串连续的内存空间，而我们在调用每一个变量时也不过是在用指针解引的方式在使用指针所指向内存空间的值。<br><br>&emsp;&emsp;1、数组定义：<br><br>&emsp;&emsp;<code>int arr[10] = {0,1,2,3,4,5,6,7,8,9};</code><br><br>&emsp;&emsp;我们可以使用诸如以上这一行代码的方式定义一个任何类型的数组，我们也可以在定义后不直接对数组进行初始化，不过数组内部元素的值会和普通变量被定义后不进行初始化一样，是随机的，因此<strong>在定义数组后也同样建议立刻初始化</strong>，即使不立刻使用，我们也应将他们的值初始化为0；<br><br>&emsp;&emsp;2、数组的使用：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int i = 0;</span><br><span class="line">	int arr[10] = &#123; 0,1,2,3,4,5,6,7,8,9 &#125;;//定义数组并初始化</span><br><span class="line">	for (i = 0; i &lt; 10; i++)//打印数组</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;%d\t&quot;, arr[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	printf(&quot;\n&quot;);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;以上这段代码的意思是定义一个有十个整数空间大小的数组并在定义的同时进行初始化，随后利用for循环将他们打印出来，抛开for循环的语法不管，大家利用看到数组的操作可以说是是和循环都密切相关的。关于数组每一个元素的使用的方式有很多种，在这里首先介绍最简单的一种：即<strong>通过数组名+下标的方式进行引用，arr[i]，其中中括号中括号中的整形变量就是我们成为下标的东西。</strong> 值得一提的是，大家从循环也能看的出来， <strong>数组的下标使用是从0开始的，即数组中的第一个元素我们要想表示的话得写成：arr[0]。</strong> 因此在C语言的学习中我们要学会从0开始进行标号，因为<strong>数组中每个元素的下标都是数组中当前元素个数-1</strong>，第一个元素的下标为0，诸如此类。<br><br>&emsp;&emsp;关于数组的使用和技巧我们还大有可讲，我们先保持兴趣，之后的内容放到日后再详细讲述。</p>
+<h3 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h3><p>&emsp;&emsp;C语言的操作符有很多种，也分为不同的种类，在日后的学习中我们都会逐一接触到，这里我先逐一列出，简单讲述其功能。<br><br>&emsp;&emsp;<strong>1、算术操作符：</strong>&emsp;&emsp;<code>+ - * / %</code>&emsp;&emsp;加、减、乘、除、模<br><br>&emsp;&emsp;这里是最常用的基本操作符，其中需要讲解的是’%’这个操作符，这个操作符或许大家会比较陌生，但是它的功能十分简单，简单来说就是前一个操作数 / 后一个操作数，取他们的余数，例如：<code>5 % 4 = 1</code>，但是’%’操作符两边的操作数必须要求是整型，否则会编译失败。<br><br>&emsp;&emsp;<strong>2、移位操作符：</strong>&emsp;&emsp;<code>&lt;&lt; &gt;&gt;</code>&emsp;&emsp;左移、右移<br><br>&emsp;&emsp;移位操作符的具体用途就是将操作数转换为二进制形式，然后将整体位数左移或右移，比如说左移就是在末尾加一个0，右移则是减少一位。因此在此有一个技巧，<strong>左移操作符对于原操作数每左移一位操作数变为原来的两倍，右移则变为原来的二分之一。</strong> 例如：<code>2 &lt;&lt; 1 = 4</code>、<code>2 &gt;&gt; 1 = 1</code>。<br><br>&emsp;&emsp;<strong>3、位操作符：</strong>&emsp;&emsp;<code>&amp; ^ | ~</code>&emsp;&emsp;按位与、按位异或、按位或、按位取反<br><br>&emsp;&emsp;这几个操作符都是针对操作数的二进制进行操作，具体运算较为复杂，我们之后进行详细讲解。其中’&amp;’操作符大家或许会比较懵，因为大家也许都知道我们在输入一个值想要将一个值赋给一个变量时我们往往需要’&amp;’操作符进行取地址，没错这个操作符也是取地址操作符，但是它也是位操作符，这里就牵扯到了运算符重载的知识，在CPP中会有详细讲述。<br><br>&emsp;&emsp;<strong>4、赋值操作符：</strong>&emsp;&emsp;<code>= += -= *= /= &amp;= ^= |= &gt;&gt;= &lt;&lt;=</code><br><br>&emsp;&emsp;这些赋值操作符虽然看起来多但是大都大同小异，第一个是最为简单的复赋值操作符。之后的我们以<code>+=</code>为例进行简单说明。<br><br>&emsp;&emsp;<code>a += b</code> 和 <code>a = a + b</code>是完全等价的，这么一说大家或许就都明白了，后面的操作符也都是类似的效果。<br><br>&emsp;&emsp;<strong>5、关系操作符</strong>&emsp;&emsp;<code>== &gt;= &lt;= &gt; &lt; !=</code><br><br>&emsp;&emsp;对于关系操作符，我们常常用于分支语句的判断中，其中<code>&gt;=</code>就是大于等于，<code>&lt;=</code>就是小于等于，而<code>==</code>我们之前已经讲过就是用于判断的恒等号。<br><br>&emsp;&emsp;<strong>6、逻辑操作符：</strong>&emsp;&emsp;<code>&amp;&amp; || !</code>&emsp;&emsp;与、或、非<br>&emsp;&emsp;这都是最为简单的判断操作符，在逻辑的表达上十分常用，我们之后会详细讲解。<br><br>&emsp;&emsp;除去以上这些操作符外，我们还有一些操作符，例如<code>[]</code>下标引用操作符，<code>()</code>函数调用操作符，<code>-&gt;</code>结构成员操作符，<code>? :</code>三目操作符，<code>,</code>操作符等等。我们之后都会详细讲解。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/27/【C语言】第一章-初识C语言-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -480,7 +656,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
