@@ -264,6 +264,178 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/19/【DS】第一章-初始数据结构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/19/【DS】第一章-初始数据结构/" itemprop="url">【DS】第一章-初始数据结构</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-19T19:30:13+08:00">
+                2019-03-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.2k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第一章-初识数据结构"><a href="#第一章-初识数据结构" class="headerlink" title="第一章-初识数据结构"></a>第一章-初识数据结构</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="什么是数据结构"><a href="#什么是数据结构" class="headerlink" title="什么是数据结构"></a>什么是数据结构</h3><p>&emsp;&emsp;数据结构(Data Structure)是计算机存储、组织数据的方式，指之间相互存在一种或特定关系的数据元素的集合。</p>
+<h3 id="什么是算法"><a href="#什么是算法" class="headerlink" title="什么是算法"></a>什么是算法</h3><p>&emsp;&emsp;算法是解决一类问题的一系列计算步骤。</p>
+<h3 id="数据结构和算法的重要性"><a href="#数据结构和算法的重要性" class="headerlink" title="数据结构和算法的重要性"></a>数据结构和算法的重要性</h3><p>&emsp;&emsp;笔试，面试必备。实际项目开发提供思想和思路，程序员的<strong>内功</strong>。</p>
+<h3 id="如何学好数据结构"><a href="#如何学好数据结构" class="headerlink" title="如何学好数据结构"></a>如何学好数据结构</h3><p>&emsp;&emsp;1、疯狂写代码。<br><br>&emsp;&emsp;2、注意<strong>画图</strong>和思考。不懂得地方多画几遍图，思考出思路过后再用代码实现<br><br>&emsp;&emsp;3、多去在线OJ，推荐牛客网，和领扣网。<br></p>
+<h2 id="时间复杂度和空间复杂度"><a href="#时间复杂度和空间复杂度" class="headerlink" title="时间复杂度和空间复杂度"></a>时间复杂度和空间复杂度</h2><p>&emsp;&emsp;我们在实现一个算法之后应该如何来计算或者测量这个算法的优劣呢？这就要考虑到依靠算法的效率。效率分为时间效率和空间效率，但是我们该如何衡量这两大效率呢？因为每个计算机的性能都不一样，因此我们不能依靠在计算机上运行测试时间长短来计算效率，我们总不能把全世界的算法都放到同一台计算机上来进行测试。<br><br>&emsp;&emsp;因此我们为了更好的更方便的测试一个算法的效率就依靠数学计算来进行测量，由此诞生了时间复杂度和空间复杂度。</p>
+<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>&emsp;&emsp;时间复杂度在计算机科学中是一个数学函数，他基本代表了一个算法执行基本操作的次数。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">void Func1(int N)</span><br><span class="line">&#123;</span><br><span class="line">    int count = 0;</span><br><span class="line">    for (int i = 0; i &lt; N ; ++ i)</span><br><span class="line">    &#123;</span><br><span class="line">        for (int j = 0; j &lt; N ; ++ j)</span><br><span class="line">        &#123;</span><br><span class="line">            ++count;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    for (int k = 0; k &lt; 2 * N ; ++ k)</span><br><span class="line">    &#123;</span><br><span class="line">        ++count;</span><br><span class="line">    &#125;</span><br><span class="line">    int M = 10;</span><br><span class="line">    while (M--)</span><br><span class="line">    &#123;</span><br><span class="line">        ++count;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;%d\n&quot;, count);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;像以上这这段代码我们可以用一个函数F(n)来计算其一次的执行次数，可得到<code>F(n) = n ^ 2 + 2 * n + 10</code>，但是这样表示过于复杂，也不够直观，由此我们引入了<strong>大O渐进表示法</strong>(Big O notation)，以下是大O渐进表示法的推导法则：<br><br>&emsp;&emsp;1、用常数1取代运行时间中的所有加法常数。<br><br>&emsp;&emsp;2、在修改后的运行次数函数中，只保留最高阶项。<br><br>&emsp;&emsp;3、如果最高阶项存在且不是1，则去除与这个项目相乘的常数。得到的结果就是大O阶。<br><br>&emsp;&emsp;有了这个方法我们可以将以上的F(n)表示 为<code>O(F(n)) = n ^ 2</code>。对于这个阶级我们称之为<strong>平方阶</strong>，其时间效率是十分底下的，也是最为常见的。我们往往在使用了两个循环的时候就会出现平方阶。以下还有几个比较常见的阶级。<br><br>&emsp;&emsp;1、<code>O(1)</code>：常数阶。这个阶级是效率最为高效的，但也是可遇而不可求的。<br><br>&emsp;&emsp;2、<code>O(logn)</code>：对数阶。对数阶是效率次于常数阶的也是十分高效的阶级，也是我们平时所追求的算法的极致效率。<br><br>&emsp;&emsp;3、<code>O(n)</code>：线性阶。线性阶也是效率 十分高效的了，并且也是十分常见的，同样的如果我们的算法不能达到对数阶那么也尽量应该达到线性阶<br><br>&emsp;&emsp;4、<code>O(n ^ 2)</code>：平方阶的效率比起以上的阶级效率上就要低下一些，但是在实战中并非所有的算法都能够达到前三大阶级，因此如果能达到平方阶我们则也可以称这个算法是好的，至少是有效的。<br><br>&emsp;&emsp;5、<code>O(2 ^ n)</code>：指数阶，这个阶级效率 十分低下的效率，占用的时间增长十分的快，如果<code>n</code>的数值较小我们还是可以计算出结果的，但是<code>n</code>一旦稍微大一些，我们计算的时间往往过于漫长，因此一旦出现指数阶的算法我们是并不能将其投入使用的，这个算法也不能算是有效的。<br></p>
+<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><p>&emsp;&emsp;空间复杂度与时间复杂度类似，也采用大O渐进表示法，往往先计算出占单位空间的大小表达式，再进行化简表示。相比空间复杂度我们往往更加关注于时间复杂度，因为时间效率往往是优先的。有的情况下我们不得不做出舍弃空间减少时间的决策，同样的也会做出舍弃时间减少空间的决策，这都要根据具体场景来进行决定。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/【C语言】第十四章-程序的编译/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1917,200 +2089,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/【C语言】第九章-指针进阶/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/23/【C语言】第九章-指针进阶/" itemprop="url">【C语言】第九章-指针进阶</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-23T22:24:40+08:00">
-                2019-01-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C语言进阶/" itemprop="url" rel="index">
-                    <span itemprop="name">C语言进阶</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  3.2k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第九章-指针进阶"><a href="#第九章-指针进阶" class="headerlink" title="第九章 指针进阶"></a>第九章 指针进阶</h1><p>&emsp;&emsp;在初阶篇已经讨论过C语言中最为重要也是极容易出错的<strong>指针</strong>，在进阶篇哦我们还要继续深入探讨指针，学习种类更加多样更加灵活，<del>更加变态</del>的指针。</p>
-<h2 id="字符指针"><a href="#字符指针" class="headerlink" title="字符指针"></a>字符指针</h2><p>&emsp;&emsp;字符指针我们所要知道的就是这种指针可以只想单个字符，也可以指向整个字符串，而实际使用中，用来指向字符串的情况更为常见，同时也更容易出错。因为有不少同学往往把字符指针指向一个字符串的情况理解成了将字符串存储进了整个指针中，与字符数组搞混。因此我们可以看以下这个例子做以区分。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  char str1[] = &quot;HelloWorld&quot;;</span><br><span class="line">  char str2[] = &quot;HelloWorld&quot;;</span><br><span class="line">  char* str3 = &quot;HelloWorld&quot;;</span><br><span class="line">  char* str4 = &quot;HelloWorld&quot;;</span><br><span class="line">  if(str1 == str2)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;str1 和 str2 相同！\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;str1 和 str2 不相同！\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  if(str3 == str4)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;str3 和 str4 相同！\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;str3 和 str4 不相同！\n&quot;);</span><br><span class="line">  &#125;                                   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;输出结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">str1 和 str2 不相同！</span><br><span class="line">str3 和 str4 相同！</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;由此可见相对于字符数组<code>str1</code>和<code>str2</code>是由两块完全不同的内存空间进行存储，因此他它们的首元素地址并不相同，而对于完全相同的字面量字符串，当有不同的指针指向他们的时候，系统不会再另开辟新空间进行存储，而是会让不同的指针指向同一块字面量字符串存储的内存地址。这是字符数组与字符指针的区别之一。</p>
-<h2 id="指针数组和数组指针"><a href="#指针数组和数组指针" class="headerlink" title="指针数组和数组指针"></a>指针数组和数组指针</h2><p>&emsp;&emsp;在C语言中，这两种指针是十分容易混淆的，在不同的C语言系列教材中，这两种指针在不同的情境下往往也被冠以其它的名字，例如在多为数组中出现的<strong>行指针</strong>，但其根源终究不过是这两种指针。</p>
-<h3 id="指针数组"><a href="#指针数组" class="headerlink" title="指针数组"></a>指针数组</h3><p>&emsp;&emsp;指针数组较为浅显易懂，通过名字也应该能想到，这是一种<strong>数组</strong>，而数组元素类型是<strong>指针</strong>。定义语法如下：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>typeName* arrayName[N];</code><br><br>&emsp;&emsp;例：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>int* ptrArray[10] = {NULL};</code><br><br>&emsp;&emsp;这个例子我定义了一个大小为10元素类型为<code>int*</code>型的指针数组。这样的例子看上去很容易理解，但有了这个基础我们就可以定义出以下这几种更有实际用途的指针数组。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">char* array[4];</span><br><span class="line">//字符指针数组，里面的每个元素都是一个字符指针，可以用来指向字符或者字符串</span><br><span class="line">//这种指向方式更为简单节省空间，而当我们使用二维数组存储多个字符串往往需要花费更多空间</span><br><span class="line">char** array[5];</span><br><span class="line">//二级字符指针数组，里面的每个元素都是一个指向字符指针的指针，这种用法很不多见，也较为复杂</span><br><span class="line">//但是在我们想要指向多个字符指针数组时就派的上用场。</span><br></pre></td></tr></table></figure></p>
-<h3 id="数组指针"><a href="#数组指针" class="headerlink" title="数组指针"></a>数组指针</h3><p>&emsp;&emsp;数组指针相对于指针数组来说较为复杂。数组指针从名字上看不过是一个数组的指针罢了，确实如此。但是定义起来较为难以理解。<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>typeName (*arrayName)[N];</code><br><br>&emsp;&emsp;例：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>int (*array)[10];</code><br><br>&emsp;&emsp;当我们定义了一个数组指针后，我们可以将任意一个数组取地址，然后赋值给它。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int array[4] = &#123;0&#125;;</span><br><span class="line">  int (*arrayPtr)[4] = &amp;array;//注意数组指针定义时[]中的值需与目标数组的长度相同</span><br><span class="line">  printf(&quot;%p\t%p\n&quot;, &amp;array, arrayPtr);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">0x7ffdf4f3c8e0	0x7ffdf4f3c8e0</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;通过以上例子我们是否可以联想到我们平时使用的二位数组本身就是一个数组指针呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int array[3][4] = &#123;0&#125;;         </span><br><span class="line">  int (*ptr)[4] = array;</span><br><span class="line">  printf(&quot;%p\t%p\n&quot;, array, ptr);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">0x7fffc874b160	0x7fffc874b160</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;由此可见二维数组本身就是一个数组指针，用来指向内部的各个一维数组。<br><br>&emsp;&emsp;同时在这里还需强调的一点是，又是尽管指针的值相同，也就是说指向同一块内存地址，却有可能指针类型完全不同。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int arr[3][4] = &#123;0&#125;;</span><br><span class="line">  printf(&quot;%p\n&quot;, arr);//二维数组首地址，一维数组指针int (*)[4]</span><br><span class="line">  printf(&quot;%p\n&quot;, &amp;arr);//二维数组指针int (*)[3][4]</span><br><span class="line">  printf(&quot;%p\n&quot;, arr[0]);//一维数组首地址，int型指针int*</span><br><span class="line">  printf(&quot;%p\n&quot;, &amp;arr[0][0]);//二维数组第一个元素的地址，int型指针int*</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">0x7ffca85b9440</span><br><span class="line">0x7ffca85b9440</span><br><span class="line">0x7ffca85b9440</span><br><span class="line">0x7ffca85b9440</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;由以上的代码可以看出尽管几个指针类型不尽相同，但它们都指向同一块内存空间，因此我们在给指针间进行赋值时，一定要清楚各个指针的类型，在这里十分容易出错。</p>
-<h3 id="延伸"><a href="#延伸" class="headerlink" title="延伸"></a>延伸</h3><p>&emsp;&emsp;有了数组指针与指针数组的基础，我们即可将他们合并得出更多更加复杂的指针，例如数组指针数组：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>int (*ptr[10])[4];</code><br><br>&emsp;&emsp;以上这行代码表示定义了一个长度为10的数组，数组内每一个元素都是一个数组指针，其中每个指针指向长度为4的<code>int</code>型数组。有了数组指针数组，那么是否就有指针数组指针呢？是的，得益于C语言中灵活多变的语法，这些都可以得到实现，但是难度较高也并不经常使用，在此不再讨论。</p>
-<h2 id="指针与数组传参"><a href="#指针与数组传参" class="headerlink" title="指针与数组传参"></a>指针与数组传参</h2><p>&emsp;&emsp;在C语言中，我们都知道对于函数传递参数都是进行<strong>副本传参</strong>，也就是将实参克隆一份变为形参再进行传递，由此形参的改变并不会影响到实参。但是当我们传递指针的时候就可以对原本指针所指向的变量进行改变。而当我们想要把数组传递进函数中时，无论我们以何种语法进行传递，对于编译器来说也都会自动帮我们将数组转换为指针继续宁传入，以此来节省开销。</p>
-<h3 id="一维数组传参"><a href="#一维数组传参" class="headerlink" title="一维数组传参"></a>一维数组传参</h3><p>&emsp;&emsp;A：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">void Print(int* arr, int len)</span><br><span class="line">&#123;</span><br><span class="line">  for(int i = 0; i &lt; len; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;%d\n&quot;, arr[i]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int arr[4] = &#123;1, 2, 3, 4&#125;;</span><br><span class="line">  Print(arr, 4);              </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;B：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;  </span><br><span class="line">void Print(int arr[], int len)</span><br><span class="line">&#123;  </span><br><span class="line">  for(int i = 0; i &lt; len; i++)</span><br><span class="line">  &#123;  </span><br><span class="line">    printf(&quot;%d\n&quot;, arr[i]);  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">int main()  </span><br><span class="line">&#123;  </span><br><span class="line">  int arr[4] = &#123;1, 2, 3, 4&#125;;  </span><br><span class="line">  Print(arr, 4);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;对于一维数组来说，我们可以直接使用指针的方式进行传入，也可以使用数组作为形参进行传入，并且以数组作为形参的时候可以直接忽略数组的长度，因为无论如何编译器都会将其转换为指针，这里的长度也就不需要了，因此为了更好的表示数组的长度，我们也必须将数组的长度作为参数也传入函数。</p>
-<h3 id="二维数组传参"><a href="#二维数组传参" class="headerlink" title="二维数组传参"></a>二维数组传参</h3><p>&emsp;&emsp;A：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">void Print(int arr[][4], int len)</span><br><span class="line">&#123;</span><br><span class="line">  for(int i = 0; i &lt; len; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    for(int j = 0 ; j &lt; 4; j++)</span><br><span class="line">    &#123;</span><br><span class="line">      printf(&quot;%d\t&quot;, arr[i][j]);</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int arr[3][4] = &#123;</span><br><span class="line">    &#123;1, 2, 3, 4&#125;,</span><br><span class="line">    &#123;5, 6, 7, 8&#125;,</span><br><span class="line">    &#123;9, 10, 11, 12&#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">  Print(arr, 3);                 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;B：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">void Print(int (*arr)[4], int len)</span><br><span class="line">&#123;</span><br><span class="line">  for(int i = 0; i &lt; len; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    for(int j = 0 ; j &lt; 4; j++)</span><br><span class="line">    &#123;</span><br><span class="line">      printf(&quot;%d\t&quot;, arr[i][j]);</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int arr[3][4] = &#123;</span><br><span class="line">    &#123;1, 2, 3, 4&#125;,</span><br><span class="line">    &#123;5, 6, 7, 8&#125;,</span><br><span class="line">    &#123;9, 10, 11, 12&#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">  Print(arr, 3);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;对于二维数组来说，也同样的有两种方法，一种是以数组的方式，另一种是以与之相同类型的数组指针的方式，不过这里不同的是，二维数组的低维度不可省略，而高维度可以省略。<br><br>&emsp;&emsp;对于数组传参不光是一维和二维数组，几乎所有类型的数组都适用同样的原理。</p>
-<h2 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h2><p>&emsp;&emsp;函数指针是指针中较为重要也是比较特殊的类别，并且在实际使用中也是极为常见的类型。</p>
-<h3 id="函数指针-1"><a href="#函数指针-1" class="headerlink" title="函数指针"></a>函数指针</h3><p>&emsp;&emsp;函数指针定义：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>void (*FunName)();</code><br><br>&emsp;&emsp;函数指针定义起来语法十分简单，而我们想要函数指针指向某个函数则只需要让它指向和它返回值类型以及参数完全相同的函数即可。当他进行指向后我们就可以使用函数指针直接进行函数的调用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">void Print(int (*arr)[4], int len)</span><br><span class="line">&#123;</span><br><span class="line">  for(int i = 0; i &lt; len; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    for(int j = 0 ; j &lt; 4; j++)</span><br><span class="line">    &#123;</span><br><span class="line">      printf(&quot;%d\t&quot;, arr[i][j]);</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int arr[3][4] = &#123;</span><br><span class="line">    &#123;1, 2, 3, 4&#125;,</span><br><span class="line">    &#123;5, 6, 7, 8&#125;,</span><br><span class="line">    &#123;9, 10, 11, 12&#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">  Print(arr, 3);</span><br><span class="line">  void (*ptr)(int (*arr)[4], int len) = Print;</span><br><span class="line">  ptr(arr, 3);</span><br><span class="line">  (*ptr)(arr, 3);                             </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">1	2	3	4	</span><br><span class="line">5	6	7	8	</span><br><span class="line">9	10	11	12	</span><br><span class="line">1	2	3	4	</span><br><span class="line">5	6	7	8	</span><br><span class="line">9	10	11	12	</span><br><span class="line">1	2	3	4	</span><br><span class="line">5	6	7	8	</span><br><span class="line">9	10	11	12</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;在以上的例子中我们使用了一个<code>ptr</code>函数指针指向了<code>Print()</code>函数，注意在给函数指针赋值时，函数名就是函数的地址了，而在使用函数指针进行函数调用时，则可以直接对指针像函数呢样传参即可，当然也可以先解引用再传参，都是可以的。</p>
-<h3 id="函数指针数组"><a href="#函数指针数组" class="headerlink" title="函数指针数组"></a>函数指针数组</h3><p>&emsp;&emsp;接下来我们将函数指针与我们之前说过的指针数组相结合，形成函数指针数组，这在实际开发中往往可以大大提高执行效率。<br><br>&emsp;&emsp;与数组指针数组类似有：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<br><code>int (*arr[10])(参数)</code><br><br>&emsp;&emsp;这就是一个函数指针数组的标准定义式了，以下我举个小小例子将其带入应用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int Plus(int num1, int num2)</span><br><span class="line">&#123;</span><br><span class="line">  return num1 + num2;</span><br><span class="line">&#125;</span><br><span class="line">int Min(int num1, int num2)</span><br><span class="line">&#123;</span><br><span class="line">  return num1 - num2;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int (*arr[2])(int, int) = &#123;</span><br><span class="line">    Plus,</span><br><span class="line">    Min</span><br><span class="line">  &#125;;</span><br><span class="line">  int choice = 0, num1, num2;</span><br><span class="line">  printf(&quot;执行加法请输入1，执行减法请输入2：&quot;);</span><br><span class="line">  scanf(&quot;%d&quot;, &amp;choice);</span><br><span class="line">  if(choice == 0)</span><br><span class="line">  &#123;</span><br><span class="line">    return 0;</span><br><span class="line">  &#125;</span><br><span class="line">  printf(&quot;请输入操作数：&quot;);</span><br><span class="line">  scanf(&quot;%d%d&quot;, &amp;num1, &amp;num2);                 </span><br><span class="line">  printf(&quot;%d\n&quot;, arr[choice - 1](num1, num2));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这里我简单举了个以加减法为主的小计算器的例子，在最后我们使用函数指针数组进行函数调用以此减少判断的开销，或许这个例子不够明显，但在我们有很多函数要进行调用时，结果就会更加一目了然了。</p>
-<h3 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h3><p>&emsp;&emsp;回调函数说简单些就是我们将函数指针作为参数传给了另外一个函数，这个函数指针所指向的函数往往不是实现者所写的，因此更不会由实现者进行调用，而是由使用者根据使用情况写出的自定义函数，这个函数在特定情况下进行调用。这就是回调函数，因此这样的函数在编写外部接口时经常被用到。接下来我i我们以一个<code>qsort</code>函数为例编写一个回调函数并进行使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int cmp(const void* p1, const void* p2)//自己所编写的函数</span><br><span class="line">&#123;</span><br><span class="line">  return (*(int*)p1 &gt; *(int*)p2);</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int arr[] = &#123;11, 22, 99, 34, 454, 32, 0&#125;;</span><br><span class="line">  qsort(arr, sizeof(arr) / sizeof(arr[0]), sizeof(int), cmp);//传入函数中成为回调函数</span><br><span class="line">  for(int i = 0; i &lt; sizeof(arr) / sizeof(arr[0]); i++)                       </span><br><span class="line">  &#123;                                                                           </span><br><span class="line">    printf(&quot;%d\n&quot;, arr[i]);                                                   </span><br><span class="line">  &#125;                                                                           </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">0</span><br><span class="line">11</span><br><span class="line">22</span><br><span class="line">32</span><br><span class="line">34</span><br><span class="line">99</span><br><span class="line">454</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;从以上这个例子即可看出回调函数的威力，我们可以根据使用我们自己所写的函数改变排序规则。因此回调函数也是实际使用中十分重要的一环。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2165,7 +2143,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2187,7 +2165,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
