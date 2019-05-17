@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Cpp,类和对象," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="Hard working or giving up!!!">
+<meta name="description" content="类和对象类的六个默认成员函数&amp;emsp;&amp;emsp;在我们构建一个类之后即使我们在其中不写任何的成员函数，在其中也会有6个默认编译器自动生成的成员函数，这些函数构成了类的基本功能包括初始化，销毁后的清理工作等。当然这些自动生成的成员函数功能有限有时候或许无法达到预期的效果，因此我们可以对其进行重载让其能够达到我们需要的功能。&amp;emsp;&amp;emsp;1、构造函数&amp;emsp;&amp;emsp;2、析构函数&amp;">
+<meta name="keywords" content="Cpp,类和对象">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【Cpp】第二章-类和对象-中">
 <meta property="og:url" content="http://yoursite.com/2019/05/15/【Cpp】第二章-类和对象-中/index.html">
 <meta property="og:site_name" content="Misaki`s blog">
-<meta property="og:description" content="Hard working or giving up!!!">
+<meta property="og:description" content="类和对象类的六个默认成员函数&amp;emsp;&amp;emsp;在我们构建一个类之后即使我们在其中不写任何的成员函数，在其中也会有6个默认编译器自动生成的成员函数，这些函数构成了类的基本功能包括初始化，销毁后的清理工作等。当然这些自动生成的成员函数功能有限有时候或许无法达到预期的效果，因此我们可以对其进行重载让其能够达到我们需要的功能。&amp;emsp;&amp;emsp;1、构造函数&amp;emsp;&amp;emsp;2、析构函数&amp;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-15T10:02:40.770Z">
+<meta property="og:updated_time" content="2019-05-17T07:00:36.035Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Cpp】第二章-类和对象-中">
-<meta name="twitter:description" content="Hard working or giving up!!!">
+<meta name="twitter:description" content="类和对象类的六个默认成员函数&amp;emsp;&amp;emsp;在我们构建一个类之后即使我们在其中不写任何的成员函数，在其中也会有6个默认编译器自动生成的成员函数，这些函数构成了类的基本功能包括初始化，销毁后的清理工作等。当然这些自动生成的成员函数功能有限有时候或许无法达到预期的效果，因此我们可以对其进行重载让其能够达到我们需要的功能。&amp;emsp;&amp;emsp;1、构造函数&amp;emsp;&amp;emsp;2、析构函数&amp;">
 
 
 
@@ -304,6 +305,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index">
+                    <span itemprop="name">Cpp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -325,7 +348,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  0
+                  3.2k
                 </span>
               
 
@@ -350,7 +373,33 @@
       
 
       
-        
+        <h1 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h1><h2 id="类的六个默认成员函数"><a href="#类的六个默认成员函数" class="headerlink" title="类的六个默认成员函数"></a>类的六个默认成员函数</h2><p>&emsp;&emsp;在我们构建一个类之后即使我们在其中不写任何的成员函数，在其中也会有6个默认编译器自动生成的成员函数，这些函数构成了类的基本功能包括初始化，销毁后的清理工作等。当然这些自动生成的成员函数功能有限有时候或许无法达到预期的效果，因此我们可以对其进行重载让其能够达到我们需要的功能。<br><br>&emsp;&emsp;1、构造函数<br>&emsp;&emsp;2、析构函数<br>&emsp;&emsp;3、拷贝构造函数<br>&emsp;&emsp;4、赋值运算符重载函数<br>&emsp;&emsp;5、对普通对象取地址运算符重载<br>&emsp;&emsp;6、对常对象取地址运算符重载<br>&emsp;&emsp;以上这6个函数中前四个我们都有极大可能性会对其重载因此需要重点学习，而后两个则很少需要自己实现。</p>
+<h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><p>&emsp;&emsp;构造函数时在<strong>类刚刚实例化创建出对象时自动进行调用的</strong>，主要负责类的初始化。因此我们就要注意一点，我们在调用构造函数的时候只是对对象进行初始化并不为其分配空间，因此构造函数并不是在构造对象，而是在初始化对象。</p>
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><p>&emsp;&emsp;构造函数具有以下特性<br>&emsp;&emsp;1、与类名相同<br>&emsp;&emsp;2、实例化自动调用<br>&emsp;&emsp;3、无返回值<br>&emsp;&emsp;4、支持重载</p>
+<h3 id="默认构造函数"><a href="#默认构造函数" class="headerlink" title="默认构造函数"></a>默认构造函数</h3><p>&emsp;&emsp;所有的无参或是全缺省的构造函数都可以看作是默认的构造函数，并不一定非要是默认生成的构造函数，因此默认构造函数大致分为三种。<br>&emsp;&emsp;1、自定义无参构造函数<br>&emsp;&emsp;2、自定义全缺省构造函数<br>&emsp;&emsp;3、自动生成无参构造函数<br>&emsp;&emsp;如果类中没有构造函数，则会默认生成一个无参构造函数，但是如果我们定义了构造函数则不会再默认生成。但是默认生成的无参构造函数不会进行成员变量的初始化，如果成员中有其他自定义类型的成员变量会调用它的构造函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;                                                                      </span><br><span class="line">using std::cout;         </span><br><span class="line">using std::endl;         </span><br><span class="line">using std::string;                                  </span><br><span class="line">class Student                                       </span><br><span class="line">&#123;                                           </span><br><span class="line">private:            </span><br><span class="line">  int _num;//学号                         </span><br><span class="line">  string _name;//姓名                                           </span><br><span class="line">  int _classId;//班级编号                                       </span><br><span class="line">public:                                                        </span><br><span class="line">  //一个类中默认的构造函数只能有一个，否则会产生歧义</span><br><span class="line">  //默认构造函数(自动生成的构造函数与它相同)</span><br><span class="line">  //Student()&#123;&#125;        </span><br><span class="line">  //构造函数重载       </span><br><span class="line">  //全缺省构造函数，也可以视为默认构造函数</span><br><span class="line">  //如果有默认值的情况下我们最好在类中将默认构造函数定义为全缺省</span><br><span class="line">  Student(int num = 1, string name = &quot;李狗蛋&quot;, int classId = 1)                       </span><br><span class="line">  &#123;                                                                                   </span><br><span class="line">    _num = num;     </span><br><span class="line">    _name = name;   </span><br><span class="line">    _classId = classId;</span><br><span class="line">  &#125;</span><br><span class="line">  void Print()                             </span><br><span class="line">  &#123;                              </span><br><span class="line">    cout &lt;&lt; &quot;学号：&quot; &lt;&lt; _num &lt;&lt; &quot;\t姓名：&quot; &lt;&lt; _name &lt;&lt; &quot;\t班级：&quot; &lt;&lt; _classId &lt;&lt; endl;</span><br><span class="line">  &#125;                </span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  //如果使用无参构造则不需要加括号，否则会和函数声明产生歧义</span><br><span class="line">  Student student1;//默认构造，全部用默认值</span><br><span class="line">  Student student2(2, &quot;张三&quot;, 2);</span><br><span class="line">  student1.Print();</span><br><span class="line">  student2.Print();</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第二章-类和对象]$ ./DefaultFun</span><br><span class="line">学号：1	姓名：李狗蛋	班级：1</span><br><span class="line">学号：2	姓名：张三	班级：2</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这里需要注意的就是为了避免歧义<strong>一类中只能出现一个默认构造函数</strong>。同时自动生成的构造函数功能十分优先，不会进行成员变量初始化，所以我们往往需要重载。</p>
+<h2 id="析构函数"><a href="#析构函数" class="headerlink" title="析构函数"></a>析构函数</h2><p>&emsp;&emsp;与构造函数向对立的就是析构函数，析构函数是在对象销毁时自动调用的，主要时为了帮助我们清理我们创建对象时分配的空间，清空指针之类的，析构函数在如果成员变量中没有指针或者没有动态分配内存亦或者没有需要关闭的文件的情况下往往时不需要自己进行定义的。</p>
+<h3 id="特性-1"><a href="#特性-1" class="headerlink" title="特性"></a>特性</h3><p>&emsp;&emsp;1、定义在类名前加<code>~</code><br>&emsp;&emsp;2、无参数无返回值，意味着析构函数无法重载，只能存在一个<br>&emsp;&emsp;3、有且只有一个析构函数，若未显式定义则会生成默认析构<br>&emsp;&emsp;4、对象销毁时自动调用析构函数<br>&emsp;&emsp;析构函数特性与构造十分类似，最为主要的就是一个类中只会唯一存在一个析构函数。</p>
+<h3 id="默认析构函数"><a href="#默认析构函数" class="headerlink" title="默认析构函数"></a>默认析构函数</h3><p>&emsp;&emsp;析构函数和构造函数一样如果我们并未定义则会自动生成一个，同样自动生成的析构函数不会做任何处理，析构函数在处理自定义类型时同样也会自动调用其对应的析构函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//析构函数，默认生成的析构函数与它相同   </span><br><span class="line">~Student()&#123;&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="拷贝构造"><a href="#拷贝构造" class="headerlink" title="拷贝构造"></a>拷贝构造</h2><p>&emsp;&emsp;拷贝构造是用来实例化与某一对象相同的对象的，他会将该对象的数据完全复制一份相同的出来，拷贝构造是构造函数的一个重载。</p>
+<h3 id="默认拷贝构造"><a href="#默认拷贝构造" class="headerlink" title="默认拷贝构造"></a>默认拷贝构造</h3><p>&emsp;&emsp;同样如果我们并未显式定义拷贝构造则会自动生成一个，但是要注意默认生成的拷贝构造只能完成简单的浅拷贝，因此如果我们想要对复杂的如链表类进行拷贝需要自行定义。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//默认拷贝构造  </span><br><span class="line">Student(const Student&amp; student)  </span><br><span class="line">&#123;  </span><br><span class="line">  _num = student._num;  </span><br><span class="line">  _name = student._name;</span><br><span class="line">  _classId = student._classId;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>&emsp;&emsp;拷贝构造在很多情况下都会调用，比如说我们将对象传给一个函数时，由于副本传参会复制一份副本进行传入，这个时候就已经调用了拷贝构造。那么我们在调用拷贝构造的时候就会将这个对象当作参数传入，如果我们这个时候调用了拷贝构造就是在拷贝构造中调用了拷贝构造会发生无限递归的情况，这该怎么解决呢？——传引用即可。因此拷贝构造的参数必定是本类对象的引用，不然就会报错。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//拷贝构造  </span><br><span class="line">Student(Student student)  </span><br><span class="line">&#123;  </span><br><span class="line">  _num = student._num;  </span><br><span class="line">  _name = student._name;</span><br><span class="line">  _classId = student._classId;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">报错：</span><br><span class="line">DefaultFun.cpp:25:26: 错误：无效的构造函数：您要的可能是‘Student (const Student&amp;)’</span><br><span class="line">   Student(Student student)</span><br><span class="line">                          ^</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;在编写函数的时候建议多用引用类型，尤其是在面对占用空间大的自定义类型时，使用引用会提高效率，不会发生拷贝构造，如果我们并不希望修改传入的参数，在前面加上<code>const</code>来避免修改，这是很好的代码风格。这里极度推荐一定要传入常引用，不然可能会引发赋值运算符重载连续赋值时调用拷贝构造传参产生常引用参数类型不服无法调用的情况。</p>
+<h2 id="赋值运算符重载"><a href="#赋值运算符重载" class="headerlink" title="赋值运算符重载"></a>赋值运算符重载</h2><p>&emsp;&emsp;赋值运算符重载是类似于拷贝构造的默认构造函数，不过是将拷贝构造通过<code>=</code>来使用，不过我们得先了解运算符重载。</p>
+<h3 id="运算符重载"><a href="#运算符重载" class="headerlink" title="运算符重载"></a>运算符重载</h3><p>&emsp;&emsp;在C++中支持对运算符进行重载，使得给我们带来的很大的遍历，由此我们可以通过预算符来指定操作操作我们的自定义类型。</p>
+<h4 id="重载规则"><a href="#重载规则" class="headerlink" title="重载规则"></a>重载规则</h4><p>&emsp;&emsp;1、不能创建新的操作符<br>&emsp;&emsp;2、必须有一个自定义类型或枚举类型操作数。<br>&emsp;&emsp;3、内置类型操作符不能改变其含义<br>&emsp;&emsp;4、在类内定义时会多一个默认形参<code>this</code>指针<br>&emsp;&emsp;5、<code>.*</code>、<code>::</code>、<code>sizeof</code>、<code>.</code>、<code>?:</code>这五个操作符不能重载。</p>
+<h4 id="类外重载"><a href="#类外重载" class="headerlink" title="类外重载"></a>类外重载</h4><p>&emsp;&emsp;在类外进行操作符重载定义的成为类外重载，往往有两个参数，其中要求至少有一个是自定义类型。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">bool operator==(const Student&amp; stu1, const Student&amp; stu2)</span><br><span class="line">&#123;</span><br><span class="line">  return stu1._num == stu2._num &amp;&amp; stu1._name == stu2._name &amp;&amp; stu1._classId == stu2._classId;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  //如果使用无参构造则不需要加括号，否则会和函数声明产生歧义</span><br><span class="line">  Student student1(2, &quot;张三&quot;, 2);//默认构造，全部用默认值</span><br><span class="line">  Student student2(2, &quot;张三&quot;, 2);</span><br><span class="line">  cout &lt;&lt; (student1 == student2) &lt;&lt; endl;</span><br><span class="line">  //实际上会转换为operator==(student1, student2);</span><br><span class="line">&#125;                                                                                              </span><br><span class="line"></span><br><span class="line">[misaki@localhost 第二章-类和对象]$ ./DefaultFun</span><br><span class="line">1</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;但是类外构造有一个致命的缺点，就是在类外我们往往无法访问到类内的很多成员变量，为了实现重载将其改为公有有点以小失大，因此就有了类内构造。</p>
+<h4 id="类内重载"><a href="#类内重载" class="headerlink" title="类内重载"></a>类内重载</h4><p>&emsp;&emsp;类内重载则能解决成员在类外无法调用的问题。定义的类则自动被视为左操作数，参数则为右操作数。不过要注意类内重载会默认有一个形参<code>this</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//类内重载                                                                     </span><br><span class="line">bool operator==(const Student&amp; stu2)</span><br><span class="line">&#123;                                                                              </span><br><span class="line">  return _num == stu2._num &amp;&amp; _name == stu2._name &amp;&amp; _classId == stu2._classId;</span><br><span class="line">&#125;                                     </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  //如果使用无参构造则不需要加括号，否则会和函数声明产生歧义</span><br><span class="line">  Student student1(2, &quot;张三&quot;, 2);//默认构造，全部用默认值</span><br><span class="line">  Student student2(2, &quot;张三&quot;, 2);</span><br><span class="line">  cout &lt;&lt; (student1 == student2) &lt;&lt; endl;</span><br><span class="line">  //实际调用：student1.operator==(&amp;student1, student2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="赋值运算符重载-1"><a href="#赋值运算符重载-1" class="headerlink" title="赋值运算符重载"></a>赋值运算符重载</h4><p>&emsp;&emsp;赋值运算符重载不过是将拷贝构造的内容通过赋值运算符重载来表示，这样更加直观，同样的如果我们未显式定义则会默认生成一个。同时这个运算符重载是有返回值的，是为了用于实现连续赋值。这里推荐一定传入引用类型的参数，是为了防止连续赋值时调用拷贝构造出现问题,同时返回值也要返回引用类型，防止调用拷贝构造影响效率。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">//赋值运算符重载，自动生成的重载与他相同</span><br><span class="line">Student&amp; operator=(const Student&amp; stu)</span><br><span class="line">&#123;</span><br><span class="line">  _num = stu._num;</span><br><span class="line">  _name = stu._name;</span><br><span class="line">  _classId = stu._classId;</span><br><span class="line">  return *this;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  Student student1(2, &quot;张三&quot;, 2);//默认构造，全部用默认值</span><br><span class="line">  Student student2 = student1;</span><br><span class="line">  student2.Print();</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第二章-类和对象]$ ./DefaultFun</span><br><span class="line">学号：2	姓名：张三	班级：2</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;自动生成的运算符重载也只能完成浅拷贝。</p>
+<h2 id="cconst成员"><a href="#cconst成员" class="headerlink" title="cconst成员"></a>cconst成员</h2><p>&emsp;&emsp;我们有时会定义常对象，即不可改变的对象，这种对象在调用成员函数如果调用的普通成员函数会出现问题。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  const Student student1(2, &quot;张三&quot;, 2);</span><br><span class="line">  student1.Print();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[misaki@localhost 第二章-类和对象]$ make</span><br><span class="line">g++ -g DefaultFun.cpp -o DefaultFun</span><br><span class="line">DefaultFun.cpp: 在函数‘int main()’中:</span><br><span class="line">DefaultFun.cpp:61:18: 错误：将‘const Student’作为‘void Student::Print()’的‘this’实参时丢弃了类型限定 [-fpermissive]</span><br><span class="line">   student1.Print();</span><br><span class="line">                  ^</span><br><span class="line">make: *** [DefaultFun] 错误 1</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这里主要问题所在就在于调用函数由于我们的对象是<code>const</code>，那么对象本身不可改，在传给隐式<code>this</code>的时候这里的<code>this</code>的类型也应该为<code>const *</code>，否则就会出现这样的问题。那么我们怎么样解决呢？这里就要用到常成员函数。</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">void Print() const                                                                  </span><br><span class="line">&#123;                             </span><br><span class="line">  cout &lt;&lt; &quot;学号：&quot; &lt;&lt; _num &lt;&lt; &quot;\t姓名：&quot; &lt;&lt; _name &lt;&lt; &quot;\t班级：&quot; &lt;&lt; _classId &lt;&lt; endl;</span><br><span class="line">&#125;  </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  const Student student1(2, &quot;张三&quot;, 2);</span><br><span class="line">  student1.Print();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第二章-类和对象]$ ./DefaultFun</span><br><span class="line">学号：2	姓名：张三	班级：2</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;在成员函数后加<code>const</code>将其变为常成员，常成员会将函数的形参<code>this</code>类型改为<code>const *</code>，这样在常成员函数中则不可再修改调用对象的数据。</p>
+<h3 id="注意-1"><a href="#注意-1" class="headerlink" title="注意"></a>注意</h3><p>&emsp;&emsp;1、普通对象可以调用常成员函数。<br>&emsp;&emsp;2、常对象不可以调用普通成员函数。<br>&emsp;&emsp;3、建议将一切不会修改对象数据的成员函数都写为常成员函数。<br>&emsp;&emsp;4、常对象只能初始化，不能进行修改。</p>
+<h2 id="取地址及const取地址操作符取地址"><a href="#取地址及const取地址操作符取地址" class="headerlink" title="取地址及const取地址操作符取地址"></a>取地址及const取地址操作符取地址</h2><p>&emsp;&emsp;这两个默认成员函数是最后的两个会默认生成的成员函数，一般情况下不需要我们显式定义，除非我们想让别人通过取地址符获得指定的数据。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//默认生成的取地址及const取地址操作符如下</span><br><span class="line">Student* operator&amp;()</span><br><span class="line">&#123;</span><br><span class="line">  return this ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const Student* operator&amp;() const</span><br><span class="line">&#123;</span><br><span class="line">  return this ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
       
     </div>
     
@@ -399,6 +448,14 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Cpp/" rel="tag"># Cpp</a>
+          
+            <a href="/tags/类和对象/" rel="tag"># 类和对象</a>
+          
+        </div>
       
 
       
@@ -469,8 +526,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -563,6 +629,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#类和对象"><span class="nav-number">1.</span> <span class="nav-text">类和对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类的六个默认成员函数"><span class="nav-number">1.1.</span> <span class="nav-text">类的六个默认成员函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数"><span class="nav-number">1.2.</span> <span class="nav-text">构造函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特性"><span class="nav-number">1.2.1.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#默认构造函数"><span class="nav-number">1.2.2.</span> <span class="nav-text">默认构造函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#析构函数"><span class="nav-number">1.3.</span> <span class="nav-text">析构函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特性-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#默认析构函数"><span class="nav-number">1.3.2.</span> <span class="nav-text">默认析构函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拷贝构造"><span class="nav-number">1.4.</span> <span class="nav-text">拷贝构造</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#默认拷贝构造"><span class="nav-number">1.4.1.</span> <span class="nav-text">默认拷贝构造</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意"><span class="nav-number">1.4.2.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#赋值运算符重载"><span class="nav-number">1.5.</span> <span class="nav-text">赋值运算符重载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#运算符重载"><span class="nav-number">1.5.1.</span> <span class="nav-text">运算符重载</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#重载规则"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">重载规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类外重载"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">类外重载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类内重载"><span class="nav-number">1.5.1.3.</span> <span class="nav-text">类内重载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#赋值运算符重载-1"><span class="nav-number">1.5.1.4.</span> <span class="nav-text">赋值运算符重载</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cconst成员"><span class="nav-number">1.6.</span> <span class="nav-text">cconst成员</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">1.6.1.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意-1"><span class="nav-number">1.6.2.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#取地址及const取地址操作符取地址"><span class="nav-number">1.7.</span> <span class="nav-text">取地址及const取地址操作符取地址</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -608,7 +690,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共99.8k字</span>
+  <span class="post-count">博客全站共103k字</span>
 </div>
 
         ﻿
