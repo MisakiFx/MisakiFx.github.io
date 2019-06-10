@@ -1,0 +1,876 @@
+﻿<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Cpp,内存管理," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="内存管理C++内存管理&amp;emsp;&amp;emsp;在C语言中，我们想要动态分配内存空间需要使用到malloc,calloc,realloc函数，在C++中我们同样有动态进行内存管理的方式，并且与C语言中的内存管理有着一些区别。 new/delete&amp;emsp;&amp;emsp;在C++中我们使用new进行内存的申请，用delete进行内存的释放。他们的使用比malloc和free更加简单方便。 内置类型的内">
+<meta name="keywords" content="Cpp,内存管理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Cpp】第三章-内存管理">
+<meta property="og:url" content="http://yoursite.com/2019/06/11/【Cpp】第三章-内存管理/index.html">
+<meta property="og:site_name" content="Misaki`s blog">
+<meta property="og:description" content="内存管理C++内存管理&amp;emsp;&amp;emsp;在C语言中，我们想要动态分配内存空间需要使用到malloc,calloc,realloc函数，在C++中我们同样有动态进行内存管理的方式，并且与C语言中的内存管理有着一些区别。 new/delete&amp;emsp;&amp;emsp;在C++中我们使用new进行内存的申请，用delete进行内存的释放。他们的使用比malloc和free更加简单方便。 内置类型的内">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-06-10T17:35:12.398Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【Cpp】第三章-内存管理">
+<meta name="twitter:description" content="内存管理C++内存管理&amp;emsp;&amp;emsp;在C语言中，我们想要动态分配内存空间需要使用到malloc,calloc,realloc函数，在C++中我们同样有动态进行内存管理的方式，并且与C语言中的内存管理有着一些区别。 new/delete&amp;emsp;&amp;emsp;在C++中我们使用new进行内存的申请，用delete进行内存的释放。他们的使用比malloc和free更加简单方便。 内置类型的内">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/06/11/【Cpp】第三章-内存管理/"/>
+
+
+
+
+
+  <title>【Cpp】第三章-内存管理 | Misaki`s blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+<a href="https://github.com/MisakiFx" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Misaki`s blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习是一种态度</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/11/【Cpp】第三章-内存管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【Cpp】第三章-内存管理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-11T01:34:08+08:00">
+                2019-06-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index">
+                    <span itemprop="name">Cpp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.6k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h1><h2 id="C-内存管理"><a href="#C-内存管理" class="headerlink" title="C++内存管理"></a>C++内存管理</h2><p>&emsp;&emsp;在C语言中，我们想要动态分配内存空间需要使用到<code>malloc,calloc,realloc</code>函数，在C++中我们同样有动态进行内存管理的方式，并且与C语言中的内存管理有着一些区别。</p>
+<h3 id="new-delete"><a href="#new-delete" class="headerlink" title="new/delete"></a>new/delete</h3><p>&emsp;&emsp;在C++中我们使用<code>new</code>进行内存的申请，用<code>delete</code>进行内存的释放。他们的使用比<code>malloc</code>和<code>free</code>更加简单方便。</p>
+<h4 id="内置类型的内存分配与释放"><a href="#内置类型的内存分配与释放" class="headerlink" title="内置类型的内存分配与释放"></a>内置类型的内存分配与释放</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int* a = new int;</span><br><span class="line">  //等同于int* a = (int*)malloc(sizeof(int));</span><br><span class="line">  int* b = new int[10];</span><br><span class="line">  //等同于int* b = (int*)malloc(sizeof(int) * 10);</span><br><span class="line">  int* c = new int(10);</span><br><span class="line">  //new还可以进行内置类型的初始化</span><br><span class="line">  cout &lt;&lt; *c &lt;&lt; endl;</span><br><span class="line">  delete a;</span><br><span class="line">  //等同于free(a);</span><br><span class="line">  delete[] b;//对于多个变量的空间释放要用delete[]</span><br><span class="line">  //等同于free(b);</span><br><span class="line">  delete c;</span><br><span class="line">  //等同于free(c);                                </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第三章-内存管理]$ ./New</span><br><span class="line">10</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;<code>new</code>和<code>malloc</code>一样会在堆上开辟空间同时需要我们手动进行内存的释放，但是<code>new</code>的写法更加简单易于理解同时我们还可以对单个申请的变量进行初始化。</p>
+<h4 id="自定义类型的内存分配与释放"><a href="#自定义类型的内存分配与释放" class="headerlink" title="自定义类型的内存分配与释放"></a>自定义类型的内存分配与释放</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;                                 </span><br><span class="line">#include &lt;stdlib.h&gt;  </span><br><span class="line">using namespace std;                           </span><br><span class="line">class Stu                </span><br><span class="line">&#123;                                                   </span><br><span class="line">  public:                </span><br><span class="line">    Stu()                          </span><br><span class="line">    &#123;                  </span><br><span class="line">      cout &lt;&lt; &quot;default building&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;;              </span><br><span class="line">    Stu(int num, string name):_num(num), _name(name)</span><br><span class="line">    &#123;               </span><br><span class="line">      cout &lt;&lt; &quot;custom building&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;               </span><br><span class="line">    ~Stu()                  </span><br><span class="line">    &#123;                                </span><br><span class="line">      cout &lt;&lt; &quot;destroying&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;                         </span><br><span class="line">  private:                  </span><br><span class="line">    int _num;                            </span><br><span class="line">    string _name;        </span><br><span class="line">&#125;;                    </span><br><span class="line">int main()</span><br><span class="line">&#123;         </span><br><span class="line">  cout &lt;&lt; &quot;malloc:&quot; &lt;&lt; endl;</span><br><span class="line">  Stu* a = (Stu*)malloc(sizeof(Stu));</span><br><span class="line">  cout &lt;&lt; &quot;new:&quot; &lt;&lt; endl;</span><br><span class="line">  Stu* b = new Stu(1, &quot;张三&quot;);</span><br><span class="line">  cout &lt;&lt; &quot;malloc:&quot; &lt;&lt; endl;</span><br><span class="line">  Stu* c = (Stu*)malloc(sizeof(Stu) * 5);</span><br><span class="line">  cout &lt;&lt; &quot;new:&quot; &lt;&lt; endl;</span><br><span class="line">  Stu* d = new Stu[5];</span><br><span class="line">  cout &lt;&lt; &quot;free:&quot; &lt;&lt; endl;</span><br><span class="line">  free(a);</span><br><span class="line">  cout &lt;&lt; &quot;delete:&quot; &lt;&lt; endl;</span><br><span class="line">  delete b;</span><br><span class="line">  cout &lt;&lt; &quot;free:&quot; &lt;&lt; endl;</span><br><span class="line">  free(c);</span><br><span class="line">  cout &lt;&lt; &quot;delete:&quot; &lt;&lt; endl;</span><br><span class="line">  delete[] d;</span><br><span class="line">&#125;              </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第三章-内存管理]$ ./New </span><br><span class="line">malloc:</span><br><span class="line">new:</span><br><span class="line">custom building</span><br><span class="line">malloc:</span><br><span class="line">new:</span><br><span class="line">default building</span><br><span class="line">default building</span><br><span class="line">default building</span><br><span class="line">default building</span><br><span class="line">default building</span><br><span class="line">free:</span><br><span class="line">delete:</span><br><span class="line">destroying</span><br><span class="line">free:</span><br><span class="line">delete:</span><br><span class="line">destroying</span><br><span class="line">destroying</span><br><span class="line">destroying</span><br><span class="line">destroying</span><br><span class="line">destroying</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;以上这段代码我分别使用<code>malloc</code>和<code>new</code>对自定义类型进行内存分配和释放，我们可以发现<code>new</code>不但可以在分配内存的时候手动调用指定的构造函数还会在分配多个对象的空间时自动调用默认构造函数，<code>delete</code>也会自动调用析构函数，而<code>malloc</code>和<code>free</code>却做不到这一点。因此可以理解<strong>为<code>malloc</code>和<code>free</code>分配出来的只不过是一个和类一样大小的空间，并不能称作是一个对象，而<code>new</code>和<code>delete</code>分配出来的才能被成为对象</strong>。</p>
+<h2 id="new和delete实现原理"><a href="#new和delete实现原理" class="headerlink" title="new和delete实现原理"></a>new和delete实现原理</h2><p>&emsp;&emsp;<code>new</code>和<code>delete</code>在C++中其实被定义为两个运算符，我们在使用这两个运算符的时候它会在底层调用全局函数<code>operator new</code>和<code>operator delete</code>。</p>
+<h3 id="operator-new-operator-delete"><a href="#operator-new-operator-delete" class="headerlink" title="operator new/operator delete"></a>operator new/operator delete</h3><p>&emsp;&emsp;我们首先看下这两个函数在底层的实现源码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">void *__CRTDECL operator new(size_t size) _THROW1(_STD bad_alloc)</span><br><span class="line">&#123;</span><br><span class="line"> // try to allocate size bytes</span><br><span class="line"> void *p;</span><br><span class="line"> while ((p = malloc(size)) == 0)</span><br><span class="line"> if (_callnewh(size) == 0)</span><br><span class="line"> &#123;</span><br><span class="line"> // report no memory</span><br><span class="line"> // 如果申请内存失败了，这里会抛出bad_alloc 类型异常</span><br><span class="line"> static const std::bad_alloc nomem;</span><br><span class="line"> _RAISE(nomem);</span><br><span class="line"> &#125;</span><br><span class="line"> return (p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">void operator delete(void *pUserData)</span><br><span class="line">&#123;</span><br><span class="line"> _CrtMemBlockHeader * pHead;</span><br><span class="line"> RTCCALLBACK(_RTC_Free_hook, (pUserData, 0));</span><br><span class="line"> if (pUserData == NULL)</span><br><span class="line"> return;</span><br><span class="line">  _mlock(_HEAP_LOCK); /* block other threads */</span><br><span class="line"> __TRY</span><br><span class="line"> /* get a pointer to memory block header */</span><br><span class="line"> pHead = pHdr(pUserData);</span><br><span class="line"> /* verify block type */</span><br><span class="line"> _ASSERTE(_BLOCK_TYPE_IS_VALID(pHead-&gt;nBlockUse));</span><br><span class="line"> _free_dbg( pUserData, pHead-&gt;nBlockUse );</span><br><span class="line"> __FINALLY</span><br><span class="line"> _munlock(_HEAP_LOCK); /* release other threads */</span><br><span class="line"> __END_TRY_FINALLY</span><br><span class="line"> return;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;从源码中能看出的是<code>operator new</code>和<code>operator delete</code>在底层也是利用<code>malloc</code>和<code>free</code>分配内存的，因此可以说<code>new</code>和<code>delete</code>不过是<code>malloc</code>和<code>free</code>的一层封装。因此在某些情况下，我们想要用独特的方式给一个类分配内存空间的时候我们就可以重新重载这两个运算符来达到我们的目的。基于这个原理如果有某些类需要特殊的内存分配方式我们可以对其进行运算符的重载。</p>
+<h3 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h3><h4 id="内置类型"><a href="#内置类型" class="headerlink" title="内置类型"></a>内置类型</h4><p>&emsp;&emsp;对于内置类型来说<code>new</code>和<code>malloc</code>,<code>delete</code>和<code>free</code>的功能一致，不同的是<code>new[]</code>和<code>delete[]</code>才能分配多个连续的空间。</p>
+<h4 id="自定义类型"><a href="#自定义类型" class="headerlink" title="自定义类型"></a>自定义类型</h4><h5 id="单个元素空间分配"><a href="#单个元素空间分配" class="headerlink" title="单个元素空间分配"></a>单个元素空间分配</h5><p>&emsp;&emsp;1、<strong>new</strong>:<br><br>&emsp;&emsp;&emsp;&emsp;1)首先调用<code>operator new</code>为对象分配空间。<br><br>&emsp;&emsp;&emsp;&emsp;2)调用对象的构造函数对对象进行初始化。<br><br>&emsp;&emsp;2、<strong>delete</strong>:<br><br>&emsp;&emsp;&emsp;&emsp;1)调用对象的析构函数进行对象中资源的空间清理。<br><br>&emsp;&emsp;&emsp;&emsp;2)调用<code>operator delete</code>释放对象的空间。</p>
+<h5 id="多个元素空间分配"><a href="#多个元素空间分配" class="headerlink" title="多个元素空间分配"></a>多个元素空间分配</h5><p>&emsp;&emsp;1、<strong>new[]</strong>:<br><br>&emsp;&emsp;&emsp;&emsp;1)调用<code>operator new[]</code>，在<code>operator new[]</code>中调用<code>operator new</code>完成N个对象的空间的分配。<br><br>&emsp;&emsp;&emsp;&emsp;2)调用构造函数N次完成N个对象的初始化。<br><br>&emsp;&emsp;2、<strong>delete[]</strong>:<br><br>&emsp;&emsp;&emsp;&emsp;1)调用析构函数N次完成N个对象资源的清理。<br><br>&emsp;&emsp;&emsp;&emsp;2)调用<code>operator delete[]</code>,在<code>operator delete[]</code>中调用<code>operator delete</code>完成N个对象的空间的释放。</p>
+<h2 id="定位new表达式"><a href="#定位new表达式" class="headerlink" title="定位new表达式"></a>定位new表达式</h2><p>&emsp;&emsp;当我们用<code>malloc</code>或者其他方式分配了一块和某个类一样大小的空间给，并用某个指针去指向这块空间。但是问题在于这块空间并未执行构造函数因此并不能称为对象。因此定位new表达式就是为了帮助我们对一块已经分配好的空间执行构造函数使之成为对象的一个方式。</p>
+<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><p>&emsp;&emsp;<code>new (place_address) type(initializer-list)。</code><br><br>&emsp;&emsp;<code>place_address</code>为指向某一块空间的指针，<code>type</code>为自定义类型，<code>initializer-list</code>为参数列表。</p>
+<h3 id="例"><a href="#例" class="headerlink" title="例"></a>例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;                                 </span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Stu                                          </span><br><span class="line">&#123;                   </span><br><span class="line">  public:    </span><br><span class="line">    Stu()           </span><br><span class="line">    &#123;                         </span><br><span class="line">      cout &lt;&lt; &quot;default building&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;;                     </span><br><span class="line">    Stu(int num, string name):_num(num), _name(name)</span><br><span class="line">    &#123;                         </span><br><span class="line">      cout &lt;&lt; &quot;custom building&quot; &lt;&lt; endl;   </span><br><span class="line">    &#125;                      </span><br><span class="line">    ~Stu()              </span><br><span class="line">    &#123;                       </span><br><span class="line">      cout &lt;&lt; &quot;destroying&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;                         </span><br><span class="line">  private:   </span><br><span class="line">    int _num;               </span><br><span class="line">    string _name;</span><br><span class="line">&#125;;                            </span><br><span class="line">int main()     </span><br><span class="line">&#123;                                    </span><br><span class="line">  Stu* p = (Stu*)malloc(sizeof(Stu));</span><br><span class="line">  cout &lt;&lt; &quot;定位new表达式：&quot; &lt;&lt; endl;</span><br><span class="line">  new(p) Stu(1,&quot;张三&quot;);              </span><br><span class="line">  delete p;              </span><br><span class="line">&#125;                                    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第三章-内存管理]$ ./New</span><br><span class="line">定位new表达式：</span><br><span class="line">custom building</span><br><span class="line">destroying</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;这样我们就用定位new表达式给已经分配好的空间调用了构造函数。</p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="new和malloc的异同"><a href="#new和malloc的异同" class="headerlink" title="new和malloc的异同"></a>new和malloc的异同</h3><h4 id="相同"><a href="#相同" class="headerlink" title="相同"></a>相同</h4><p>&emsp;&emsp;1、<code>new</code>和<code>delete</code>都在堆上进行空间的申请。<br><br>&emsp;&emsp;2、都需要手动释放空间。</p>
+<h4 id="不同"><a href="#不同" class="headerlink" title="不同"></a>不同</h4><p>&emsp;&emsp;1、<code>malloc</code>和<code>free</code>是函数而<code>new</code>和<code>delete</code>是运算符。<br><br>&emsp;&emsp;2、<code>new</code>可以在分配空间的时候进行初始化。<br><br>&emsp;&emsp;3、<code>malloc</code>返回值是<code>void*</code>需要强转，<code>new</code>会直接返回与分配空间类型一样的类型指针。<br><br>&emsp;&emsp;4、<code>malloc</code>需要手动计算分配空间大小在进行传入，而<code>new</code>只需要类型和元素个数，空间大小会自动计算。<br><br>&emsp;&emsp;5、<code>new</code>在给自定义类型分配空间的时候会自动调用其构造函数，<code>delete</code>会自动调用其析构函数。<br><br>&emsp;&emsp;6、<code>malloc</code>申请空间失败会返回<code>NULL</code>，<code>new</code>会抛异常。<br><br>&emsp;&emsp;7、<code>new</code>和<code>delete</code>是<code>malloc</code>和<code>free</code>的一层封装，因此效率会低一些。</p>
+<h3 id="写一个只能在堆上创建对象的类"><a href="#写一个只能在堆上创建对象的类" class="headerlink" title="写一个只能在堆上创建对象的类"></a>写一个只能在堆上创建对象的类</h3><h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>&emsp;&emsp;1、将构造函数，赋值构造函数全部封装为私有，不允许外部直接调用构造。<br><br>&emsp;&emsp;2、单独写一个静态函数提供在堆上创建对象的接口。</p>
+<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class HeapOnly</span><br><span class="line">&#123;</span><br><span class="line">  public:</span><br><span class="line">    //开放构造接口                        </span><br><span class="line">    static HeapOnly* Create()</span><br><span class="line">    &#123;</span><br><span class="line">      cout &lt;&lt; &quot;create int heap&quot; &lt;&lt; endl;</span><br><span class="line">      return new HeapOnly();</span><br><span class="line">    &#125;</span><br><span class="line">    ~HeapOnly()</span><br><span class="line">    &#123;</span><br><span class="line">      cout &lt;&lt; &quot;destorying&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">  private:</span><br><span class="line">    //构造函数私有化</span><br><span class="line">    HeapOnly()&#123;&#125;</span><br><span class="line">    HeapOnly(const HeapOnly&amp;)&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  HeapOnly* heapOnly = HeapOnly::Create();</span><br><span class="line">  delete heapOnly;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第三章-内存管理]$ ./HeapOnlyClass</span><br><span class="line">create int heap</span><br><span class="line">destorying</span><br></pre></td></tr></table></figure>
+<h3 id="写一个只能在栈上创建对象的类"><a href="#写一个只能在栈上创建对象的类" class="headerlink" title="写一个只能在栈上创建对象的类"></a>写一个只能在栈上创建对象的类</h3><h4 id="思路一"><a href="#思路一" class="headerlink" title="思路一"></a>思路一</h4><p>&emsp;&emsp;1、将构造函数，赋值构造函数全部封装为私有，不允许外部直接调用构造。<br><br>&emsp;&emsp;2、单独写一个静态函数提供在栈上创建对象的接口。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class StackOnly</span><br><span class="line">&#123;</span><br><span class="line">  public:</span><br><span class="line">    static StackOnly Create()</span><br><span class="line">    &#123;</span><br><span class="line">      //创建匿名对象</span><br><span class="line">      return StackOnly();</span><br><span class="line">    &#125;</span><br><span class="line">    static StackOnly a;</span><br><span class="line">    ~StackOnly()</span><br><span class="line">    &#123;</span><br><span class="line">      cout &lt;&lt; &quot;destorying&quot; &lt;&lt; endl;      </span><br><span class="line">    &#125;</span><br><span class="line">  private:</span><br><span class="line">    StackOnly()</span><br><span class="line">    &#123;</span><br><span class="line">      cout &lt;&lt; &quot;create in stack&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    StackOnly(const StackOnly&amp;)&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  StackOnly::a = StackOnly::Create();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第三章-内存管理]$ ./StackOnlyClass </span><br><span class="line">create in stack</span><br><span class="line">destorying</span><br></pre></td></tr></table></figure></p>
+<h4 id="思路二"><a href="#思路二" class="headerlink" title="思路二"></a>思路二</h4><p>&emsp;&emsp;1、直接将<code>operator new</code>和<code>operator delete</code>重载并定义为私有。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;                     </span><br><span class="line">using namespace std;               </span><br><span class="line">class StackOnly                  </span><br><span class="line">&#123;</span><br><span class="line">  public:      </span><br><span class="line">    StackOnly()</span><br><span class="line">    &#123;    </span><br><span class="line">      cout &lt;&lt; &quot;create in stack&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    ~StackOnly()    </span><br><span class="line">    &#123;                    </span><br><span class="line">      cout &lt;&lt; &quot;destorying&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;                  </span><br><span class="line">  private:      </span><br><span class="line">    void* operator new(size_t size)&#123;&#125;</span><br><span class="line">    void operator delete(void* p)&#123;&#125;</span><br><span class="line">&#125;;   </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;                   </span><br><span class="line">  StackOnly p;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="实现单例模式"><a href="#实现单例模式" class="headerlink" title="实现单例模式"></a>实现单例模式</h3><p>&emsp;&emsp;单例模式是一种设计模式，在实战中经常会用到。其意思是创建一个类这个类只能唯一的创建一个对象，如果之后还想用这个类创建新对象的时候都会返回最开始创建的呢个对象。<br><br>&emsp;&emsp;要实现这一点有两种思路，分别成为<strong>懒汉模式</strong>和<strong>饿汉模式</strong>。</p>
+<h4 id="饿汉模式"><a href="#饿汉模式" class="headerlink" title="饿汉模式"></a>饿汉模式</h4><p>&emsp;&emsp;饿汉模式是在程序启动时就夹在所有需要资源的设计模式，用这种思想实现单例模式时需要在程序一开始就直接声明对象，需要适用对象就返回对象即可。但是坏处是程序启动时会消耗时间可能会造成程序启动缓慢。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;  </span><br><span class="line">using namespace std;  </span><br><span class="line">class Singleton  </span><br><span class="line">&#123;  </span><br><span class="line">  public:  </span><br><span class="line">    Singleton* GetInstance()  </span><br><span class="line">    &#123;  </span><br><span class="line">      return &amp;_instance;  </span><br><span class="line">    &#125;  </span><br><span class="line">  private:  </span><br><span class="line">    //构造函数私有化  </span><br><span class="line">    Singleton()&#123;&#125;  </span><br><span class="line">    Singleton(const Singleton&amp;)&#123;&#125;</span><br><span class="line">    static Singleton _instance;  </span><br><span class="line">&#125;;</span><br><span class="line">Singleton Singleton::_instance;</span><br></pre></td></tr></table></figure></p>
+<h4 id="懒汉模式"><a href="#懒汉模式" class="headerlink" title="懒汉模式"></a>懒汉模式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Singleton  </span><br><span class="line">&#123;           </span><br><span class="line">  public:   </span><br><span class="line">  static Singleton* GetInstance()                 </span><br><span class="line">  &#123;</span><br><span class="line">    if(inst == nullptr)//双重判断避免不要的锁竞争</span><br><span class="line">    &#123;</span><br><span class="line">      pthread_mutex_lock(&amp;lock);//加锁保证线程安全</span><br><span class="line">      if(inst == nullptr)</span><br><span class="line">      &#123;                                           </span><br><span class="line">        inst = new Singleton();                   </span><br><span class="line">      &#125;                                           </span><br><span class="line">      pthread_mutex_unlock(&amp;lock);                </span><br><span class="line">    &#125;                                             </span><br><span class="line">    return inst;                                  </span><br><span class="line">  &#125;                                               </span><br><span class="line">  private:                                        </span><br><span class="line">  static Singleton* inst;                         </span><br><span class="line">  static pthread_mutex_t lock;                    </span><br><span class="line">  Singleton()&#123;&#125;                                   </span><br><span class="line">  Singleton(const Singleton&amp;)&#123;&#125;                   </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;懒汉模式就是在第一次使用时才会创建对象，因此我们需要对变量进行判断考虑到线程安全我们需要对其加锁。懒汉模式的坏处是可能造成程序运行卡顿。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读!-------------</div>
+    
+    </div>
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>记录学习每一分，感谢您的赞助</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="MisakiFx 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="MisakiFx 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Cpp/" rel="tag"># Cpp</a>
+          
+            <a href="/tags/内存管理/" rel="tag"># 内存管理</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/28/【Cpp】第二章-类和对象-下/" rel="next" title="【Cpp】第二章-类和对象-下">
+                <i class="fa fa-chevron-left"></i> 【Cpp】第二章-类和对象-下
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="MisakiFx" />
+            
+              <p class="site-author-name" itemprop="name">MisakiFx</p>
+              <p class="site-description motion-element" itemprop="description">Hard working or giving up!!!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/MisakiFx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1761607418@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope-open"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://music.163.com/#/user/home?id=432551242" target="_blank" title="网易云音乐">
+                      
+                        <i class="fa fa-fw fa-music"></i>网易云音乐</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/qq_41669298" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-crosshairs"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#内存管理"><span class="nav-number">1.</span> <span class="nav-text">内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#C-内存管理"><span class="nav-number">1.1.</span> <span class="nav-text">C++内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#new-delete"><span class="nav-number">1.1.1.</span> <span class="nav-text">new/delete</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#内置类型的内存分配与释放"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">内置类型的内存分配与释放</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义类型的内存分配与释放"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">自定义类型的内存分配与释放</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#new和delete实现原理"><span class="nav-number">1.2.</span> <span class="nav-text">new和delete实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#operator-new-operator-delete"><span class="nav-number">1.2.1.</span> <span class="nav-text">operator new/operator delete</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现原理"><span class="nav-number">1.2.2.</span> <span class="nav-text">实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#内置类型"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">内置类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义类型"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">自定义类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#单个元素空间分配"><span class="nav-number">1.2.2.2.1.</span> <span class="nav-text">单个元素空间分配</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多个元素空间分配"><span class="nav-number">1.2.2.2.2.</span> <span class="nav-text">多个元素空间分配</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定位new表达式"><span class="nav-number">1.3.</span> <span class="nav-text">定位new表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用法"><span class="nav-number">1.3.1.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例"><span class="nav-number">1.3.2.</span> <span class="nav-text">例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见问题"><span class="nav-number">1.4.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#new和malloc的异同"><span class="nav-number">1.4.1.</span> <span class="nav-text">new和malloc的异同</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#相同"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">相同</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不同"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">不同</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写一个只能在堆上创建对象的类"><span class="nav-number">1.4.2.</span> <span class="nav-text">写一个只能在堆上创建对象的类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#思路"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写一个只能在栈上创建对象的类"><span class="nav-number">1.4.3.</span> <span class="nav-text">写一个只能在栈上创建对象的类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#思路一"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">思路一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路二"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">思路二</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现单例模式"><span class="nav-number">1.4.4.</span> <span class="nav-text">实现单例模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#饿汉模式"><span class="nav-number">1.4.4.1.</span> <span class="nav-text">饿汉模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#懒汉模式"><span class="nav-number">1.4.4.2.</span> <span class="nav-text">懒汉模式</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        ﻿<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MisakiFx</span>
+
+  
+</div>
+
+
+<div class="powered-by">
+  <i class="fa fa-user-md"></i>
+  <span id="busuanzi_container_site_uv">
+    我的网站的访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+</div>
+
+
+
+<span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共111.9k字</span>
+</div>
+
+        ﻿
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+        <script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

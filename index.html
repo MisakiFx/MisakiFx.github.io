@@ -264,6 +264,197 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/11/【Cpp】第三章-内存管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/11/【Cpp】第三章-内存管理/" itemprop="url">【Cpp】第三章-内存管理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-11T01:34:08+08:00">
+                2019-06-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index">
+                    <span itemprop="name">Cpp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.6k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h1><h2 id="C-内存管理"><a href="#C-内存管理" class="headerlink" title="C++内存管理"></a>C++内存管理</h2><p>&emsp;&emsp;在C语言中，我们想要动态分配内存空间需要使用到<code>malloc,calloc,realloc</code>函数，在C++中我们同样有动态进行内存管理的方式，并且与C语言中的内存管理有着一些区别。</p>
+<h3 id="new-delete"><a href="#new-delete" class="headerlink" title="new/delete"></a>new/delete</h3><p>&emsp;&emsp;在C++中我们使用<code>new</code>进行内存的申请，用<code>delete</code>进行内存的释放。他们的使用比<code>malloc</code>和<code>free</code>更加简单方便。</p>
+<h4 id="内置类型的内存分配与释放"><a href="#内置类型的内存分配与释放" class="headerlink" title="内置类型的内存分配与释放"></a>内置类型的内存分配与释放</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int* a = new int;</span><br><span class="line">  //等同于int* a = (int*)malloc(sizeof(int));</span><br><span class="line">  int* b = new int[10];</span><br><span class="line">  //等同于int* b = (int*)malloc(sizeof(int) * 10);</span><br><span class="line">  int* c = new int(10);</span><br><span class="line">  //new还可以进行内置类型的初始化</span><br><span class="line">  cout &lt;&lt; *c &lt;&lt; endl;</span><br><span class="line">  delete a;</span><br><span class="line">  //等同于free(a);</span><br><span class="line">  delete[] b;//对于多个变量的空间释放要用delete[]</span><br><span class="line">  //等同于free(b);</span><br><span class="line">  delete c;</span><br><span class="line">  //等同于free(c);                                </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第三章-内存管理]$ ./New</span><br><span class="line">10</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;<code>new</code>和<code>malloc</code>一样会在堆上开辟空间同时需要我们手动进行内存的释放，但是<code>new</code>的写法更加简单易于理解同时我们还可以对单个申请的变量进行初始化。</p>
+<h4 id="自定义类型的内存分配与释放"><a href="#自定义类型的内存分配与释放" class="headerlink" title="自定义类型的内存分配与释放"></a>自定义类型的内存分配与释放</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;                                 </span><br><span class="line">#include &lt;stdlib.h&gt;  </span><br><span class="line">using namespace std;                           </span><br><span class="line">class Stu                </span><br><span class="line">&#123;                                                   </span><br><span class="line">  public:                </span><br><span class="line">    Stu()                          </span><br><span class="line">    &#123;                  </span><br><span class="line">      cout &lt;&lt; &quot;default building&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;;              </span><br><span class="line">    Stu(int num, string name):_num(num), _name(name)</span><br><span class="line">    &#123;               </span><br><span class="line">      cout &lt;&lt; &quot;custom building&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;               </span><br><span class="line">    ~Stu()                  </span><br><span class="line">    &#123;                                </span><br><span class="line">      cout &lt;&lt; &quot;destroying&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;                         </span><br><span class="line">  private:                  </span><br><span class="line">    int _num;                            </span><br><span class="line">    string _name;        </span><br><span class="line">&#125;;                    </span><br><span class="line">int main()</span><br><span class="line">&#123;         </span><br><span class="line">  cout &lt;&lt; &quot;malloc:&quot; &lt;&lt; endl;</span><br><span class="line">  Stu* a = (Stu*)malloc(sizeof(Stu));</span><br><span class="line">  cout &lt;&lt; &quot;new:&quot; &lt;&lt; endl;</span><br><span class="line">  Stu* b = new Stu(1, &quot;张三&quot;);</span><br><span class="line">  cout &lt;&lt; &quot;malloc:&quot; &lt;&lt; endl;</span><br><span class="line">  Stu* c = (Stu*)malloc(sizeof(Stu) * 5);</span><br><span class="line">  cout &lt;&lt; &quot;new:&quot; &lt;&lt; endl;</span><br><span class="line">  Stu* d = new Stu[5];</span><br><span class="line">  cout &lt;&lt; &quot;free:&quot; &lt;&lt; endl;</span><br><span class="line">  free(a);</span><br><span class="line">  cout &lt;&lt; &quot;delete:&quot; &lt;&lt; endl;</span><br><span class="line">  delete b;</span><br><span class="line">  cout &lt;&lt; &quot;free:&quot; &lt;&lt; endl;</span><br><span class="line">  free(c);</span><br><span class="line">  cout &lt;&lt; &quot;delete:&quot; &lt;&lt; endl;</span><br><span class="line">  delete[] d;</span><br><span class="line">&#125;              </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第三章-内存管理]$ ./New </span><br><span class="line">malloc:</span><br><span class="line">new:</span><br><span class="line">custom building</span><br><span class="line">malloc:</span><br><span class="line">new:</span><br><span class="line">default building</span><br><span class="line">default building</span><br><span class="line">default building</span><br><span class="line">default building</span><br><span class="line">default building</span><br><span class="line">free:</span><br><span class="line">delete:</span><br><span class="line">destroying</span><br><span class="line">free:</span><br><span class="line">delete:</span><br><span class="line">destroying</span><br><span class="line">destroying</span><br><span class="line">destroying</span><br><span class="line">destroying</span><br><span class="line">destroying</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;以上这段代码我分别使用<code>malloc</code>和<code>new</code>对自定义类型进行内存分配和释放，我们可以发现<code>new</code>不但可以在分配内存的时候手动调用指定的构造函数还会在分配多个对象的空间时自动调用默认构造函数，<code>delete</code>也会自动调用析构函数，而<code>malloc</code>和<code>free</code>却做不到这一点。因此可以理解<strong>为<code>malloc</code>和<code>free</code>分配出来的只不过是一个和类一样大小的空间，并不能称作是一个对象，而<code>new</code>和<code>delete</code>分配出来的才能被成为对象</strong>。</p>
+<h2 id="new和delete实现原理"><a href="#new和delete实现原理" class="headerlink" title="new和delete实现原理"></a>new和delete实现原理</h2><p>&emsp;&emsp;<code>new</code>和<code>delete</code>在C++中其实被定义为两个运算符，我们在使用这两个运算符的时候它会在底层调用全局函数<code>operator new</code>和<code>operator delete</code>。</p>
+<h3 id="operator-new-operator-delete"><a href="#operator-new-operator-delete" class="headerlink" title="operator new/operator delete"></a>operator new/operator delete</h3><p>&emsp;&emsp;我们首先看下这两个函数在底层的实现源码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">void *__CRTDECL operator new(size_t size) _THROW1(_STD bad_alloc)</span><br><span class="line">&#123;</span><br><span class="line"> // try to allocate size bytes</span><br><span class="line"> void *p;</span><br><span class="line"> while ((p = malloc(size)) == 0)</span><br><span class="line"> if (_callnewh(size) == 0)</span><br><span class="line"> &#123;</span><br><span class="line"> // report no memory</span><br><span class="line"> // 如果申请内存失败了，这里会抛出bad_alloc 类型异常</span><br><span class="line"> static const std::bad_alloc nomem;</span><br><span class="line"> _RAISE(nomem);</span><br><span class="line"> &#125;</span><br><span class="line"> return (p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">void operator delete(void *pUserData)</span><br><span class="line">&#123;</span><br><span class="line"> _CrtMemBlockHeader * pHead;</span><br><span class="line"> RTCCALLBACK(_RTC_Free_hook, (pUserData, 0));</span><br><span class="line"> if (pUserData == NULL)</span><br><span class="line"> return;</span><br><span class="line">  _mlock(_HEAP_LOCK); /* block other threads */</span><br><span class="line"> __TRY</span><br><span class="line"> /* get a pointer to memory block header */</span><br><span class="line"> pHead = pHdr(pUserData);</span><br><span class="line"> /* verify block type */</span><br><span class="line"> _ASSERTE(_BLOCK_TYPE_IS_VALID(pHead-&gt;nBlockUse));</span><br><span class="line"> _free_dbg( pUserData, pHead-&gt;nBlockUse );</span><br><span class="line"> __FINALLY</span><br><span class="line"> _munlock(_HEAP_LOCK); /* release other threads */</span><br><span class="line"> __END_TRY_FINALLY</span><br><span class="line"> return;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;从源码中能看出的是<code>operator new</code>和<code>operator delete</code>在底层也是利用<code>malloc</code>和<code>free</code>分配内存的，因此可以说<code>new</code>和<code>delete</code>不过是<code>malloc</code>和<code>free</code>的一层封装。因此在某些情况下，我们想要用独特的方式给一个类分配内存空间的时候我们就可以重新重载这两个运算符来达到我们的目的。基于这个原理如果有某些类需要特殊的内存分配方式我们可以对其进行运算符的重载。</p>
+<h3 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h3><h4 id="内置类型"><a href="#内置类型" class="headerlink" title="内置类型"></a>内置类型</h4><p>&emsp;&emsp;对于内置类型来说<code>new</code>和<code>malloc</code>,<code>delete</code>和<code>free</code>的功能一致，不同的是<code>new[]</code>和<code>delete[]</code>才能分配多个连续的空间。</p>
+<h4 id="自定义类型"><a href="#自定义类型" class="headerlink" title="自定义类型"></a>自定义类型</h4><h5 id="单个元素空间分配"><a href="#单个元素空间分配" class="headerlink" title="单个元素空间分配"></a>单个元素空间分配</h5><p>&emsp;&emsp;1、<strong>new</strong>:<br><br>&emsp;&emsp;&emsp;&emsp;1)首先调用<code>operator new</code>为对象分配空间。<br><br>&emsp;&emsp;&emsp;&emsp;2)调用对象的构造函数对对象进行初始化。<br><br>&emsp;&emsp;2、<strong>delete</strong>:<br><br>&emsp;&emsp;&emsp;&emsp;1)调用对象的析构函数进行对象中资源的空间清理。<br><br>&emsp;&emsp;&emsp;&emsp;2)调用<code>operator delete</code>释放对象的空间。</p>
+<h5 id="多个元素空间分配"><a href="#多个元素空间分配" class="headerlink" title="多个元素空间分配"></a>多个元素空间分配</h5><p>&emsp;&emsp;1、<strong>new[]</strong>:<br><br>&emsp;&emsp;&emsp;&emsp;1)调用<code>operator new[]</code>，在<code>operator new[]</code>中调用<code>operator new</code>完成N个对象的空间的分配。<br><br>&emsp;&emsp;&emsp;&emsp;2)调用构造函数N次完成N个对象的初始化。<br><br>&emsp;&emsp;2、<strong>delete[]</strong>:<br><br>&emsp;&emsp;&emsp;&emsp;1)调用析构函数N次完成N个对象资源的清理。<br><br>&emsp;&emsp;&emsp;&emsp;2)调用<code>operator delete[]</code>,在<code>operator delete[]</code>中调用<code>operator delete</code>完成N个对象的空间的释放。</p>
+<h2 id="定位new表达式"><a href="#定位new表达式" class="headerlink" title="定位new表达式"></a>定位new表达式</h2><p>&emsp;&emsp;当我们用<code>malloc</code>或者其他方式分配了一块和某个类一样大小的空间给，并用某个指针去指向这块空间。但是问题在于这块空间并未执行构造函数因此并不能称为对象。因此定位new表达式就是为了帮助我们对一块已经分配好的空间执行构造函数使之成为对象的一个方式。</p>
+<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><p>&emsp;&emsp;<code>new (place_address) type(initializer-list)。</code><br><br>&emsp;&emsp;<code>place_address</code>为指向某一块空间的指针，<code>type</code>为自定义类型，<code>initializer-list</code>为参数列表。</p>
+<h3 id="例"><a href="#例" class="headerlink" title="例"></a>例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;                                 </span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Stu                                          </span><br><span class="line">&#123;                   </span><br><span class="line">  public:    </span><br><span class="line">    Stu()           </span><br><span class="line">    &#123;                         </span><br><span class="line">      cout &lt;&lt; &quot;default building&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;;                     </span><br><span class="line">    Stu(int num, string name):_num(num), _name(name)</span><br><span class="line">    &#123;                         </span><br><span class="line">      cout &lt;&lt; &quot;custom building&quot; &lt;&lt; endl;   </span><br><span class="line">    &#125;                      </span><br><span class="line">    ~Stu()              </span><br><span class="line">    &#123;                       </span><br><span class="line">      cout &lt;&lt; &quot;destroying&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;                         </span><br><span class="line">  private:   </span><br><span class="line">    int _num;               </span><br><span class="line">    string _name;</span><br><span class="line">&#125;;                            </span><br><span class="line">int main()     </span><br><span class="line">&#123;                                    </span><br><span class="line">  Stu* p = (Stu*)malloc(sizeof(Stu));</span><br><span class="line">  cout &lt;&lt; &quot;定位new表达式：&quot; &lt;&lt; endl;</span><br><span class="line">  new(p) Stu(1,&quot;张三&quot;);              </span><br><span class="line">  delete p;              </span><br><span class="line">&#125;                                    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第三章-内存管理]$ ./New</span><br><span class="line">定位new表达式：</span><br><span class="line">custom building</span><br><span class="line">destroying</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;这样我们就用定位new表达式给已经分配好的空间调用了构造函数。</p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="new和malloc的异同"><a href="#new和malloc的异同" class="headerlink" title="new和malloc的异同"></a>new和malloc的异同</h3><h4 id="相同"><a href="#相同" class="headerlink" title="相同"></a>相同</h4><p>&emsp;&emsp;1、<code>new</code>和<code>delete</code>都在堆上进行空间的申请。<br><br>&emsp;&emsp;2、都需要手动释放空间。</p>
+<h4 id="不同"><a href="#不同" class="headerlink" title="不同"></a>不同</h4><p>&emsp;&emsp;1、<code>malloc</code>和<code>free</code>是函数而<code>new</code>和<code>delete</code>是运算符。<br><br>&emsp;&emsp;2、<code>new</code>可以在分配空间的时候进行初始化。<br><br>&emsp;&emsp;3、<code>malloc</code>返回值是<code>void*</code>需要强转，<code>new</code>会直接返回与分配空间类型一样的类型指针。<br><br>&emsp;&emsp;4、<code>malloc</code>需要手动计算分配空间大小在进行传入，而<code>new</code>只需要类型和元素个数，空间大小会自动计算。<br><br>&emsp;&emsp;5、<code>new</code>在给自定义类型分配空间的时候会自动调用其构造函数，<code>delete</code>会自动调用其析构函数。<br><br>&emsp;&emsp;6、<code>malloc</code>申请空间失败会返回<code>NULL</code>，<code>new</code>会抛异常。<br><br>&emsp;&emsp;7、<code>new</code>和<code>delete</code>是<code>malloc</code>和<code>free</code>的一层封装，因此效率会低一些。</p>
+<h3 id="写一个只能在堆上创建对象的类"><a href="#写一个只能在堆上创建对象的类" class="headerlink" title="写一个只能在堆上创建对象的类"></a>写一个只能在堆上创建对象的类</h3><h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>&emsp;&emsp;1、将构造函数，赋值构造函数全部封装为私有，不允许外部直接调用构造。<br><br>&emsp;&emsp;2、单独写一个静态函数提供在堆上创建对象的接口。</p>
+<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class HeapOnly</span><br><span class="line">&#123;</span><br><span class="line">  public:</span><br><span class="line">    //开放构造接口                        </span><br><span class="line">    static HeapOnly* Create()</span><br><span class="line">    &#123;</span><br><span class="line">      cout &lt;&lt; &quot;create int heap&quot; &lt;&lt; endl;</span><br><span class="line">      return new HeapOnly();</span><br><span class="line">    &#125;</span><br><span class="line">    ~HeapOnly()</span><br><span class="line">    &#123;</span><br><span class="line">      cout &lt;&lt; &quot;destorying&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">  private:</span><br><span class="line">    //构造函数私有化</span><br><span class="line">    HeapOnly()&#123;&#125;</span><br><span class="line">    HeapOnly(const HeapOnly&amp;)&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  HeapOnly* heapOnly = HeapOnly::Create();</span><br><span class="line">  delete heapOnly;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第三章-内存管理]$ ./HeapOnlyClass</span><br><span class="line">create int heap</span><br><span class="line">destorying</span><br></pre></td></tr></table></figure>
+<h3 id="写一个只能在栈上创建对象的类"><a href="#写一个只能在栈上创建对象的类" class="headerlink" title="写一个只能在栈上创建对象的类"></a>写一个只能在栈上创建对象的类</h3><h4 id="思路一"><a href="#思路一" class="headerlink" title="思路一"></a>思路一</h4><p>&emsp;&emsp;1、将构造函数，赋值构造函数全部封装为私有，不允许外部直接调用构造。<br><br>&emsp;&emsp;2、单独写一个静态函数提供在栈上创建对象的接口。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class StackOnly</span><br><span class="line">&#123;</span><br><span class="line">  public:</span><br><span class="line">    static StackOnly Create()</span><br><span class="line">    &#123;</span><br><span class="line">      //创建匿名对象</span><br><span class="line">      return StackOnly();</span><br><span class="line">    &#125;</span><br><span class="line">    static StackOnly a;</span><br><span class="line">    ~StackOnly()</span><br><span class="line">    &#123;</span><br><span class="line">      cout &lt;&lt; &quot;destorying&quot; &lt;&lt; endl;      </span><br><span class="line">    &#125;</span><br><span class="line">  private:</span><br><span class="line">    StackOnly()</span><br><span class="line">    &#123;</span><br><span class="line">      cout &lt;&lt; &quot;create in stack&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    StackOnly(const StackOnly&amp;)&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  StackOnly::a = StackOnly::Create();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第三章-内存管理]$ ./StackOnlyClass </span><br><span class="line">create in stack</span><br><span class="line">destorying</span><br></pre></td></tr></table></figure></p>
+<h4 id="思路二"><a href="#思路二" class="headerlink" title="思路二"></a>思路二</h4><p>&emsp;&emsp;1、直接将<code>operator new</code>和<code>operator delete</code>重载并定义为私有。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;                     </span><br><span class="line">using namespace std;               </span><br><span class="line">class StackOnly                  </span><br><span class="line">&#123;</span><br><span class="line">  public:      </span><br><span class="line">    StackOnly()</span><br><span class="line">    &#123;    </span><br><span class="line">      cout &lt;&lt; &quot;create in stack&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    ~StackOnly()    </span><br><span class="line">    &#123;                    </span><br><span class="line">      cout &lt;&lt; &quot;destorying&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;                  </span><br><span class="line">  private:      </span><br><span class="line">    void* operator new(size_t size)&#123;&#125;</span><br><span class="line">    void operator delete(void* p)&#123;&#125;</span><br><span class="line">&#125;;   </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;                   </span><br><span class="line">  StackOnly p;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="实现单例模式"><a href="#实现单例模式" class="headerlink" title="实现单例模式"></a>实现单例模式</h3><p>&emsp;&emsp;单例模式是一种设计模式，在实战中经常会用到。其意思是创建一个类这个类只能唯一的创建一个对象，如果之后还想用这个类创建新对象的时候都会返回最开始创建的呢个对象。<br><br>&emsp;&emsp;要实现这一点有两种思路，分别成为<strong>懒汉模式</strong>和<strong>饿汉模式</strong>。</p>
+<h4 id="饿汉模式"><a href="#饿汉模式" class="headerlink" title="饿汉模式"></a>饿汉模式</h4><p>&emsp;&emsp;饿汉模式是在程序启动时就夹在所有需要资源的设计模式，用这种思想实现单例模式时需要在程序一开始就直接声明对象，需要适用对象就返回对象即可。但是坏处是程序启动时会消耗时间可能会造成程序启动缓慢。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;  </span><br><span class="line">using namespace std;  </span><br><span class="line">class Singleton  </span><br><span class="line">&#123;  </span><br><span class="line">  public:  </span><br><span class="line">    Singleton* GetInstance()  </span><br><span class="line">    &#123;  </span><br><span class="line">      return &amp;_instance;  </span><br><span class="line">    &#125;  </span><br><span class="line">  private:  </span><br><span class="line">    //构造函数私有化  </span><br><span class="line">    Singleton()&#123;&#125;  </span><br><span class="line">    Singleton(const Singleton&amp;)&#123;&#125;</span><br><span class="line">    static Singleton _instance;  </span><br><span class="line">&#125;;</span><br><span class="line">Singleton Singleton::_instance;</span><br></pre></td></tr></table></figure></p>
+<h4 id="懒汉模式"><a href="#懒汉模式" class="headerlink" title="懒汉模式"></a>懒汉模式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Singleton  </span><br><span class="line">&#123;           </span><br><span class="line">  public:   </span><br><span class="line">  static Singleton* GetInstance()                 </span><br><span class="line">  &#123;</span><br><span class="line">    if(inst == nullptr)//双重判断避免不要的锁竞争</span><br><span class="line">    &#123;</span><br><span class="line">      pthread_mutex_lock(&amp;lock);//加锁保证线程安全</span><br><span class="line">      if(inst == nullptr)</span><br><span class="line">      &#123;                                           </span><br><span class="line">        inst = new Singleton();                   </span><br><span class="line">      &#125;                                           </span><br><span class="line">      pthread_mutex_unlock(&amp;lock);                </span><br><span class="line">    &#125;                                             </span><br><span class="line">    return inst;                                  </span><br><span class="line">  &#125;                                               </span><br><span class="line">  private:                                        </span><br><span class="line">  static Singleton* inst;                         </span><br><span class="line">  static pthread_mutex_t lock;                    </span><br><span class="line">  Singleton()&#123;&#125;                                   </span><br><span class="line">  Singleton(const Singleton&amp;)&#123;&#125;                   </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;懒汉模式就是在第一次使用时才会创建对象，因此我们需要对变量进行判断考虑到线程安全我们需要对其加锁。懒汉模式的坏处是可能造成程序运行卡顿。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/28/【Cpp】第二章-类和对象-下/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1891,188 +2082,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/24/【Linux】第四章-进程控制/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/24/【Linux】第四章-进程控制/" itemprop="url">【Linux】第四章-进程控制</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-24T23:56:48+08:00">
-                2019-04-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.8k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第四章-进程控制"><a href="#第四章-进程控制" class="headerlink" title="第四章 进程控制"></a>第四章 进程控制</h1><h2 id="进程创建"><a href="#进程创建" class="headerlink" title="进程创建"></a>进程创建</h2><h3 id="fork"><a href="#fork" class="headerlink" title="fork()"></a>fork()</h3><p>&emsp;&emsp;<code>fork()</code>可以用于创建一个子进程，并且父进程返回其子进程的PID，子进程返回0。子进程会完全复制父进程的PCB并且会优先执行父进程。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> *</span><br><span class="line"> * fork初使用</span><br><span class="line"> * 通过复制调用进程，创建一个新的进程（子进程）</span><br><span class="line"> */</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  printf(&quot;parent pid = %d\n&quot;, getpid());</span><br><span class="line">  pid_t pid = fork();//复制了父进程的PCB，因此程序计数器也会跟父进程一致，因此子进程下一句执行的代码和父进程一致</span><br><span class="line">  printf(&quot;child1:%d\n&quot;, pid);</span><br><span class="line">  if(pid &lt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  else if(pid == 0)//fork有返回值，子进程返回0，父进程返回的是子进程的pid</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;child:%d\n&quot;, getpid());//得到当前进程的PID</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;parent:%d\n&quot;, getpid());//得到当前进程的PID                                                         </span><br><span class="line">  &#125;</span><br><span class="line">  printf(&quot;Misaki\n&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第三章]$ ./Creat</span><br><span class="line">parent pid = 6751</span><br><span class="line">child1:6752</span><br><span class="line">parent:6751</span><br><span class="line">Misaki</span><br><span class="line">child1:0</span><br><span class="line">child:6752</span><br><span class="line">Misaki</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;在创建子进程时，系统会完全复制一份相同的物理内存，共用相同的代码，但是这样会极大的浪费内存，在有些情况下如果我们只是单纯的让子进程重复父进程执行的操作，我们完全不需要复制一份物理内存，因此<strong>写时拷贝技术</strong>就会帮上我们很大的忙，在创建子进程时，并不会立刻复制一份物理内存，会优先使用同一份物理内存，直到父进程或者子进程出现了数据或者代码的修改才会分配新的物理内存空间，这样可以大大的减少内存空间的占用。<br><br>&emsp;&emsp;<code>fork()</code>创建的子进程会完全复制父进程的PCB但是完全复制一份PCB有时在对空间要求很严格的情况下会导致浪费很多的空间，因此我们就有了<code>vfork()</code>。</p>
-<h3 id="vfork"><a href="#vfork" class="headerlink" title="vfork()"></a>vfork()</h3><p>&emsp;&emsp;<code>vfork()</code>函数的基本功能与<code>fork()</code>一致但有不同的地方是<code>vfork()</code>创建完子进程会优先执行子进程，并且子进程不会完全复制父进程的PCB，为了节省空间子进程会和父进程共用一块虚拟内存，为了不导致调用栈混乱，子进程会阻塞父进程，也就是说父进程会在子进程退出或替换后才会执行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;                                </span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  pid_t pid = vfork();//创建子进程，阻塞父进程</span><br><span class="line">  while(1)</span><br><span class="line">  &#123;</span><br><span class="line">    if(pid == 0)</span><br><span class="line">    &#123;</span><br><span class="line">      //child</span><br><span class="line">      printf(&quot;----child!! pid:[%d]\n&quot;, getpid());</span><br><span class="line">      _exit(0);</span><br><span class="line">    &#125;</span><br><span class="line">    if(pid &gt; 0)</span><br><span class="line">    &#123;</span><br><span class="line">      printf(&quot;----parent!! pid:[%d]\n&quot;, getpid());</span><br><span class="line">    &#125;</span><br><span class="line">    sleep(1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;<code>vfork</code>和<code>fork</code>也会有调用失败的情况，比如说在系统中已经有了太多的进程或者用户的实际进程达到了上限，这样则系统不再允许我们创建新的进程。</p>
-<h2 id="进程终止"><a href="#进程终止" class="headerlink" title="进程终止"></a>进程终止</h2><p>&emsp;&emsp;进程退出往往分为以下几种方式，程序运行完毕正常退出和代码异常中止，我们平常使用的<code>ctrl + c</code>终止进程就是一种进程异常退出的方式，我们也可以通过调用接口和函数进行带退出状态的方式退出进程。</p>
-<h3 id="exit"><a href="#exit" class="headerlink" title="_exit()"></a>_exit()</h3><p>&emsp;&emsp;<code>_exit()</code>是一个函数，原型为：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<br><code>void _exit(int status);</code><br><br>&emsp;&emsp;可以让程序带状态进行退出，<code>status</code>是程序的退出状态，这个状态可以通过<code>wait()</code>函数接收到，也可以在命令行中通过<code>echo $?</code>命令进行查看。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;errno.h&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int pid = fork();</span><br><span class="line">    if (pid &lt; 0) &#123;</span><br><span class="line">        perror(&quot;fork error&quot;);</span><br><span class="line">        printf(&quot;fork error :%s\n&quot;, strerror(errno));</span><br><span class="line">    &#125;</span><br><span class="line">    sleep(1);                                       </span><br><span class="line">    _exit(-1);</span><br><span class="line">&#125;      </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost process]$ echo $?</span><br><span class="line">255</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;明明我们返回了-1为什么终端中查看返回值却返回了255呢？<br><br>&emsp;&emsp;因为<code>status</code>只有<strong>低8位</strong>可以被父进程查看到返回值信息，也就是说返回值信息一共只有255条，如果我们返回-1，实际上返回了255。</p>
-<h3 id="exit-1"><a href="#exit-1" class="headerlink" title="exit"></a>exit</h3><p>&emsp;&emsp;<code>exit()</code>也为退出函数，但是在退出进程前会对进程多很多的处理随后调用<code>_exit()</code>退出进程。这些退出前的处理包括：<br><br>&emsp;&emsp;1、执行用户自定义的清理函数——<code>atexit</code>或<code>on_exit</code>。<br><br>&emsp;&emsp;2、会关闭所有打开的流，所有的缓存数据都会被写入。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">exit1.c</span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;                  </span><br><span class="line">  printf(&quot;Misaki&quot;);</span><br><span class="line">  exit(0);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exit2.c</span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt; </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  printf(&quot;Misaki&quot;);</span><br><span class="line">  _exit(0);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[misaki@localhost process]$ ./exit2</span><br><span class="line">[misaki@localhost process]$ ./exit1</span><br><span class="line">Misaki[misaki@localhost process]$</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这个例子可以看出<code>exit()</code>退出进程会将缓冲区中的数据全部写入，但是<code>_exit()</code>却没有这些处理。</p>
-<h2 id="进程等待"><a href="#进程等待" class="headerlink" title="进程等待"></a>进程等待</h2><p>&emsp;&emsp;所谓进程等待是父进程等待子进程的终止并且得到子进程的退出信息，防止产生僵尸进程。进程等待是一种防止僵尸进程长生的重要方法，在合适的时间进行进程等待可以防止僵尸进程，确保不会产生内存泄漏，白白浪费资源。</p>
-<h3 id="wait"><a href="#wait" class="headerlink" title="wait()"></a>wait()</h3><p>&emsp;&emsp;这个函数是最为基本的进程等待函数，原型为：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<br>pid_t wait(int *status);<br><br>&emsp;&emsp;返回等待到的子进程的pid，<code>status</code>为返回型参数，返回等待到的子进程的退出信息。但是如果在等待期间为等待到子进程会阻塞父进程一直等待子进程，因此必须要在合适的时间进行进程等待，不然也会影响父进程的执行速度。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">/*进程等待-避免产生建时进程*/                </span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;sys/wait.h&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int pid = fork();</span><br><span class="line">    if (pid &lt; 0) &#123;</span><br><span class="line">        perror(&quot;fork error&quot;);</span><br><span class="line">        exit(-1);</span><br><span class="line">    &#125;else if (pid == 0) &#123;</span><br><span class="line">      //child</span><br><span class="line">      printf(&quot;child = %d\n&quot;, getpid());</span><br><span class="line">      sleep(5);</span><br><span class="line">      exit(1);</span><br><span class="line">    &#125;</span><br><span class="line">    //pid_t wait(int *status);</span><br><span class="line">    //  等待任意一个子进程退出</span><br><span class="line">    //  status：用于退出返回值</span><br><span class="line">    //  返回值：返回退出子进程的pid； 出错:-1</span><br><span class="line">    int status;</span><br><span class="line">    pid_t pid2 = wait(&amp;status);</span><br><span class="line">    printf(&quot;pid = %d\n&quot;, pid2);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;            </span><br><span class="line"></span><br><span class="line">[misaki@localhost process]$ ./wait</span><br><span class="line">child = 4843</span><br><span class="line">pid = 4843</span><br><span class="line">status = 256</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这里我们已经等待到了我们的子进程退出，但是会发现返回的信息却不对，这是为什么呢？<br><br>&emsp;&emsp;<code>status</code>的值不能单纯的看作是一个整形，而是应该用位图来理解。我们只讨论<code>status</code>的低16位。<br><br>&emsp;&emsp;<code>status</code>的低7位用来保存异常终止信息，如果程序正常退出则低7位为0，否则会在低七位保存终止信号以及<code>core dump标志</code>及产生核心转储文件的标志。而高位才会保留我们自己返回的退出信息。并且C语言已经为我们实现准备好了宏来验证低7位是否为0以及提取高位返回信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">/*进程等待-避免产生建时进程*/                </span><br><span class="line">                               </span><br><span class="line">#include &lt;stdio.h&gt;                           </span><br><span class="line">#include &lt;unistd.h&gt;         </span><br><span class="line">#include &lt;stdlib.h&gt;               </span><br><span class="line">#include &lt;sys/wait.h&gt;             </span><br><span class="line">                                  </span><br><span class="line">int main()           </span><br><span class="line">&#123;                                            </span><br><span class="line">    int pid = fork();                        </span><br><span class="line">    if (pid &lt; 0) &#123;                           </span><br><span class="line">        perror(&quot;fork error&quot;);             </span><br><span class="line">        exit(-1);  </span><br><span class="line">    &#125;else if (pid == 0) &#123;</span><br><span class="line">      //child           </span><br><span class="line">      printf(&quot;child = %d\n&quot;, getpid());     </span><br><span class="line">      exit(1);              </span><br><span class="line">    &#125;                                        </span><br><span class="line">    //pid_t wait(int *status);</span><br><span class="line">    //  等待任意一个子进程退出               </span><br><span class="line">    //  status：用于退出返回值</span><br><span class="line">    //  返回值：返回退出子进程的pid； 出错:-1</span><br><span class="line">    int status;</span><br><span class="line">    pid_t pid2 = wait(&amp;status);</span><br><span class="line">    printf(&quot;pid = %d\n&quot;, pid2);</span><br><span class="line">    if (WIFEXITED(status)) &#123;</span><br><span class="line">        printf(&quot;child exit code:%d\n&quot;, WEXITSTATUS(status));</span><br><span class="line">    &#125;</span><br><span class="line">    //WIFSIGNALED()若WIFEXITED为真则提取子进程退出码。</span><br><span class="line">    if (WIFSIGNALED(status)) &#123;</span><br><span class="line">        printf(&quot;exit signal:%d\n&quot;, WTERMSIG(status));</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost process]$ ./wait</span><br><span class="line">child = 5529</span><br><span class="line">pid = 5529</span><br><span class="line">child exit code:1</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这样我们返回的信息码就被打印出来了。</p>
-<h3 id="waitpid"><a href="#waitpid" class="headerlink" title="waitpid()"></a>waitpid()</h3><p>&emsp;&emsp;<code>waitpid()</code>比<code>wait()</code>功能更加全面，它拥有更多的选项，可以在不阻塞父进程的情况下进行进程等待。原型：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>pid_t waitpid(pid_t pid, int *status, int options);</code><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">/*进程等待-避免产生建时进程*/           </span><br><span class="line">                     </span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;          </span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;sys/wait.h&gt;    </span><br><span class="line">             </span><br><span class="line">int main()                             </span><br><span class="line">&#123;              </span><br><span class="line">    int pid = fork();</span><br><span class="line">    if (pid &lt; 0) &#123;</span><br><span class="line">        perror(&quot;fork error&quot;); </span><br><span class="line">        exit(-1);             </span><br><span class="line">    &#125;else if (pid == 0) &#123;     </span><br><span class="line">      //child                           </span><br><span class="line">      printf(&quot;child = %d\n&quot;, getpid());</span><br><span class="line">      sleep(5);                         </span><br><span class="line">      exit(1);              </span><br><span class="line">    &#125;                             </span><br><span class="line">    int status;</span><br><span class="line">    //pid_t waitpid(pid_t pid, int *status, int options);</span><br><span class="line">    //  pid:    指定的进程id</span><br><span class="line">    //          -1  等待任意子进程</span><br><span class="line">    //          &gt;0  等待指定子进程</span><br><span class="line">    //  status：    用于获取返回值</span><br><span class="line">    //  options：选项</span><br><span class="line">    //          WNOHANG     将waitpid设置为非阻塞</span><br><span class="line">    //  返回值：&lt;0:出错     ==0:没有子进程退出   &gt;0: 退出子进程的pid</span><br><span class="line">    while (waitpid(pid, &amp;status, WNOHANG) == 0) &#123;</span><br><span class="line">      printf(&quot;no exit~~~smoking~~\n&quot;);</span><br><span class="line">      sleep(1);</span><br><span class="line">    &#125;</span><br><span class="line">    //低7位为0则正常退出</span><br><span class="line">    //WIFEXITED()验证低7为是否为0，为0则为真</span><br><span class="line">    if (WIFEXITED(status)) &#123;</span><br><span class="line">        printf(&quot;child exit code:%d\n&quot;, WEXITSTATUS(status));</span><br><span class="line">    &#125;</span><br><span class="line">    //WIFSIGNALED()若WIFEXITED为真则提取子进程退出码。</span><br><span class="line">    if (WIFSIGNALED(status)) &#123;</span><br><span class="line">        printf(&quot;exit signal:%d\n&quot;, WTERMSIG(status));</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;           </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost process]$ ./wait</span><br><span class="line">no exit~~~smoking~~</span><br><span class="line">child = 6031</span><br><span class="line">no exit~~~smoking~~</span><br><span class="line">no exit~~~smoking~~</span><br><span class="line">no exit~~~smoking~~</span><br><span class="line">no exit~~~smoking~~</span><br><span class="line">child exit code:1</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;<code>waitpid()</code>可以不阻塞父进程，只等待一下如果当前没有子进程终止则便会继续执行父进程。</p>
-<h2 id="进程替换"><a href="#进程替换" class="headerlink" title="进程替换"></a>进程替换</h2><p>&emsp;&emsp;我们在创建子进程时现在往往只能让子进程执行和父进程一样的代码，这样我们想让子进程去执行另外的功能就需要用到进程替换。进程替换要用到<code>exec</code>系函数。我们先把他们的函数原型都先列出来再进行分析。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">int execl(const char *path, const char *arg, ...);</span><br><span class="line">int execlp(const char *file, const char *arg, ...);</span><br><span class="line">int execle(const char *path, const char *arg, ...,char *const envp[]);</span><br><span class="line">int execv(const char *path, char *const argv[]);</span><br><span class="line">int execvp(const char *file, char *const argv[]);</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;<code>exec</code>后跟不同的字符表示不同的功能：<br><br>&emsp;&emsp;1、<code>l</code>：参数使用列表列出，结尾用<code>NULL</code>表示结束。<br><br>&emsp;&emsp;2、<code>p</code>表示在环境变量中搜索参数，搜索到替换为环境变量中指定的文件。<br><br>&emsp;&emsp;3、<code>v</code>表示参数用数组传递，数组最后一个元素用<code>NULL</code>表示结束。<br><br>&emsp;&emsp;4、<code>e</code>表示需要自己传递环境变量。<br><br>&emsp;&emsp;在系统中<code>exec</code>族函数最终都会调用<code>execve</code>，系统中只有这一个是系统接口，而其他函数不过是在<code>execve</code>上进行了一次封装。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">exec.c:</span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  printf(&quot;Misaki\n&quot;);               </span><br><span class="line">  execl(&quot;./env&quot;, &quot;env&quot;, &quot;-l&quot;, NULL);</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">env.c:</span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">int main(int argc, char *argv[], char *env[])</span><br><span class="line">&#123;</span><br><span class="line">    int i;</span><br><span class="line">    for(i = 0; i &lt; argc; i++) &#123;                   </span><br><span class="line">        printf(&quot;argv[%d]=[%s]\n&quot;, i, argv[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    extern char **environ;</span><br><span class="line">    for (i = 0; environ[i] != NULL; i++) &#123;</span><br><span class="line">        printf(&quot;env[%d] = [%s]\n&quot;, i, environ[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    char *ptr = getenv(&quot;MYENV&quot;);</span><br><span class="line">    printf(&quot;MYENV:[%s]\n&quot;, ptr);</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost process]$ ./exec</span><br><span class="line">Misaki</span><br><span class="line">argv[0]=[env]</span><br><span class="line">argv[1]=[-l]</span><br><span class="line">env[0] = [XDG_SESSION_ID=1]</span><br><span class="line">env[1] = [HOSTNAME=localhost.localdomain]</span><br><span class="line">env[2] = [SELINUX_ROLE_REQUESTED=]</span><br><span class="line">env[3] = [TERM=xterm]</span><br><span class="line">env[4] = [SHELL=/bin/bash]</span><br><span class="line">env[5] = [HISTSIZE=1000]</span><br><span class="line">…………</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这样我们在<code>exec.c</code>中执行了进程替换代码后就用<code>env.c</code>中的代码替换了<code>exec.c</code>中剩下的代码，于是打印出了我们传入的参数和环境变量。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2127,7 +2136,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2149,7 +2158,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2246,7 +2255,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共109.3k字</span>
+  <span class="post-count">博客全站共111.9k字</span>
 </div>
 
         ﻿
