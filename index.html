@@ -264,6 +264,204 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/20/【算法】第一章-动态规划/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/20/【算法】第一章-动态规划/" itemprop="url">【算法】第一章-动态规划</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-20T18:25:03+08:00">
+                2019-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.2k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第一章-动态规划"><a href="#第一章-动态规划" class="headerlink" title="第一章-动态规划"></a>第一章-动态规划</h1><h2 id="动态规划求解模式"><a href="#动态规划求解模式" class="headerlink" title="动态规划求解模式"></a>动态规划求解模式</h2><p>&emsp;&emsp;动态规划具备了一下三个特点：<br>&emsp;&emsp;1、把原来的问题分解成了几个相似子问题<br>&emsp;&emsp;2、所有的子问题只需要解决一次<br>&emsp;&emsp;3、储存子问题的解<br>&emsp;&emsp;从以下四个角度考虑：<br>&emsp;&emsp;1、初始状态定义<br>&emsp;&emsp;2、状态间转移方程<br>&emsp;&emsp;3、状态的初始化<br>&emsp;&emsp;4、返回结果<br>&emsp;&emsp;解决问题主要适用于：查找最优解，最大值/最小值，可不可行，是不是，方案个数</p>
+<h2 id="例1-斐波那契数列"><a href="#例1-斐波那契数列" class="headerlink" title="例1 斐波那契数列"></a>例1 斐波那契数列</h2><p>&emsp;&emsp;牛客网:<br><a href="https://www.nowcoder.com/questionTerminal/c6c7742f5ba7442aada113136ddea0c3" target="_blank" rel="noopener">https://www.nowcoder.com/questionTerminal/c6c7742f5ba7442aada113136ddea0c3</a><br><br>&emsp;&emsp;动态规划解法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int Fibonacci(int n) &#123;</span><br><span class="line">        vector&lt;int&gt; ret(n + 1, 0);</span><br><span class="line">        //初始状态</span><br><span class="line">        ret[1] = ret[2] = 1;</span><br><span class="line">        //递推公式</span><br><span class="line">        //ret[i] = ret [i - 1] + ret[i - 2];</span><br><span class="line">        for(int i = 3; i &lt;= n; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            ret[i] = ret[i - 1] + ret[i - 2];</span><br><span class="line">        &#125;</span><br><span class="line">        return ret[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="例2-变态青蛙跳台阶"><a href="#例2-变态青蛙跳台阶" class="headerlink" title="例2 变态青蛙跳台阶"></a>例2 变态青蛙跳台阶</h2><p>&emsp;&emsp;牛客网：<br><a href="https://www.nowcoder.com/questionTerminal/22243d016f6b47f2a6928b4313c85387" target="_blank" rel="noopener">https://www.nowcoder.com/questionTerminal/22243d016f6b47f2a6928b4313c85387</a><br></p>
+<h3 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h3><h4 id="定义状态"><a href="#定义状态" class="headerlink" title="定义状态"></a>定义状态</h4><p>&emsp;&emsp;跳上i级台阶的方法数</p>
+<h4 id="状态转移方程"><a href="#状态转移方程" class="headerlink" title="状态转移方程"></a>状态转移方程</h4><p>&emsp;&emsp;分解：<br>&emsp;&emsp;一次跳1级台阶：1， F(i - 1)<br>&emsp;&emsp;一次跳2级台阶：2， F(i - 2)<br>&emsp;&emsp;……<br>&emsp;&emsp;推得状态转移方程：<br>&emsp;&emsp;F(i) = F(i - 1) + F(i - 2) + … + F(1)<br>&emsp;&emsp;F(i - 1) = F(i - 2) + F(i - 3) + … + F(1)<br>&emsp;&emsp;F(i) = F(i - 1) + F(i - 1) = 2 * F(i - 1);</p>
+<h4 id="初始状态和最终状态"><a href="#初始状态和最终状态" class="headerlink" title="初始状态和最终状态"></a>初始状态和最终状态</h4><p>&emsp;&emsp;F(1) = 1,求F(n)。</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int jumpFloorII(int number) &#123;</span><br><span class="line">        //初始状态</span><br><span class="line">        int f1 = 1;</span><br><span class="line">        //状态转移方程：F(i) = 2 * F(i - 1)</span><br><span class="line">        for(int i = 2; i &lt;= number; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            f1 = 2 * f1;</span><br><span class="line">        &#125;</span><br><span class="line">        return f1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>&emsp;&emsp;根据状态转移方程我们可以得知，<code>F(n) = 2 ^ (n - 1)</code>;所以可以得到优化：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int jumpFloorII(int number) &#123;</span><br><span class="line">        return (1 &lt;&lt; (number - 1));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="例3-求连续最大子数组的和"><a href="#例3-求连续最大子数组的和" class="headerlink" title="例3 求连续最大子数组的和"></a>例3 求连续最大子数组的和</h2><p>&emsp;&emsp;牛客网：</p>
+<p><a href="https://www.nowcoder.com/questionTerminal/459bd355da1549fa8a49e350bf3df484" target="_blank" rel="noopener">https://www.nowcoder.com/questionTerminal/459bd355da1549fa8a49e350bf3df484</a></p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><h4 id="定义状态-1"><a href="#定义状态-1" class="headerlink" title="定义状态"></a>定义状态</h4><p>&emsp;&emsp;到此项为止前i项的连续子序列的最大和</p>
+<h4 id="状态转移方程-1"><a href="#状态转移方程-1" class="headerlink" title="状态转移方程"></a>状态转移方程</h4><p>&emsp;&emsp;F(i) = max(F(i - 1) + a[i], a[i]);</p>
+<h4 id="初始状态和最终状态-1"><a href="#初始状态和最终状态-1" class="headerlink" title="初始状态和最终状态"></a>初始状态和最终状态</h4><p>&emsp;&emsp;初始状态F[0] = a[0]。<br>&emsp;&emsp;最终结果max(F[i])。</p>
+<h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int FindGreatestSumOfSubArray(vector&lt;int&gt; array) &#123;</span><br><span class="line">        if(array.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">        vector&lt;int&gt; ret(array.size(), 0);</span><br><span class="line">        //初始状态</span><br><span class="line">        ret[0] = array[0];</span><br><span class="line">        //状态转移</span><br><span class="line">        for(int i = 1; i &lt; array.size(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            ret[i] = max(array[i] + ret[i - 1], array[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        //求max(F[i])</span><br><span class="line">        int maxNum = ret[0];</span><br><span class="line">        for(int i = 0; i &lt; ret.size(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            maxNum = max(maxNum, ret[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        return maxNum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="例4-word-break-字符串分割"><a href="#例4-word-break-字符串分割" class="headerlink" title="例4 word-break(字符串分割)"></a>例4 word-break(字符串分割)</h2><p>&emsp;&emsp;牛客网：<br><a href="https://www.nowcoder.com/questionTerminal/5f3b7bf611764c8ba7868f3ed40d6b2c" target="_blank" rel="noopener">https://www.nowcoder.com/questionTerminal/5f3b7bf611764c8ba7868f3ed40d6b2c</a></p>
+<h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><h4 id="定义状态-2"><a href="#定义状态-2" class="headerlink" title="定义状态"></a>定义状态</h4><p>&emsp;&emsp;F(i)：前i个字符能否被分割。</p>
+<h4 id="状态转移方程-2"><a href="#状态转移方程-2" class="headerlink" title="状态转移方程"></a>状态转移方程</h4><p>&emsp;&emsp;F(i): F(i)能否被分割取决于前j项能否被分割和j + 1到第i项能否被分割。（此处j取0 ~ i - 1）<br>&emsp;&emsp;得递推方程F(i) : F(j) &amp;&amp; (j + 1 ~ i)能否被分割</p>
+<h4 id="初始状态和最终状态-2"><a href="#初始状态和最终状态-2" class="headerlink" title="初始状态和最终状态"></a>初始状态和最终状态</h4><p>&emsp;&emsp;初始状态：F(0) = true。<br>&emsp;&emsp;最终状态F(n)。</p>
+<h3 id="实现-2"><a href="#实现-2" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool wordBreak(string s, unordered_set&lt;string&gt; &amp;dict) &#123;</span><br><span class="line">        if(s.empty() || dict.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        vector&lt;bool&gt; Fn(s.size() + 1, false);</span><br><span class="line">        //初始状态</span><br><span class="line">        Fn[0] = true;</span><br><span class="line">        for(int i = 1; i &lt;= s.size(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            //状态转移</span><br><span class="line">            //F(i) = F(j) &amp;&amp; (j + 1 ~ i), (0 &lt;= j &lt; i)能否被分割</span><br><span class="line">            for(int j = i - 1; j &gt;= 0; j--)</span><br><span class="line">            &#123;</span><br><span class="line">                if(Fn[j] &amp;&amp; dict.find(s.substr(j, i - j)) != dict.end())</span><br><span class="line">                &#123;</span><br><span class="line">                    Fn[i] = true;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //最终状态</span><br><span class="line">        return Fn[s.size()];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="例5-triangle-三角矩阵最短路"><a href="#例5-triangle-三角矩阵最短路" class="headerlink" title="例5 triangle(三角矩阵最短路)"></a>例5 triangle(三角矩阵最短路)</h2><p>&emsp;&emsp;牛客网：<br><a href="https://www.nowcoder.com/questionTerminal/2b7995aa4f7949d99674d975489cb7da" target="_blank" rel="noopener">https://www.nowcoder.com/questionTerminal/2b7995aa4f7949d99674d975489cb7da</a></p>
+<h3 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h3><h4 id="定义状态-3"><a href="#定义状态-3" class="headerlink" title="定义状态"></a>定义状态</h4><p>&emsp;&emsp;F[i][j]: 从(0, 0)到(i, j)的最短路径和。</p>
+<h4 id="状态转移方程-3"><a href="#状态转移方程-3" class="headerlink" title="状态转移方程"></a>状态转移方程</h4><p>&emsp;&emsp;一般情况下，走到每个位置的最短路径都可以看作是上一行相邻两个位置的最短路径+这个位置的路径长度，数学描述：F[i][j]:min(F[i - 1][j], F[i - 1][j - 1]) + a[i][j]。<br>&emsp;&emsp;但要考虑边界状态：当在矩阵边缘时只有一种选择的情况，即F[i][0] = F[i - 1][0];F[i][i] = F[i - 1][i - 1]。</p>
+<h4 id="初始状态和最终状态-3"><a href="#初始状态和最终状态-3" class="headerlink" title="初始状态和最终状态"></a>初始状态和最终状态</h4><p>&emsp;&emsp;初始状态：F[0][0] = a[0][0]。<br>&emsp;&emsp;最终状态：min(F[n - 1][j])，即最后一行中的最小值。</p>
+<h3 id="实现-3"><a href="#实现-3" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int minimumTotal(vector&lt;vector&lt;int&gt; &gt; &amp;triangle) &#123;</span><br><span class="line">        if(triangle.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">        //初始状态</span><br><span class="line">        vector&lt;vector&lt;int&gt;&gt; ret(triangle);</span><br><span class="line">        //状态转移</span><br><span class="line">        int row = ret.size();</span><br><span class="line">        for(int i = 1; i &lt; row; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            ret[i][0] = ret[i - 1][0] + triangle[i][0];</span><br><span class="line">        &#125;</span><br><span class="line">        for(int i = 1; i &lt; row; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            ret[i][i] = ret[i - 1][i - 1] + triangle[i][i];</span><br><span class="line">        &#125;</span><br><span class="line">        for(int i = 1; i &lt; row; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            for(int j = 1; j &lt; i; ++j)</span><br><span class="line">            &#123;</span><br><span class="line">                ret[i][j] = min(ret[i - 1][j], ret[i - 1][j - 1]) + triangle[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //最终状态</span><br><span class="line">        int minSum = ret[row - 1][0];</span><br><span class="line">        for(int i = 1; i &lt; row; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            minSum = min(minSum, ret[row - 1][i]);</span><br><span class="line">        &#125;</span><br><span class="line">        return minSum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="例6-求路径数量"><a href="#例6-求路径数量" class="headerlink" title="例6 求路径数量"></a>例6 求路径数量</h2><p>牛客网：<br><a href="https://www.nowcoder.com/questionTerminal/3cdf08dd4e974260921b712f0a5c8752" target="_blank" rel="noopener">https://www.nowcoder.com/questionTerminal/3cdf08dd4e974260921b712f0a5c8752</a></p>
+<h3 id="分析-3"><a href="#分析-3" class="headerlink" title="分析"></a>分析</h3><h4 id="状态定义"><a href="#状态定义" class="headerlink" title="状态定义"></a>状态定义</h4><p>&emsp;&emsp;F[i][j]：从左上角到达下标(i, j)的路径总数</p>
+<h4 id="状态转移方程-4"><a href="#状态转移方程-4" class="headerlink" title="状态转移方程"></a>状态转移方程</h4><p>&emsp;&emsp;if(a[i][j] == 1) F[i][j] = 0;<br>&emsp;&emsp;if(a[i][j] == 0) F[i][j] = F[i][j - 1] + F[i - 1][j]。</p>
+<h4 id="初始状态和最终状态-4"><a href="#初始状态和最终状态-4" class="headerlink" title="初始状态和最终状态"></a>初始状态和最终状态</h4><p>&emsp;&emsp;初始状态：如果第一行第一列有障碍物表示这条路走不通则路径数置0，否则只有一条路径，置一if(a[0][j]) == 1) F[0][j] = 0，if(a[i][0] == 1) F[i][0] = 0，这种情况下这条路走不通。<br>&emsp;&emsp;最终状态：F[i][j]。</p>
+<h3 id="实现-4"><a href="#实现-4" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int uniquePathsWithObstacles(vector&lt;vector&lt;int&gt; &gt; &amp;obstacleGrid) &#123;</span><br><span class="line">        if(obstacleGrid.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">        if(obstacleGrid[0][0] == 1)</span><br><span class="line">        &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">        int row = obstacleGrid.size();</span><br><span class="line">        int col = obstacleGrid[0].size();</span><br><span class="line">        vector&lt;vector&lt;int&gt;&gt; pathNum(row, vector&lt;int&gt;(col, 0));</span><br><span class="line">        for(int i = 0; i &lt; row; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            if(obstacleGrid[i][0] == 1)</span><br><span class="line">            &#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                pathNum[i][0] = 1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        for(int i = 0; i &lt; col; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            if(obstacleGrid[0][i] == 1)</span><br><span class="line">            &#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            else </span><br><span class="line">            &#123;</span><br><span class="line">                pathNum[0][i] = 1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        for(int i = 1; i &lt; row; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            for(int j = 1; j &lt; col; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                if(obstacleGrid[i][j] == 1)</span><br><span class="line">                &#123;</span><br><span class="line">                    pathNum[i][j] = 0;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    pathNum[i][j] = pathNum[i][j - 1] + pathNum[i - 1][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return pathNum[row - 1][col - 1];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="例7-背包问题"><a href="#例7-背包问题" class="headerlink" title="例7 背包问题"></a>例7 背包问题</h2><p>&emsp;&emsp;lintcode：<br><a href="https://www.lintcode.com/problem/backpack-ii/description" target="_blank" rel="noopener">https://www.lintcode.com/problem/backpack-ii/description</a></p>
+<h3 id="分析-4"><a href="#分析-4" class="headerlink" title="分析"></a>分析</h3><p>&emsp;&emsp;背包问题是一类问题，主要是求解约束条件下的最优解问题。</p>
+<h4 id="状态定义-1"><a href="#状态定义-1" class="headerlink" title="状态定义"></a>状态定义</h4><p>&emsp;&emsp;F[i][j]：前i个商品，包的重量为j的最大价值。定义二维数组遍历所有商品，和到当前商品情况下背包容量从0 - max的所有情况下的最大值求解，遍历到最后则可得到n个全部商品情况下背包最大容量max下背包可拿的最大价值F[n][max]。</p>
+<h4 id="状态转移方程-5"><a href="#状态转移方程-5" class="headerlink" title="状态转移方程"></a>状态转移方程</h4><p>&emsp;&emsp;当前商品空间大于包能承受的总空间，放不下直接跳过。数学描述：if(w[i] &gt; j) F[i][j] = F[i - 1][j]。<br>&emsp;&emsp;当前商品空间小于等于包能承受总空间，可以选择放可以选择不放，如果不放入，则F[i][j] = F[i - 1][j]；如果放入，则当前重量等于遍历到的上一个商品并且空间还有w[i]这么大的时候的价值+本商品的价值，最大价值F[i][j] = F[i - 1][j - w[i]] + v[i]，选择放入或不放入商品情况中的最大值作为最优解。数学描述：if(w[i] &lt;= j) max(F[i - 1][j], F[i - 1][j - w[i]] + v[i]);</p>
+<h4 id="初始状态和最终状态-5"><a href="#初始状态和最终状态-5" class="headerlink" title="初始状态和最终状态"></a>初始状态和最终状态</h4><p>&emsp;&emsp;初始状态：没有商品时，F[0][j] = 0,最大容量为0时F[i][0] = 0。<br>&emsp;&emsp;最终状态：遍历完全部n个商品，并且背包总容量为最大值m时得到最大价值F[n][m]。</p>
+<h3 id="实现-5"><a href="#实现-5" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    /**</span><br><span class="line">     * @param m: An integer m denotes the size of a backpack</span><br><span class="line">     * @param A: Given n items with size A[i]</span><br><span class="line">     * @param V: Given n items with value V[i]</span><br><span class="line">     * @return: The maximum value</span><br><span class="line">     */</span><br><span class="line">    int backPackII(int m, vector&lt;int&gt; &amp;A, vector&lt;int&gt; &amp;V) &#123;</span><br><span class="line">        if(A.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">        int row = A.size();</span><br><span class="line">        vector&lt;vector&lt;int&gt;&gt; maxValue(row + 1, vector&lt;int&gt;(m + 1, 0));</span><br><span class="line">        for(int i = 1; i &lt;= row; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            for(int j = 1; j &lt;= m; ++j)</span><br><span class="line">            &#123;</span><br><span class="line">                if(A[i - 1] &gt; j)</span><br><span class="line">                &#123;</span><br><span class="line">                    maxValue[i][j] = maxValue[i - 1][j];</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    maxValue[i][j] = max(maxValue[i - 1][j], maxValue[i - 1][j - A[i - 1]] + V[i - 1]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return maxValue[row][m];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/15/【Cpp】第四章-模板初阶/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1933,184 +2131,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/25/【Linux】第六章-进程间通讯/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/25/【Linux】第六章-进程间通讯/" itemprop="url">【Linux】第六章-进程间通讯</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-25T15:13:07+08:00">
-                2019-04-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.9k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第六章-进程间通讯"><a href="#第六章-进程间通讯" class="headerlink" title="第六章 进程间通讯"></a>第六章 进程间通讯</h1><h2 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h2><h3 id="为什么需要进程间通讯"><a href="#为什么需要进程间通讯" class="headerlink" title="为什么需要进程间通讯"></a>为什么需要进程间通讯</h3><p>&emsp;&emsp;由于进程的独立性当我们想要一个进程把数据传输给另一个进程就需要进程间通讯的方式。但是想要传输数据就需要共同的媒介，以此达到数据传输，数据共享进程间访问控制等目的。</p>
-<h3 id="方式"><a href="#方式" class="headerlink" title="方式"></a>方式</h3><p>&emsp;&emsp;由于通讯目的不同，场景不同，因此操作系统提供了多种进程间通信的方式。<br><br>&emsp;&emsp;1、管道（命名/匿名）：传输数据。<br><br>&emsp;&emsp;2、共享内存：共享数据<br><br>&emsp;&emsp;3、消息队列：传输数据<br><br>&emsp;&emsp;4、信号量：进程间访问控制。</p>
-<h2 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h2><h3 id="什么是管道"><a href="#什么是管道" class="headerlink" title="什么是管道"></a>什么是管道</h3><p>&emsp;&emsp;管道是一种传输数据的媒介，所谓管道是操作系统在内核创建的一块缓冲区域，进程只要能够访问到这块缓冲区就能通过缓冲区相互通讯。并且只有在进程确认要发起进程间通讯时管道才会被创建，同时为了方便进程操作管道系统会给进程一个句柄（遥控器）方便进程操作，在LInux下这不过是给进程了两个文件描述符。为什么是两个文件描述符呢？系统为了操作更加方便易于管理功能更加全面，因此两个文件描述符一个描述符负责读管道，另一个负责写数据。</p>
-<h3 id="匿名管道"><a href="#匿名管道" class="headerlink" title="匿名管道"></a>匿名管道</h3><p>&emsp;&emsp;匿名管道是只能用于具有亲缘关系的进程间通信（共同祖先）。用<code>pipe()</code>创建管道。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;                         </span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;errno.h&gt;</span><br><span class="line">/**</span><br><span class="line">* int pipe(int pipefd[2]);</span><br><span class="line">* pipefd[0] 用于从管道读数据</span><br><span class="line">* pipefd[1] 用于从管道写数据</span><br><span class="line">* 返回值：0 失败：-1</span><br><span class="line">*/</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int pipefd[2];</span><br><span class="line">  int ret = pipe(pipefd);</span><br><span class="line">  if(ret &lt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">    perror(&quot;pipe error&quot;);</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  int pid = fork();</span><br><span class="line">  if(pid &lt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">    perror(&quot;fork error&quot;);</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  else if(pid == 0)</span><br><span class="line">  &#123;</span><br><span class="line">    //child read</span><br><span class="line">    char buf[1024] = &#123;0&#125;;</span><br><span class="line">    read(pipefd[0], buf, 1023);</span><br><span class="line">    printf(&quot;read buf:%s\n&quot;, buf);</span><br><span class="line">  &#125;</span><br><span class="line">  else </span><br><span class="line">  &#123;</span><br><span class="line">    //parent write</span><br><span class="line">    char* ptr = &quot;Misaki!!!&quot;;</span><br><span class="line">    write(pipefd[1], ptr, strlen(ptr));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;                            </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第六章-进程间通讯]$ ./ipc</span><br><span class="line">read buf:Misaki!!!</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;<strong>读写特性</strong>：若管道中没有数据，则<code>read</code>会阻塞，直到读到数据返回。若管道中数据满了，则<code>write</code>会阻塞，知道数据被读取，管道中有空闲位置，写入数据后返回。如果管道所有读端都被关闭，则<code>write()</code>会触发异常<code>SIGPIPE</code>导致进程退出。如果管道所有写端都被关闭则<code>read()</code>读完管道所有数据后返回0。<br><br>&emsp;&emsp;<strong>同步与互斥特性</strong>：当读写大小小于<code>PIPE_BUF</code>时保证操作原子性，即操作不可被打断，保证读写一次性完成。互斥：对临界资源（即公共资源）同一时间的唯一访问性。同步：保证对临界资源访问的时许可控性。同时管道是一个半双工通信（可选择方向的单行通信）。以上的特性保证当有多个进程访问管道时向管道中读写数据不会出现顺序出错内容出错的问题。<br><br>&emsp;&emsp;<strong>管道提供流式服务</strong>：面向字节流数据传输，传输十分灵活，但会造成数据粘连。</p>
-<h3 id="命名管道"><a href="#命名管道" class="headerlink" title="命名管道"></a>命名管道</h3><p>&emsp;&emsp;可见于文件系统，会在创建管道时创建一个命名管道文件，所有进程都可以通过打开管道文件进而获取管道的操作句柄，因此命名管道到可以用于同一主机上的任意进程间通信。但其本质依然是系统的内核，只是通过文件向所有的进程提供了访问的方法。我们在shell中用<code>mkfifo filename</code>创建命名管道。我们在进程中用<code>mkfifo()</code>创建命名管道。<br><br>&emsp;&emsp;命名管道<strong>打开特性</strong>：<br><br>&emsp;&emsp;若管道没有被以写的方式打开，这时如果只读打开则会阻塞，直到文件被以写的方式打开。<br><br>&emsp;&emsp;若管道没有被以读的方式打开，这时如果只写打开则会阻塞，直到文件被以读的方式打开。<br><br>&emsp;&emsp;这里需要两个进程一个负责写入一个负责读取才能让命名管道生效。<br><br>fifo_read.c:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">/*  命名管道的基本使用                            </span><br><span class="line"> *  int mkfifo(const char *pathname, mode_t mode);</span><br><span class="line"> *      pathname:   管道文件名</span><br><span class="line"> *      mode：  创建权限  0664</span><br><span class="line"> *  返回值：0       失败：-1</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;errno.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;</span><br><span class="line">#include &lt;sys/stat.h&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  //创建命名管道</span><br><span class="line">    char *file = &quot;./test.fifo&quot;;</span><br><span class="line">    umask(0);</span><br><span class="line">    int ret = mkfifo(file, 0664);</span><br><span class="line">    if (ret &lt; 0)</span><br><span class="line">    &#123;</span><br><span class="line">        if (errno != EEXIST) </span><br><span class="line">        &#123;</span><br><span class="line">            perror(&quot;mkfifo error&quot;);</span><br><span class="line">            return -1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;open file\n&quot;);</span><br><span class="line">    int fd = open(file, O_RDWR);</span><br><span class="line">    if (fd &lt; 0) </span><br><span class="line">    &#123;</span><br><span class="line">        perror(&quot;open error&quot;);</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;open success!!\n&quot;);</span><br><span class="line">    </span><br><span class="line">    //不停从管道中读取数据</span><br><span class="line">    while(1) </span><br><span class="line">    &#123;</span><br><span class="line">        char buf[1024] = &#123;0&#125;;</span><br><span class="line">        int ret = read(fd, buf, 1023);</span><br><span class="line">        if (ret &gt; 0) &#123;</span><br><span class="line">            printf(&quot;read buf:[%s]\n&quot;, buf);</span><br><span class="line">        &#125;else if (ret == 0) &#123;</span><br><span class="line">            printf(&quot;write closed~~~\n&quot;);</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">            perror(&quot;read error&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        printf(&quot;----------\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    close(fd);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>fifo_write.c:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;</span><br><span class="line">#include &lt;sys/stat.h&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    char *file = &quot;./test.fifo&quot;;</span><br><span class="line">    umask(0);</span><br><span class="line">    int ret = mkfifo(file, 0664);</span><br><span class="line">    if (ret &lt; 0) &#123;</span><br><span class="line">        if (errno != EEXIST) &#123;</span><br><span class="line">            perror(&quot;mkfifo error&quot;);</span><br><span class="line">            return -1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;open file\n&quot;);</span><br><span class="line">    int fd = open(file, O_WRONLY);</span><br><span class="line">    if (fd &lt; 0) &#123;</span><br><span class="line">        perror(&quot;open error&quot;);</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;open success!!\n&quot;);</span><br><span class="line">    //不停向管道中写入数据          </span><br><span class="line">    while(1) &#123;</span><br><span class="line">        char buf[1024] = &#123;0&#125;;</span><br><span class="line">        scanf(&quot;%s&quot;, buf);</span><br><span class="line">        write(fd, buf, strlen(buf));</span><br><span class="line">    &#125;</span><br><span class="line">    close(fd);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>结果：<br><br><img src="/2019/04/25/【Linux】第六章-进程间通讯/1.jpg" alt="结果"><br><br><img src="/2019/04/25/【Linux】第六章-进程间通讯/2.jpg" alt="结果"><br></p>
-<h2 id="共享内存"><a href="#共享内存" class="headerlink" title="共享内存"></a>共享内存</h2><p>&emsp;&emsp;共享内存是在物理内存上开辟一块空间，将这块空间映射到进程的虚拟地址空间中，进程则可以用通过虚拟地址进行访问操作；如果一块内存被多个进程映射，那么多个进程访问同一块内存，则可以实现通讯。</p>
-<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><p>&emsp;&emsp;共享内存是将两个进程共用同一块物理内存，是最快的进程间通信方式，因为相较于其他进程间通信方式（将数据从用户态拷贝到内核态，用的时候，从内核态拷贝到用户态）其直接操作内存，少了两步拷贝操作。<br></p>
-<h3 id="共享内存的操作"><a href="#共享内存的操作" class="headerlink" title="共享内存的操作"></a>共享内存的操作</h3><h4 id="shell内操作"><a href="#shell内操作" class="headerlink" title="shell内操作"></a>shell内操作</h4><p>&emsp;&emsp;1、<code>ipcs -m</code>查看共享内存。<br><br>&emsp;&emsp;2、<code>ipcrm -m shmid</code>删除共享内存。<br></p>
-<h4 id="程序内操作"><a href="#程序内操作" class="headerlink" title="程序内操作"></a>程序内操作</h4><p>&emsp;&emsp;程序内使用共享内存基本分为以下4步：<br><br>&emsp;&emsp;1、创建共享内存。<code>shmget()</code>不过在创建共享内存时我们会用到一个叫做<code>key</code>的参数，这个参数成为ipc键值，每一个键值对应一个唯一的ipc对象，我们可以通过<code>ftok()</code>生成一个<code>key</code>，也可以自己宏定义一个<code>key</code>，但是后者需要保证自己定义的<code>key</code>与系统中已经存在的不冲突，而前者则有系统自己保证。<br><br>&emsp;&emsp;2、将共享内存映射到虚拟地址空间。<code>shmat</code><br><br>&emsp;&emsp;3、对共享内存进行基本的内存操作。<code>memcpy()...</code><br><br>&emsp;&emsp;4、解除映射关系。<code>shmdt()</code><br><br>&emsp;&emsp;5、删除共享内存。<code>shmctl()</code><br><br>&emsp;&emsp;在删除共享内存时会判断它的映射连接数，如果为0的话则直接删除，不为0则拒绝后续连接，直到为0删除。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br></pre></td><td class="code"><pre><span class="line">shm_read.c</span><br><span class="line"></span><br><span class="line">/*共享内存使用流程：                                                    </span><br><span class="line"> *1. 创建/打开共享内存            shmget</span><br><span class="line">    key_t ftok(const char *pathname, int proj_id);</span><br><span class="line">        pathname:   文件名</span><br><span class="line">        proj_id：   数字</span><br><span class="line">        通过文件的inode节点号和proj_id共同得出一个key值</span><br><span class="line">    int shmget(key_t key, size_t size, int shmflg);</span><br><span class="line">        key:    共享内存标识符</span><br><span class="line">        size：  共享内存大小</span><br><span class="line">        shmflg：打开方式/创建权限</span><br><span class="line">            IPC_CREAT   共享内存不存在则创建，存在则打开</span><br><span class="line">            IPC_EXCL    与IPC_CREAT同用，若存在则报错，不存在则创建</span><br><span class="line">            mode_flags  权限</span><br><span class="line">    返回值：操作句柄shmid   失败：-1</span><br><span class="line"> *2. 将共享内存映射到虚拟地址空间 shmat</span><br><span class="line">    void *shmat(int shmid, const void *shmaddr, int shmflg);</span><br><span class="line">        shmid:  创建共享内存返回的操作句柄</span><br><span class="line">        shmaddr： 用于指定映射在虚拟地址空间的首地址；通常置NULL</span><br><span class="line">        shmflg：    0--可读可写</span><br><span class="line">    返回值：映射首地址（通过这个地址对共享内存进行操作） 失败：(void*)-1</span><br><span class="line"> *3. 对共享内存进行基本的内存操作 memcpy.....</span><br><span class="line"> *4. 解除映射关系                 shmdt</span><br><span class="line">    int shmdt(const void *shmaddr);</span><br><span class="line">        shmaddr:    映射返回的首地址</span><br><span class="line"> *5. 删除共享内存                 sh          IPC_RMID    删除共享内存</span><br><span class="line">      buf:    设置或者获取共享内存信息，用不着则置NULL</span><br><span class="line">      共享内存并不是立即删除的，只是拒绝后续映射连接，当共享内存</span><br><span class="line">      映射连接数为0时，则删除共享内存</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;sys/shm.h&gt;</span><br><span class="line">#define IPC_KEY 0x12345678</span><br><span class="line">#define PROJ_ID 12345</span><br><span class="line">#define SHM_SIZE    4096</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int shmid;</span><br><span class="line">    //1. 创建共享内存</span><br><span class="line">    //key_t key = ftok(&quot;.&quot;, PROJ_ID);</span><br><span class="line">    //PROJ_ID只占用后八位，即1-255</span><br><span class="line">    shmid = shmget(IPC_KEY, SHM_SIZE, IPC_CREAT|0666);</span><br><span class="line">    if (shmid &lt; 0) </span><br><span class="line">    &#123;</span><br><span class="line">        perror(&quot;shmget error&quot;);</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    //2. 将共享内存映射到虚拟地址空间</span><br><span class="line">    char *shm_start = (char *)shmat(shmid, NULL, 0);</span><br><span class="line">    if (shm_start == (void*)-1) </span><br><span class="line">    &#123;</span><br><span class="line">        perror(&quot;shmat error&quot;);</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    int i = 0;</span><br><span class="line">    while(1) </span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;%s\n&quot;, shm_start);</span><br><span class="line">        sleep(1);</span><br><span class="line">    &#125;</span><br><span class="line">    //4. 解除映射</span><br><span class="line">    shmdt(shm_start);</span><br><span class="line">    //5. 删除共享内存</span><br><span class="line">    shmctl(shmid, IPC_RMID, NULL);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;          </span><br><span class="line"></span><br><span class="line">shm_write.c:</span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;sys/shm.h&gt;</span><br><span class="line">#define IPC_KEY 0x12345678</span><br><span class="line">#define PROJ_ID 12345</span><br><span class="line">#define SHM_SIZE    4096</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int shmid;</span><br><span class="line">    //1. 创建共享内存</span><br><span class="line">    //key_t key = ftok(&quot;.&quot;, PROJ_ID);</span><br><span class="line">    shmid = shmget(IPC_KEY, SHM_SIZE, IPC_CREAT|0666);</span><br><span class="line">    if (shmid &lt; 0) &#123;</span><br><span class="line">        perror(&quot;shmget error&quot;);</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    //2. 将共享内存映射到虚拟地址空间</span><br><span class="line">    char *shm_start = (char *)shmat(shmid, NULL, 0);  </span><br><span class="line">    if (shm_start == (void*)-1) &#123;</span><br><span class="line">        perror(&quot;shmat error&quot;);</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    int i = 0;</span><br><span class="line">    while(1) &#123;  </span><br><span class="line">        sprintf(shm_start, &quot;Misaki:%d\n&quot;, i++);</span><br><span class="line">        sleep(1);                            </span><br><span class="line">    &#125;                                        </span><br><span class="line">    //4. 解除映射                            </span><br><span class="line">    shmdt(shm_start);  </span><br><span class="line">    //5. 删除共享内存  </span><br><span class="line">    shmctl(shmid, IPC_RMID, NULL);  </span><br><span class="line">    return 0;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost ipc]$ ./shm_write</span><br><span class="line">^C</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost ipc]$ ./shm_read</span><br><span class="line">Misaki:0</span><br><span class="line"></span><br><span class="line">Misaki:1</span><br><span class="line"></span><br><span class="line">Misaki:2</span><br><span class="line"></span><br><span class="line">Misaki:3</span><br><span class="line"></span><br><span class="line">Misaki:4</span><br><span class="line"></span><br><span class="line">Misaki:5</span><br><span class="line"></span><br><span class="line">Misaki:6</span><br><span class="line"></span><br><span class="line">Misaki:7</span><br><span class="line"></span><br><span class="line">Misaki:8</span><br><span class="line"></span><br><span class="line">Misaki:9</span><br><span class="line"></span><br><span class="line">Misaki:10</span><br><span class="line"></span><br><span class="line">Misaki:11</span><br><span class="line"></span><br><span class="line">^C</span><br></pre></td></tr></table></figure></p>
-<h2 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h2><p>&emsp;&emsp;在使用消息队列时我们会在内核中创建一个消息队列结构，在进程中进程要想操作消息队列要自行创建一个消息队列结构体，将数据放进去构成队列，然后再将队列传输到内核。由于内核中存储数据的队列只有一个，为了方便区分不同进程的数据在消息队列结构体中会有一个<code>type</code>变量以便区分这个数据属于哪个进程。在某个进程获取消息队列中的数据时可以指定<code>type</code>，得到自己希望得到的进程的数据。</p>
-<h2 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h2><p>&emsp;&emsp;信号量时内核中的一个计数器，并且具有等待队列，具有等待与唤醒的功能。<br><br>&emsp;&emsp;信号量用于资源计数，若计数&lt;=0则表示没有资源则读取需要等待资源，直到如果放置了资源，则计数+1，然后唤醒等待的进程；若资源&gt;0则可以获取资源，之后计数-1。<br><br>&emsp;&emsp;信号量实现进程间的同步与互斥。<br></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2165,7 +2185,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2176,7 +2196,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2187,7 +2207,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2284,7 +2304,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共115.8k字</span>
+  <span class="post-count">博客全站共118k字</span>
 </div>
 
         ﻿
