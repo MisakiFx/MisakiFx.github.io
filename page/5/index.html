@@ -264,6 +264,175 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/04/【Linux】Linux基础-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/04/【Linux】Linux基础-2/" itemprop="url">【Linux】Linux基础-2</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-04T16:12:39+08:00">
+                2018-12-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.2k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Linux基础"><a href="#Linux基础" class="headerlink" title="Linux基础"></a>Linux基础</h1><h2 id="第2节"><a href="#第2节" class="headerlink" title="第2节"></a>第2节</h2><p>&emsp;&emsp;在此章节着重介绍Linux的基本指令，并且穿插一些Linux的基本知识点进行讲解，同时学习Linux最重要的一点是<strong>不要去背</strong>，在使用中学习，用的多了自然就会了，并且一开始学习Linux大家可能会觉得各种不顺手，但是学习久了大家就会被Linux的魅力所吸引，欲罢不能！。</p>
+<h3 id="终端简介"><a href="#终端简介" class="headerlink" title="终端简介"></a>终端简介</h3><h4 id="基础介绍"><a href="#基础介绍" class="headerlink" title="基础介绍"></a>基础介绍</h4><p>&emsp;&emsp;在Linux的使用中，我们最为经常使用的就是终端，我们之后可以说一切的指令都会在终端中进行输入，那么如何打开终端呢？<strong>鼠标右键点击Linux桌面</strong>，就会出现<strong>打开终端</strong>选项，点击后会出现一个如下图一般的类似于Windows控制台的窗口，这就是Linux的终端了。所谓终端类似于Windows下的控制台，大家可以理解为控制Linux的神经中枢，我们的操作之后都会在这个终端中进行，不过之后会讲解如何使用Xshell，大家就可以通过远程的方式链接到终端了。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/1.png" alt="终端"><br></p>
+<h4 id="Linux的目录"><a href="#Linux的目录" class="headerlink" title="Linux的目录"></a>Linux的目录</h4><p>&emsp;&emsp;大家可以注意到在终端中命令前都会加上这么一行字。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/2.png" alt="目录"><br><br>&emsp;&emsp;正如图中所示，这三个标签都有各自的含义，其中当前目录名尤为重要，因为我们在一个地方输入命令我们首先就得清楚我们当前在哪个目录下，不然可能会出现不必要的错误。而目录中最为特殊的目录有两个<code>~</code>表示的是<strong>家目录，</strong><code>/</code>表示的是<strong>根目录</strong>。<br><br>&emsp;&emsp;我们可以把Linux想象成一栋大厦，这栋大厦中有很多很多的住户，只有一个神一般的存在我们称其为楼管。我们是其中一个住户我们在这栋大厦中有自己的家，我们可以在自己家中为所欲为，不收任何限制，那么其实<strong>家目录</strong>就好比这栋大厦中我们自己的家一样，完全受我们自己控制，我们之后的大部分操作也都是在家目录中进行的。而<strong>根目录</strong>就好比这栋大楼的根基一样，十分危险也有重重保障，我们在根目录中的权限受到限制，毕竟我们不能说把一栋楼拆了就把一栋楼拆了，这栋楼没了Linux也就凉凉了，上面所有的用户都得来找你算账。然而在Linux这种大厦中有一个神一般的楼管，他可以在整栋大厦中为所欲为，这个楼管就是<strong>root管理员</strong>。<br><br>&emsp;&emsp;但在实际中Linux的目录结构更像是一棵树，是数据结构中的树，就是一棵跟实际中的树正好相反的树。（大致如下图）<br><br><img src="/2018/12/04/【Linux】Linux基础-2/3.png" alt="目录"><br><br>&emsp;&emsp;可以发现这样的目录结构与Windows十分相似，没错这样的目录结构方便管理，更符合大家对目录的思想。可以看出<strong>根目录</strong>在树的最顶端（在数据结构中应该叫做树根），是一切目录的根目录，因此可以看出<strong>根目录</strong>在Linux中举足轻重的地位，是整个系统的根本。</p>
+<h4 id="文件信息"><a href="#文件信息" class="headerlink" title="文件信息"></a>文件信息</h4><p>&emsp;&emsp;接下来我们可以尝试在终端中输入<code>ll</code>这个指令，这个指令的具体功能可以大概描述为查看当前目录下文件以及目录的信息，输入后大概会出现以下的信息。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/4.jpg" alt="文件信息"><br><br>&emsp;&emsp;在列表中列出的标蓝字体的为<strong>目录</strong>，也就是我们俗称的文件夹，未标蓝的则为文件。可以看出不论是目录还是文件夹的前都有一行信息，关于这行信息我们是接下来要详细说明的。<br><img src="/2018/12/04/【Linux】Linux基础-2/5.png" alt="文件信息"><br><br>&emsp;&emsp;我用红线将这行信息分为7段，其中每一段都有自己不同的含义。<br><br>&emsp;&emsp;段1：<strong>文件属性</strong>，这个之后详细解释；段2：<strong>文件个数</strong>，如果是目录可能包含有多个文件，如果是文件，则当然是1了；段3：<strong>文件拥有者(Owner)</strong>，创建文件的用户，如果实在家目录下一般都是用户本身；段4：<strong>表示拥有者所属的组(Group)</strong>，如果没有添加新的组，则默认会将用户名作为组名；段5：<strong>文件大小</strong>，单位是byte；段6：<strong>创建时间</strong>；段7：<strong>文件名</strong>。<br><br>&emsp;&emsp;在段1中，我们要重要介绍。段1的第一个字母表示的是文件所属类型，如果是目录则显示的是<code>d</code>，如果是文件则显示的是<code>-</code>，还有一些其他文件属性。之后的九个栏位，表示文件的权限。Linux的文件基本上分为三个权限：可读（r），可写（w），可执行（x）。剩下的格子就以每3格为一个单位表示不同用户的权限。因为Linux是多用户多任务系统，所以一个文件可能同时被许多人使用，所以我们一定要设好每个文件的权限，其文件的权限位置排列顺序是（以drwxr-xr-x为例）：<br><br>&emsp;&emsp;d(所属类型)-rwx(拥有者)r-x(拥有者所在的组)r-x(其他用户)<br><br>&emsp;&emsp;这个例子表示的信息是：这是一个目录，并且拥有者自己可读，可写，可执行；同一组的用户可读，不可写，可执行；其它用户可读，不可写，可执行。另外，有一些程序属性的执行部分不是X,而是S,这表示执行这个程序的使用者，临时可以有和拥有者一样权力的身份来执行该程序。一般出现在系统管理之类的指令或程序，让使用者执行时，拥有root身份。<br><br>&emsp;&emsp;文件的使用权限身为root管理员是可以随时更改的，具体更改方法和关于文件权限的更多内容我们会在之后讲解。</p>
+<h3 id="基础指令"><a href="#基础指令" class="headerlink" title="基础指令"></a>基础指令</h3><p>&emsp;&emsp;1、<code>ls</code>：显示当前目录下文件，效果类似于<code>ll</code>，但没有其强大。<br><br>&emsp;&emsp;2、<code>ll</code>：显示当前目录下文件，已经做过演示，十分常用。<br><br>&emsp;&emsp;3、<code>ctrl+l</code>：清屏，十分常用。<br><br>&emsp;&emsp;4、<code>cd 目录</code>：目录跳转。cd的使用十分灵活我们可以使用它进入Linux的各种目录之中。举几个例子。<br><br>&emsp;&emsp;进入根目录：<code>cd /</code>；再回到家目录<code>cd ~</code>；<code>cd</code>也可以回到家目录；<code>cd /home/misaki/</code>也可以回到家目录，其中<code>misaki</code>是我的用户名，大家改为自己的用户名即可，不难发现我们的家目录的真正目录就在<code>/</code>目录中的<code>home</code>目录中的<code>用户名</code>目录中。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/6.png" alt="基础指令"><br><br>&emsp;&emsp;5、<code>Ctrl+Insert</code>：复制，<code>Shift+Insert</code>：粘贴。在Linux中复制粘贴的快捷键与Windows的略有不同，大家要注意。<br><br>&emsp;&emsp;6、<code>touch 文件名</code>：在当前目录下创建一个新的文件，创建后可以用<code>ll</code>查看。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/7.jpg" alt="基础指令"><br><br>&emsp;&emsp;7、<code>echo 内容 &gt; 文件名</code>：向文件中写入内容。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/8.jpg" alt="基础指令"><br><br>&emsp;&emsp;8、<code>cat 文件名</code>：读取文件。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/9.jpg" alt="基础指令"><br><br>&emsp;&emsp;9、<code>rm 文件名</code>：删除文件。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/10.png" alt="基础指令"><br><br>&emsp;&emsp;10、<code>mkdir 目录名</code>：创建目录。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/11.png" alt="基础指令"><br><br>&emsp;&emsp;11、<code>mkdir -p 目录1/目录2/目录3</code>：创建复杂目录。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/12.png" alt="基础指令"><br><br>&emsp;&emsp;12、<code>pwd</code>：显示当前目录的绝对路径。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/13.png" alt="基础指令"><br><br>&emsp;&emsp;从这里也可以看出家目录的确是在跟目录下的<code>home</code>目录里的。<br><br>&emsp;&emsp;13、<code>rm -r 目录名</code>：删除目录。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/14.png" alt="基础指令"><br><br>&emsp;&emsp;14、<code>rm -rf 目录名</code>：强制删除目录。<br><br>&emsp;&emsp;其中<code>-</code>后的指令被称为指令的选项，可以为这条命令添加很多额外效果，例如<code>-i</code>表示执行前提问，<code>-f</code>表示强制等等。<br>&emsp;&emsp;15、<code>mv 原文件 目标文件</code>：改名。<code>mv 原文件 目录</code>：移动文件。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/15.png" alt="基础指令"><br><br><img src="/2018/12/04/【Linux】Linux基础-2/16.png" alt="基础指令"><br><br>&emsp;&emsp;16、<code>man</code>：帮助手册。操作指令可在这里查看官方文档。要会使用。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/17.png" alt="基础指令"><br><br><img src="/2018/12/04/【Linux】Linux基础-2/18.png" alt="基础指令"><br><br>&emsp;&emsp;17、<code>cp 原文件 目标文件</code>：拷贝文件到此目录下并命名为目标文件。<code>cp 原文件 目录</code>：拷贝文件到目录下。<code>cp -r a b</code>：拷贝a目录到b目录下。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/19.png" alt="基础指令"><br><br>&emsp;&emsp;到此为止Linux的基本常用指令就全部介绍完毕了，正如我一开始说的呢样，不要去背Linux指令，在使用中理解，用的多了自然就熟悉了，在下个章节我们会介绍如何使用<strong>Xshell</strong>远程控制终端，并且如何在终端上编写程序，还请大家准备下<strong>Xshell</strong>这款软件。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/02/【Linux】Linux基础-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1828,178 +1997,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/【C语言】第二章-分支和循环语句-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/05/【C语言】第二章-分支和循环语句-2/" itemprop="url">【C语言】第二章-分支和循环语句-2</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-05T19:17:05+08:00">
-                2018-11-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C语言初阶/" itemprop="url" rel="index">
-                    <span itemprop="name">C语言初阶</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第二章-分支和循环语句"><a href="#第二章-分支和循环语句" class="headerlink" title="第二章 分支和循环语句"></a>第二章 分支和循环语句</h1><h2 id="第2节"><a href="#第2节" class="headerlink" title="第2节"></a>第2节</h2><p>&emsp;&emsp;在本节中，我会用代码实现几个例子，来供大家深入了解和学习分支以及循环语句。</p>
-<h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><p>&emsp;&emsp;查找的含义就是在一个表中找出关键字与所给值相同的元素，<strong>如果找到了则返回下标，找不到则返回-1</strong>。<br><br>&emsp;&emsp;这里先演示最为普通的查找，逐个查找，这是最为普通的算法思想。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int index = -1;</span><br><span class="line">	int num = 5;//假设我们要查找的元素是5</span><br><span class="line">	int arr[10] = &#123;0, 1, 2, 3, 4, 5, 6, 7, 8, 9&#125;;</span><br><span class="line">	for (int i = 0; i &lt; 10; i++)//通过循环遍历数组</span><br><span class="line">	&#123;</span><br><span class="line">		if (arr[i] == num)</span><br><span class="line">		&#123;</span><br><span class="line">			index = i;//找到目标元素将下标赋值给index</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	printf(&quot;%d\n&quot;, index);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;但是往往这种普通的遍历查找过为复杂，因此在有序的数组中，我们给出第二种更为简单的查找方式，叫做<strong>折半查找，</strong>这种查找只适用于在有序的素组中，利用减而制之的思想，每次只将目标区域最中心的元素与目标元素（mid）进行对比，如果目标元素大于mid，则将下界更为mid + 1，如果小于mid则将上界改为mid - 1.每一次循环之后都将目标查找区域缩小一半，直到找到目标元素，或是退出循环。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">/*</span><br><span class="line">二分查找</span><br><span class="line">参数：数组，目标区间，目标值</span><br><span class="line">返回值：找到则返回元素下标，未找到返回-1</span><br><span class="line">*/</span><br><span class="line">int binFind(int* arr, int low, int high, int num)</span><br><span class="line">&#123;</span><br><span class="line">	int mid = 0;</span><br><span class="line">	int index = -1;</span><br><span class="line">	while (low &lt;= high)</span><br><span class="line">	&#123;</span><br><span class="line">		mid = (low + high) &gt;&gt; 1;</span><br><span class="line">		if (num &gt; arr[mid])</span><br><span class="line">		&#123;</span><br><span class="line">			low = low + 1;</span><br><span class="line">		&#125;</span><br><span class="line">		else if (arr[mid] &gt; num)</span><br><span class="line">		&#123;</span><br><span class="line">			high = high - 1;</span><br><span class="line">		&#125;</span><br><span class="line">		else</span><br><span class="line">		&#123;</span><br><span class="line">			index = mid;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return index;</span><br><span class="line">&#125;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int arr[10] = &#123; 0,1,2,3,4,5,6,7,8,9 &#125;;</span><br><span class="line">	printf(&quot;5在数组中的下表为：%d\n&quot;, binFind(arr, 0, 10, 5));</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;很显然这是极为聪明的一种查找方法，极大的缩短了我们查找的时间，如果学过数据结构的同学自然可以明白其在算法分析上的美妙。这两个查找的示例也同时让我们感受到，一样的目标不一样的程序编写方法，会给我们的程序带来更快的便捷。除此之外，我们还有归并查找，抽样查找等等，对算法感兴趣的同学可以深入了解。<br></p>
-<h3 id="猜数字游戏"><a href="#猜数字游戏" class="headerlink" title="猜数字游戏"></a>猜数字游戏</h3><p>&emsp;&emsp;我相信很多同学小时候可能都会玩过一个游戏，规则是由系统随机给出一个数，而我们则在目标区间内进行猜测，知道猜中系统给定的数字为止，那么今天我们就来实现这么一个小游戏。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;windows.h&gt;</span><br><span class="line">#include &lt;time.h&gt;</span><br><span class="line">int menu()//开始菜单</span><br><span class="line">&#123;</span><br><span class="line">	int choice;//选择</span><br><span class="line">	printf(&quot;1、开始游戏\n&quot;);</span><br><span class="line">	printf(&quot;0、退出\n&quot;);</span><br><span class="line">	printf(&quot;请选择：&quot;);</span><br><span class="line">	scanf_s(&quot;%d&quot;, &amp;choice);</span><br><span class="line">	return choice;</span><br><span class="line">&#125;</span><br><span class="line">void game()//游戏主逻辑</span><br><span class="line">&#123;</span><br><span class="line">	srand(time(0));//设置随机数种子（需要time.h头文件）</span><br><span class="line">	int riddle = 0;//用户猜的数字</span><br><span class="line">	int num = rand() % 101;//设置随机数，范围0 - 100（需要windows.h头文件）</span><br><span class="line">	while (1)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;请输出你猜的数字：&quot;);</span><br><span class="line">		scanf_s(&quot;%d&quot;, &amp;riddle);</span><br><span class="line">		if (riddle &lt; num)</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;低了！\n&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		else if (riddle &gt; num)</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;高了！\n&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		else</span><br><span class="line">		&#123;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	printf(&quot;恭喜你猜中了！\n&quot;);</span><br><span class="line">&#125;</span><br><span class="line">void gameNumRiddle()//游戏总逻辑</span><br><span class="line">&#123;</span><br><span class="line">	while (1)</span><br><span class="line">	&#123;</span><br><span class="line">		if (menu() == 1)//调用菜单函数</span><br><span class="line">		&#123;</span><br><span class="line">			game();//游戏开始</span><br><span class="line">		&#125;</span><br><span class="line">		else</span><br><span class="line">			return;//退出游戏</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	gameNumRiddle();</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;在这个游戏的实现中，我们引入了随机数rand()的使用方法，rand()是随机生成一个随机数列，范围是0~至少是65535，也就是说如果我们想让他生成某个范围内的数，我们就用这个随机数列%范围的上界，比如说我们此时需要0 ~ 100的数，我则使用给他% 101，那么问题来了，rand() % 100 + 1的范围是多少呢？我相信很多同学或许猜的出来，就是1 ~ 100。是的关于rand()还有很多灵活的用法，大家可以自行琢磨，但是在使用之前都千万不要忘记加上<code>srand(time(NULL))</code>,那么这句话又有什么含义呢？其实很简单，我们用rand()每次生成的随机数列都是固定的，就是说如果rand()的参数不变那么产生的随机数也不会变，大家在这个程序里可以试一下，我们如果去掉srand()我们每次执行程序所猜的第一个数字永远都只会是一个唯一值。并不会改变。为了改变随机数，我们就要不停地改变参数，但是有什么参数是会一直改变的？<strong>时间</strong>。因此我们srand()的参数给的正是时间这个参量。但是time()函数准确的来说并不是返回当前的时间。大家可以去参考这个函数的官方文档。<br><br>&emsp;&emsp;<strong>The value returned generally represents the number of seconds since 00:00 hours, Jan 1, 1970 UTC (i.e., the current unix timestamp). Although libraries may use a different representation of time: Portable programs should not use the value returned by this function directly, but always rely on calls to other elements of the standard library to translate them to portable types (such as localtime, gmtime or difftime).</strong>(摘自官方文档)<br><br>&emsp;&emsp;总的来说我们用srand()和rand()两个函数创造了随机数，并且赋值利用循环和分支语句让用户进行猜数字，整个程序的算法逻辑还是很简单的。</p>
-<h3 id="ATM系统"><a href="#ATM系统" class="headerlink" title="ATM系统"></a>ATM系统</h3><p>&emsp;&emsp;最后是一个ATM的密码验证系统，密码输入正确则通过，三次错误退出系统。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">void atmPassword()//ATM登陆系统</span><br><span class="line">&#123;</span><br><span class="line">	char password[7] = &quot;123456&quot;;//默认密码是“123456”</span><br><span class="line">	int turn = 0;</span><br><span class="line">	char enter[7];</span><br><span class="line">	while (turn &lt; 3)//通过循环控制三次输入密码的机会</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;请输入密码：&quot;);</span><br><span class="line">		scanf(&quot;%s&quot;, enter);</span><br><span class="line">		if (strcmp(enter, password) == 0)//字符串对比函数，如果前后相同返回0</span><br><span class="line">		&#123;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">		turn++;</span><br><span class="line">		printf(&quot;密码输入错误，还有%d次机会！\n&quot;, 3 - turn);</span><br><span class="line">	&#125;</span><br><span class="line">	if (turn &lt; 3)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;密码正确！\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	else</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;登陆失败！\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	atmPassword();</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这个程序的逻辑也十分简单，其中借用了一个string.h的库函数字符串对比函数<code>int strcmp ( const char * str1, const char * str2 );</code>,这个函数里有两个参数，分别是指向两个字符串的指针，如果两个字符串相同返回0，如果前面的字符串大于后面的返回大于0的数，反之返回小于0的数，具体比较方法大家也可以去看官方说明文档。<br><br>&emsp;&emsp;今天举得几个例子一是为了熟悉分支与循环语句的使用，二是说明一个道理，只凭我们自己手写是无法快捷的写出代码的，因此我们有时需要借助C语言贫瘠的库函数，而使用库函数的具体方法大家一定要多去官方文档查看，看得久了对英文有帮助，同时也可以是我们对库函数的使用有更深的理解。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2054,7 +2051,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2173,7 +2170,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共128.3k字</span>
+  <span class="post-count">博客全站共132.2k字</span>
 </div>
 
         ﻿

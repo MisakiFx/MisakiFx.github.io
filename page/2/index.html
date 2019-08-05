@@ -264,6 +264,196 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/19/【Linux】第八章-多线程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/19/【Linux】第八章-多线程/" itemprop="url">【Linux】第八章-多线程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-19T15:13:07+08:00">
+                2019-05-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第八章-多线程"><a href="#第八章-多线程" class="headerlink" title="第八章 多线程"></a>第八章 多线程</h1><h2 id="线程概念"><a href="#线程概念" class="headerlink" title="线程概念"></a>线程概念</h2><p>&emsp;&emsp;多进程任务处理是同时通过多个进程进行任务，多个pcb拥有多个虚拟地址空间，分别执行不同的代码，之间互不关联。而多线程是通过多个pcb共用一个虚拟地址空间，分别执行虚拟地址空间上所对应的多个不同的物理内存中的代码。即一个虚拟地址空间对应多个物理内存。<br><br>&emsp;&emsp;之前我们说linux下pcb是一个进程，但其实linux下线程以进程pcb模拟实现线程，因此linux下pcb是线程；因此linux线程也叫轻量级进程。一个进程可能拥有多个线程，而每个进程势必有一个主线程，我们在主线程中创建其他线程。那么一个进程可以理解为一堆线程的集合，我们称其位线程组，而进程的pid为了不冲突则规定是主线程的pid。<br><br>&emsp;&emsp;因为linux线程是pcb——因此线程是cpu的基本单位。因为进程是线程组，程序运行起来，资源是分配给整个线程组的，因此进程是资源分配的基本单位。</p>
+<h3 id="进程与线程的对比"><a href="#进程与线程的对比" class="headerlink" title="进程与线程的对比"></a>进程与线程的对比</h3><p>&emsp;&emsp;一个进程中的线程共用同一个虚拟地址空间，因此线程间通信更加方便；线程的创建/销毁成本更低；线程间切换调度成本更低；线程的执行粒度更细。<br><br>&emsp;&emsp;线程之间缺乏访问控制——系统调用，异常针对的是整个进程，健壮性低。<br><br>&emsp;&emsp;<code>vfork</code>创建一个子进程共用同一个虚拟地址空间，怕出现调用栈混乱，因此子进程运行完毕或程序替换后父进程才开始运行。而线程也共用同一个虚拟地址空间却不会发生调用栈混乱的情况，因为每个线程都会有一些独立的信息，会为每个线程在虚拟地址空间中单独分配一块内存用来存储这些独立的信息：<strong>栈，寄存器，errno，信号屏蔽字，调度优先级</strong>。同时线程间也有共享的数据：<strong>代码段，数据段，文件描述符表，信号处理方式，用户和组，当前工作目录</strong>。</p>
+<h3 id="多进程-多线程进行多任务处理的优势体现与细节"><a href="#多进程-多线程进行多任务处理的优势体现与细节" class="headerlink" title="多进程/多线程进行多任务处理的优势体现与细节"></a>多进程/多线程进行多任务处理的优势体现与细节</h3><h4 id="cpu密集型程序"><a href="#cpu密集型程序" class="headerlink" title="cpu密集型程序"></a>cpu密集型程序</h4><p>&emsp;&emsp;对于读写操作比较少，更多的则是计算方面的操作，这类程序尽量少用多线程/进程，因为cpu调度线程/进程会浪费cpu资源。</p>
+<h4 id="io密集型程序"><a href="#io密集型程序" class="headerlink" title="io密集型程序"></a>io密集型程序</h4><p>&emsp;&emsp;对于读写操作较多，cpu计算操作较少的程序则应该多使用多进程/线程进行io操作，由此来并行执行程序，减少执行时间。</p>
+<h2 id="线程控制"><a href="#线程控制" class="headerlink" title="线程控制"></a>线程控制</h2><h3 id="线程创建"><a href="#线程创建" class="headerlink" title="线程创建"></a>线程创建</h3><p>&emsp;&emsp;操作系统并没有为用户提供直接创建线程的系统调用接口，但是有人自己封装了一套线程库实现线程控制。<br></p>
+<h4 id="pthread-create"><a href="#pthread-create" class="headerlink" title="pthread_create"></a>pthread_create</h4><p>&emsp;&emsp;由于<code>pthread_create</code>所在的库<code>pthread</code>并不在gcc默认的链接库中，因此我们在编译时要加参数<code>-pthread</code>或者<code>-lpthread</code>让其连接到这个库中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 线程创建</span><br><span class="line"> **/</span><br><span class="line">/**</span><br><span class="line"> * int pthread_create(pthread_t *thread, const pthread_attr_t *attr,</span><br><span class="line"> *        void *(*start_routine) (void *), void *arg);</span><br><span class="line"> * thread:输出型参数，获取新创建的线程id</span><br><span class="line"> * attr:  设置线程属性，通常置空</span><br><span class="line"> * start_routine:  线程入口函数</span><br><span class="line"> * arg:通过线程入口函数传递给线程的参数</span><br><span class="line"> **/</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;errno.h&gt;</span><br><span class="line">#include &lt;pthread.h&gt;</span><br><span class="line">void* thr_start(void* arg)</span><br><span class="line">&#123;</span><br><span class="line">  while(1)</span><br><span class="line">  &#123;</span><br><span class="line">    //pthread_self查看此线程的tid</span><br><span class="line">    printf(&quot;i am child---%d\n&quot;,pthread_self());                           </span><br><span class="line">    sleep(1);</span><br><span class="line">  &#125;</span><br><span class="line">  return NULL;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  pthread_t tid;</span><br><span class="line">      int ret = pthread_create(&amp;tid, NULL, thr_start, (void*)&quot;Misaki&quot;);</span><br><span class="line">  printf(&quot;%d\n&quot;,tid);</span><br><span class="line">  if(ret != 0)//0为成功</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;thread vreate errno!\n&quot;);</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  while(1)</span><br><span class="line">  &#123;</span><br><span class="line">    //thread_self查看自己的进程id</span><br><span class="line">    printf(&quot;Misaki!%d\n&quot;,getpid());</span><br><span class="line">    sleep(1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[misaki@localhost 第八章-多线程]$ ./create</span><br><span class="line">-1544186112</span><br><span class="line">Misaki!5429</span><br><span class="line">i am child----1544186112</span><br><span class="line">i am child----1544186112</span><br><span class="line">Misaki!5429</span><br><span class="line">i am child----1544186112</span><br><span class="line">Misaki!5429</span><br><span class="line">i am child----1544186112</span><br><span class="line">Misaki!5429</span><br><span class="line">i am child----1544186112</span><br><span class="line">Misaki!5429</span><br><span class="line">i am child----1544186112</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这个创建线程的函数中的返回值<code>tid</code>为线程在虚拟地址空间上所分配的属于自己的独立空间的首地址，我们以后要靠这个参数来控制线程。一个<code>tid</code>唯一的表示一个线程。<br></p>
+<h3 id="线程终止"><a href="#线程终止" class="headerlink" title="线程终止"></a>线程终止</h3><h4 id="在线程入口函数中return"><a href="#在线程入口函数中return" class="headerlink" title="在线程入口函数中return"></a>在线程入口函数中return</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;errno.h&gt;</span><br><span class="line">#include &lt;pthread.h&gt;</span><br><span class="line">void* thr_start(void* arg)</span><br><span class="line">&#123;</span><br><span class="line">  while(1)</span><br><span class="line">  &#123;</span><br><span class="line">      printf(&quot;i am child\n&quot;);</span><br><span class="line">      reutrn NULL;</span><br><span class="line">  &#125;</span><br><span class="line">  return NULL;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  pthread_t tid;</span><br><span class="line">  int ret = pthread_create(&amp;tid, NULL, thr_start, (void*)&quot;Misaki&quot;);</span><br><span class="line">  printf(&quot;%d\n&quot;,tid);</span><br><span class="line">  if(ret != 0)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;thread vreate errno!\n&quot;);</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  while(1)</span><br><span class="line">  &#123;</span><br><span class="line">    //thread_self查看自己的进程id</span><br><span class="line">    printf(&quot;Misaki!%d\n&quot;,getpid());</span><br><span class="line">    sleep(1);</span><br><span class="line">    return 0;                                                      </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">[misaki@localhost 第八章-多线程]$ ./exit</span><br><span class="line">2052687616</span><br><span class="line">Misaki!5710</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;在线程入口函数中<code>return</code>会让线程退出。当在主函数中使用<code>return</code>退出主函数的时候这时会导致进程终止，由此进程中的所有线程都会终止。<br></p>
+<h4 id="pthread-exit"><a href="#pthread-exit" class="headerlink" title="pthread_exit()"></a>pthread_exit()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;pthread.h&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">void* thr_start(void* arg)</span><br><span class="line">&#123;</span><br><span class="line">  while(1)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;i am child---%s\n&quot;, arg);</span><br><span class="line">    sleep(1);</span><br><span class="line">    //退出调用这个函数的进程         </span><br><span class="line">    pthread_exit(0);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return NULL;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  pthread_t tid;</span><br><span class="line">  int ret = pthread_create(&amp;tid, NULL, thr_start, (void*)&quot;Misaki&quot;);</span><br><span class="line">  while(1)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;i am main!\n&quot;);</span><br><span class="line">    sleep(1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第八章-多线程]$ ./exit</span><br><span class="line">i am main!</span><br><span class="line">i am child---Misaki</span><br><span class="line">i am main!</span><br><span class="line">i am main!</span><br><span class="line">i am main!</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;可以看出我们自己创建的线程在执行<code>pthread_exit()</code>后退出了。如果我们的主线程调用这个函数会怎样呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;pthread.h&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">void* thr_start(void* arg)</span><br><span class="line">&#123;</span><br><span class="line">  while(1)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;i am child---%s\n&quot;, arg);</span><br><span class="line">    sleep(1);</span><br><span class="line">  &#125;</span><br><span class="line">  return NULL;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  pthread_t tid;</span><br><span class="line">  int ret = pthread_create(&amp;tid, NULL, thr_start, (void*)&quot;Misaki&quot;);</span><br><span class="line">  if(ret != 0)                      </span><br><span class="line">  &#123;             </span><br><span class="line">    printf(&quot;thread create error\n&quot;);</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  while(1)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;i am main!\n&quot;);</span><br><span class="line">    sleep(1);</span><br><span class="line">    //退出调用这个函数的进程                                       </span><br><span class="line">    pthread_exit(0);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第八章-多线程]$ ./exit</span><br><span class="line">i am main!</span><br><span class="line">i am child---Misaki</span><br><span class="line">i am child---Misaki</span><br><span class="line">i am child---Misaki</span><br><span class="line">i am child---Misaki</span><br><span class="line">i am child---Misaki</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;可以看出我们虽然在主线程中调用了退出函数，主线程也确实退出了，但是进程却并没有退出，这说明，<strong>主线程终止并不会让进程终止</strong>。但是我们要注意线程退出也会成为僵尸线程，但是普通线程退出并不会有过于明显大的影响。</p>
+<h4 id="pthread-cancel"><a href="#pthread-cancel" class="headerlink" title="pthread_cancel"></a>pthread_cancel</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;pthread.h&gt;                                               </span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">void* thr_start(void* arg)</span><br><span class="line">&#123;</span><br><span class="line">  while(1)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;i am child---%s\n&quot;, arg);</span><br><span class="line">    sleep(1);</span><br><span class="line">  &#125;</span><br><span class="line">  return NULL;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  pthread_t tid;</span><br><span class="line">  int ret = pthread_create(&amp;tid, NULL, thr_start, (void*)&quot;Misaki&quot;);</span><br><span class="line">  if(ret != 0)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;thread create error\n&quot;);</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  while(1)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;i am main!\n&quot;);</span><br><span class="line">    sleep(1);</span><br><span class="line">    //退出id = tid的进程</span><br><span class="line">    pthread_cancel(tid);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;                       </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第八章-多线程]$ ./exit</span><br><span class="line">i am main!</span><br><span class="line">i am child---Misaki</span><br><span class="line">i am child---Misaki</span><br><span class="line">i am main!</span><br><span class="line">i am main!</span><br><span class="line">i am main!</span><br></pre></td></tr></table></figure>
+<h3 id="线程等待"><a href="#线程等待" class="headerlink" title="线程等待"></a>线程等待</h3><p>&emsp;&emsp;获取指定线程的返回值，因为一个线程运行起来，默认有一个属性：<code>joinable</code>。这个属性决定了线程退出后，必须被等待，否则线程资源无法完全释放，成为僵尸线程，因此我们必须进行线程等待，获取线程返回值，允许系统释放资源。因此线程等待有一个前提，线程能够被等待。</p>
+<h4 id="pthread-join"><a href="#pthread-join" class="headerlink" title="pthread_join()"></a>pthread_join()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * int pthread_join(pthread_t thread, void **retval);</span><br><span class="line"> * 线程等待，获取线程退出返回值。</span><br><span class="line"> * thread:要等待的线程id</span><br><span class="line"> * retval:输出型参数，用于获取退出线程的返回值</span><br><span class="line"> **/</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;pthread.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">void* thr_start(void* arg)</span><br><span class="line">&#123;</span><br><span class="line">  sleep(3);</span><br><span class="line">  return (void*)&quot;Misaki&quot;;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  pthread_t tid;</span><br><span class="line">  int ret = pthread_create(&amp;tid, NULL, thr_start, NULL);</span><br><span class="line">  if(ret != 0)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;thread create error\n&quot;);</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  char* ptr;</span><br><span class="line">  pthread_join(tid, (void**)&amp;ptr);</span><br><span class="line">  printf(&quot;%s\n&quot;, ptr);                                </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第八章-多线程]$ ./join</span><br><span class="line">Misaki</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;如果一个线程是被取消，则返回值是一个宏：<code>PTHREAD_CANCELED</code>，它的值是-1。</p>
+<h3 id="线程分离"><a href="#线程分离" class="headerlink" title="线程分离"></a>线程分离</h3><p>&emsp;&emsp;将线程的一个属性从<code>joinable</code>设置为<code>detach</code>属性。属于<code>detach</code>属性的线程，推出后资源直接自动被回收，这类线程不能被等待。</p>
+<h4 id="pthread-detach"><a href="#pthread-detach" class="headerlink" title="pthread_detach()"></a>pthread_detach()</h4><p>&emsp;&emsp;如果用户对一个线程的返回值不关心，则可以在线程入口函数对线程进行分离。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">/**                                                            </span><br><span class="line"> * int pthread_detach(pthread_t thread);</span><br><span class="line"> * 线程分离。</span><br><span class="line"> * thread:要分离的线程id</span><br><span class="line"> **/                </span><br><span class="line">#include &lt;stdio.h&gt;                                          </span><br><span class="line">#include &lt;stdlib.h&gt;                </span><br><span class="line">#include &lt;pthread.h&gt;     </span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;errno.h&gt;</span><br><span class="line">void* thr_start(void* arg)</span><br><span class="line">&#123;               </span><br><span class="line"></span><br><span class="line">  //分离自己这个线程</span><br><span class="line">  //线程的分离对于一个线程来说，任意线程在任意位置调用都可以</span><br><span class="line"> // pthread_detach(pthread_self());</span><br><span class="line">  return (void*)&quot;Misaki&quot;;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  pthread_t tid;</span><br><span class="line">  int ret = pthread_create(&amp;tid, NULL, thr_start, NULL);</span><br><span class="line">  //分离这个线程</span><br><span class="line">  pthread_detach(tid);</span><br><span class="line">  if(ret != 0)      </span><br><span class="line">  &#123;                                 </span><br><span class="line">    printf(&quot;thread create error\n&quot;);</span><br><span class="line">    return -1;      </span><br><span class="line">  &#125;</span><br><span class="line">  char* ptr;</span><br><span class="line">  ret = pthread_join(tid, (void**)&amp;ptr);</span><br><span class="line">  //如果一个进程无法被等待则返回值为一个宏EINVAL</span><br><span class="line">  if(ret == EINVAL)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;this thread can not be wait!!\n&quot;);</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  printf(&quot;%s\t%d\n&quot;, ptr, ret);</span><br><span class="line">&#125;                                               </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第八章-多线程]$ ./join</span><br><span class="line">this thread can not be wait!!</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;会发现我们已经分离了我们自己创建的线程，这个线程已经无法被等待了，并且我们无法接收到线程的返回值。</p>
+<h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><p>&emsp;&emsp;多个线程同时操作临界资源而不会出现数据二义性就说这个线程是安全的。如果在线程中进行了非原子性操作就可能会导致线程不安全，这些非原子性操作也叫做不可重入函数，即多个执行流中同时进入函数运行会出现问题的函数。<br><br>&emsp;&emsp;如何实现线程安全？这就要靠<strong>同步与互斥</strong>。同步指临界资源的合理访问，互斥指临界资源同一时间唯一访问。</p>
+<h3 id="互斥"><a href="#互斥" class="headerlink" title="互斥"></a>互斥</h3><p>&emsp;&emsp;同步和互斥要如何实现呢？我们先从互斥开始讨论。为了保证操作的原子性，在C语言中<strong>互斥锁</strong>可以帮助我们保证互斥，使我们的函数变为可重入函数。</p>
+<h4 id="互斥锁"><a href="#互斥锁" class="headerlink" title="互斥锁"></a>互斥锁</h4><p>&emsp;&emsp;互斥锁的值只能为0或1。1表示可以加锁，加锁后值-1，操作结束后就会解锁，解锁就会将值+1。如果一个操作已经加锁则值为0，因此当锁值为0时其他线程则不能加锁，不能加锁线程就会陷入等待。<br><br>&emsp;&emsp;互斥锁操作步骤：<br><br>&emsp;&emsp;1、定义互斥锁变量：<code>pthread_mutex_t</code>。<br><br>&emsp;&emsp;2、初始化互斥锁变量：<code>pthread_mutex_init</code>。<br><br>&emsp;&emsp;3、加锁：<code>pthread_mutex_lock</code>。<br><br>&emsp;&emsp;4、解锁：<code>pthread_mutex_unlock</code>。<br><br>&emsp;&emsp;5、删除锁：<code>pthread_mutex_destroy</code>。<br>&emsp;&emsp;接下来我用互斥锁将一个不可重入的函数使它可重入从而使多个线程同时运行函数时变得安全。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br></pre></td><td class="code"><pre><span class="line">/*实现互斥锁的基本使用以及线程安全的基本认识*/                                    </span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;errno.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;pthread.h&gt;</span><br><span class="line">int ticket = 100;</span><br><span class="line">//互斥锁变量不一定非要非要全局变量的线程都能访问到就行     </span><br><span class="line">//互斥锁变量                                         </span><br><span class="line">pthread_mutex_t mutex;</span><br><span class="line">void* thr_start(void* arg)         </span><br><span class="line">&#123;                  </span><br><span class="line">  while(1)</span><br><span class="line">  &#123;                                                          </span><br><span class="line">    //加锁要在临界资源访问之前</span><br><span class="line">    //int pthread_mutex_lock(pthread_mutex_t* mutex);阻塞加锁</span><br><span class="line">    //int pthread_mutex_trylock(pthread_mutex_t* mutex);非阻塞加锁，加不上锁就返回</span><br><span class="line">    pthread_mutex_lock(&amp;mutex);</span><br><span class="line">    if(ticket &gt; 0)</span><br><span class="line">    &#123;</span><br><span class="line">      printf(&quot;bull --%d--get a ticket:%d\n&quot;, (int)arg, ticket);</span><br><span class="line">      usleep(1000);                                   </span><br><span class="line">      ticket--;</span><br><span class="line">    &#125;                   </span><br><span class="line">    else</span><br><span class="line">    &#123;                          </span><br><span class="line">      pthread_mutex_unlock(&amp;mutex);</span><br><span class="line">      pthread_exit(NULL);</span><br><span class="line">    &#125;                                                          </span><br><span class="line">    pthread_mutex_unlock(&amp;mutex);</span><br><span class="line">  &#125;</span><br><span class="line">  return NULL;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  pthread_t tid[4];</span><br><span class="line">  int i = 0;</span><br><span class="line">  int ret;</span><br><span class="line">  //初始化互斥锁</span><br><span class="line">  //int pthread_mutex_init(pthread_mutex_t *restrict mutex,</span><br><span class="line">  //       const pthread_mutexattr_t *restrict attr);</span><br><span class="line">  //       </span><br><span class="line">  pthread_mutex_init(&amp;mutex, NULL);</span><br><span class="line">  for(; i &lt; 4; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    ret = pthread_create(&amp;tid[i], NULL, thr_start, (void*)i);</span><br><span class="line">    if(ret != 0)</span><br><span class="line">    &#123;</span><br><span class="line">      printf(&quot;no exist\n&quot;);</span><br><span class="line">      return -1;</span><br><span class="line">    &#125;</span><br><span class="line">      return -1;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  //销毁互斥锁</span><br><span class="line">  //int pthread_mutex_destroy(pthread_mutex_t *mutex);</span><br><span class="line">  pthread_mutex_destroy(&amp;mutex);</span><br><span class="line">  for(i = 0; i &lt; 4; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    pthread_join(tid[i], NULL);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第八章-多线程]$ ./a.out</span><br><span class="line">bull --3--get a ticket:100</span><br><span class="line">bull --1--get a ticket:100</span><br><span class="line">bull --2--get a ticket:100</span><br><span class="line">bull --0--get a ticket:100</span><br><span class="line">bull --1--get a ticket:99</span><br><span class="line">bull --2--get a ticket:98</span><br><span class="line">bull --3--get a ticket:97</span><br><span class="line">bull --0--get a ticket:97</span><br><span class="line">bull --2--get a ticket:96</span><br><span class="line">bull --0--get a ticket:94</span><br><span class="line">bull --3--get a ticket:93</span><br><span class="line">bull --1--get a ticket:95</span><br><span class="line">bull --2--get a ticket:92</span><br><span class="line">bull --3--get a ticket:91</span><br><span class="line">bull --1--get a ticket:90</span><br><span class="line">bull --0--get a ticket:89</span><br><span class="line">bull --3--get a ticket:88</span><br><span class="line">bull --2--get a ticket:87</span><br><span class="line">bull --1--get a ticket:86</span><br><span class="line">bull --0--get a ticket:85</span><br><span class="line">bull --2--get a ticket:84</span><br><span class="line">bull --3--get a ticket:83</span><br><span class="line">bull --1--get a ticket:82</span><br><span class="line">bull --0--get a ticket:81</span><br><span class="line">bull --1--get a ticket:78</span><br><span class="line">bull --2--get a ticket:80</span><br><span class="line">bull --3--get a ticket:79</span><br><span class="line">bull --1--get a ticket:77</span><br><span class="line">bull --2--get a ticket:76</span><br><span class="line">bull --3--get a ticket:75</span><br><span class="line">bull --0--get a ticket:74</span><br><span class="line">bull --0--get a ticket:73</span><br><span class="line">bull --1--get a ticket:72</span><br><span class="line">bull --3--get a ticket:70</span><br><span class="line">bull --2--get a ticket:71</span><br><span class="line">bull --2--get a ticket:68</span><br><span class="line">bull --0--get a ticket:68</span><br><span class="line">bull --3--get a ticket:68</span><br><span class="line">bull --1--get a ticket:68</span><br><span class="line">bull --0--get a ticket:66</span><br><span class="line">bull --2--get a ticket:66</span><br><span class="line">bull --3--get a ticket:65</span><br><span class="line">bull --1--get a ticket:64</span><br><span class="line">bull --0--get a ticket:63</span><br><span class="line">bull --2--get a ticket:62</span><br><span class="line">bull --1--get a ticket:61</span><br><span class="line">bull --3--get a ticket:60</span><br><span class="line">bull --0--get a ticket:59</span><br><span class="line">bull --2--get a ticket:58</span><br><span class="line">bull --1--get a ticket:57</span><br><span class="line">bull --3--get a ticket:56</span><br><span class="line">bull --0--get a ticket:54</span><br><span class="line">bull --3--get a ticket:52</span><br><span class="line">bull --2--get a ticket:54</span><br><span class="line">bull --1--get a ticket:53</span><br><span class="line">bull --2--get a ticket:50</span><br><span class="line">bull --3--get a ticket:49</span><br><span class="line">bull --0--get a ticket:50</span><br><span class="line">bull --1--get a ticket:48</span><br><span class="line">bull --3--get a ticket:47</span><br><span class="line">bull --1--get a ticket:46</span><br><span class="line">bull --2--get a ticket:47</span><br><span class="line">bull --0--get a ticket:45</span><br><span class="line">bull --2--get a ticket:43</span><br><span class="line">bull --1--get a ticket:43</span><br><span class="line">bull --3--get a ticket:42</span><br><span class="line">bull --0--get a ticket:41</span><br><span class="line">bull --0--get a ticket:39</span><br><span class="line">bull --2--get a ticket:38</span><br><span class="line">bull --3--get a ticket:37</span><br><span class="line">bull --1--get a ticket:39</span><br><span class="line">bull --2--get a ticket:36</span><br><span class="line">bull --1--get a ticket:35</span><br><span class="line">bull --0--get a ticket:34</span><br><span class="line">bull --3--get a ticket:33</span><br><span class="line">bull --2--get a ticket:32</span><br><span class="line">bull --1--get a ticket:31</span><br><span class="line">bull --3--get a ticket:29</span><br><span class="line">bull --2--get a ticket:29</span><br><span class="line">bull --0--get a ticket:28</span><br><span class="line">bull --1--get a ticket:27</span><br><span class="line">bull --3--get a ticket:26</span><br><span class="line">bull --0--get a ticket:25</span><br><span class="line">bull --2--get a ticket:24</span><br><span class="line">bull --1--get a ticket:23</span><br><span class="line">bull --1--get a ticket:21</span><br><span class="line">bull --2--get a ticket:21</span><br><span class="line">bull --0--get a ticket:19</span><br><span class="line">bull --3--get a ticket:20</span><br><span class="line">bull --1--get a ticket:18</span><br><span class="line">bull --2--get a ticket:18</span><br><span class="line">bull --0--get a ticket:18</span><br><span class="line">bull --3--get a ticket:17</span><br><span class="line">bull --2--get a ticket:15</span><br><span class="line">bull --3--get a ticket:13</span><br><span class="line">bull --0--get a ticket:15</span><br><span class="line">bull --2--get a ticket:11</span><br><span class="line">bull --1--get a ticket:14</span><br><span class="line">bull --3--get a ticket:10</span><br><span class="line">bull --0--get a ticket:11</span><br><span class="line">bull --2--get a ticket:9</span><br><span class="line">bull --1--get a ticket:8</span><br><span class="line">bull --3--get a ticket:7</span><br><span class="line">bull --0--get a ticket:6</span><br><span class="line">bull --2--get a ticket:5</span><br><span class="line">bull --1--get a ticket:4</span><br><span class="line">bull --3--get a ticket:3</span><br><span class="line">bull --0--get a ticket:2</span><br><span class="line">bull --2--get a ticket:1</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这样就达成了互斥，在一个线程操作临界资源时，其他线程不会同时干涉。</p>
+<h4 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h4><p>&emsp;&emsp;死锁是指因为对一些无法加锁的锁进行加锁操作而导致程序卡死。死锁是我们一定要在使用锁时要注意和避免的<br><br>&emsp;&emsp;死锁产生的四个必要条件：<br><br>&emsp;&emsp;1、互斥条件。一个线程操作时其他线程不能操作。<br><br>&emsp;&emsp;2、不可剥夺条件。一个线程加的锁别的线程不能释放。<br><br>&emsp;&emsp;3、请求与保持条件。一个线程已经有了锁却还在请求其他的锁，但是其他的锁请求不到第一个锁也不释放。<br><br>&emsp;&emsp;4、环路等待条件。<br><br>&emsp;&emsp;死锁产生往往是因为加锁解锁的顺序不同。要想避免死锁就要避免死锁产生的四个必要条件——死锁检测算法，银行家算法。<br></p>
+<h3 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h3><p>&emsp;&emsp;临界资源访问的合理性，资源产生后才能进行使用，没有资源则等待，生产资源后则唤醒等待。</p>
+<h4 id="条件变量"><a href="#条件变量" class="headerlink" title="条件变量"></a>条件变量</h4><p>&emsp;&emsp;条件变量的使用流程：<br><br>&emsp;&emsp;1、定义条件变量：<code>pthread_cond_t</code>。<br><br>&emsp;&emsp;2、初始化条件变量：<code>pthread_cond_init</code>。<br><br>&emsp;&emsp;3、等待或者唤醒：<code>pthread_cond_wait/pthread_cond_signal</code>。<br><br>&emsp;&emsp;4、销毁条件变量：<code>pthread_cond_destroy</code>。<br></p>
+<h3 id="条件变量-1"><a href="#条件变量-1" class="headerlink" title="条件变量"></a>条件变量</h3><h3 id="生产者与消费者模型"><a href="#生产者与消费者模型" class="headerlink" title="生产者与消费者模型"></a>生产者与消费者模型</h3><h3 id="posix标准信号量"><a href="#posix标准信号量" class="headerlink" title="posix标准信号量"></a>posix标准信号量</h3><h3 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h3><h3 id="读写者模型"><a href="#读写者模型" class="headerlink" title="读写者模型"></a>读写者模型</h3><h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/15/【Cpp】第二章-类和对象-中/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1913,175 +2103,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/24/【Linux】Linux基础-3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/24/【Linux】Linux基础-3/" itemprop="url">【Linux】Linux基础-3</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-24T22:25:12+08:00">
-                2019-03-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  701
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Linux基础"><a href="#Linux基础" class="headerlink" title="Linux基础"></a>Linux基础</h1><h2 id="第3节"><a href="#第3节" class="headerlink" title="第3节"></a>第3节</h2><h3 id="Linux文件相关命令"><a href="#Linux文件相关命令" class="headerlink" title="Linux文件相关命令"></a>Linux文件相关命令</h3><p>&emsp;&emsp;在Linux中文件分为以下几种：<br><br>&emsp;&emsp;<code>-</code>:普通文件<br><br>&emsp;&emsp;<code>d</code>:目录文件<br><br>&emsp;&emsp;<code>l</code>:符号链接文件<br><br>&emsp;&emsp;<code>p</code>:管道文件<br><br>&emsp;&emsp;<code>c</code>:字符设备文件<br><br>&emsp;&emsp;<code>b</code>:块设备文件<br><br>&emsp;&emsp;<code>s</code>:套接字文件<br><br>&emsp;&emsp;以下文件相关命令以作补充。<br><br>&emsp;&emsp;<code>tac</code>:逆序显示文件内容。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/1.jpg" alt="tac"><br><br>&emsp;&emsp;<code>more</code>:分页显示文件内容，键入命令后可以用<code>空格</code>向下翻页，<code>b</code>向上翻页，<code>回车</code>按行向下移动，<code>q</code>退出。<br><br>&emsp;&emsp;<code>less</code>:分页显示内容（功能比<code>more</code>更全面），可用<code>/</code>向下匹配字符串也可用<code>?</code>向上匹配字符串。<br><br>&emsp;&emsp;<code>head</code>:默认显示文件的前10行。<code>-n</code>选项显示文件前<code>n</code>行。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/2.jpg" alt="head"><br><br>&emsp;&emsp;<code>tail</code>:默认显示文件末尾10行。<code>-n</code>选项显示文件末尾<code>n</code>行.<code>-f</code>选项刷新文件末尾数据，用于实时查看更新日志。<br><br>&emsp;&emsp;<code>|</code>:管道符，连接两个命令，将前一个命令的结果作为第二个命令的输入。<br><br>&emsp;&emsp;例：打印文件第10行的内容。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/3.jpg" alt="例子"><br><br>&emsp;&emsp;<code>&gt;&gt;</code>:重定向符，改变数据流向，并流向文件末尾。<br><br>&emsp;&emsp;<code>&gt;</code>:重定向符，改变数据流向，将原本数据消除，再将 数据导入。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/4.jpg" alt="重定向"><br></p>
-<h3 id="Linux压缩-打包相关命令"><a href="#Linux压缩-打包相关命令" class="headerlink" title="Linux压缩/打包相关命令"></a>Linux压缩/打包相关命令</h3><p>&emsp;&emsp;1、<code>zip//unzip</code>:<code>zip</code>压缩格式。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/5.jpg" alt="压缩"><br><br>&emsp;&emsp;2、<code>gzip/gunzip</code>:<code>gzip</code>压缩格式。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/6.jpg" alt="压缩"><br><br>&emsp;&emsp;3、<code>bzip2/bunzip2</code>:<code>bzip2</code>压缩格式。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/7.jpg" alt="压缩"><br><br>&emsp;&emsp;4、<code>tar</code>:打包。<code>-c</code>打包指令，<code>-v</code>显示打包文件，<code>-f</code>指定包名，<code>-x</code>拆包命令，<code>-z</code>压缩/解压缩转<code>gzip</code>压缩格式，<code>-j</code>压缩/解压缩转<code>bzip2</code>压缩格式。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/8.jpg" alt="打包"><br></p>
-<h3 id="时间相关命令"><a href="#时间相关命令" class="headerlink" title="时间相关命令"></a>时间相关命令</h3><p>&emsp;&emsp;1、<code>cal</code>:查看日历。<code>-3</code>查看相邻三个月的日历，<code>-y</code>查看全年的日历，<code>-j</code>以一年的第多少天来 显示日历。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/9.jpg" alt="日历"><br><br><img src="/2019/03/24/【Linux】Linux基础-3/10.jpg" alt="日历"><br><br>&emsp;&emsp;2、<code>date</code>:显示时间。<code>+&quot;格式符串&quot;</code>按照一定的格式打印时间，<code>-s</code>在<strong>root</strong>用户下修改时间。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/11.jpg" alt="打印时间"><br><br><img src="/2019/03/24/【Linux】Linux基础-3/12.jpg" alt="设置时间"><br></p>
-<h3 id="匹配搜索命令"><a href="#匹配搜索命令" class="headerlink" title="匹配搜索命令"></a>匹配搜索命令</h3><p>&emsp;&emsp;1、<code>grep</code>:文件字符串匹配，<code>-i</code>忽略大小写匹配，<code>-v</code>反向匹配，<code>-R</code>递归目录下所有文件进行匹配。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/13.jpg" alt="grep"><br><br>&emsp;&emsp;<br>2、<code>find</code>:文件查找。<code>-name</code>按文件名查找，<code>-type</code>按类型查找，<code>-size +/-</code>按大小查找，<code>-exec</code>，连接其他命令对找到的文件进行处理。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/14.jpg" alt="find"><br></p>
-<h3 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h3><p>&emsp;&emsp;1、<code>du</code>:显示每个文件或目录的磁盘使用空间。<code>-s</code>仅显示总计大小，<code>-h</code>分别列出各个目录的空间。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/15.jpg" alt="du"><br><br>&emsp;&emsp;2、<code>df</code>:列出文件系统整体磁盘的使用情况。<code>-a</code>显示所有文件系统<br><br><img src="/2019/03/24/【Linux】Linux基础-3/16.jpg" alt="df"><br><br>&emsp;&emsp;3、<code>top</code>:用来实时监控进程信息和状态<br><br>&emsp;&emsp;4、<code>free</code>:用来查看系统内存的使用情况。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/17.jpg" alt="df"><br></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2136,7 +2157,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2255,7 +2276,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共128.3k字</span>
+  <span class="post-count">博客全站共132.2k字</span>
 </div>
 
         ﻿
