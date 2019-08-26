@@ -1,0 +1,890 @@
+﻿<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Cpp,继承," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="继承什么是继承&amp;emsp;&amp;emsp;继承是为了更好的使代码得以复用而产生的，同时呈现了面向对象程序设计中的层次结构，继承会使得我们写好的类可以得到扩展。简单来说继承可以增强我们的代码复用，包括可以复用类的层次结构，同时使程序复用层次和条理。1234567891011121314151617181920212223242526272829303132333435363738394041424344">
+<meta name="keywords" content="Cpp,继承">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Cpp】第十一章-继承">
+<meta property="og:url" content="http://yoursite.com/2019/08/22/【Cpp】第十一章-继承/index.html">
+<meta property="og:site_name" content="Misaki`s blog">
+<meta property="og:description" content="继承什么是继承&amp;emsp;&amp;emsp;继承是为了更好的使代码得以复用而产生的，同时呈现了面向对象程序设计中的层次结构，继承会使得我们写好的类可以得到扩展。简单来说继承可以增强我们的代码复用，包括可以复用类的层次结构，同时使程序复用层次和条理。1234567891011121314151617181920212223242526272829303132333435363738394041424344">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/08/22/【Cpp】第十一章-继承/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/22/【Cpp】第十一章-继承/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/22/【Cpp】第十一章-继承/3.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/22/【Cpp】第十一章-继承/4.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/22/【Cpp】第十一章-继承/5.png">
+<meta property="og:updated_time" content="2019-08-26T14:08:49.507Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【Cpp】第十一章-继承">
+<meta name="twitter:description" content="继承什么是继承&amp;emsp;&amp;emsp;继承是为了更好的使代码得以复用而产生的，同时呈现了面向对象程序设计中的层次结构，继承会使得我们写好的类可以得到扩展。简单来说继承可以增强我们的代码复用，包括可以复用类的层次结构，同时使程序复用层次和条理。1234567891011121314151617181920212223242526272829303132333435363738394041424344">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/22/【Cpp】第十一章-继承/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/22/【Cpp】第十一章-继承/"/>
+
+
+
+
+
+  <title>【Cpp】第十一章-继承 | Misaki`s blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+<a href="https://github.com/MisakiFx" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Misaki`s blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习是一种态度</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/22/【Cpp】第十一章-继承/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【Cpp】第十一章-继承</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-22T17:30:48+08:00">
+                2019-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index">
+                    <span itemprop="name">Cpp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  7.6k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h1><h2 id="什么是继承"><a href="#什么是继承" class="headerlink" title="什么是继承"></a>什么是继承</h2><p>&emsp;&emsp;继承是为了更好的使代码得以复用而产生的，同时呈现了面向对象程序设计中的层次结构，继承会使得我们写好的类可以得到扩展。简单来说继承可以增强我们的代码复用，包括可以复用类的层次结构，同时使程序复用层次和条理。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    //如果我们设计一个类考虑到它会被继承那么最好用protected成员取代private成员</span><br><span class="line">    //protected成员在类外部仍然是无法使用的，但是在派生类中它是可见的也就是可以使用的</span><br><span class="line">    Person()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;im a Person&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;age = &quot; &lt;&lt; _age &lt;&lt; endl;</span><br><span class="line">        cout &lt;&lt; &quot;name = &quot; &lt;&lt; _name &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">protected:</span><br><span class="line">    int _age = 20;</span><br><span class="line">    string _name = &quot;Misaki&quot;; </span><br><span class="line">&#125;;</span><br><span class="line">//Programer类，这里让其公有继承Person类</span><br><span class="line">//这时继承产生的新类被称为子类，也叫派生类</span><br><span class="line">//被继承的旧类被称为父类，也叫基类</span><br><span class="line">//继承方式为公有(public)，其会让基类中的public成员成为派生类中的public成员</span><br><span class="line">//基类中的protected成员成为派生类中的protected成员，基类中的private成员在派生类中不可见</span><br><span class="line">//关于继承方式也在下文讲解</span><br><span class="line">class Programer: public Person</span><br><span class="line">&#123;</span><br><span class="line">    //这里我们不再重写几个默认生成的成员函数，他们默认会完成他们应有的功能</span><br><span class="line">    //具体派生类的默认成员函数会在下文讲解</span><br><span class="line">protected:</span><br><span class="line">    int _workyear;</span><br><span class="line">&#125;;</span><br><span class="line">class Teacher: public Person</span><br><span class="line">&#123;</span><br><span class="line">protected:</span><br><span class="line">    int _teachyear;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Person person;//基类对象</span><br><span class="line">    Programer programer;//派生类对象</span><br><span class="line">    Teacher teacher;//派生类对象</span><br><span class="line">    person.Print();</span><br><span class="line">    programer.Print();</span><br><span class="line">    teacher.Print();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">im a Person</span><br><span class="line">im a Person</span><br><span class="line">im a Person</span><br><span class="line">age = 20</span><br><span class="line">name = Misaki</span><br><span class="line">age = 20</span><br><span class="line">name = Misaki</span><br><span class="line">age = 20</span><br><span class="line">name = Misaki</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;以上这个例子就是简单的利用继承进行了类的扩展扩展出了两个派生类，可以看出派生类中拥有积累的成员函数和成员变量，并且还可以添加新的成员函数和变量。</p>
+<h2 id="继承方式"><a href="#继承方式" class="headerlink" title="继承方式"></a>继承方式</h2><h3 id="三种继承方式"><a href="#三种继承方式" class="headerlink" title="三种继承方式"></a>三种继承方式</h3><p>&emsp;&emsp;继承方式一共有三种：<code>public</code>, <code>protected</code>,<code>private</code>，这三种继承方式都可以将基类中的成员继承到派生类中，但是继承方式的不同也决定着在派生类中继承过来的成员的访问权限的不同，具体关于各个继承方式中对访问权限的改变可以参考下图。<br><br><img src="/2019/08/22/【Cpp】第十一章-继承/1.png" alt="继承"><br><br>&emsp;&emsp;这里提到基类中的<code>private</code>成员无论何种继承方式在派生类中都是<strong>不可见</strong>的，所谓不可见指成员依然已经继承了过来并且作为了私有成员，但是在派生类中限制这些成员无论在类外还是类内都是无法访问的。<br>&emsp;&emsp;因此为了让一个成员在派生类中依然可以访问便出现了<code>protected</code>访问权限，所以才说如果一个类为了方便继承最好将其<code>private</code>访问权限用<code>protected</code>来替代，这样即使继承产生派生类也依然可以在派生类中访问该成员。<br>&emsp;&emsp;如果我们在继承时不写出继承方式，则<code>class</code>默认使用<code>private</code>继承，<code>struct</code>默认使用<code>public</code>继承，不过为了可读性最好还是显示的写出继承方式。<br>&emsp;&emsp;最为经常使用的继承方式是<code>public</code>继承，它可以让派生类中各个访问权限下的成员在派生类中还为相应的访问权限，是最为方便便于理解的继承方式，并且其他继承方式的扩展和维护性也并不强，因此除非特殊情况也不建议使用除<code>public</code>外的其他继承方式。</p>
+<h2 id="切割"><a href="#切割" class="headerlink" title="切割"></a>切割</h2><p>&emsp;&emsp;在C++中允许将派生类对象隐式类型转换为父类。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">//基类</span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    Person()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;im a Person&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;age = &quot; &lt;&lt; _age &lt;&lt; endl;</span><br><span class="line">        cout &lt;&lt; &quot;name = &quot; &lt;&lt; _name &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">protected:</span><br><span class="line">    int _age = 20;</span><br><span class="line">    string _name = &quot;Misaki&quot;; </span><br><span class="line">&#125;;</span><br><span class="line">//派生类</span><br><span class="line">class Programer: public Person</span><br><span class="line">&#123;</span><br><span class="line">protected:</span><br><span class="line">    int _workyear;</span><br><span class="line">&#125;;</span><br><span class="line">//派生类</span><br><span class="line">class Teacher: public Person</span><br><span class="line">&#123;</span><br><span class="line">protected:</span><br><span class="line">    int _teachyear;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Person person;</span><br><span class="line">    //Programer programer;</span><br><span class="line">    Teacher teacher;</span><br><span class="line">    //person.Print();</span><br><span class="line">    //programer.Print();</span><br><span class="line">    //teacher.Print();</span><br><span class="line">    //teacher是派生类对象，person是基类对象，这样的隐式类型转换是允许的</span><br><span class="line">    person = teacher;</span><br><span class="line">    //也可以用派生类对象来拷贝构造基类对象</span><br><span class="line">    Person person2 = teacher;</span><br><span class="line">    person.Print();</span><br><span class="line">    person2.Print();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">im a Person</span><br><span class="line">im a Person</span><br><span class="line">age = 20</span><br><span class="line">name = Misaki</span><br><span class="line">age = 20</span><br><span class="line">name = Misaki</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;以上这段代码我们将派生类对象赋值给了基类对象，并且用派生类对象拷贝构造了基类对象，在这其中得以隐式转换最重要的原因就是编译器进行了<strong>切割</strong>处理，即将派生类对象中属于基类的那一部分成员保留，而将属于派生类的成员舍弃，由此才能完成类型转换。<br><br><img src="/2019/08/22/【Cpp】第十一章-继承/2.png" alt="切割"><br><br>&emsp;&emsp;上图过程即为切割的过程，在派生类的对象/指针/引用赋值给父类的对象/指针/引用时都会发生隐式类型转换，过程中都会发生切割。但是<strong>基类对象/指针引用不可以赋值给派生类对象/指针/引用</strong>。当然也有例外，基类指针可以通过强制类型转换也可以赋值给派生类指针，当然只有在基类指针指向了派生类对象时才是安全的。如果基类构成多态也可以用RTTI(运行时类型识别)的<code>dynamic_cast</code>类型识别后进行类型转换，是最为安全的。</p>
+<h2 id="继承中的作用域"><a href="#继承中的作用域" class="headerlink" title="继承中的作用域"></a>继承中的作用域</h2><p>&emsp;&emsp;在继承体系中，基类和派生类都有属于自己的作用域，那么如果在派生类中定义了和基类同名的成员编译器会怎样处理呢？</p>
+<h3 id="重定义-隐藏"><a href="#重定义-隐藏" class="headerlink" title="重定义/隐藏"></a>重定义/隐藏</h3><p>&emsp;&emsp;派生类和基类有各自独立的作用域，在派生类中如果出现和基类同名成员，则会优先调用派生类的同名成员，即<strong>隐藏</strong>基类成员，这个过程叫做被称为<strong>隐藏</strong>也叫做<strong>重定义</strong>。<br>&emsp;&emsp;但是我们也可以在派生类中加上域限定符显示调用基类的成员。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Person::Print()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">protected:</span><br><span class="line">    int _age = 20;</span><br><span class="line">    string _name = &quot;Misaki&quot;; </span><br><span class="line">&#125;;</span><br><span class="line">//派生类</span><br><span class="line">class Teacher: public Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Teacher::Print()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    void PrintAge()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Teacher::_age:&quot; &lt;&lt; _age &lt;&lt; endl;//重名成员构成隐藏</span><br><span class="line">        cout &lt;&lt; &quot;Person::_age:&quot; &lt;&lt; Person::_age &lt;&lt; endl;//显示调用基类成员</span><br><span class="line">    &#125;</span><br><span class="line">protected:</span><br><span class="line">    int _age = 19;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Person person;</span><br><span class="line">    person.Print();//Person::Print()</span><br><span class="line">    Teacher teacher;</span><br><span class="line">    teacher.Print();//Teacher::Print()，派生类重名成员构成隐藏</span><br><span class="line">    teacher.PrintAge();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Person::Print()</span><br><span class="line">Teacher::Print()</span><br><span class="line">Teacher::_age:19</span><br><span class="line">Person::_age:20</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;值得注意的是，关于函数，函数重载指的是在相同作用域内函数名相同参数不同构成重载，而<strong>重定义/隐藏是指在基类和派生类的作用域内函数名相同就会构成隐藏</strong>。所以我们最好还是不要在派生类中定义和基类同名的成员，避免隐藏和重定义的发生。</p>
+<h2 id="派生类的默认成员函数"><a href="#派生类的默认成员函数" class="headerlink" title="派生类的默认成员函数"></a>派生类的默认成员函数</h2><p>&emsp;&emsp;派生类也有6个默认成员函数，但是着6个默认成员函数既要兼顾到基类也需要兼顾到派生类，因此在写法上与常规的并不相同。</p>
+<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><p>&emsp;&emsp;在派生类的构造函数中我们需要先显示调用基类的构造函数对基类成员进行初始化然后才能对派生类成员进行初始化。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">//基类</span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    //这里构造函数就不选择传参了方便起见我都初始化为定值</span><br><span class="line">    Person()</span><br><span class="line">        :_age(20)</span><br><span class="line">        ,_name(&quot;Misaki&quot;)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Person()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;age = &quot; &lt;&lt; _age &lt;&lt; endl;</span><br><span class="line">        cout &lt;&lt; &quot;name = &quot; &lt;&lt; _name &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">protected:</span><br><span class="line">    int _age;</span><br><span class="line">    string _name;</span><br><span class="line">&#125;;</span><br><span class="line">//派生类</span><br><span class="line">class Teacher: public Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    //派生类构造函数，先调用基类构造函数，在初始化派生类成员</span><br><span class="line">    //默认生成的构造函数也是这样实现的</span><br><span class="line">    Teacher()</span><br><span class="line">        :Person()</span><br><span class="line">        ,_teachyear(3)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Teacher()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        Person::Print();</span><br><span class="line">        cout &lt;&lt; &quot;teachyear = &quot; &lt;&lt; _teachyear &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    static int _count;</span><br><span class="line">protected:</span><br><span class="line">    int _teachyear;</span><br><span class="line">&#125;;</span><br><span class="line">int Teacher::_count = 2;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Teacher teacher;</span><br><span class="line">    teacher.Print();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Person()</span><br><span class="line">Teacher()</span><br><span class="line">age = 20</span><br><span class="line">name = Misaki</span><br><span class="line">teachyear = 3</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;从以上代码可以得出<strong>派生类对象初始化会调用派生类构造函数，而在派生类构造函数中会先调用基类的构造函数对基类成员进行初始化然后才会对派生类成员进行初始化</strong>。这样我们就成功的完成了派生类构造函数，并且实现了成员初始化。</p>
+<h3 id="拷贝构造函数"><a href="#拷贝构造函数" class="headerlink" title="拷贝构造函数"></a>拷贝构造函数</h3><p>&emsp;&emsp;拷贝构造函数与构造函数类似，我们在派生类的拷贝构造函数中也需要先调用基类拷贝构造函数先拷贝构造基类成员再将派生类成员拷贝构造。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">//基类</span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    //这里构造函数就不选择传参了方便起见我都初始化为定值</span><br><span class="line">    Person()</span><br><span class="line">        :_age(20)</span><br><span class="line">        ,_name(&quot;Misaki&quot;)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Person()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    Person(const Person&amp; person)</span><br><span class="line">        :_age(person._age)</span><br><span class="line">        ,_name(person._name)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Person(const Person&amp;)&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;age = &quot; &lt;&lt; _age &lt;&lt; endl;</span><br><span class="line">        cout &lt;&lt; &quot;name = &quot; &lt;&lt; _name &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">protected:</span><br><span class="line">    int _age;</span><br><span class="line">    string _name;</span><br><span class="line">&#125;;</span><br><span class="line">//派生类</span><br><span class="line">class Teacher: public Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    //派生类构造函数，先调用基类构造函数，在初始化派生类成员</span><br><span class="line">    //默认生成的构造函数也是这样实现的</span><br><span class="line">    Teacher()</span><br><span class="line">        :Person()</span><br><span class="line">        ,_teachyear(3)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Teacher()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    //拷贝构造函数，先调用基类构造函数对基类成拷贝构造，再拷贝构造派生类成员</span><br><span class="line">    //默认生成的拷贝构造也是这样的实现方法</span><br><span class="line">    Teacher(const Teacher&amp; teacher)</span><br><span class="line">        :Person(teacher)//这里利用派生类对象可以隐式转换为基类对象来调用基类拷贝构造</span><br><span class="line">        ,_teachyear(3)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Teacher(const Teacher&amp;)&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        Person::Print();</span><br><span class="line">        cout &lt;&lt; &quot;teachyear = &quot; &lt;&lt; _teachyear &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    static int _count;</span><br><span class="line">protected:</span><br><span class="line">    int _teachyear;</span><br><span class="line">&#125;;</span><br><span class="line">int Teacher::_count = 2;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Teacher teacher1;</span><br><span class="line">    Teacher teacher2 = teacher1;</span><br><span class="line">    teacher2.Print();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Person()</span><br><span class="line">Teacher()</span><br><span class="line">Person(const Person&amp;)</span><br><span class="line">Teacher(const Teacher&amp;)</span><br><span class="line">age = 20</span><br><span class="line">name = Misaki</span><br><span class="line">teachyear = 3</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;从结果可以看出<strong>派生类对象在进行拷贝构造的时候调用了派生类拷贝构造函数，而派生类拷贝构造函数中会先调用基类拷贝构造函数对基类成员进行初始化然后才会对派生类成员进行初始化</strong>。</p>
+<h3 id="赋值运算符重载"><a href="#赋值运算符重载" class="headerlink" title="赋值运算符重载"></a>赋值运算符重载</h3><p>&emsp;&emsp;赋值运算符也同样类似，需要先调用基类的赋值运算符重载，然后再进行派生类成员的赋值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">//基类</span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    //这里构造函数就不选择传参了方便起见我都初始化为定值</span><br><span class="line">    Person()</span><br><span class="line">        :_age(20)</span><br><span class="line">        ,_name(&quot;Misaki&quot;)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Person()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    Person(const Person&amp; person)</span><br><span class="line">        :_age(person._age)</span><br><span class="line">        ,_name(person._name)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Person(const Person&amp;)&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    Person&amp; operator=(const Person&amp; person)</span><br><span class="line">    &#123;</span><br><span class="line">        if(&amp;person != this)</span><br><span class="line">        &#123;</span><br><span class="line">            _age = person._age;</span><br><span class="line">            _name = person._name;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; &quot;Person::operator=(const Person&amp;)&quot; &lt;&lt; endl;</span><br><span class="line">        return *this;</span><br><span class="line">    &#125;</span><br><span class="line">    void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;age = &quot; &lt;&lt; _age &lt;&lt; endl;</span><br><span class="line">        cout &lt;&lt; &quot;name = &quot; &lt;&lt; _name &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">protected:</span><br><span class="line">    int _age;</span><br><span class="line">    string _name;</span><br><span class="line">&#125;;</span><br><span class="line">//派生类</span><br><span class="line">class Teacher: public Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    //派生类构造函数，先调用基类构造函数，在初始化派生类成员</span><br><span class="line">    //默认生成的构造函数也是这样实现的</span><br><span class="line">    Teacher()</span><br><span class="line">        :Person()</span><br><span class="line">        ,_teachyear(3)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Teacher()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    //拷贝构造函数，先调用基类构造函数对基类成拷贝构造，再拷贝构造派生类成员</span><br><span class="line">    //默认生成的拷贝构造也是这样的实现方法</span><br><span class="line">    Teacher(const Teacher&amp; teacher)</span><br><span class="line">        :Person(teacher)//这里利用派生类对象可以隐式转换为基类对象来调用基类拷贝构造</span><br><span class="line">        ,_teachyear(3)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Teacher(const Teacher&amp;)&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    //赋值运算符重载，先调用基类的赋值运算符重载对基类成员进行赋值，再赋值派生类成员</span><br><span class="line">    //默认生成的赋值运算符重载也是这样的实现方法</span><br><span class="line">    Teacher&amp; operator=(const Teacher&amp; teacher)</span><br><span class="line">    &#123;</span><br><span class="line">        if(&amp;teacher != this)</span><br><span class="line">        &#123;</span><br><span class="line">            Person::operator=(teacher);//调用基类的赋值运算符重载，并且用隐式类型转换传参</span><br><span class="line">            _teachyear = teacher._teachyear;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; &quot;Teacher::operator=(const Teacher&amp;)&quot; &lt;&lt; endl;</span><br><span class="line">        return *this;</span><br><span class="line">    &#125;</span><br><span class="line">    void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        Person::Print();</span><br><span class="line">        cout &lt;&lt; &quot;teachyear = &quot; &lt;&lt; _teachyear &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    static int _count;</span><br><span class="line">protected:</span><br><span class="line">    int _teachyear;</span><br><span class="line">&#125;;</span><br><span class="line">int Teacher::_count = 2;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Teacher teacher1;</span><br><span class="line">    Teacher teacher2;</span><br><span class="line">    teacher2 = teacher1;</span><br><span class="line">    teacher2.Print();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Person()</span><br><span class="line">Teacher()</span><br><span class="line">Person()</span><br><span class="line">Teacher()</span><br><span class="line">Person::operator=(const Person&amp;)</span><br><span class="line">Teacher::operator=(const Teacher&amp;)</span><br><span class="line">age = 20</span><br><span class="line">name = Misaki</span><br><span class="line">teachyear = 3</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;从以上代码可以看出<strong>派生类在赋值时会先调用派生类赋值运算符重载，而在派生类赋值运算符重载中会首先调用积累的赋值运算符重载对基类成员进行赋值，然后才会赋值派生类成员</strong>。</p>
+<h3 id="析构函数"><a href="#析构函数" class="headerlink" title="析构函数"></a>析构函数</h3><p>&emsp;&emsp;析构函数与其他的默认成员函数有所不同，因为派生类在构造时是先初始化基类成员再初始化派生类成员，因此在析构时是先释放派生类成员再释放基类成员。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">//基类</span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    //这里构造函数就不选择传参了方便起见我都初始化为定值</span><br><span class="line">    Person()</span><br><span class="line">        :_age(20)</span><br><span class="line">        ,_name(&quot;Misaki&quot;)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Person()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    Person(const Person&amp; person)</span><br><span class="line">        :_age(person._age)</span><br><span class="line">        ,_name(person._name)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Person(const Person&amp;)&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    Person&amp; operator=(const Person&amp; person)</span><br><span class="line">    &#123;</span><br><span class="line">        if(&amp;person != this)</span><br><span class="line">        &#123;</span><br><span class="line">            _age = person._age;</span><br><span class="line">            _name = person._name;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; &quot;Person::operator=(const Person&amp;)&quot; &lt;&lt; endl;</span><br><span class="line">        return *this;</span><br><span class="line">    &#125;</span><br><span class="line">    ~Person()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;~Person()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;age = &quot; &lt;&lt; _age &lt;&lt; endl;</span><br><span class="line">        cout &lt;&lt; &quot;name = &quot; &lt;&lt; _name &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">protected:</span><br><span class="line">    int _age;</span><br><span class="line">    string _name;</span><br><span class="line">&#125;;</span><br><span class="line">//派生类</span><br><span class="line">class Teacher: public Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    //派生类构造函数，先调用基类构造函数，在初始化派生类成员</span><br><span class="line">    //默认生成的构造函数也是这样实现的</span><br><span class="line">    Teacher()</span><br><span class="line">        :Person()</span><br><span class="line">        ,_teachyear(3)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Teacher()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    //拷贝构造函数，先调用基类构造函数对基类成拷贝构造，再拷贝构造派生类成员</span><br><span class="line">    //默认生成的拷贝构造也是这样的实现方法</span><br><span class="line">    Teacher(const Teacher&amp; teacher)</span><br><span class="line">        :Person(teacher)//这里利用派生类对象可以隐式转换为基类对象来调用基类拷贝构造</span><br><span class="line">        ,_teachyear(3)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Teacher(const Teacher&amp;)&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    //赋值运算符重载，先调用基类的赋值运算符重载对基类成员进行赋值，再赋值派生类成员</span><br><span class="line">    //默认生成的赋值运算符重载也是这样的实现方法</span><br><span class="line">    Teacher&amp; operator=(const Teacher&amp; teacher)</span><br><span class="line">    &#123;</span><br><span class="line">        if(&amp;teacher != this)</span><br><span class="line">        &#123;</span><br><span class="line">            Person::operator=(teacher);//调用基类的赋值运算符重载，并且用隐式类型转换传参</span><br><span class="line">            _teachyear = teacher._teachyear;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; &quot;Teacher::operator=(const Teacher&amp;)&quot; &lt;&lt; endl;</span><br><span class="line">        return *this;</span><br><span class="line">    &#125;</span><br><span class="line">    //要注意派生类析构函数不需要显示调用基类的析构函数，在调用派生类析构函数释放派生类成员后</span><br><span class="line">    //会自动调用基类的析构函数，来满足先释放派生类成员再释放基类成员的顺序</span><br><span class="line">    ~Teacher()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;~Teacher()&quot; &lt;&lt; endl;</span><br><span class="line">        //Person::~Person();这样调用会报错</span><br><span class="line">    &#125;</span><br><span class="line">    void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        Person::Print();</span><br><span class="line">        cout &lt;&lt; &quot;teachyear = &quot; &lt;&lt; _teachyear &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    static int _count;</span><br><span class="line">protected:</span><br><span class="line">    int _teachyear;</span><br><span class="line">&#125;;</span><br><span class="line">int Teacher::_count = 2;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Teacher teacher;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Person()</span><br><span class="line">Teacher()</span><br><span class="line">~Teacher()</span><br><span class="line">~Person()</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;派生类析构函数执行时会先释放派生类成员再释放基类成员，并且要注意<strong>派生类析构函数会自动调用基类析构函数进行清理，无需手动调用</strong>。从执行结果上也可以看出编译器是先释放派生类成员再释放基类成员。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>&emsp;&emsp;对派生类默认成员函数进行总结。<br>&emsp;&emsp;1、派生类构造函数必须首先调用基类构造函数构造基类成员，之后再构造派生类成员才能成立。<br>&emsp;&emsp;2、派生类拷贝构造函数必须先调用基类拷贝构造函数拷贝构造基类成员，之后再拷贝构造派生类成员才能成立。<br>&emsp;&emsp;3、派生类赋值运算符重载必须先调用基类赋值运算符重载函数对基类成员进行赋值，再对派生类成员进行赋值才能成立。<br>&emsp;&emsp;4、派生类析构函数会在调用后自动调用基类析构函数无需显式调用基类析构函数。<br>&emsp;&emsp;5、派生类对象构造会先构造基类成员再构造派生类成员。<br>&emsp;&emsp;6、派生类对象析构会先释放派生类成员再释放基类成员。</p>
+<h2 id="继承与友元"><a href="#继承与友元" class="headerlink" title="继承与友元"></a>继承与友元</h2><p>&emsp;&emsp;在C++类和对象中有介绍<strong>友元</strong>这一概念，即允许在友元类或友元函数中打破类的封装从而使用类的保护和私有成员。那么如果涉及继承，编译器会如何处理呢？<br>&emsp;&emsp;<strong>友元关系不能继承</strong>，即<strong>基类的友元不能访问派生类的私有和保护成员，但其依然可以访问派生类中从基类继承而来的私有和保护成员</strong>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Test;</span><br><span class="line">//基类</span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">    friend class Test;</span><br><span class="line">public:</span><br><span class="line">    void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;age = &quot; &lt;&lt; _age &lt;&lt; endl;</span><br><span class="line">        cout &lt;&lt; &quot;name = &quot; &lt;&lt; _name &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">protected:</span><br><span class="line">    int _age = 20;</span><br><span class="line">    string _name = &quot;Misaki&quot;;</span><br><span class="line">&#125;;</span><br><span class="line">//派生类</span><br><span class="line">class Teacher: public Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        Person::Print();</span><br><span class="line">        cout &lt;&lt; &quot;teachyear = &quot; &lt;&lt; _teachyear &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">protected:</span><br><span class="line">    int _teachyear = 3;</span><br><span class="line">&#125;;</span><br><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;age = &quot; &lt;&lt; person._age &lt;&lt; endl;</span><br><span class="line">        cout &lt;&lt; &quot;name = &quot; &lt;&lt; person._name &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    void Print2()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;age = &quot; &lt;&lt; teacher._age &lt;&lt; endl;</span><br><span class="line">        cout &lt;&lt; &quot;name = &quot; &lt;&lt; teacher._name &lt;&lt; endl;</span><br><span class="line">        //cout &lt;&lt; &quot;teachyear = &quot; &lt;&lt; teacher._teachyear &lt;&lt; endl;//无法访问</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    Person person;</span><br><span class="line">    Teacher teacher;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Test test;</span><br><span class="line">    test.Print2();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">age = 20</span><br><span class="line">name = Misaki</span><br></pre></td></tr></table></figure></p>
+<h2 id="继承和静态成员"><a href="#继承和静态成员" class="headerlink" title="继承和静态成员"></a>继承和静态成员</h2><p>&emsp;&emsp;关于继承和静态成员，我们所要记住的只有一句话，<strong>在整个继承体系中，无论发生多少次继承，静态成员在继承体系中只存在一份</strong>。</p>
+<h3 id="静态成员函数"><a href="#静态成员函数" class="headerlink" title="静态成员函数"></a>静态成员函数</h3><p>&emsp;&emsp;关于静态成员函数，这句话将更好理解，在不发生隐藏的情况下我们调用的依然是基类的静态函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">//基类</span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    static void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Person::_count = &quot; &lt;&lt; _count &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">protected:</span><br><span class="line">    int _age = 20;</span><br><span class="line">    string _name = &quot;Misaki&quot;; </span><br><span class="line">    static int _count;</span><br><span class="line">&#125;;</span><br><span class="line">int Person::_count = 1;</span><br><span class="line">//派生类</span><br><span class="line">class Teacher: public Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    //static void Print()</span><br><span class="line">    //&#123;</span><br><span class="line">    //    cout &lt;&lt; &quot;Teacher::_count = &quot; &lt;&lt; _count &lt;&lt; endl;</span><br><span class="line">    //&#125;</span><br><span class="line">protected:</span><br><span class="line">    int _age = 19;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Person::Print();</span><br><span class="line">    Teacher::Print();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Person::_count = 1</span><br><span class="line">Person::_count = 1</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;在发生隐藏的情况下，就会调用派生类的静态函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">//基类</span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    static void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Person::_count = &quot; &lt;&lt; _count &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">protected:</span><br><span class="line">    int _age = 20;</span><br><span class="line">    string _name = &quot;Misaki&quot;; </span><br><span class="line">    static int _count;</span><br><span class="line">&#125;;</span><br><span class="line">int Person::_count = 1;</span><br><span class="line">//派生类</span><br><span class="line">class Teacher: public Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    static void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Teacher::_count = &quot; &lt;&lt; _count &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">protected:</span><br><span class="line">    int _age = 19;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Person::Print();</span><br><span class="line">    Teacher::Print();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Person::_count = 1</span><br><span class="line">Teacher::_count = 1</span><br></pre></td></tr></table></figure></p>
+<h3 id="静态成员变量"><a href="#静态成员变量" class="headerlink" title="静态成员变量"></a>静态成员变量</h3><p>&emsp;&emsp;关于静态成员变量，我们要理解其在整个继承体系中有且只有一份，我们在基类中将其改变，派生类的也会跟着改变。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">//基类</span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    static void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Person::_count = &quot; &lt;&lt; _count &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    static int _count;</span><br><span class="line">protected:</span><br><span class="line">    int _age = 20;</span><br><span class="line">    string _name = &quot;Misaki&quot;; </span><br><span class="line">&#125;;</span><br><span class="line">int Person::_count = 1;</span><br><span class="line">//派生类</span><br><span class="line">class Teacher: public Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    static void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Teacher::_count = &quot; &lt;&lt; _count &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">protected:</span><br><span class="line">    int _age = 19;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Person::_count = 3;</span><br><span class="line">    Person::Print();</span><br><span class="line">    Teacher::Print();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Person::_count = 3</span><br><span class="line">Teacher::_count = 3</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;但是如果我们在派生类中定义同名静态成员变量构成隐藏的话，则会产生新的变量，并且隐藏掉基类的同名静态成员，当然我们也可以通过显示调用的方式再去调用它。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">//基类</span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    static void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Person::_count = &quot; &lt;&lt; _count &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    static int _count;</span><br><span class="line">protected:</span><br><span class="line">    int _age = 20;</span><br><span class="line">    string _name = &quot;Misaki&quot;; </span><br><span class="line">&#125;;</span><br><span class="line">int Person::_count = 1;</span><br><span class="line">//派生类</span><br><span class="line">class Teacher: public Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    static void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Teacher::_count = &quot; &lt;&lt; _count &lt;&lt; endl;</span><br><span class="line">        cout &lt;&lt; &quot;Person::_count = &quot; &lt;&lt; Person::_count &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">protected:</span><br><span class="line">    int _age = 19;</span><br><span class="line">    static int _count;</span><br><span class="line">&#125;;</span><br><span class="line">int Teacher::_count = 5;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Person::_count = 3;</span><br><span class="line">    Person::Print();</span><br><span class="line">    Teacher::Print();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Person::_count = 3</span><br><span class="line">Teacher::_count = 5</span><br><span class="line">Person::_count = 3</span><br></pre></td></tr></table></figure></p>
+<h3 id="继承中隐藏-重定义的权限及生命周期"><a href="#继承中隐藏-重定义的权限及生命周期" class="headerlink" title="继承中隐藏/重定义的权限及生命周期"></a>继承中隐藏/重定义的权限及生命周期</h3><p>&emsp;&emsp;我们知道了静态成员发生隐藏时才会产生新的一份空间进行存储，如果我们将原本在基类中是静态成员的变量在派生类中定义同名成员为非静态的成员编译器会怎么判定呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">//基类</span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    static void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Person::_count = &quot; &lt;&lt; _count &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    static int _count;</span><br><span class="line">protected:</span><br><span class="line">    int _age = 20;</span><br><span class="line">    string _name = &quot;Misaki&quot;; </span><br><span class="line">&#125;;</span><br><span class="line">int Person::_count = 1;</span><br><span class="line">//派生类</span><br><span class="line">class Teacher: public Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    static void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        //cout &lt;&lt; &quot;Teacher::_count = &quot; &lt;&lt; _count &lt;&lt; endl;//编不过了，因为静态函数中只能调用静态成员，而此时_count隐藏已经不是静态成员</span><br><span class="line">        cout &lt;&lt; &quot;Person::_count = &quot; &lt;&lt; Person::_count &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    int _count = 5;</span><br><span class="line">protected:</span><br><span class="line">    int _age = 19;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Person::_count = 3;</span><br><span class="line">    Person::Print();</span><br><span class="line">    Teacher::Print();</span><br><span class="line">    Teacher teacher;</span><br><span class="line">    cout &lt;&lt; teacher._count &lt;&lt; endl;//可以访问了</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Person::_count = 3</span><br><span class="line">Person::_count = 3</span><br><span class="line">5</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;由此我们可以判断一点，如果在派生类中发生隐藏和重定义那么在派生类中该<strong>同名成员的生命周期及访问权限将根据在派生类中重定义的情况而决定</strong>，因此在基类中即使是静态的成员如果在派生类中重定义为非静态变量进行使用也是可以的，可见重定义和隐藏是十分恐怖的，因此我们最好是尽量防止在派生类中定义和基类重名的成员，避免发生隐藏和重定义。</p>
+<h2 id="菱形继承和虚继承"><a href="#菱形继承和虚继承" class="headerlink" title="菱形继承和虚继承"></a>菱形继承和虚继承</h2><p>&emsp;&emsp;Cpp语法复杂这一特点可以从继承中体现出来，因为其支持多继承，而多继承就有可能会产生<strong>菱形继承</strong>的情况。</p>
+<h3 id="菱形继承"><a href="#菱形继承" class="headerlink" title="菱形继承"></a>菱形继承</h3><p>&emsp;&emsp;什么是菱形继承呢？其产生原因就要“归功于”Cpp支持多继承这一特点，多继承就是允许一个类继承于多个基类，当派生类多继承于多个基类时，这些基类也有可能继承于更上层的同一个基类，由此就会产生菱形继承的情况。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class A</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    char _a = &apos;A&apos;;</span><br><span class="line">&#125;;</span><br><span class="line">//B继承于A</span><br><span class="line">class B: public A</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    char _b = &apos;B&apos;;</span><br><span class="line">&#125;;</span><br><span class="line">//C也继承于A</span><br><span class="line">class C: public A</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    char _c = &apos;C&apos;;</span><br><span class="line">&#125;;</span><br><span class="line">//D继承于B,C</span><br><span class="line">class D: public B, public C</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    char _d = &apos;D&apos;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;以上这种结构就会产生菱形继承，我们用画图的方式具现化表示一下。<br><br><img src="/2019/08/22/【Cpp】第十一章-继承/3.png" alt="菱形继承"><br><br>&emsp;&emsp;这种继承体系就是菱形继承，也是非常直观的可以体现出来的。</p>
+<h3 id="菱形继承带来的问题"><a href="#菱形继承带来的问题" class="headerlink" title="菱形继承带来的问题"></a>菱形继承带来的问题</h3><p>&emsp;&emsp;菱形继承是Cpp多继承所带来的主要问题之一，一旦发生菱形继承，首当其冲的我们就应该考虑到菱形继承带来的<strong>数据冗余</strong>及<strong>数据二义性</strong>的问题。<br>&emsp;&emsp;还用上面的例子，因为D同时继承了B,C类，而B,C类又都分别继承了A类这就意味着D中存在着两份A类，一份是从B那里继承来的，另一份是从C继承来的，这就造成了数据冗余，并且当我们通过D想要直接访问A类成员时编译器会报错，因为编译器不知道你要访问的时B中的A类成员还是C中的A类成员，我们必须加上域限定符才能访问，这就造成了数据二义性，但是我们通过域限定符姑且可以解决数据二义性的问题，但是数据冗余却无法解决。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class A</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    char _a = &apos;A&apos;;</span><br><span class="line">&#125;;</span><br><span class="line">//B继承于A</span><br><span class="line">class B: public A</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    char _b = &apos;B&apos;;</span><br><span class="line">&#125;;</span><br><span class="line">//C也继承于A</span><br><span class="line">class C: public A</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    char _c = &apos;C&apos;;</span><br><span class="line">&#125;;</span><br><span class="line">//D继承于B,C</span><br><span class="line">class D: public B, public C</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    char _d = &apos;D&apos;;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    D d;</span><br><span class="line">    //cout &lt;&lt; d._a &lt;&lt; endl;//报错</span><br><span class="line">    d.B::_a = &apos;E&apos;;</span><br><span class="line">    d.C::_a = &apos;F&apos;;</span><br><span class="line">    cout &lt;&lt; d.B::_a &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; d.C::_a &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">E</span><br><span class="line">F</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;从以上结果中可以看出d中有着两份A类的成员，因此在我们日常程序设计中应该极力避免菱形继承的产生，因为会浪费空间也会产生不必要的错误。</p>
+<h3 id="虚拟继承"><a href="#虚拟继承" class="headerlink" title="虚拟继承"></a>虚拟继承</h3><p>&emsp;&emsp;但是如果在某些场景下一定要产生菱形继承，我们也有办法避免数据冗余及数据二义性的发生，这就要牵扯到<strong>虚拟继承</strong>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class A</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    char _a = &apos;A&apos;;</span><br><span class="line">&#125;;</span><br><span class="line">//使用虚拟继承使B继承于A</span><br><span class="line">class B: virtual public A</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    char _b = &apos;B&apos;;</span><br><span class="line">&#125;;</span><br><span class="line">//使用虚拟继承使C继承于A</span><br><span class="line">class C: virtual public A</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    char _c = &apos;C&apos;;</span><br><span class="line">&#125;;</span><br><span class="line">//D继承于B,C</span><br><span class="line">class D: public B, public C</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    char _d = &apos;D&apos;;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    //一旦使用虚拟继承那么D类中就只存在一份A的成员变量</span><br><span class="line">    D d;</span><br><span class="line">    //无论用什么作用域进行访问都只能访问到同一份</span><br><span class="line">    d.B::_a = &apos;E&apos;;</span><br><span class="line">    cout &lt;&lt; d._a &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; d.B::_a &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; d.C::_a &lt;&lt; endl;</span><br><span class="line">    d.C::_a = &apos;F&apos;;</span><br><span class="line">    cout &lt;&lt; d._a &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; d.B::_a &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; d.C::_a &lt;&lt; endl;</span><br><span class="line">    //我们甚至还可以这样访问，一旦使用虚拟继承我们可以视d间接继承了A，因此也有了A的作用域</span><br><span class="line">    //这在不使用虚拟继承的情况下是无法完成的</span><br><span class="line">    cout &lt;&lt; d.A::_a &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">E</span><br><span class="line">E</span><br><span class="line">E</span><br><span class="line">F</span><br><span class="line">F</span><br><span class="line">F</span><br><span class="line">F</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;那么虚拟继承是如何做到的这一切呢？在不适用虚拟继承的情况下类D中可以这样表示。<br><br><img src="/2019/08/22/【Cpp】第十一章-继承/4.png" alt="虚拟继承"><br><br>&emsp;&emsp;但是引入虚拟继承后，编译器就会生成一张<strong>虚基表</strong>，这张表中存放着这个类与其虚拟继承的基类之间的地址偏移量，而在这个类中也会多生成一个指针被称为<strong>虚基表指针</strong>指向这张虚基表。因此此时D类中由于所继承的两个基类都是虚拟继承自A类，因此B,C类都会有属于自己的虚基表及指向这张表的虚基表指针，而他们的虚基表中都会存储与同一个A类之间的地址偏移量，因此就可以做到D类中就有唯一的一份A类成员。<br>&emsp;&emsp;使用虚拟继承D中可以如下表示。<br><br><img src="/2019/08/22/【Cpp】第十一章-继承/5.png" alt="虚拟继承"><br><br>&emsp;&emsp;但是要注意虚基表中存放的并不是直接指向类A的指针，而是与A的地址偏移量，由此可以找到A。这样就确保了D中只有唯一的一份A的成员，解决了数据冗余以及数据二义性的问题。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; sizeof(B) &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">8</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;我们取一个虚拟继承的类的大小也可以发现其大小变成了8，这是因为多了一个虚基表指针占了4个字节，加上3个字节的补齐成了8。不过这样我们知道了虚基表指针是存储在对象中的，那么虚基表存储在哪里呢？这个根据每个编译器的不同都有不同的处理，vs是存储在寄存器中的。</p>
+<h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><p>&emsp;&emsp;在继承这一章，我们透彻的学习了继承的各种知识点，并且还解析了菱形继承以及虚拟继承底层的实现原理，我们不由得产生了一个问题，我什么时候使用继承什么时候使用组合呢？<br>&emsp;&emsp;继承：是一种<strong>is a</strong>的关系。<br>&emsp;&emsp;组合：是一种<strong>has a</strong>的关系。<br>&emsp;&emsp;这一点并不难理解，但是实际开发中，我们尽量优先使用组合，因为组合耦合度低，易于开发和维护，我们可以不用过多的考虑基类的实现，而继承不同。但是有一些情况下确实是继承更为符合情景呢么就是用继承，但要小心多继承。继承的使用也是十分广泛的，比如之后要学习的多态，都多亏于继承的语法，当然如果继承和组合都可以使用的话还是使用组合更好。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读!-------------</div>
+    
+    </div>
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>记录学习每一分，感谢您的赞助</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="MisakiFx 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="MisakiFx 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Cpp/" rel="tag"># Cpp</a>
+          
+            <a href="/tags/继承/" rel="tag"># 继承</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/12/【Cpp】第十章-模板进阶/" rel="next" title="【Cpp】第十章-模板进阶">
+                <i class="fa fa-chevron-left"></i> 【Cpp】第十章-模板进阶
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="MisakiFx" />
+            
+              <p class="site-author-name" itemprop="name">MisakiFx</p>
+              <p class="site-description motion-element" itemprop="description">Hard working or giving up!!!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/MisakiFx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1761607418@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope-open"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://music.163.com/#/user/home?id=432551242" target="_blank" title="网易云音乐">
+                      
+                        <i class="fa fa-fw fa-music"></i>网易云音乐</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/qq_41669298" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-crosshairs"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#继承"><span class="nav-number">1.</span> <span class="nav-text">继承</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是继承"><span class="nav-number">1.1.</span> <span class="nav-text">什么是继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#继承方式"><span class="nav-number">1.2.</span> <span class="nav-text">继承方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三种继承方式"><span class="nav-number">1.2.1.</span> <span class="nav-text">三种继承方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#切割"><span class="nav-number">1.3.</span> <span class="nav-text">切割</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#继承中的作用域"><span class="nav-number">1.4.</span> <span class="nav-text">继承中的作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重定义-隐藏"><span class="nav-number">1.4.1.</span> <span class="nav-text">重定义/隐藏</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#派生类的默认成员函数"><span class="nav-number">1.5.</span> <span class="nav-text">派生类的默认成员函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#构造函数"><span class="nav-number">1.5.1.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拷贝构造函数"><span class="nav-number">1.5.2.</span> <span class="nav-text">拷贝构造函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#赋值运算符重载"><span class="nav-number">1.5.3.</span> <span class="nav-text">赋值运算符重载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#析构函数"><span class="nav-number">1.5.4.</span> <span class="nav-text">析构函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.5.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#继承与友元"><span class="nav-number">1.6.</span> <span class="nav-text">继承与友元</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#继承和静态成员"><span class="nav-number">1.7.</span> <span class="nav-text">继承和静态成员</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#静态成员函数"><span class="nav-number">1.7.1.</span> <span class="nav-text">静态成员函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态成员变量"><span class="nav-number">1.7.2.</span> <span class="nav-text">静态成员变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#继承中隐藏-重定义的权限及生命周期"><span class="nav-number">1.7.3.</span> <span class="nav-text">继承中隐藏/重定义的权限及生命周期</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#菱形继承和虚继承"><span class="nav-number">1.8.</span> <span class="nav-text">菱形继承和虚继承</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#菱形继承"><span class="nav-number">1.8.1.</span> <span class="nav-text">菱形继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#菱形继承带来的问题"><span class="nav-number">1.8.2.</span> <span class="nav-text">菱形继承带来的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟继承"><span class="nav-number">1.8.3.</span> <span class="nav-text">虚拟继承</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-1"><span class="nav-number">1.9.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        ﻿<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MisakiFx</span>
+
+  
+</div>
+
+
+<div class="powered-by">
+  <i class="fa fa-user-md"></i>
+  <span id="busuanzi_container_site_uv">
+    我的网站的访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+</div>
+
+
+
+<span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共142.6k字</span>
+</div>
+
+        ﻿
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+        <script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

@@ -264,6 +264,173 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/08/【Linux】Linux编程-vim篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/08/【Linux】Linux编程-vim篇/" itemprop="url">【Linux】Linux编程-vim篇</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-08T21:21:41+08:00">
+                2018-12-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Linux编程-vim篇"><a href="#Linux编程-vim篇" class="headerlink" title="Linux编程 vim篇"></a>Linux编程 vim篇</h1><h2 id="第1节"><a href="#第1节" class="headerlink" title="第1节"></a>第1节</h2><h3 id="vim是什么"><a href="#vim是什么" class="headerlink" title="vim是什么"></a>vim是什么</h3><p>&emsp;&emsp;vim是一种基于Linux环境下的编辑器，上节也给大家已经提过，我们要想在Linux下编程需要四样东西来替代vs这个集成的开发环境，其中最为核心的载体就是这个vim的编辑器，没有它，我们甚至无法书写代码。<br><br>&emsp;&emsp;在Linux下除过vim这个编辑器十分经典之外，还有一款编辑器也深受大家喜爱，就是<strong>emacs</strong>。这两款编辑器之所以受大家欢迎以至于后续几十年的编辑器都无法超越有几点最主要的原因。<br><br>&emsp;&emsp;1、支持丰富的快捷键和编辑方式。<br><br>&emsp;&emsp;2、支持非常强大的扩展能力。<br><br>&emsp;&emsp;3、都有一门强大的编程语言作为支撑。<br><br>&emsp;&emsp;说到支撑他们的编程语言就不得不提emacs背后的编程语言<strong>lisp</strong>。之前我们说万物都出自C语言，其实并非如此，除过C语言外还有一个编程语言的祖师爷就是<strong>lisp</strong>。这是两款风格相差很大的编程语言，如果大家有兴趣可以去自行了解。这里不再赘述<br><br>&emsp;&emsp;虽说vim和emacs这两款编辑器各有各的千秋，都是编辑器中的祖师爷，但我选择emacs作为我的首选编辑器，也作为接下来讲解的重点（如果有同学对emacs感兴趣自然可以选择emacs作为自己的首选），并且最好的是在每一个Linux系统中都自带了vim编辑器，因此我们无需在自行安装了。</p>
+<h3 id="vim使用"><a href="#vim使用" class="headerlink" title="vim使用"></a>vim使用</h3><h4 id="vim基础介绍"><a href="#vim基础介绍" class="headerlink" title="vim基础介绍"></a>vim基础介绍</h4><p>&emsp;&emsp;由于我们的Linux已经自带了vim，所以我们可以直接使用。输入<code>vim</code>即可看到它的界面了。<br><br><img src="/2018/12/08/【Linux】Linux编程-vim篇/1.png" alt="vim使用"><br><br>&emsp;&emsp;会发现vim的界面十分的丑，毕竟是在控制台下，这也是无可奈何啊。那么如何退出界面呢？输入<code>:q</code>即可退出了。<strong>注意：前面要有个冒号才行！</strong>。<br><br>&emsp;&emsp;关于vim使用呢其实vim官方有一篇教学文档，大家退出vim界面后输入<code>vimtutor</code>即可进入官方教学文档。（输入<code>vimt</code>+<code>tab</code>即可补全了，<code>tab</code>是补全键可以帮助我们快速输入指令，要常用）。<br><br>&emsp;&emsp;在官方教学文档里大家跟着教学步骤一步一步练习，多多练习即可掌握vim的所有常用操作，一定切记一点：<strong>千万不要硬背指令或者快捷键，在使用中记忆才为上策。</strong><br><br>&emsp;&emsp;在vim下一共有<strong>普通，插入，命令，可视，替换</strong>五种模式，在我们用vim打开一篇文档，我们默认进入的就是普通模式，在普通模式下更为方便我们进行文档浏览，在这个模式下我们有丰富的快捷键供我们在页面间进行条件及光标移动。插入模式是当我们想要修改文档时才会进入的模式。命令模式里有一些命令方便我们对vim进行配置修改，页面跳转等等，用法丰富。可视模式下我们最常用的操作是选中文档片段进行删除，复制或剪切。替换模式则允许我们对文本内容进行替换。</p>
+<h4 id="vim指令"><a href="#vim指令" class="headerlink" title="vim指令"></a>vim指令</h4><p>&emsp;&emsp;vim的快捷键及指令很多，在此我们着重介绍常用的几条指令。同时为了方便快捷键操作vim分为了几个模式，而我们大多数快捷键都是在<strong>普通模式</strong>下使用的。<br><br>&emsp;&emsp;1、在vim中我们除了上下左右方向键可以移动光标外，还提供了新的四个快捷键供我们进行光标移动。<code>j:下</code>；<code>k:上</code>；<code>h:左</code>；<code>l:右</code>。在vim下尤为推荐大家使用这四个控制光标移动的方向键，因为使用起来更为方便，最主要这是你学习过vim的象征！<br><br>&emsp;&emsp;2、普通模式进入其他模式的方式有很多种，最为普通的是按<code>i</code>进入插入模式，<code>:</code>进入命令模式，<code>v</code>进入可视模式，<code>R</code>进入替换模式。而其他模式回到普通模式下最为常用的方法永远是按<code>esc</code>。因此常按<code>esc</code>往往也会成为使用vim的程序员的习惯<br><br>&emsp;&emsp;3、<code>x</code>进行单个字符的删除。<br><br>&emsp;&emsp;4、在一个目录下输入指令<code>vim 文件名</code>打开一个已有的文件或创建一个新文件。输入<code>:</code>进入命令模式下输入<code>w</code>进行保存，<code>q</code>进行退出，<code>wq</code>保存并退出，<code>q!</code>不保存强制退出。<br><br>&emsp;&emsp;5、<code>w</code>可将光标从目前位置移动到下一个单词的头部，<code>e</code>可将光标从目前位置移动到下一个单词的尾部，<code>$</code>则可以将光标移动到行末，<code>b</code>表示移动到上个单词头。<br><br>&emsp;&emsp;6、<code>d</code>表示删除指令，一般和光标跳转指令连用。<code>dw</code>表示从光标目前位置删除到下一个单词头部位置（不包含头部），<code>de</code>表示从光标目前为止删除到下一个单词的尾部位置（包含尾部），<code>d$</code>表示从光标当前位置删除到行尾（删除整行）。<br><br>&emsp;&emsp;7、同时我们可以使用数字加指令的方式对很多指令进行重复执行。例如<code>2w</code> == <code>w</code>+<code>w</code>，<code>d2w</code>==<code>dw</code> + <code>dw</code>，等等，可自行尝试。<br><br>&emsp;&emsp;8、普通模式下<code>u</code>表示撤销操作，<code>U</code>表示撤销对整行的操作。<code>Ctrl r</code>表示重做，及撤销撤销操作。<br><br>&emsp;&emsp;9、<code>dd</code>将整行进行删除/剪切，<code>p</code>将剪切板里的内容往光标后进行粘贴，<code>P</code>将剪贴板里的内容往光标前进行粘贴。<br><br>&emsp;&emsp;10、<code>r</code>将单个字符进行替换，<code>R</code>将进入替换模式接下来输入的内容都替换为输入内容，知道返回普通模式。<br><br>&emsp;&emsp;11、<code>c</code>命令于<code>d</code>命令类似，依然于其他命令构成组合命令，例如<code>cw</code>，<code>ce</code>等，但不同是<code>c</code>命令使用完后会进入插入模式。<br><br>&emsp;&emsp;12、输入<code>:</code>进入命令模式下，输入<code>set nu</code>可现实行号。<br><br>&emsp;&emsp;13、<code>ctrl g</code>显示当前行数，并显示光标位置信息。<br><br>&emsp;&emsp;14、<code>shift g</code>跳转至文本尾，<code>gg</code>跳转至文本头，<code>&#39;</code>回到跳转前行数。<br><br>&emsp;&emsp;15、<code>/查找内容</code>进入命令模式下，输入查找内容进行查找，并且<code>n</code>寻找下一个，<code>N</code>寻找上一个。<br><br>&emsp;&emsp;16、光标在括号上按<code>%</code>进行括号匹配快速移动，自动跳转至匹配括号处。<br><br>&emsp;&emsp;17、输入<code>:</code>进入命令模式之后输入<code>s/查找内容/替换结果/gc</code>进行一行的内容替换，<code>%s/查找内容/替换结果/gc</code>进行全文的内容替换，其中<code>g</code>表示搜索整个一行，<code>c</code>表示替换前询问<code>%s</code>表示全文替换。<br><br>&emsp;&emsp;18、<code>o</code>在本行下创建新行并进入插入模式，<code>O</code>在本行上面创建新行并进入插入模式。<br><br>&emsp;&emsp;19、<code>v</code>进入可视模式，光标移动选中语句后按<code>y</code>可进行复制。同时<code>yy</code>可复制一行。同样的使用<code>p</code>或<code>P</code>进行粘贴。<br><br>&emsp;&emsp;20、<code>a</code>进入插入模式表示在光标后插入，与<code>i</code>类似。同时使用<code>I</code>或<code>A</code>在行首或行尾插入。<br><br>&emsp;&emsp;vim的基础指令介绍就到此为止了，vim的使用远不止这些快捷键及指令，想要更好的更熟练的使用vim还需要不断地练习，在实践中学习才是最高效的。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/【Linux】Linux编程-基础/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1815,186 +1982,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/11/【C语言】第三章-函数-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/11/【C语言】第三章-函数-2/" itemprop="url">【C语言】第三章-函数-2</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-11T18:10:23+08:00">
-                2018-11-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C语言初阶/" itemprop="url" rel="index">
-                    <span itemprop="name">C语言初阶</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第三章-函数"><a href="#第三章-函数" class="headerlink" title="第三章 函数"></a>第三章 函数</h1><h2 id="第2节"><a href="#第2节" class="headerlink" title="第2节"></a>第2节</h2><h3 id="函数调用"><a href="#函数调用" class="headerlink" title="函数调用"></a>函数调用</h3><p>&emsp;&emsp;函数调用一般有两种方式，一种是形参不会影响实参的传值调用，另一种是形参会影响实参的传址调用。</p>
-<h4 id="传值调用"><a href="#传值调用" class="headerlink" title="传值调用"></a>传值调用</h4><p>&emsp;&emsp;传值调用是将实参的值传入函数体中，传入的不过是实参的副本，不会改变实参。这个在上一节已经讲过其中的原因正式因为C语言副本传参的这个特性，这也为我们带来了很多麻烦。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">void Swap(int x, int y)//交换x, y的值</span><br><span class="line">&#123;</span><br><span class="line">	int tmp = x;</span><br><span class="line">	x = y;</span><br><span class="line">	y = tmp;</span><br><span class="line">&#125;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int a = 4;</span><br><span class="line">	int b = 5;</span><br><span class="line">	Swap(a, b);</span><br><span class="line">	printf(&quot;a = %d, b = %d&quot;, a, b);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;运行后大家会发现，a, b的值并没有交换，这正是因为我们在这里只用了传值调用，传入的副本不会使实参改变。</p>
-<h4 id="传址调用"><a href="#传址调用" class="headerlink" title="传址调用"></a>传址调用</h4><p>&emsp;&emsp;传址调用是将参数的地址进行传入，其实就是把指针作为参数，之前我们说过地址就像是变量的门牌号，所以当我们将变量的地址传入的时候，实参就被锁定了，形参的改变，也会使实参改变。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">void Swap(int* x, int* y)</span><br><span class="line">&#123;</span><br><span class="line">	int tmp = *x;</span><br><span class="line">	*x = *y;</span><br><span class="line">	*y = tmp;</span><br><span class="line">&#125;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int a = 4;</span><br><span class="line">	int b = 5;</span><br><span class="line">	Swap(&amp;a, &amp;b);</span><br><span class="line">	printf(&quot;a = %d, b = %d&quot;, a, b);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;上面这行代码运行后a, b的值就会被交换，然而我们所做的改变不过是将函数的参数类型改为了指针，因此我们如果想要函数能够改变实参的值，我们就必须将参数的指针传入，前提是写一个参数为指针的函数。在CPP中我们会学到比传址调用更加方便的改变实参的方式。</p>
-<h3 id="函数的嵌套调用和链式访问"><a href="#函数的嵌套调用和链式访问" class="headerlink" title="函数的嵌套调用和链式访问"></a>函数的嵌套调用和链式访问</h3><h4 id="嵌套调用"><a href="#嵌套调用" class="headerlink" title="嵌套调用"></a>嵌套调用</h4><p>&emsp;&emsp;嵌套调用是构成C语言最基础的语法，简单来说就是允许在函数内调用其它函数，比如我们在<code>main</code>函数中调用<code>printf</code>函数，这种方式相信大家都不陌生了。</p>
-<h4 id="链式访问"><a href="#链式访问" class="headerlink" title="链式访问"></a>链式访问</h4><p>&emsp;&emsp;链式访问是在函数参数里调用函数，这种调用方式也很简单，不过是将一个有返回值的函数在另一个函数的参数列表中进行调用，运行时会优先调用参数列表中的函数然后根据返回值进行判断外函数如何运行。这两种调用都十分简单，今后大家会经常用到，在这里不做过多赘述。</p>
-<h3 id="函数的声明和定义"><a href="#函数的声明和定义" class="headerlink" title="函数的声明和定义"></a>函数的声明和定义</h3><h4 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h4><p>&emsp;&emsp;因为我们在写函数的时候必须将函数的定义写在函数调用之前（之前我们都是写在<code>main</code>函数前的），因此当我们想要将函数定义写在调用之后以达到美观的易读的效果时我们要怎么做呢？<br><br>&emsp;&emsp;这就要用到函数的声明了，所谓函数的声明，不过是在函数的定义写在函数调用之后的情况时为了让编译器依旧可以找到函数的定义的位置我们需要在调用之前所做的一个声明罢了。<br><br>&emsp;&emsp;1、声明要告诉编译器又一个函数叫什么，参数是什么，返回类型是什么，但是具体函数存在不存在，无关紧要。<br><br>&emsp;&emsp;2、函数声明一般出现在<strong>函数调用之前</strong>，满足先调用后使用。<br><br>&emsp;&emsp;3、函数的声明一般是放在头文件中的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int func(int);//函数的声明可以省略写参数名</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int num = 0;</span><br><span class="line">	func(num);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br><span class="line">int func(int num)</span><br><span class="line">&#123;</span><br><span class="line">	/*</span><br><span class="line">	something;</span><br><span class="line">	*/</span><br><span class="line">	return num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;在这个例子中，我们将函数的定义写在了函数调用之后，之所以可以这么做全部都多亏与我们在函数调用之前加上了函数的声明，函数的声明不是必须的，但是我们一般将函数的声明写在头文件中，这样会使我们的代码更加易读和管理。</p>
-<h4 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h4><p>&emsp;&emsp;既然谈到了函数的定义我们就不得不提一个和函数定义紧密相连的东西，头文件，上文也说过函数一般是定义在头文件中的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//头文件</span><br><span class="line">#pragma once</span><br><span class="line">int func(int);//函数的声明可以省略写参数名</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//另一个.c文件</span><br><span class="line">int func(int num)</span><br><span class="line">&#123;</span><br><span class="line">	/*</span><br><span class="line">	something;</span><br><span class="line">	*/</span><br><span class="line">	return num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//主函数所在的文件</span><br><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &quot;test.h&quot;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int num = 0;</span><br><span class="line">	func(num);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;可以发现我将自己定义的函数写在了另外两个文件中，而在主函数所在文件中引入了函数声明所在的头文件即可使用函数了。这种书写函数的方式使得我们的代码看起来更加整洁。<br><br>&emsp;&emsp;值得一提的是，在主函数加入我们自己写的头文件的时候，最好用<code>&quot;&quot;</code>来包含文件名比较好，这样可以更方便我们更快的找到函数。在头文件中大家还可以看到<code>#program once</code>这句话，它的作用是保证我们在多次调用同一个我文件的时候不会造成多次调用，发生错误，可以说是为了弥补C语言头文件使用的弊端，也是头文件必须的。<br>&emsp;&emsp;可能也会有人在其他教材中发现头文件中还有这么一种书写格式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//头文件</span><br><span class="line">#ifndef TEST</span><br><span class="line">#define TEST</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int func(int);//函数的声明可以省略写参数名</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#endif // !TEST</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;其实这几个语句的效果和<code>#program once</code>效果类似，不过这是以前的写法并且带着很多的弊端，所以今后大家写头文件还是放弃使用这种格式。</p>
-<h3 id="函数的递归"><a href="#函数的递归" class="headerlink" title="函数的递归"></a>函数的递归</h3><p>&emsp;&emsp;所谓函数的递归简单来说就是在函数内部调用他自身，达到一种循环调用的效果，是很重要的一种程序设计方法，有时使用递归设计程序会给我们带来很多方便，也会使程序运行更加流畅，不过有时依然是迭代来的更加自然。<br><br>&emsp;&emsp;递归的程序设计是使用一种<strong>减而治之</strong>的思想，从局部处理考虑到整体处理。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int factor(int num)//递归求阶乘</span><br><span class="line">&#123;</span><br><span class="line">	if (num == 1)//如果数字等于一则返回它本身</span><br><span class="line">	&#123;</span><br><span class="line">		return 1;</span><br><span class="line">	&#125;</span><br><span class="line">	return num * factor(num - 1);//num! = num * (num - 1)! </span><br><span class="line">&#125;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	printf(&quot;3的阶乘是：%d!\n&quot;, factor(3));</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;上面这个例子就是一个很好的利用递归进行的程序设计，在某些方面递归就是可以使你的代码更好书写，但是递归也在某些方面有着很麻烦的十分不可理喻的效率，比如在利用递归求斐波那契数的时候，就会产生大量的重复运算，大大降低了效率。<br>&emsp;&emsp;递归是很重要的程序设计思想，要完全掌握这种设计理念还需要今后多多练习。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2049,7 +2036,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2071,7 +2058,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2168,7 +2155,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共135k字</span>
+  <span class="post-count">博客全站共142.6k字</span>
 </div>
 
         ﻿
