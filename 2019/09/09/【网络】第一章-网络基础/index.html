@@ -1,0 +1,863 @@
+﻿<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="网络," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="网络基础&amp;emsp;&amp;emsp;在这个章节先对计算机网络进行大概简单的介绍，之后的章节会逐个进行深入的讨论。 网络发展背景网络的构成&amp;emsp;&amp;emsp;网络一开始先利用交换机进行两台计算机之间的互联及数据交换，一台主机将数据发给交换机，交换机再发送给另一台，不会起任何冲突。&amp;emsp;&amp;emsp;但是假如又要加入一台主机，交换机就会起矛盾，它不知道该将数据发给哪台主机。为此又出现了新的数据交换">
+<meta name="keywords" content="网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【网络】第一章-网络基础">
+<meta property="og:url" content="http://yoursite.com/2019/09/09/【网络】第一章-网络基础/index.html">
+<meta property="og:site_name" content="Misaki`s blog">
+<meta property="og:description" content="网络基础&amp;emsp;&amp;emsp;在这个章节先对计算机网络进行大概简单的介绍，之后的章节会逐个进行深入的讨论。 网络发展背景网络的构成&amp;emsp;&amp;emsp;网络一开始先利用交换机进行两台计算机之间的互联及数据交换，一台主机将数据发给交换机，交换机再发送给另一台，不会起任何冲突。&amp;emsp;&amp;emsp;但是假如又要加入一台主机，交换机就会起矛盾，它不知道该将数据发给哪台主机。为此又出现了新的数据交换">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/09/09/【网络】第一章-网络基础/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/09/【网络】第一章-网络基础/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/09/【网络】第一章-网络基础/3.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/09/【网络】第一章-网络基础/4.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/09/【网络】第一章-网络基础/5.png">
+<meta property="og:updated_time" content="2019-09-09T14:27:07.137Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【网络】第一章-网络基础">
+<meta name="twitter:description" content="网络基础&amp;emsp;&amp;emsp;在这个章节先对计算机网络进行大概简单的介绍，之后的章节会逐个进行深入的讨论。 网络发展背景网络的构成&amp;emsp;&amp;emsp;网络一开始先利用交换机进行两台计算机之间的互联及数据交换，一台主机将数据发给交换机，交换机再发送给另一台，不会起任何冲突。&amp;emsp;&amp;emsp;但是假如又要加入一台主机，交换机就会起矛盾，它不知道该将数据发给哪台主机。为此又出现了新的数据交换">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/09/【网络】第一章-网络基础/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/09/【网络】第一章-网络基础/"/>
+
+
+
+
+
+  <title>【网络】第一章-网络基础 | Misaki`s blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+<a href="https://github.com/MisakiFx" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Misaki`s blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习是一种态度</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/09/【网络】第一章-网络基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【网络】第一章-网络基础</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-09T19:21:08+08:00">
+                2019-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络/" itemprop="url" rel="index">
+                    <span itemprop="name">网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.8k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="网络基础"><a href="#网络基础" class="headerlink" title="网络基础"></a>网络基础</h1><p>&emsp;&emsp;在这个章节先对计算机网络进行大概简单的介绍，之后的章节会逐个进行深入的讨论。</p>
+<h2 id="网络发展背景"><a href="#网络发展背景" class="headerlink" title="网络发展背景"></a>网络发展背景</h2><h2 id="网络的构成"><a href="#网络的构成" class="headerlink" title="网络的构成"></a>网络的构成</h2><p>&emsp;&emsp;网络一开始先利用<strong>交换机</strong>进行两台计算机之间的互联及数据交换，一台主机将数据发给交换机，交换机再发送给另一台，不会起任何冲突。<br><br><img src="/2019/09/09/【网络】第一章-网络基础/1.png" alt="交换机"><br><br>&emsp;&emsp;但是假如又要加入一台主机，交换机就会起矛盾，它不知道该将数据发给哪台主机。为此又出现了新的数据交换工具，<strong>路由器</strong>，路由器可以自己选择将数据发送给合适的主机。<br><img src="/2019/09/09/【网络】第一章-网络基础/2.png" alt="路由器"><br><br>&emsp;&emsp;由此便构成了一个小型局域网。<br><img src="/2019/09/09/【网络】第一章-网络基础/3.png" alt="局域网"><br><br>&emsp;&emsp;假如此时又有一个这样的<strong>局域网</strong>，他们之间又通过路由器进行数据交换，于是它们又构成了一个更大一些的局域网。一旦局域网变得更大，就会变成城域网，之后是广域网，由此构成网络环境。局域网城域网与广域网之间的区别<strong>由网络的覆盖范围而决定</strong>。<br><img src="/2019/09/09/【网络】第一章-网络基础/4.png" alt="局域网"><br></p>
+<h2 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h2><p>&emsp;&emsp;IP地址在网络中唯一的标识了一个主机，数据从哪里来要到哪里去都要用到ip地址。IP地址由一个4个字节的无符号整数组成，因此一共可以标识42亿个主机，这在计算机发明之初大家可能都认为这是一个天文数字了，肯定够用了，但在现在来看这明显不够用啊，怎么办呢？</p>
+<h3 id="DHCP-NAT"><a href="#DHCP-NAT" class="headerlink" title="DHCP/NAT"></a>DHCP/NAT</h3><p>&emsp;&emsp;伟大的人类想到两种缓兵之计，<strong>DHCP/NAT</strong>技术。DHCP技术使路由器可以动态给连接到自己的主机分配ip地址，也就是内网IP地址（这个IP地址外网是连接不到的），谁上网给谁分配，这样可以减少ip地址的使用情况。但是还是不够啊，怎么办？呢就让大家共用同一个ip地址吧，于是路由器建立映射，将内网所有主机的内网ip建立映射，收集所有数据统一使用自己的ip地址进行数据发送到外网，等收取数据时再根据映射发给内网中的主机，这样就可以极大减少IP地址的使用。但是目前来看ip地址依然十分紧张，因此现在国家也在强力发展ipv6，这是一个16个字节的整数，这个足够用了，不过困难的是ipv6不兼容ipv4因此目前发展并不是很好。</p>
+<h2 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h2><p>&emsp;&emsp;端口(port)，在一台主机上唯一标识一个进程，在网络通讯中用来表示数据从主机上的哪一个进程发出，并发送给另一台主机上的哪一个进程。网络通信每一条数据中，都会包含两条信息：源端口，目的端口。<br>&emsp;&emsp;端口的是一个<code>uint16_t</code>类型的，因此端口范围从0-65535。并且一个端口只能被一个进程占用，但一个进程可以使用多个端口。</p>
+<h2 id="网络协议"><a href="#网络协议" class="headerlink" title="网络协议"></a>网络协议</h2><p>&emsp;&emsp;网络通信中，为了保证字符编码，数据格式，传输方式的一致性，需要通信双方使用数据格式的约定，若要实现网络互联，就需要定理网络通信协议标准，统一网络通信数据格式。<br>&emsp;&emsp;在网络通信中每条数据都会包含一个五元组（源ip地址/源端口/目的IP地址/目的端口/协议）。</p>
+<h2 id="协议分层"><a href="#协议分层" class="headerlink" title="协议分层"></a>协议分层</h2><p>&emsp;&emsp;按照提供的服务，协议，接口对环境进行分层，从底层来说就是一种封装，上层并不需要关心下层的一个实现，直接使用就可以，使用的更加灵活方便。协议分层之后，通信环境层次清晰，并且每一次的功能具体实现会变得简单化，更容易形成标准。<br>&emsp;&emsp;在网络通信中环境也是十分复杂的，因此为了更加容易的去实现网络通信功能因此对整个通信环境进行分层。</p>
+<h3 id="OSI七层模型"><a href="#OSI七层模型" class="headerlink" title="OSI七层模型"></a>OSI七层模型</h3><p>&emsp;&emsp;OSI七层模型(由上至下)：<strong>应用层-&gt;表示层-&gt;会话层-&gt;传输层-&gt;网络层-&gt;链路层-&gt;物理层</strong>。<br>&emsp;&emsp;但是这种模型并不实用，因为表示层，会话层和应用层功能相近分开进行实现反倒十分麻烦，因此现在并不常用这套模型，因为有更好的模型进行替代。</p>
+<h3 id="tcp-ip五层模型"><a href="#tcp-ip五层模型" class="headerlink" title="tcp/ip五层模型"></a>tcp/ip五层模型</h3><p>&emsp;&emsp;tcp/ip五层模型(由上至下)：<strong>应用层-&gt;传输层-&gt;网络层-&gt;链路层-&gt;物理层</strong>。<br>&emsp;&emsp;<strong>tcp/ip</strong>协议是一个协议簇，其中有着很多的协议，而tcp/ip是其中的代表协议，因此以此命名。其中还有很多常用的协议。<br>&emsp;&emsp;五层模型每一层都有属于自己的协议，组织不同的数据形式，以下由高至低讨论。<br>&emsp;&emsp;应用层：负责应用程序之间的数据沟通。这个层中的协议一部分是软件开发者为了组织数据的同时进行数据加密自己定制的协议，被称为<strong>自定制协议</strong>；当然还有一部分是由于协议定制的十分方便，广为流传大家都在使用，这类协议被称为<strong>知名协议</strong>，例如<strong>HTTP</strong>协议。<br>&emsp;&emsp;传输层：负责端与端之间的数据沟通。封装端口信息，用来标识数据由哪个进程发出，目标到哪个进程中去。常见协议有<strong>TCP/UDP</strong>协议。<br>&emsp;&emsp;网络层：负责地址管理与路由选择。负责选择让数据如何通过最合适的路径传达到目标路由器上。常见协议：<strong>IP</strong>协议，常用设备有<strong>路由器</strong>。<br>&emsp;&emsp;链路层：相邻设备之间的数据传输。在实际中要将数据实际发送到与自己相邻的主机，一般来说是通过广电信号进行传输，但是为了能够找到目标主机，在底层网卡往往有着自己的一个地址用来标识自己，这个地址叫做<strong>MAC</strong>地址，链路层就是通过<strong>MAC</strong>地址找到实际要传输数据的网卡并将数据交给它。常见协议<strong>以太网协议Ethernt</strong>，常见设备<strong>交换机</strong>。<br>&emsp;&emsp;物理层：负责光电信号的传输。这一侧就是物理的信号传输了。常见协议<strong>以太网协议</strong>，常见设备<strong>集线器</strong>。</p>
+<h2 id="网络通信数据的传输流程"><a href="#网络通信数据的传输流程" class="headerlink" title="网络通信数据的传输流程"></a>网络通信数据的传输流程</h2><p><img src="/2019/09/09/【网络】第一章-网络基础/5.png" alt="交换机"><br><br>&emsp;&emsp;以上标识的就是数据在网络通信中传输的流程，发送数据时每一层都会在信息中加入类似结构体的东西对数据进行封装，接受数据时也会一层一层解开响应的结构体获取数据。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读!-------------</div>
+    
+    </div>
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>记录学习每一分，感谢您的赞助</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="MisakiFx 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="MisakiFx 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/网络/" rel="tag"># 网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/31/【Cpp】《Effective-C-》第一章-让自己习惯C/" rel="next" title="【Cpp】《Effective C++》第一章-让自己习惯C++">
+                <i class="fa fa-chevron-left"></i> 【Cpp】《Effective C++》第一章-让自己习惯C++
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="MisakiFx" />
+            
+              <p class="site-author-name" itemprop="name">MisakiFx</p>
+              <p class="site-description motion-element" itemprop="description">Hard working or giving up!!!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/MisakiFx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1761607418@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope-open"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://music.163.com/#/user/home?id=432551242" target="_blank" title="网易云音乐">
+                      
+                        <i class="fa fa-fw fa-music"></i>网易云音乐</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/qq_41669298" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-crosshairs"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网络基础"><span class="nav-number">1.</span> <span class="nav-text">网络基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#网络发展背景"><span class="nav-number">1.1.</span> <span class="nav-text">网络发展背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络的构成"><span class="nav-number">1.2.</span> <span class="nav-text">网络的构成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP地址"><span class="nav-number">1.3.</span> <span class="nav-text">IP地址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DHCP-NAT"><span class="nav-number">1.3.1.</span> <span class="nav-text">DHCP/NAT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#端口"><span class="nav-number">1.4.</span> <span class="nav-text">端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络协议"><span class="nav-number">1.5.</span> <span class="nav-text">网络协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协议分层"><span class="nav-number">1.6.</span> <span class="nav-text">协议分层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OSI七层模型"><span class="nav-number">1.6.1.</span> <span class="nav-text">OSI七层模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tcp-ip五层模型"><span class="nav-number">1.6.2.</span> <span class="nav-text">tcp/ip五层模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络通信数据的传输流程"><span class="nav-number">1.7.</span> <span class="nav-text">网络通信数据的传输流程</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        ﻿<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MisakiFx</span>
+
+  
+</div>
+
+
+<div class="powered-by">
+  <i class="fa fa-user-md"></i>
+  <span id="busuanzi_container_site_uv">
+    我的网站的访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+</div>
+
+
+
+<span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共149.2k字</span>
+</div>
+
+        ﻿
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+        <script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
