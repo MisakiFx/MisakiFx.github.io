@@ -264,6 +264,190 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/27/【算法】第二章-搜索/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/27/【算法】第二章-搜索/" itemprop="url">【算法】第二章-搜索</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-27T17:46:48+08:00">
+                2019-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.2k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h1><h2 id="深度优先搜索-DFS"><a href="#深度优先搜索-DFS" class="headerlink" title="深度优先搜索(DFS)"></a>深度优先搜索(DFS)</h2><p>&emsp;&emsp;深度优先搜索是使用递归的方式以深度为主逐个探索遍历每种情况，在排列组合，迷宫问题中十分常用。深度优先搜索思想简单，但是由于使用递归，要求我们遍历时探索的必须深度有限。不然有可能会使栈溢出。还要注意有时我们在使用深度优先搜索时情况过多，而大部分是无用解时就需要套入<strong>剪枝</strong>。<br>&emsp;&emsp;模型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DFS()</span><br><span class="line">&#123;</span><br><span class="line">    //1.判断边界，如果已经到达搜索的最深，则回退尝试其他可能</span><br><span class="line">    //2.尝试当下的每一种可能</span><br><span class="line">    //3.确定一种可能后，继续下一步</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="例1-员工的重要度"><a href="#例1-员工的重要度" class="headerlink" title="例1 员工的重要度"></a>例1 员工的重要度</h3><p>&emsp;&emsp;力扣：<br><a href="https://leetcode-cn.com/problems/employee-importance/submissions/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/employee-importance/submissions/</a></p>
+<h4 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h4><p>&emsp;&emsp;抽象模型。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DFS(id)</span><br><span class="line">&#123;</span><br><span class="line">    //1.获取当前员工的重要度</span><br><span class="line">    //2.累加每一个下属(for)的重要度,DFS(下属id)</span><br><span class="line">    //3.return累加的重要度</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int DFS(unordered_map&lt;int, Employee*&gt; em, int id)</span><br><span class="line">    &#123;</span><br><span class="line">        int curRet = em[id]-&gt;importance;</span><br><span class="line">        for(auto&amp; e : em[id]-&gt;subordinates)</span><br><span class="line">        &#123;</span><br><span class="line">            curRet += DFS(em, e);</span><br><span class="line">        &#125;</span><br><span class="line">        return curRet;</span><br><span class="line">    &#125;</span><br><span class="line">    int getImportance(vector&lt;Employee*&gt; employees, int id) &#123;</span><br><span class="line">        if(employees.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">        unordered_map&lt;int, Employee*&gt; em;</span><br><span class="line">        for(auto&amp; e: employees)</span><br><span class="line">        &#123;</span><br><span class="line">            em[e-&gt;id] = e;</span><br><span class="line">        &#125;</span><br><span class="line">        return DFS(em, id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="例2-图像渲染"><a href="#例2-图像渲染" class="headerlink" title="例2 图像渲染"></a>例2 图像渲染</h3><p>&emsp;&emsp;力扣：<br><a href="https://leetcode-cn.com/problems/flood-fill/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/flood-fill/</a></p>
+<h4 id="解析-1"><a href="#解析-1" class="headerlink" title="解析"></a>解析</h4><p>&emsp;&emsp;抽象模型。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">DFS()</span><br><span class="line">&#123;</span><br><span class="line">    //1.nx,ny染色</span><br><span class="line">    //2.处理上，下，左，右4个点</span><br><span class="line">    &#123;</span><br><span class="line">        //以深度优先逐个方向遍历周边4个点</span><br><span class="line">        //新位置颜色符合，且没有越界，且没有染过色</span><br><span class="line">        //符合条件处理新位置</span><br><span class="line">        DFS(新的位置)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">static int nextP[4][2] = &#123;&#123;0, 1&#125;, &#123;1, 0&#125;, &#123;0, -1&#125;, &#123;-1, 0&#125;&#125;;</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    void DFS(vector&lt;vector&lt;int&gt;&gt;&amp; image, int row, int col, int nx, int ny, vector&lt;vector&lt;int&gt;&gt; book, int newColor, int oldColor)</span><br><span class="line">    &#123;</span><br><span class="line">        image[nx][ny] = newColor;</span><br><span class="line">        book[nx][ny] = 1;</span><br><span class="line">        //上下左右遍历</span><br><span class="line">        for(int i = 0; i &lt; 4; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            int newx = nx + nextP[i][0];</span><br><span class="line">            int newy = ny + nextP[i][1];</span><br><span class="line">            if(newx &gt;= row || newx &lt; 0 || newy &gt;= col || newy &lt; 0)</span><br><span class="line">            &#123;</span><br><span class="line">                continue;</span><br><span class="line">            &#125;</span><br><span class="line">            if(image[newx][newy] == oldColor &amp;&amp; book[newx][newy] == 0)</span><br><span class="line">            &#123;</span><br><span class="line">                DFS(image, row, col, newx, newy, book, newColor, oldColor);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; floodFill(vector&lt;vector&lt;int&gt;&gt;&amp; image, int sr, int sc, int newColor) &#123;</span><br><span class="line">        if(image.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            return image;</span><br><span class="line">        &#125;</span><br><span class="line">        int row = image.size();</span><br><span class="line">        int col = image[0].size();</span><br><span class="line">        int oldColor = image[sr][sc];</span><br><span class="line">        vector&lt;vector&lt;int&gt;&gt; book(row, vector&lt;int&gt;(col, 0));</span><br><span class="line">        DFS(image, row, col, sr, sc, book, newColor, oldColor);</span><br><span class="line">        return image;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="例3-走迷宫"><a href="#例3-走迷宫" class="headerlink" title="例3 走迷宫"></a>例3 走迷宫</h3><p>&emsp;&emsp;牛客：<br><a href="https://www.nowcoder.com/questionTerminal/6276dbbda7094978b0e9ebb183ba37b9" target="_blank" rel="noopener">https://www.nowcoder.com/questionTerminal/6276dbbda7094978b0e9ebb183ba37b9</a></p>
+<h4 id="解析-2"><a href="#解析-2" class="headerlink" title="解析"></a>解析</h4><p>&emsp;&emsp;模型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DFS()</span><br><span class="line">&#123;</span><br><span class="line">    //1.当前位置已走，路径长度+1，并且置为墙表示走过了</span><br><span class="line">    //2.走到终点，和最短路径长度比较取最优</span><br><span class="line">    //3.遍历四周，如果不是墙且不越界则遍历</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;但是，这种模型在一张只有极少障碍物的迷宫中要消耗很多的时间，因为我们要让每一个结点都被遍历近10次，这其中会消耗大量时间，并且很多是无用的解。因此我们在其中可以加入动态规划的思想。<br>&emsp;&emsp;模型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DFS()</span><br><span class="line">&#123;</span><br><span class="line">    //1.遍历四周，如果不是墙且不越界则进行二次判断</span><br><span class="line">    //2.如果本次路径到达这个位置的路径数要小于以往在表中记录的路径数，则将表中最优解进行修改，否则不再遍历此位置。</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="实现-2"><a href="#实现-2" class="headerlink" title="实现"></a>实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">//这类迷宫问题不能纯粹使用深度优先搜索，因为要完全遍历一遍很慢，还要加上动态规划算法（剪枝）</span><br><span class="line">//记录到达每个点上的最少步数，如果大于这个步数则不再走这个点，可以剪掉大量冗余无效的走法</span><br><span class="line">using namespace std;</span><br><span class="line">int res[10][10] = &#123; 0 &#125;;</span><br><span class="line">vector&lt;string&gt; mess(10, string(10, 0));</span><br><span class="line">int nextP[4][2] = &#123;&#123;0, 1&#125;, &#123;1, 0&#125;, &#123;0, -1&#125;, &#123;-1, 0&#125;&#125;;</span><br><span class="line">void dfs(int i, int j)</span><br><span class="line">&#123;</span><br><span class="line">    //继续向四周遍历</span><br><span class="line">    for(int m = 0; m &lt; 4; m++)</span><br><span class="line">    &#123;</span><br><span class="line">        int newi = i + nextP[m][0];</span><br><span class="line">        int newj = j + nextP[m][1];</span><br><span class="line">        if(newi &lt; 10 &amp;&amp; newi &gt;= 0 &amp;&amp; newj &lt; 10 &amp;&amp; newj &gt;= 0 &amp;&amp; mess[newi][newj] != &apos;#&apos;)</span><br><span class="line">        &#123;</span><br><span class="line">            if(res[newi][newj] == 0 || res[newi][newj] &gt; res[i][j] + 1)</span><br><span class="line">            &#123;</span><br><span class="line">                res[newi][newj] = res[i][j] + 1;</span><br><span class="line">                dfs(newi, newj);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    while(cin &gt;&gt; mess[0])</span><br><span class="line">    &#123;</span><br><span class="line">        for(int i = 1; i &lt; 10; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            cin &gt;&gt; mess[i];</span><br><span class="line">        &#125;</span><br><span class="line">        dfs(0, 1);</span><br><span class="line">        cout &lt;&lt; res[9][8] &lt;&lt; endl;</span><br><span class="line">        memset(res, 0, sizeof(res));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="广度优先搜索-BFS"><a href="#广度优先搜索-BFS" class="headerlink" title="广度优先搜索(BFS)"></a>广度优先搜索(BFS)</h2><p>&emsp;&emsp;广度优先搜索是以广度为主逐层往外一次遍历，不同于深度优先逐条解进行排列组合，广度优先搜索只会遍历一次所有结点，并且会最先拿到最优解，因此某些情况下广度优先搜索效率优于深度优先搜索。广度优先搜索在迷宫问题的解上效率会更高，在寻找最优解时会更快，因为其不需要列出所有组合的情况。<br>&emsp;&emsp;广度优先搜索在实现时需要借助队列，每一次将下一层要遍历的结点入队，上一层出队。</p>
+<h3 id="例1-员工的重要性"><a href="#例1-员工的重要性" class="headerlink" title="例1 员工的重要性"></a>例1 员工的重要性</h3><p>&emsp;&emsp;力扣：<br><a href="https://leetcode-cn.com/problems/employee-importance/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/employee-importance/</a></p>
+<h4 id="解析-3"><a href="#解析-3" class="headerlink" title="解析"></a>解析</h4><p>&emsp;&emsp;将要查找的第一个员工入队，之后每次遍历队中元素将其重要度相加，并且将其下属入队。</p>
+<h4 id="实现-3"><a href="#实现-3" class="headerlink" title="实现"></a>实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">// Employee info</span><br><span class="line">class Employee &#123;</span><br><span class="line">public:</span><br><span class="line">    // It&apos;s the unique ID of each node.</span><br><span class="line">    // unique id of this employee</span><br><span class="line">    int id;</span><br><span class="line">    // the importance value of this employee</span><br><span class="line">    int importance;</span><br><span class="line">    // the id of direct subordinates</span><br><span class="line">    vector&lt;int&gt; subordinates;</span><br><span class="line">&#125;;</span><br><span class="line">*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int getImportance(vector&lt;Employee*&gt; employees, int id) &#123;</span><br><span class="line">        unordered_map&lt;int, Employee*&gt; info;</span><br><span class="line">        for(auto&amp; e : employees)</span><br><span class="line">        &#123;</span><br><span class="line">            info[e-&gt;id] = e;</span><br><span class="line">        &#125;</span><br><span class="line">        queue&lt;int&gt; q;</span><br><span class="line">        //将这个员工入队</span><br><span class="line">        q.push(id);</span><br><span class="line">        int ret = 0;</span><br><span class="line">        //广度优先遍历</span><br><span class="line">        while(!q.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            //依次加上队中所有员工的重要度</span><br><span class="line">            int curId = q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            ret += info[curId]-&gt;importance;</span><br><span class="line">            //将其下属入队</span><br><span class="line">            for(auto&amp; e : info[curId]-&gt;subordinates)</span><br><span class="line">            &#123;</span><br><span class="line">                q.push(e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="例2-N叉树层序遍历"><a href="#例2-N叉树层序遍历" class="headerlink" title="例2 N叉树层序遍历"></a>例2 N叉树层序遍历</h3><p>&emsp;&emsp;力扣：<br><a href="https://leetcode-cn.com/problems/n-ary-tree-level-order-traversal/submissions/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/n-ary-tree-level-order-traversal/submissions/</a></p>
+<h4 id="解析-4"><a href="#解析-4" class="headerlink" title="解析"></a>解析</h4><p>&emsp;&emsp;建立队列，将根节点入队，创造循环遍历队中每个结点将其孩子入队，但这题要注意要分树的每一行进行遍历，先遍历这一行的结点将其放到结果数组中，再以此遍历下一行的结点。</p>
+<h4 id="实现-4"><a href="#实现-4" class="headerlink" title="实现"></a>实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">// Definition for a Node.</span><br><span class="line">class Node &#123;</span><br><span class="line">public:</span><br><span class="line">    int val;</span><br><span class="line">    vector&lt;Node*&gt; children;</span><br><span class="line"></span><br><span class="line">    Node() &#123;&#125;</span><br><span class="line"></span><br><span class="line">    Node(int _val, vector&lt;Node*&gt; _children) &#123;</span><br><span class="line">        val = _val;</span><br><span class="line">        children = _children;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; levelOrder(Node* root) &#123;</span><br><span class="line">        //创造队列</span><br><span class="line">        queue&lt;Node*&gt; q;</span><br><span class="line">        vector&lt;vector&lt;int&gt;&gt; treeVec;</span><br><span class="line">        if(root == nullptr)</span><br><span class="line">        &#123;</span><br><span class="line">            return treeVec;</span><br><span class="line">        &#125;</span><br><span class="line">        //放入根结点</span><br><span class="line">        q.push(root);</span><br><span class="line">        //遍历队中结点</span><br><span class="line">        while(!q.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            //得到这一行的长度</span><br><span class="line">            int sz = q.size();</span><br><span class="line">            vector&lt;int&gt; rowNode;</span><br><span class="line">            //遍历这一行</span><br><span class="line">            while(sz--)</span><br><span class="line">            &#123;</span><br><span class="line">                Node* curNode = q.front();</span><br><span class="line">                q.pop();</span><br><span class="line">                //将这一行结点的值放到rowNode中</span><br><span class="line">                rowNode.push_back(curNode-&gt;val);</span><br><span class="line">                //将这一行中每个结点的孩子入队</span><br><span class="line">                for(auto&amp; chd : curNode-&gt;children)</span><br><span class="line">                &#123;</span><br><span class="line">                    q.push(chd);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            treeVec.push_back(rowNode);</span><br><span class="line">        &#125;</span><br><span class="line">        return treeVec;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="例3-腐烂的橘子"><a href="#例3-腐烂的橘子" class="headerlink" title="例3 腐烂的橘子"></a>例3 腐烂的橘子</h3><p>&emsp;&emsp;力扣：<br><a href="https://leetcode-cn.com/problems/rotting-oranges/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/rotting-oranges/</a></p>
+<h4 id="解析-5"><a href="#解析-5" class="headerlink" title="解析"></a>解析</h4><p>&emsp;&emsp;类似于N叉树的遍历。每一分钟腐烂一层，遍历每一层即可，最后搜索结束后判断是否还有新鲜橘子。</p>
+<h4 id="实现-5"><a href="#实现-5" class="headerlink" title="实现"></a>实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">int nextP[4][2] = &#123;&#123;0, 1&#125;, &#123;1, 0&#125;, &#123;-1, 0&#125;, &#123;0, -1&#125;&#125;;</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int orangesRotting(vector&lt;vector&lt;int&gt;&gt;&amp; grid) &#123;</span><br><span class="line">        queue&lt;pair&lt;int, int&gt;&gt; q;</span><br><span class="line">        int row = grid.size();</span><br><span class="line">        int col = grid[0].size();</span><br><span class="line">        //找出第一批已经坏掉的橘子，入队</span><br><span class="line">        for(int i = 0; i &lt; row; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            for(int j = 0; j &lt; col; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                if(grid[i][j] == 2)</span><br><span class="line">                &#123;</span><br><span class="line">                    q.push(make_pair(i, j));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //初始状态</span><br><span class="line">        int minRet = 0;</span><br><span class="line">        while(!q.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            //跟N叉树遍历一样，这里遍历一层代表要消耗一分钟</span><br><span class="line">            int flag = 0;</span><br><span class="line">            int sz = q.size();</span><br><span class="line">            //遍历这一层</span><br><span class="line">            while(sz--)</span><br><span class="line">            &#123;</span><br><span class="line">                pair&lt;int, int&gt; curPos = q.front();</span><br><span class="line">                q.pop();</span><br><span class="line">                for(int i = 0; i &lt; 4; i++)</span><br><span class="line">                &#123;</span><br><span class="line">                    int nx = curPos.first + nextP[i][0];</span><br><span class="line">                    int ny = curPos.second + nextP[i][1];</span><br><span class="line">                    if(nx &gt;= row || nx &lt; 0 || ny &gt;= col || ny &lt; 0)</span><br><span class="line">                    &#123;</span><br><span class="line">                        continue;</span><br><span class="line">                    &#125;</span><br><span class="line">                    if(grid[nx][ny] == 1)</span><br><span class="line">                    &#123;</span><br><span class="line">                        flag = 1;</span><br><span class="line">                        grid[nx][ny] = 2;</span><br><span class="line">                        q.push(make_pair(nx, ny));</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            if(flag)</span><br><span class="line">            &#123;</span><br><span class="line">                ++minRet;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        for(int i = 0; i &lt; row; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            for(int j = 0; j &lt; col; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                if(grid[i][j] == 1)</span><br><span class="line">                &#123;</span><br><span class="line">                    return -1;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return minRet;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/24/【Cpp】第六章-STL-vector类/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1952,207 +2136,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/11/【Cpp】第一章-Cpp入门/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/11/【Cpp】第一章-Cpp入门/" itemprop="url">【Cpp】第一章-Cpp入门</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-11T23:06:35+08:00">
-                2019-05-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/" itemprop="url" rel="index">
-                    <span itemprop="name">Cpp</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  4.6k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第一章-C-入门"><a href="#第一章-C-入门" class="headerlink" title="第一章 C++入门"></a>第一章 C++入门</h1><h2 id="C-简介"><a href="#C-简介" class="headerlink" title="C++简介"></a>C++简介</h2><h3 id="什么是C"><a href="#什么是C" class="headerlink" title="什么是C++"></a>什么是C++</h3><p>&emsp;&emsp;C语言是面向过程式的语言，在处理小规模的问题时则能体现出其简单易上手的的优势，但是在面对大型程序或需要高度抽象化的程序时，C语言就显得略有鸡肋。在20实际80年代，计算机界为了解决软件危机提出了面向对象(OOP)思想的变成模式，于是支持OOP的编程语言也应运而生。<br><br>&emsp;&emsp;1982年<strong>Bjarne Stroustrup</strong>博士在C语言的基础上引入并且扩充了面向对象的概念，并且命名为C++，因此C++ 是在C语言基础上诞生的，它既可以支持面向过程编程也可以支持面向化程序设计。<br><br>&emsp;&emsp;C++ 发展至今和C语言一样已经拥有很多各版本，并在不停的升级中，目前最为常用时C++ 98(引入STL，以模板方式重新编写标准库)和C++ 11(增加了很多特性，例如范围for，auto关键字)，目前C++已经应用于互联网各个方向，例如大型系统开发，游戏开发，网络工具，嵌入式，数字图像处理……</p>
-<h3 id="如何学习"><a href="#如何学习" class="headerlink" title="如何学习"></a>如何学习</h3><p>&emsp;&emsp;<strong>多看书</strong>，目前市面上有很多C++ 优秀书籍，有些甚至成为了C++ 工程师心中的标杆（《Effective C++》）。<br><br>&emsp;&emsp;<strong>多记录</strong>，每天的学习笔记，每周的学习总结，遇到的问题，这些都要多多记录，方便之后再次遇到相同的问题可以直接拿出来复习。<br><br>&emsp;&emsp;<strong>思维导图</strong>，思维导图是学习中必不可少的，可以帮我们理清学习路线，学习思路，方便复习。<br><br>&emsp;&emsp;<strong>多敲代码</strong>，语言都是如此多用才是巩固的基础，夺取在线OJ网上练习，或者自己敲几个小项目练练手都是练习的好思路。</p>
-<h2 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h2><p>&emsp;&emsp;在一门高级语言中，变量是大量存在的，那么难免在定义变量的时候就会重名，尤其在一个项目或工程中有多个工程师的时候就跟容易与他人定义相同变量名的变量，重名问题就会更加明显，在C语言中我们没有一个有效的办法来解决这个问题，因此C语言在大型项目方面会很吃力，因此在C++中加入了命名空间的语法，不同的程序员之间使用不同的命名空间，在不同的命名空间中允许变量重名，由此在项目合作中十分有用。</p>
-<h3 id="命名空间的定义"><a href="#命名空间的定义" class="headerlink" title="命名空间的定义"></a>命名空间的定义</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;                         </span><br><span class="line">//命名空间的定义                            </span><br><span class="line">namespace N1                                </span><br><span class="line">&#123;                                           </span><br><span class="line">  //在命名空间中可以定义函数、变量          </span><br><span class="line">  int a = 1;                                </span><br><span class="line">  int b = 1;                                </span><br><span class="line">  int Add(int a, int b)                     </span><br><span class="line">  &#123;                                         </span><br><span class="line">    return a + b;                           </span><br><span class="line">  &#125;                                         </span><br><span class="line">&#125;            </span><br><span class="line">//命名空间的嵌套</span><br><span class="line">namespace N2</span><br><span class="line">&#123;</span><br><span class="line">  int a = 2;          </span><br><span class="line">  int b = 2;</span><br><span class="line">  int Add(int a, int b)</span><br><span class="line">  &#123;</span><br><span class="line">    return a + b;</span><br><span class="line">  &#125;</span><br><span class="line">  namespace N3</span><br><span class="line">  &#123;</span><br><span class="line">    int a = 3;</span><br><span class="line">    int b = 3;</span><br><span class="line">    int Add(int a, int b)</span><br><span class="line">    &#123;</span><br><span class="line">      return a + b;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">//命名相同的命名空间</span><br><span class="line">namespace N1 </span><br><span class="line">&#123;</span><br><span class="line">  int c = 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;每一个命名空间都是一个作用域，空间中的内容都局限于该空间中，而我们要使用某空间中的某一变量或函数时指定命名空间即可找到指定的内容。<br>&emsp;&emsp;命名空间支持嵌套，如果一个工程中同时存在多个相同名称的命名空间，则最后会合成到一个命名空间中。</p>
-<h3 id="命名空间的使用"><a href="#命名空间的使用" class="headerlink" title="命名空间的使用"></a>命名空间的使用</h3><p>&emsp;&emsp;在使用命名空间时要加上作用域限定符<code>::</code><br>进行作用域的限定。我们右三种使用命名空间的方法。<br><br>&emsp;&emsp;<strong>加命名空间加作用域限定符</strong>:<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  //三种使用命名空间的方法</span><br><span class="line">  //::为作用域限定符</span><br><span class="line">  //分别打印三个命名空间中的a;</span><br><span class="line">  std::cout &lt;&lt; &quot;N1::a = &quot; &lt;&lt; N1::a &lt;&lt; std::endl;</span><br><span class="line">  std::cout &lt;&lt; &quot;N2::a = &quot; &lt;&lt; N2::a &lt;&lt; std::endl;</span><br><span class="line">  std::cout &lt;&lt; &quot;N2::N3::a = &quot; &lt;&lt; N2::N3::a &lt;&lt; std::endl;</span><br><span class="line">&#125;           </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第一章-C++入门]$ ./namespace </span><br><span class="line">N1::a = 1</span><br><span class="line">N2::a = 2</span><br><span class="line">N2::N3::a = 3</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;我们在进行输出的时候用到了<code>cout</code>函数以及<code>endl</code>换行函数，由于这两个函数都在<code>std</code>标准命名空间中，因此要想使用这两个函数也要用作用域限定符进行限定。<br><br>&emsp;&emsp;<strong>使用using将命名空间中成员引入:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">using N1::a;</span><br><span class="line">using N2::b;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  //三种使用命名空间的方法</span><br><span class="line">  //::为作用域限定符</span><br><span class="line">  //分别打印三个命名空间中的a;</span><br><span class="line">  std::cout &lt;&lt; &quot;N1::a = &quot; &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">  std::cout &lt;&lt; &quot;N2::b = &quot; &lt;&lt; b &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第一章-C++入门]$ ./namespace</span><br><span class="line">N1::a = 1</span><br><span class="line">N2::b = 2</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;<strong>使用命名空间名称引入:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">using namespace N1;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  //三种使用命名空间的方法</span><br><span class="line">  //::为作用域限定符</span><br><span class="line">  //分别打印三个命名空间中的a;</span><br><span class="line">  std::cout &lt;&lt; &quot;N1::a = &quot; &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">  std::cout &lt;&lt; &quot;N1::b = &quot; &lt;&lt; b &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第一章-C++入门]$ ./namespace</span><br><span class="line">N1::a = 1</span><br><span class="line">N1::b = 1</span><br></pre></td></tr></table></figure></p>
-<h2 id="缺省参数（默认参数）"><a href="#缺省参数（默认参数）" class="headerlink" title="缺省参数（默认参数）"></a>缺省参数（默认参数）</h2><p>&emsp;&emsp;我们在C语言中书写函数时如果我们为一个函数设置了参数则在调用时必须对参数进行传入否则就会调用失败，但有的时候会出现大量的相同的冗余的参数，我嫩不得不手动将参数一一传入，但是C++中得益于缺省参数的语法是的我们可以在函数中提前设置默认的参数，如果有新参数传入则使用新的参数否则使用默认参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int func1(int a = 10, int b = 20, int c = 30)</span><br><span class="line">&#123;</span><br><span class="line">  return a + b + c;</span><br><span class="line">&#125;</span><br><span class="line">int func2(int a, int b = 20, int c = 30)</span><br><span class="line">&#123;</span><br><span class="line">  return a + b + c;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; func1() &lt;&lt; endl;</span><br><span class="line">  cout &lt;&lt; func1(1, 2, 3) &lt;&lt; endl;            </span><br><span class="line">  cout &lt;&lt; func2(1) &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第一章-C++入门]$ ./缺省参数</span><br><span class="line">60</span><br><span class="line">6</span><br><span class="line">51</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;在设置默认参数时一定要注意以下几点：<br><br>&emsp;&emsp;1、为了不产生歧义我们<strong>只能从最后一个参数向前开始设置，并且中间不能跳过某个参数要保持默认参数连续。</strong><br><br>&emsp;&emsp;2、<strong>默认值只能是常量或是全局变量。</strong><br><br>&emsp;&emsp;3、<strong>缺省参数不能在函数的定义和声明中同时出现。</strong></p>
-<h2 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h2><p>&emsp;&emsp;在C语言中我们要求函数名不能重名，因此往往我们需要功能相同的函数但向外提供不同的接口时就需要通过自己改变函数名的方式来进行区别。但在C++中我们有了函数重载，我们可以通过不同的参数对名字相同的函数进行修饰，使得函数的功能更加强大更加方便。</p>
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int Add(int num1, int num2)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; &quot;call Add1&quot; &lt;&lt; endl;</span><br><span class="line">  return num1 + num2;</span><br><span class="line">&#125;</span><br><span class="line">double Add(double num1, double num2)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; &quot;call Add2&quot; &lt;&lt; endl;</span><br><span class="line">  return num1 + num2;</span><br><span class="line">&#125;</span><br><span class="line">float Add(float num1, float num2)</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; &quot;call Add3&quot; &lt;&lt; endl;                       </span><br><span class="line">  return num1 + num2;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; &quot;1 + 2 =&quot; &lt;&lt; Add(1, 2) &lt;&lt; endl;</span><br><span class="line">  cout &lt;&lt; &quot;1.5 + 2.5 =&quot; &lt;&lt; Add(1.5, 2.5) &lt;&lt; endl;</span><br><span class="line">  cout &lt;&lt; &quot;1.5f + 2.5f =&quot; &lt;&lt; Add(1.5f, 2.5f) &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第一章-C++入门]$ ./函数重载</span><br><span class="line">call Add1</span><br><span class="line">1 + 2 =3</span><br><span class="line">call Add2</span><br><span class="line">1.5 + 2.5 =4</span><br><span class="line">call Add3</span><br><span class="line">1.5f + 2.5f =4</span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;在C++如果定义同名函数我们必须保证参数列表不同，即参数的<strong>个数</strong>或参数<strong>类型</strong>或参数<strong>顺序</strong>不同才能完成重载，并且<strong>返回值不同不会进行函数的重载</strong>。</p>
-<h3 id="名字修饰"><a href="#名字修饰" class="headerlink" title="名字修饰"></a>名字修饰</h3><p>&emsp;&emsp;在C++中我们之所以可以使函数重名是因为在编译过程中编译器根据函数的参数列表对我们的函数名进行了处理，使得其在最后得以唯一化，至于其名字修饰规则较为复杂，不同的编译器在修饰中的处理都不尽相同。我们可以利用反汇编看一下gcc的处理规则。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//三个Add()函数在编译中的修饰结果：</span><br><span class="line">int Add(int, int):</span><br><span class="line">000000000040089d &lt;_Z3Addii&gt;</span><br><span class="line">double Add(double, double):</span><br><span class="line">00000000004008d1 &lt;_Z3Adddd&gt;</span><br><span class="line">float Add(float, float):</span><br><span class="line">000000000040091d &lt;_Z3Addff&gt;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;从上面的例子中我们大致可以摸索出gcc函数修饰的规则，它会根据参数列表对函数名进行唯一化修饰。无论如何在编译中到最后一步链接之前我们的目标文件中一定不会出现重名的函数，不然在连接时就会产生歧义。</p>
-<h3 id="extern-“C”"><a href="#extern-“C”" class="headerlink" title="extern “C”"></a>extern “C”</h3><p>&emsp;&emsp;C++ 支持向前兼容，就是说我们可以在C++ 中无缝调用C语言的代码，那么我们可以在C语言中调用C++ 的代码么？答案是肯定的。我们在C++ 的函数中只需要加上<code>extern &quot;C&quot;</code>就可以做到让编译器根据C语言的编译规则来进行编译，这样我们就可以在C语言中调用C++的代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">extern &quot;C&quot; int Add(int a, int b)</span><br><span class="line">&#123;</span><br><span class="line">  return a + b;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; Add(1, 2) &lt;&lt; endl;</span><br><span class="line">&#125;                               </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第一章-C++入门]$ ./externC</span><br><span class="line">3</span><br></pre></td></tr></table></figure></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>&emsp;&emsp;C++ 支持重载而C语言不支持重载的原因是什么呢？C++支持函数名修饰，而C语言不支持。其实<code>const</code>也可以进行重载，但是要看情况，<code>const</code>只能支持指针和引用的重载。因为指针或引用指向不可更改的数据内容也是可以在编译过程中进行函数修饰的。</p>
-<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p>&emsp;&emsp;引用是C++中一种新的类似于指针的语法，但是我们在使用指针指向另外一个变量的时候会创建一个新的指针变量，这个变量会存储指向的变量的地址，但是我们在使用引用的时候并不会分配新的内存空间。所谓引用<strong>不过是给某一个变量起了一个别名</strong>。</p>
-<h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int a = 10;</span><br><span class="line">  cout &lt;&lt; &quot;a = &quot; &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">  int&amp; b = a;//定义引用类型</span><br><span class="line">  cout &lt;&lt; &quot;a = &quot; &lt;&lt; b &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第一章-C++入门]$ ./Ref</span><br><span class="line">a = 10</span><br><span class="line">a = 10</span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;以上就是定义了一个引用<code>b</code>让它成为<code>a</code>的别名，之后我们就可以用<code>b</code>代替<code>a</code>。</p>
-<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><p>&emsp;&emsp;在使用引用的过程中有以下规则：<br><br>&emsp;&emsp;1、引用在定义的时候必须初始化，不像我们在定义指针的时候如果一开始不使用可以置空，但是引用相当于是别名因此不可以不进行初始化。<br><br>&emsp;&emsp;2、一个变量可以有多个引用，就像是一个人可以有多个别名一样。<br><br>&emsp;&emsp;3、一个引用一旦引用一个实体则不能再引用其他实体。一个引用一旦已经变成了某个实体的别名则它不可以再成为其他变量的别名了。<br></p>
-<h3 id="常引用"><a href="#常引用" class="headerlink" title="常引用"></a>常引用</h3><p>&emsp;&emsp;常引用和常量指针一样是指向不可更改的数据的类型。被它所指向的数据不可进行更改。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  const int&amp; c = 10;          </span><br><span class="line">  cout &lt;&lt; &quot;a = &quot; &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第一章-C++入门]$ ./Ref</span><br><span class="line">a = 10</span><br></pre></td></tr></table></figure></p>
-<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><h4 id="做参数"><a href="#做参数" class="headerlink" title="做参数"></a>做参数</h4><p>&emsp;&emsp;引用和指针一样在传参的使用上有独特的优势，他和指针一样可以将参数本身传入而不是传入副本，因此我们在函数内部可以进行函数参数值的更改。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">void Add(int a, int b, int&amp; result)</span><br><span class="line">&#123;</span><br><span class="line">  result = a + b;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int result;</span><br><span class="line">  Add(1, 2, result);</span><br><span class="line">  cout &lt;&lt; &quot;1 + 2 = &quot; &lt;&lt; result &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第一章-C++入门]$ ./Ref</span><br><span class="line">1 + 2 = 3</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这样我们就可以将传入参数的值在函数内进行更改，使用比指针更为简单。</p>
-<h4 id="做返回值"><a href="#做返回值" class="headerlink" title="做返回值"></a>做返回值</h4><p>&emsp;&emsp;就像我们如果一个函数的返回值是指针一样，我们如果用引用作为函数的返回值我们就要保证引用的实体在函数声明周期后依然存在。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int&amp; Add(int a, int b)</span><br><span class="line">&#123;</span><br><span class="line">  int result = a + b;</span><br><span class="line">  return result;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int&amp; result = Add(1, 2);</span><br><span class="line">  Add(2, 3);                           </span><br><span class="line">  cout &lt;&lt; &quot;result = &quot;&lt;&lt; result &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第一章-C++入门]$ ./Ref</span><br><span class="line">result = 5</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;以上这个<code>result</code>的值为什么变成了5呢？我们在用引用的时候实际上是给一块内存地址取了别名，我们让函数返回了在函数结束后已经释放的空间的别名。在函数结束后空间中的数据并不会立刻删除，会保留直到下次使用进行覆盖，而我们紧接着再次调用函数，由于栈帧相同使相同的内存空间的数据进行更改，因此我们用别名得到它的数据也会更改。那么如果我们在之后执行一个其他的函数呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int&amp; Add(int a, int b)</span><br><span class="line">&#123;</span><br><span class="line">  int result = a + b;</span><br><span class="line">  return result;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int&amp; result = Add(1, 2);</span><br><span class="line">  Add(2, 3);</span><br><span class="line">  cout &lt;&lt; &quot;Ref&quot;&lt;&lt; endl;                </span><br><span class="line">  cout &lt;&lt; &quot;result = &quot;&lt;&lt; result &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第一章-C++入门]$ ./Ref</span><br><span class="line">Ref</span><br><span class="line">result = 32635</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;可以看到数据已经变成了完全无关的数据，因此我们如果用引用作为返回值就一定要保证我们引用所指内存空间在函数结束后并不会释放。</p>
-<h3 id="指针和引用"><a href="#指针和引用" class="headerlink" title="指针和引用"></a>指针和引用</h3><p>&emsp;&emsp;1. 引用在定义时必须初始化，指针没有要求。<br><br>&emsp;&emsp;2. 引用在初始化时引用一个实体后，就不能再引用其他实体，而指针可以在任何时候指向任何一个同类型实<br>体。<br><br>&emsp;&emsp;3. 没有NULL引用，但有NULL指针。<br><br>&emsp;&emsp;4. 在sizeof中含义不同：引用结果为引用类型的大小，但指针始终是地址空间所占字节个数(32位平台下占4<br>个字节)。<br><br>&emsp;&emsp;5. 引用自加即引用的实体增加1，指针自加即指针向后偏移一个类型的大小。<br><br>&emsp;&emsp;6. 有多级指针，但是没有多级引用。<br><br>&emsp;&emsp;7. 访问实体方式不同，指针需要显式解引用，引用编译器自己处理。<br><br>&emsp;&emsp;8. 引用比 指针使用起来 更为方便。<br></p>
-<h2 id="inline内联函数"><a href="#inline内联函数" class="headerlink" title="inline内联函数"></a>inline内联函数</h2><p>&emsp;&emsp;在C语言中我们可以用宏来定义常量，定义函数，宏只是单纯的文本替换，因此使用时缺点很多，例如其<strong>不支持调试，可读性差，不容易控制</strong>，因此在C++中诞生了内联函数，依旧可以帮助我们达到和宏一样的功能减少函数调用生成栈帧的开销。</p>
-<h3 id="使用-2"><a href="#使用-2" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">inline int Add(int num1, int num2)</span><br><span class="line">&#123;</span><br><span class="line">  return num1 + num2;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  cout &lt;&lt; Add(1, 2) &lt;&lt; endl;      </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第一章-C++入门]$ ./inline</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;因此我们在C++中当我们需要写一些小型的函数时为了减少调用时形成栈帧的开销以减少时间就可以加上<code>inline</code>关键字</p>
-<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>&emsp;&emsp;1、内联函数不能声明和定义分离 他们必须在通过一个文件中，因为内联函数在调用处会被展开是不会有内存地址的，如果分离是无法进行链接的。<br><br>&emsp;&emsp;2、就算我们加上<code>inline</code>关键字到底是否会展开是由编译器决定的，我们仅仅是提个建议。<br><br>&emsp;&emsp;3、在<code>debug</code>模式中编译器不会进行代码优化因此默认不会将<code>inline</code>进行展开。</p>
-<h2 id="C-11新增语法"><a href="#C-11新增语法" class="headerlink" title="C++11新增语法"></a>C++11新增语法</h2><h3 id="auto关键字"><a href="#auto关键字" class="headerlink" title="auto关键字"></a>auto关键字</h3><p>&emsp;&emsp;<code>auto</code>是C++11最新的关键字，可以自动检测类型，因此在某些类型名很长情况下可以起到简化代码的作用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int a = 10;</span><br><span class="line">  auto b = a;</span><br><span class="line">  auto c = &apos;a&apos;;</span><br><span class="line">  cout &lt;&lt; b &lt;&lt; endl;</span><br><span class="line">  cout &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第一章-C++入门]$ ./C++11</span><br><span class="line">10</span><br><span class="line">a</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;但是使用<code>auto</code>要注意以下几点：<br><br>&emsp;&emsp;1、<code>auto</code>在生命变量时一定要初始化。<br><br>&emsp;&emsp;2、auto不能作为函数参数或者数组类型，因为无法计算其大小。<br><br>&emsp;&emsp;3、<code>auto*</code>与<code>auto</code>无异，但是在定义引用时要加上<code>&amp;</code>。</p>
-<h3 id="范围for"><a href="#范围for" class="headerlink" title="范围for"></a>范围for</h3><p>&emsp;&emsp;这个语法十分类似JAVA中的范围for，也是为了简便代码而存在的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int arr[5] = &#123;1, 2, 3, 4, 5&#125;;</span><br><span class="line">  for(auto e : arr)</span><br><span class="line">  &#123;</span><br><span class="line">    cout &lt;&lt; e &lt;&lt; endl;         </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第一章-C++入门]$ ./C++11</span><br><span class="line">1	</span><br><span class="line">2	</span><br><span class="line">3	</span><br><span class="line">4	</span><br><span class="line">5</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;范围for可以和auto共同使用，这样会更为方便，但是要注意<strong>范围for不能遍历传入函数中的数组，因为其实际上穿得是指针</strong>。<br><br>&emsp;&emsp;以上这两种语法我们称之为语法糖，就是可以简化代码的语法，但是这种语法会让代码可读性变差。<br></p>
-<h3 id="nullptr"><a href="#nullptr" class="headerlink" title="nullptr"></a>nullptr</h3><p>&emsp;&emsp;在C++中有一个新的可以标记空指针的关键字，之前我们使用的<code>NULL</code>可以完全被他代替，并且我们之前使用的<code>NULL</code>为一个宏，值为0，未标记类型，因此我们在进行函数传参时，会将我们传入的空指针的值当作<code>int</code>处理，但是<code>nullptr</code>的值为0类型为<code>int*</code>，加入了值类型上的限定，因此在传参和重载中不会出现问题。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2207,7 +2190,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2229,7 +2212,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2326,7 +2309,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共164.6k字</span>
+  <span class="post-count">博客全站共169.7k字</span>
 </div>
 
         ﻿
