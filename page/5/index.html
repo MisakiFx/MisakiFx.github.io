@@ -264,6 +264,393 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/【MySQL】第五章-表的约束/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/26/【MySQL】第五章-表的约束/" itemprop="url">【MySQL】第五章-表的约束</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T18:06:10+08:00">
+                2019-01-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.6k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第五章-表的约束"><a href="#第五章-表的约束" class="headerlink" title="第五章 表的约束"></a>第五章 表的约束</h1><p>&emsp;&emsp;在之前的章节我们有提到过约束，所谓约束是在建表时对表的某一字段进行的特殊限定或者特殊功能附加，在MySQL中有着广泛应用。</p>
+<h2 id="空属性"><a href="#空属性" class="headerlink" title="空属性"></a>空属性</h2><p>&emsp;&emsp;首先要说的的是在MySQL中，空也用<code>null</code>进行表示，我们可以看到在很多数据暂未赋值时，它们的默认值会为空，不过MySQL中的<code>null</code>与C语言中的<code>NULL</code>有着较大区别。在C语言中空表示着值为<code>0</code>或者不存在值等等意思，而在MySQL中空表示着<strong>不知道此处的值，不确定此处的值</strong>，并且空不能直接参与运算，因此我们在建表时一般要求值都不为空。因此我们需要在字段后加上<code>not null</code>约束。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; create table student (</span><br><span class="line">    -&gt;     id int not null,</span><br><span class="line">    -&gt;     name varchar(20)</span><br><span class="line">    -&gt; );</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; desc student;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| id    | int(11)     | NO   |     | NULL    |       |</span><br><span class="line">| name  | varchar(20) | YES  |     | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">2 rows in set (0.02 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;由此即可看出通过我们添加了<code>not null</code>约束，<code>id</code>字段已经要求不能为空了，那么如果我们在添加数据时没有给<code>id</code>字段值会出现什么情况呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; insert into student(name) values(&quot;张三&quot;);</span><br><span class="line">ERROR 1364 (HY000): Field &apos;id&apos; doesn&apos;t have a default value</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;当我们在要求<code>id</code>不能为空但是又没有为它设置其他默认值时就会报错。</p>
+<h2 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h2><p>&emsp;&emsp;我们可以给某一字段设置默认值，一般情况下默认值为<code>null</code>，要想设置默认值利用<code>default</code>约束即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; create table student (</span><br><span class="line">    -&gt;     id int not null default 1, </span><br><span class="line">    -&gt;     name varchar(20)</span><br><span class="line">    -&gt; );</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; desc student;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| id    | int(11)     | NO   |     | 1       |       |</span><br><span class="line">| name  | varchar(20) | YES  |     | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;在此次建表时我们要求<code>id</code>字段不为空，并且默认值设置为1，我们再插入一条数据看看。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; insert into student(name) values(&quot;张三&quot;);</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; select * from student;</span><br><span class="line">+----+--------+</span><br><span class="line">| id | name   |</span><br><span class="line">+----+--------+</span><br><span class="line">|  1 | 张三   |</span><br><span class="line">+----+--------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这次我们同样没有给<code>id</code>赋值，但是根据默认值它的值变为了1。</p>
+<h2 id="列描述"><a href="#列描述" class="headerlink" title="列描述"></a>列描述</h2><p>&emsp;&emsp;所谓描述是添加一种类似于注释一样的约束，实际上不会对字段产生任何影响。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; create table student (</span><br><span class="line">    -&gt;     id int not null default 1 comment &apos;编号&apos;, </span><br><span class="line">    -&gt;     name varchar(20)</span><br><span class="line">    -&gt; );</span><br><span class="line">Query OK, 0 rows affected (0.08 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; desc student;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| id    | int(11)     | NO   |     | 1       |       |</span><br><span class="line">| name  | varchar(20) | YES  |     | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这样就已经为<code>id</code>字段添加了注释，但是我们发现查看表信息里面却没有显示，这是因为这个注释只会在我们使用查看建表信息时才会显示。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; show create table student;</span><br><span class="line">+---------+----------------------------------------------------------------+</span><br><span class="line">| Table   | Create Table                                                   |</span><br><span class="line">+---------+----------------------------------------------------------------+</span><br><span class="line">| student | CREATE TABLE `student` (</span><br><span class="line">  `id` int(11) NOT NULL DEFAULT &apos;1&apos; COMMENT &apos;编号&apos;,</span><br><span class="line">  `name` varchar(20) DEFAULT NULL</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8   |</span><br><span class="line">+---------+----------------------------------------------------------------+</span><br><span class="line">1 row in set (0.01 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这样我们以后我们可以给每个字段都加上描述，对表字段信息做进一步描述。</p>
+<h2 id="zerofill"><a href="#zerofill" class="headerlink" title="zerofill"></a>zerofill</h2><p>&emsp;&emsp;这个约束是填充约束，对于字段空位用<code>0</code>进行填充。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; create table student (</span><br><span class="line">    -&gt;     id int(5) zerofill default 1 comment &apos;编号&apos;, </span><br><span class="line">    -&gt;     name varchar(20)</span><br><span class="line">    -&gt; );</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; insert into student values(1,&quot;张三&quot;);</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; select * from student;</span><br><span class="line">+-------+--------+</span><br><span class="line">| id    | name   |</span><br><span class="line">+-------+--------+</span><br><span class="line">| 00001 | 张三   |</span><br><span class="line">+-------+--------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;在我们添加<code>zerofill</code>字段后根据我们对字段类型大小对所有空位进行了填充<code>0</code>的操作。</p>
+<h2 id="主键"><a href="#主键" class="headerlink" title="主键"></a>主键</h2><p>&emsp;&emsp;主键是约束中十分重要的约束，主键作为一种索引，可以用于对数据的排列查找等，因此一个表中最多只能拥有一个主键，同时因为一个键值就唯一了一个数据因此主键不能为空同时不能重复。因此它自带<code>not null</code>约束。我们对有个字段使用<code>primary key</code>约束将其约束为主键，通常主键选做使用<code>int</code>类型的数据。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; create table student (</span><br><span class="line">    -&gt;     id int(5) primary key default 1 comment &apos;不能为空&apos;,</span><br><span class="line">    -&gt;     name varchar(20) not null comment &apos;姓名&apos;</span><br><span class="line">    -&gt; );</span><br><span class="line">Query OK, 0 rows affected (0.02 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; desc student;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| id    | int(5)      | NO   | PRI | 1       |       |</span><br><span class="line">| name  | varchar(20) | NO   |     | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">2 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这样我们就把<code>id</code>字段设置为了主键，同时我们可以将多个字段都设置为主键，成为复合主键。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; create table student (</span><br><span class="line">    -&gt;     id int(5) default 1 comment &apos;不能为空&apos;, </span><br><span class="line">    -&gt;     name varchar(20) not null comment &apos;姓名&apos;,</span><br><span class="line">    -&gt;     primary key(id,name)</span><br><span class="line">    -&gt; );</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; desc student;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| id    | int(5)      | NO   | PRI | 1       |       |</span><br><span class="line">| name  | varchar(20) | NO   | PRI | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">2 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这样<code>name</code>和<code>id</code>字段就形成了一个复合主键。同时如果我们插入主键完全相同的数据就会报错。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; insert into student values(1,&apos;张三&apos;);</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; insert into student values(2,&apos;张三&apos;);</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; insert into student values(1,&apos;张三&apos;);</span><br><span class="line">ERROR 1062 (23000): Duplicate entry &apos;1-张三&apos; for key &apos;PRIMARY&apos;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;我们也可以删除主键。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; alter table student drop primary key;</span><br><span class="line">Query OK, 2 rows affected (0.01 sec)               </span><br><span class="line">Records: 2  Duplicates: 0  Warnings: 0</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; desc student;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| id    | int(5)      | NO   |     | 1       |       |</span><br><span class="line">| name  | varchar(20) | NO   |     | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;我们也可以在表建完后再添加主键。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; alter table student add primary key(id);</span><br><span class="line">Query OK, 0 rows affected (0.80 sec)</span><br><span class="line">Records: 0  Duplicates: 0  Warnings: 0</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; desc student;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| id    | int(5)      | NO   | PRI | 1       |       |</span><br><span class="line">| name  | varchar(20) | NO   |     | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;主键的操作十分重要，可以帮我们排序数据，查找数据等，是不可或缺的约束之一。</p>
+<h2 id="自增长"><a href="#自增长" class="headerlink" title="自增长"></a>自增长</h2><p>&emsp;&emsp;当我们想要将我们插入的数据的序号自动增长时我们就可以使用这个约束。并且如果我们想要一个对一个字段使用自增长，这个字段前提必须是一个索引（key一栏有值），并且是整数类型。使用<code>auto_increment</code>添加自增长约束。同时添加了自增长的字段不能再设置默认值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; create table student (</span><br><span class="line">    -&gt;     id int primary key auto_increment comment &apos;不能为空&apos;, </span><br><span class="line">    -&gt;     name varchar(20)</span><br><span class="line">    -&gt; );</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; desc student;</span><br><span class="line">+-------+-------------+------+-----+---------+----------------+</span><br><span class="line">| Field | Type        | Null | Key | Default | Extra          |</span><br><span class="line">+-------+-------------+------+-----+---------+----------------+</span><br><span class="line">| id    | int(11)     | NO   | PRI | NULL    | auto_increment |</span><br><span class="line">| name  | varchar(20) | YES  |     | NULL    |                |</span><br><span class="line">+-------+-------------+------+-----+---------+----------------+</span><br><span class="line">2 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这样我就设置完毕了自增长，我们添加几个数据看看。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select * from student;</span><br><span class="line">+----+--------+</span><br><span class="line">| id | name   |</span><br><span class="line">+----+--------+</span><br><span class="line">|  1 | 张三   |</span><br><span class="line">|  2 | 李四   |</span><br><span class="line">+----+--------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;我们可以看我并不需我们再对<code>id</code>字段赋值，<code>id</code>字段便可以自动从1开始自动对数据进行编号同时我们可以查看目前自增长的数值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; show create table student;</span><br><span class="line">+---------+---------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| Table   | Create Table                                                                                                                          |</span><br><span class="line">+---------+---------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| student | CREATE TABLE `student` (</span><br><span class="line">  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT &apos;不能为空&apos;,</span><br><span class="line">  `name` varchar(20) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`id`)</span><br><span class="line">) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8     |</span><br><span class="line">+---------+---------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;下面的<code>AUTO_INCREMENT=3</code>则表示了目前自增长数值到3了。</p>
+<h2 id="唯一键"><a href="#唯一键" class="headerlink" title="唯一键"></a>唯一键</h2><p>&emsp;&emsp;往往表中有多个数据需要唯一性，但是主键一个表中只能最多有一个，因此唯一键诞生了。唯一键可以很好的帮助表中各自段的数据确立唯一性，因此被唯一键约束的字段可以为空但并不能重复，其他特性都与主键类似。唯一键使用<code>unique</code>进行约束。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; create table student (</span><br><span class="line">    id int unique</span><br><span class="line">    name varchar(20) unique</span><br><span class="line">);</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; desc student;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| id    | int(11)     | YES  | UNI | NULL    |       |</span><br><span class="line">| name  | varchar(20) | YES  | UNI | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;对字段进行唯一键约束后如果插入重复数据会如何呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; insert into student values(1, &apos;张三&apos;);</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; insert into student values(1, &apos;张三&apos;);</span><br><span class="line">ERROR 1062 (23000): Duplicate entry &apos;1&apos; for key &apos;id&apos;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;很明显在这里报错了。</p>
+<h2 id="外键"><a href="#外键" class="headerlink" title="外键"></a>外键</h2><p>&emsp;&emsp;有时候我们的数据一张表往往是无法完全进行表示的，比如说对于一个学生表，我们要想将其与另外一张班级表进行连接，在他们间建立联系，就要依靠到外键这个约束。比如说接下来这个例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; create table class(</span><br><span class="line">    -&gt;     id int primary key,</span><br><span class="line">    -&gt;     name varchar(20)</span><br><span class="line">    -&gt; );</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;首先我们创建了主表，我们将班级表作为主表，这个表要求必须要有主键或唯一键进行约束，也就是说各个数据要求是不重复的，不然从表与之建立联系时会产生矛盾。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; create table student (</span><br><span class="line">    -&gt;     id int primary key auto_increment,</span><br><span class="line">    -&gt;     name varchar(20),</span><br><span class="line">    -&gt;     class_id int comment &apos;班级id&apos;,</span><br><span class="line">    -&gt;     foreign key (class_id) references class(id)</span><br><span class="line">    -&gt; );</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;以上建立的这个表我们称之为从表，注意在最后我们加入了外键的语法，使之<code>class_id</code>字段与主表的<code>id</code>字段相互对应。接下来我们插入几个数据看看效果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; insert into class value(1,&apos;C++&apos;), (2,&apos;java&apos;);</span><br><span class="line">Query OK, 2 rows affected (0.00 sec)</span><br><span class="line">Records: 2  Duplicates: 0  Warnings: 0</span><br><span class="line">MariaDB [student]&gt; insert into student values(1,&apos;张三&apos;,1);</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; insert into student values(2,&apos;李四&apos;,2);</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; insert into student values(3,&apos;老王&apos;,3);</span><br><span class="line">ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`student`.`student`, CONSTRAINT `student_ibfk_1` FOREIGN KEY (`class_id`) REFERENCES `class` (`id`))</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;从这个例子可以看出我们先给班级表插入了两个班级数据，在从表如果我们正常插入存在对应班级编号数据的学生数据时会正常插入，但是如果我们给老王插入了一个不存在班级id就会报错，同时如果我们给班级id赋值为空也是允许的。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/【C语言】第九章-指针进阶/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/23/【C语言】第九章-指针进阶/" itemprop="url">【C语言】第九章-指针进阶</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-23T22:24:40+08:00">
+                2019-01-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C语言进阶/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言进阶</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.2k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第九章-指针进阶"><a href="#第九章-指针进阶" class="headerlink" title="第九章 指针进阶"></a>第九章 指针进阶</h1><p>&emsp;&emsp;在初阶篇已经讨论过C语言中最为重要也是极容易出错的<strong>指针</strong>，在进阶篇哦我们还要继续深入探讨指针，学习种类更加多样更加灵活，<del>更加变态</del>的指针。</p>
+<h2 id="字符指针"><a href="#字符指针" class="headerlink" title="字符指针"></a>字符指针</h2><p>&emsp;&emsp;字符指针我们所要知道的就是这种指针可以只想单个字符，也可以指向整个字符串，而实际使用中，用来指向字符串的情况更为常见，同时也更容易出错。因为有不少同学往往把字符指针指向一个字符串的情况理解成了将字符串存储进了整个指针中，与字符数组搞混。因此我们可以看以下这个例子做以区分。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  char str1[] = &quot;HelloWorld&quot;;</span><br><span class="line">  char str2[] = &quot;HelloWorld&quot;;</span><br><span class="line">  char* str3 = &quot;HelloWorld&quot;;</span><br><span class="line">  char* str4 = &quot;HelloWorld&quot;;</span><br><span class="line">  if(str1 == str2)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;str1 和 str2 相同！\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;str1 和 str2 不相同！\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  if(str3 == str4)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;str3 和 str4 相同！\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;str3 和 str4 不相同！\n&quot;);</span><br><span class="line">  &#125;                                   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;输出结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">str1 和 str2 不相同！</span><br><span class="line">str3 和 str4 相同！</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;由此可见相对于字符数组<code>str1</code>和<code>str2</code>是由两块完全不同的内存空间进行存储，因此他它们的首元素地址并不相同，而对于完全相同的字面量字符串，当有不同的指针指向他们的时候，系统不会再另开辟新空间进行存储，而是会让不同的指针指向同一块字面量字符串存储的内存地址。这是字符数组与字符指针的区别之一。</p>
+<h2 id="指针数组和数组指针"><a href="#指针数组和数组指针" class="headerlink" title="指针数组和数组指针"></a>指针数组和数组指针</h2><p>&emsp;&emsp;在C语言中，这两种指针是十分容易混淆的，在不同的C语言系列教材中，这两种指针在不同的情境下往往也被冠以其它的名字，例如在多为数组中出现的<strong>行指针</strong>，但其根源终究不过是这两种指针。</p>
+<h3 id="指针数组"><a href="#指针数组" class="headerlink" title="指针数组"></a>指针数组</h3><p>&emsp;&emsp;指针数组较为浅显易懂，通过名字也应该能想到，这是一种<strong>数组</strong>，而数组元素类型是<strong>指针</strong>。定义语法如下：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>typeName* arrayName[N];</code><br><br>&emsp;&emsp;例：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>int* ptrArray[10] = {NULL};</code><br><br>&emsp;&emsp;这个例子我定义了一个大小为10元素类型为<code>int*</code>型的指针数组。这样的例子看上去很容易理解，但有了这个基础我们就可以定义出以下这几种更有实际用途的指针数组。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">char* array[4];</span><br><span class="line">//字符指针数组，里面的每个元素都是一个字符指针，可以用来指向字符或者字符串</span><br><span class="line">//这种指向方式更为简单节省空间，而当我们使用二维数组存储多个字符串往往需要花费更多空间</span><br><span class="line">char** array[5];</span><br><span class="line">//二级字符指针数组，里面的每个元素都是一个指向字符指针的指针，这种用法很不多见，也较为复杂</span><br><span class="line">//但是在我们想要指向多个字符指针数组时就派的上用场。</span><br></pre></td></tr></table></figure></p>
+<h3 id="数组指针"><a href="#数组指针" class="headerlink" title="数组指针"></a>数组指针</h3><p>&emsp;&emsp;数组指针相对于指针数组来说较为复杂。数组指针从名字上看不过是一个数组的指针罢了，确实如此。但是定义起来较为难以理解。<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>typeName (*arrayName)[N];</code><br><br>&emsp;&emsp;例：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>int (*array)[10];</code><br><br>&emsp;&emsp;当我们定义了一个数组指针后，我们可以将任意一个数组取地址，然后赋值给它。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int array[4] = &#123;0&#125;;</span><br><span class="line">  int (*arrayPtr)[4] = &amp;array;//注意数组指针定义时[]中的值需与目标数组的长度相同</span><br><span class="line">  printf(&quot;%p\t%p\n&quot;, &amp;array, arrayPtr);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">0x7ffdf4f3c8e0	0x7ffdf4f3c8e0</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;通过以上例子我们是否可以联想到我们平时使用的二位数组本身就是一个数组指针呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int array[3][4] = &#123;0&#125;;         </span><br><span class="line">  int (*ptr)[4] = array;</span><br><span class="line">  printf(&quot;%p\t%p\n&quot;, array, ptr);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">0x7fffc874b160	0x7fffc874b160</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;由此可见二维数组本身就是一个数组指针，用来指向内部的各个一维数组。<br><br>&emsp;&emsp;同时在这里还需强调的一点是，又是尽管指针的值相同，也就是说指向同一块内存地址，却有可能指针类型完全不同。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int arr[3][4] = &#123;0&#125;;</span><br><span class="line">  printf(&quot;%p\n&quot;, arr);//二维数组首地址，一维数组指针int (*)[4]</span><br><span class="line">  printf(&quot;%p\n&quot;, &amp;arr);//二维数组指针int (*)[3][4]</span><br><span class="line">  printf(&quot;%p\n&quot;, arr[0]);//一维数组首地址，int型指针int*</span><br><span class="line">  printf(&quot;%p\n&quot;, &amp;arr[0][0]);//二维数组第一个元素的地址，int型指针int*</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">0x7ffca85b9440</span><br><span class="line">0x7ffca85b9440</span><br><span class="line">0x7ffca85b9440</span><br><span class="line">0x7ffca85b9440</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;由以上的代码可以看出尽管几个指针类型不尽相同，但它们都指向同一块内存空间，因此我们在给指针间进行赋值时，一定要清楚各个指针的类型，在这里十分容易出错。</p>
+<h3 id="延伸"><a href="#延伸" class="headerlink" title="延伸"></a>延伸</h3><p>&emsp;&emsp;有了数组指针与指针数组的基础，我们即可将他们合并得出更多更加复杂的指针，例如数组指针数组：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>int (*ptr[10])[4];</code><br><br>&emsp;&emsp;以上这行代码表示定义了一个长度为10的数组，数组内每一个元素都是一个数组指针，其中每个指针指向长度为4的<code>int</code>型数组。有了数组指针数组，那么是否就有指针数组指针呢？是的，得益于C语言中灵活多变的语法，这些都可以得到实现，但是难度较高也并不经常使用，在此不再讨论。</p>
+<h2 id="指针与数组传参"><a href="#指针与数组传参" class="headerlink" title="指针与数组传参"></a>指针与数组传参</h2><p>&emsp;&emsp;在C语言中，我们都知道对于函数传递参数都是进行<strong>副本传参</strong>，也就是将实参克隆一份变为形参再进行传递，由此形参的改变并不会影响到实参。但是当我们传递指针的时候就可以对原本指针所指向的变量进行改变。而当我们想要把数组传递进函数中时，无论我们以何种语法进行传递，对于编译器来说也都会自动帮我们将数组转换为指针继续宁传入，以此来节省开销。</p>
+<h3 id="一维数组传参"><a href="#一维数组传参" class="headerlink" title="一维数组传参"></a>一维数组传参</h3><p>&emsp;&emsp;A：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">void Print(int* arr, int len)</span><br><span class="line">&#123;</span><br><span class="line">  for(int i = 0; i &lt; len; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;%d\n&quot;, arr[i]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int arr[4] = &#123;1, 2, 3, 4&#125;;</span><br><span class="line">  Print(arr, 4);              </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;B：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;  </span><br><span class="line">void Print(int arr[], int len)</span><br><span class="line">&#123;  </span><br><span class="line">  for(int i = 0; i &lt; len; i++)</span><br><span class="line">  &#123;  </span><br><span class="line">    printf(&quot;%d\n&quot;, arr[i]);  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">int main()  </span><br><span class="line">&#123;  </span><br><span class="line">  int arr[4] = &#123;1, 2, 3, 4&#125;;  </span><br><span class="line">  Print(arr, 4);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;对于一维数组来说，我们可以直接使用指针的方式进行传入，也可以使用数组作为形参进行传入，并且以数组作为形参的时候可以直接忽略数组的长度，因为无论如何编译器都会将其转换为指针，这里的长度也就不需要了，因此为了更好的表示数组的长度，我们也必须将数组的长度作为参数也传入函数。</p>
+<h3 id="二维数组传参"><a href="#二维数组传参" class="headerlink" title="二维数组传参"></a>二维数组传参</h3><p>&emsp;&emsp;A：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">void Print(int arr[][4], int len)</span><br><span class="line">&#123;</span><br><span class="line">  for(int i = 0; i &lt; len; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    for(int j = 0 ; j &lt; 4; j++)</span><br><span class="line">    &#123;</span><br><span class="line">      printf(&quot;%d\t&quot;, arr[i][j]);</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int arr[3][4] = &#123;</span><br><span class="line">    &#123;1, 2, 3, 4&#125;,</span><br><span class="line">    &#123;5, 6, 7, 8&#125;,</span><br><span class="line">    &#123;9, 10, 11, 12&#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">  Print(arr, 3);                 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;B：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">void Print(int (*arr)[4], int len)</span><br><span class="line">&#123;</span><br><span class="line">  for(int i = 0; i &lt; len; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    for(int j = 0 ; j &lt; 4; j++)</span><br><span class="line">    &#123;</span><br><span class="line">      printf(&quot;%d\t&quot;, arr[i][j]);</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int arr[3][4] = &#123;</span><br><span class="line">    &#123;1, 2, 3, 4&#125;,</span><br><span class="line">    &#123;5, 6, 7, 8&#125;,</span><br><span class="line">    &#123;9, 10, 11, 12&#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">  Print(arr, 3);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;对于二维数组来说，也同样的有两种方法，一种是以数组的方式，另一种是以与之相同类型的数组指针的方式，不过这里不同的是，二维数组的低维度不可省略，而高维度可以省略。<br><br>&emsp;&emsp;对于数组传参不光是一维和二维数组，几乎所有类型的数组都适用同样的原理。</p>
+<h2 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h2><p>&emsp;&emsp;函数指针是指针中较为重要也是比较特殊的类别，并且在实际使用中也是极为常见的类型。</p>
+<h3 id="函数指针-1"><a href="#函数指针-1" class="headerlink" title="函数指针"></a>函数指针</h3><p>&emsp;&emsp;函数指针定义：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>void (*FunName)();</code><br><br>&emsp;&emsp;函数指针定义起来语法十分简单，而我们想要函数指针指向某个函数则只需要让它指向和它返回值类型以及参数完全相同的函数即可。当他进行指向后我们就可以使用函数指针直接进行函数的调用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">void Print(int (*arr)[4], int len)</span><br><span class="line">&#123;</span><br><span class="line">  for(int i = 0; i &lt; len; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    for(int j = 0 ; j &lt; 4; j++)</span><br><span class="line">    &#123;</span><br><span class="line">      printf(&quot;%d\t&quot;, arr[i][j]);</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int arr[3][4] = &#123;</span><br><span class="line">    &#123;1, 2, 3, 4&#125;,</span><br><span class="line">    &#123;5, 6, 7, 8&#125;,</span><br><span class="line">    &#123;9, 10, 11, 12&#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">  Print(arr, 3);</span><br><span class="line">  void (*ptr)(int (*arr)[4], int len) = Print;</span><br><span class="line">  ptr(arr, 3);</span><br><span class="line">  (*ptr)(arr, 3);                             </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">1	2	3	4	</span><br><span class="line">5	6	7	8	</span><br><span class="line">9	10	11	12	</span><br><span class="line">1	2	3	4	</span><br><span class="line">5	6	7	8	</span><br><span class="line">9	10	11	12	</span><br><span class="line">1	2	3	4	</span><br><span class="line">5	6	7	8	</span><br><span class="line">9	10	11	12</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;在以上的例子中我们使用了一个<code>ptr</code>函数指针指向了<code>Print()</code>函数，注意在给函数指针赋值时，函数名就是函数的地址了，而在使用函数指针进行函数调用时，则可以直接对指针像函数呢样传参即可，当然也可以先解引用再传参，都是可以的。</p>
+<h3 id="函数指针数组"><a href="#函数指针数组" class="headerlink" title="函数指针数组"></a>函数指针数组</h3><p>&emsp;&emsp;接下来我们将函数指针与我们之前说过的指针数组相结合，形成函数指针数组，这在实际开发中往往可以大大提高执行效率。<br><br>&emsp;&emsp;与数组指针数组类似有：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<br><code>int (*arr[10])(参数)</code><br><br>&emsp;&emsp;这就是一个函数指针数组的标准定义式了，以下我举个小小例子将其带入应用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int Plus(int num1, int num2)</span><br><span class="line">&#123;</span><br><span class="line">  return num1 + num2;</span><br><span class="line">&#125;</span><br><span class="line">int Min(int num1, int num2)</span><br><span class="line">&#123;</span><br><span class="line">  return num1 - num2;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int (*arr[2])(int, int) = &#123;</span><br><span class="line">    Plus,</span><br><span class="line">    Min</span><br><span class="line">  &#125;;</span><br><span class="line">  int choice = 0, num1, num2;</span><br><span class="line">  printf(&quot;执行加法请输入1，执行减法请输入2：&quot;);</span><br><span class="line">  scanf(&quot;%d&quot;, &amp;choice);</span><br><span class="line">  if(choice == 0)</span><br><span class="line">  &#123;</span><br><span class="line">    return 0;</span><br><span class="line">  &#125;</span><br><span class="line">  printf(&quot;请输入操作数：&quot;);</span><br><span class="line">  scanf(&quot;%d%d&quot;, &amp;num1, &amp;num2);                 </span><br><span class="line">  printf(&quot;%d\n&quot;, arr[choice - 1](num1, num2));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这里我简单举了个以加减法为主的小计算器的例子，在最后我们使用函数指针数组进行函数调用以此减少判断的开销，或许这个例子不够明显，但在我们有很多函数要进行调用时，结果就会更加一目了然了。</p>
+<h3 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h3><p>&emsp;&emsp;回调函数说简单些就是我们将函数指针作为参数传给了另外一个函数，这个函数指针所指向的函数往往不是实现者所写的，因此更不会由实现者进行调用，而是由使用者根据使用情况写出的自定义函数，这个函数在特定情况下进行调用。这就是回调函数，因此这样的函数在编写外部接口时经常被用到。接下来我i我们以一个<code>qsort</code>函数为例编写一个回调函数并进行使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int cmp(const void* p1, const void* p2)//自己所编写的函数</span><br><span class="line">&#123;</span><br><span class="line">  return (*(int*)p1 &gt; *(int*)p2);</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int arr[] = &#123;11, 22, 99, 34, 454, 32, 0&#125;;</span><br><span class="line">  qsort(arr, sizeof(arr) / sizeof(arr[0]), sizeof(int), cmp);//传入函数中成为回调函数</span><br><span class="line">  for(int i = 0; i &lt; sizeof(arr) / sizeof(arr[0]); i++)                       </span><br><span class="line">  &#123;                                                                           </span><br><span class="line">    printf(&quot;%d\n&quot;, arr[i]);                                                   </span><br><span class="line">  &#125;                                                                           </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">0</span><br><span class="line">11</span><br><span class="line">22</span><br><span class="line">32</span><br><span class="line">34</span><br><span class="line">99</span><br><span class="line">454</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;从以上这个例子即可看出回调函数的威力，我们可以根据使用我们自己所写的函数改变排序规则。因此回调函数也是实际使用中十分重要的一环。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/21/【C语言】第八章-数据的存储/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1683,345 +2070,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/04/【Linux】Linux基础-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/04/【Linux】Linux基础-2/" itemprop="url">【Linux】Linux基础-2</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-04T16:12:39+08:00">
-                2018-12-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.2k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Linux基础"><a href="#Linux基础" class="headerlink" title="Linux基础"></a>Linux基础</h1><h2 id="第2节"><a href="#第2节" class="headerlink" title="第2节"></a>第2节</h2><p>&emsp;&emsp;在此章节着重介绍Linux的基本指令，并且穿插一些Linux的基本知识点进行讲解，同时学习Linux最重要的一点是<strong>不要去背</strong>，在使用中学习，用的多了自然就会了，并且一开始学习Linux大家可能会觉得各种不顺手，但是学习久了大家就会被Linux的魅力所吸引，欲罢不能！。</p>
-<h3 id="终端简介"><a href="#终端简介" class="headerlink" title="终端简介"></a>终端简介</h3><h4 id="基础介绍"><a href="#基础介绍" class="headerlink" title="基础介绍"></a>基础介绍</h4><p>&emsp;&emsp;在Linux的使用中，我们最为经常使用的就是终端，我们之后可以说一切的指令都会在终端中进行输入，那么如何打开终端呢？<strong>鼠标右键点击Linux桌面</strong>，就会出现<strong>打开终端</strong>选项，点击后会出现一个如下图一般的类似于Windows控制台的窗口，这就是Linux的终端了。所谓终端类似于Windows下的控制台，大家可以理解为控制Linux的神经中枢，我们的操作之后都会在这个终端中进行，不过之后会讲解如何使用Xshell，大家就可以通过远程的方式链接到终端了。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/1.png" alt="终端"><br></p>
-<h4 id="Linux的目录"><a href="#Linux的目录" class="headerlink" title="Linux的目录"></a>Linux的目录</h4><p>&emsp;&emsp;大家可以注意到在终端中命令前都会加上这么一行字。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/2.png" alt="目录"><br><br>&emsp;&emsp;正如图中所示，这三个标签都有各自的含义，其中当前目录名尤为重要，因为我们在一个地方输入命令我们首先就得清楚我们当前在哪个目录下，不然可能会出现不必要的错误。而目录中最为特殊的目录有两个<code>~</code>表示的是<strong>家目录，</strong><code>/</code>表示的是<strong>根目录</strong>。<br><br>&emsp;&emsp;我们可以把Linux想象成一栋大厦，这栋大厦中有很多很多的住户，只有一个神一般的存在我们称其为楼管。我们是其中一个住户我们在这栋大厦中有自己的家，我们可以在自己家中为所欲为，不收任何限制，那么其实<strong>家目录</strong>就好比这栋大厦中我们自己的家一样，完全受我们自己控制，我们之后的大部分操作也都是在家目录中进行的。而<strong>根目录</strong>就好比这栋大楼的根基一样，十分危险也有重重保障，我们在根目录中的权限受到限制，毕竟我们不能说把一栋楼拆了就把一栋楼拆了，这栋楼没了Linux也就凉凉了，上面所有的用户都得来找你算账。然而在Linux这种大厦中有一个神一般的楼管，他可以在整栋大厦中为所欲为，这个楼管就是<strong>root管理员</strong>。<br><br>&emsp;&emsp;但在实际中Linux的目录结构更像是一棵树，是数据结构中的树，就是一棵跟实际中的树正好相反的树。（大致如下图）<br><br><img src="/2018/12/04/【Linux】Linux基础-2/3.png" alt="目录"><br><br>&emsp;&emsp;可以发现这样的目录结构与Windows十分相似，没错这样的目录结构方便管理，更符合大家对目录的思想。可以看出<strong>根目录</strong>在树的最顶端（在数据结构中应该叫做树根），是一切目录的根目录，因此可以看出<strong>根目录</strong>在Linux中举足轻重的地位，是整个系统的根本。</p>
-<h4 id="文件信息"><a href="#文件信息" class="headerlink" title="文件信息"></a>文件信息</h4><p>&emsp;&emsp;接下来我们可以尝试在终端中输入<code>ll</code>这个指令，这个指令的具体功能可以大概描述为查看当前目录下文件以及目录的信息，输入后大概会出现以下的信息。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/4.jpg" alt="文件信息"><br><br>&emsp;&emsp;在列表中列出的标蓝字体的为<strong>目录</strong>，也就是我们俗称的文件夹，未标蓝的则为文件。可以看出不论是目录还是文件夹的前都有一行信息，关于这行信息我们是接下来要详细说明的。<br><img src="/2018/12/04/【Linux】Linux基础-2/5.png" alt="文件信息"><br><br>&emsp;&emsp;我用红线将这行信息分为7段，其中每一段都有自己不同的含义。<br><br>&emsp;&emsp;段1：<strong>文件属性</strong>，这个之后详细解释；段2：<strong>文件个数</strong>，如果是目录可能包含有多个文件，如果是文件，则当然是1了；段3：<strong>文件拥有者(Owner)</strong>，创建文件的用户，如果实在家目录下一般都是用户本身；段4：<strong>表示拥有者所属的组(Group)</strong>，如果没有添加新的组，则默认会将用户名作为组名；段5：<strong>文件大小</strong>，单位是byte；段6：<strong>创建时间</strong>；段7：<strong>文件名</strong>。<br><br>&emsp;&emsp;在段1中，我们要重要介绍。段1的第一个字母表示的是文件所属类型，如果是目录则显示的是<code>d</code>，如果是文件则显示的是<code>-</code>，还有一些其他文件属性。之后的九个栏位，表示文件的权限。Linux的文件基本上分为三个权限：可读（r），可写（w），可执行（x）。剩下的格子就以每3格为一个单位表示不同用户的权限。因为Linux是多用户多任务系统，所以一个文件可能同时被许多人使用，所以我们一定要设好每个文件的权限，其文件的权限位置排列顺序是（以drwxr-xr-x为例）：<br><br>&emsp;&emsp;d(所属类型)-rwx(拥有者)r-x(拥有者所在的组)r-x(其他用户)<br><br>&emsp;&emsp;这个例子表示的信息是：这是一个目录，并且拥有者自己可读，可写，可执行；同一组的用户可读，不可写，可执行；其它用户可读，不可写，可执行。另外，有一些程序属性的执行部分不是X,而是S,这表示执行这个程序的使用者，临时可以有和拥有者一样权力的身份来执行该程序。一般出现在系统管理之类的指令或程序，让使用者执行时，拥有root身份。<br><br>&emsp;&emsp;文件的使用权限身为root管理员是可以随时更改的，具体更改方法和关于文件权限的更多内容我们会在之后讲解。</p>
-<h3 id="基础指令"><a href="#基础指令" class="headerlink" title="基础指令"></a>基础指令</h3><p>&emsp;&emsp;1、<code>ls</code>：显示当前目录下文件，效果类似于<code>ll</code>，但没有其强大。<br><br>&emsp;&emsp;2、<code>ll</code>：显示当前目录下文件，已经做过演示，十分常用。<br><br>&emsp;&emsp;3、<code>ctrl+l</code>：清屏，十分常用。<br><br>&emsp;&emsp;4、<code>cd 目录</code>：目录跳转。cd的使用十分灵活我们可以使用它进入Linux的各种目录之中。举几个例子。<br><br>&emsp;&emsp;进入根目录：<code>cd /</code>；再回到家目录<code>cd ~</code>；<code>cd</code>也可以回到家目录；<code>cd /home/misaki/</code>也可以回到家目录，其中<code>misaki</code>是我的用户名，大家改为自己的用户名即可，不难发现我们的家目录的真正目录就在<code>/</code>目录中的<code>home</code>目录中的<code>用户名</code>目录中。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/6.png" alt="基础指令"><br><br>&emsp;&emsp;5、<code>Ctrl+Insert</code>：复制，<code>Shift+Insert</code>：粘贴。在Linux中复制粘贴的快捷键与Windows的略有不同，大家要注意。<br><br>&emsp;&emsp;6、<code>touch 文件名</code>：在当前目录下创建一个新的文件，创建后可以用<code>ll</code>查看。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/7.jpg" alt="基础指令"><br><br>&emsp;&emsp;7、<code>echo 内容 &gt; 文件名</code>：向文件中写入内容。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/8.jpg" alt="基础指令"><br><br>&emsp;&emsp;8、<code>cat 文件名</code>：读取文件。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/9.jpg" alt="基础指令"><br><br>&emsp;&emsp;9、<code>rm 文件名</code>：删除文件。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/10.png" alt="基础指令"><br><br>&emsp;&emsp;10、<code>mkdir 目录名</code>：创建目录。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/11.png" alt="基础指令"><br><br>&emsp;&emsp;11、<code>mkdir -p 目录1/目录2/目录3</code>：创建复杂目录。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/12.png" alt="基础指令"><br><br>&emsp;&emsp;12、<code>pwd</code>：显示当前目录的绝对路径。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/13.png" alt="基础指令"><br><br>&emsp;&emsp;从这里也可以看出家目录的确是在跟目录下的<code>home</code>目录里的。<br><br>&emsp;&emsp;13、<code>rm -r 目录名</code>：删除目录。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/14.png" alt="基础指令"><br><br>&emsp;&emsp;14、<code>rm -rf 目录名</code>：强制删除目录。<br><br>&emsp;&emsp;其中<code>-</code>后的指令被称为指令的选项，可以为这条命令添加很多额外效果，例如<code>-i</code>表示执行前提问，<code>-f</code>表示强制等等。<br>&emsp;&emsp;15、<code>mv 原文件 目标文件</code>：改名。<code>mv 原文件 目录</code>：移动文件。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/15.png" alt="基础指令"><br><br><img src="/2018/12/04/【Linux】Linux基础-2/16.png" alt="基础指令"><br><br>&emsp;&emsp;16、<code>man</code>：帮助手册。操作指令可在这里查看官方文档。要会使用。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/17.png" alt="基础指令"><br><br><img src="/2018/12/04/【Linux】Linux基础-2/18.png" alt="基础指令"><br><br>&emsp;&emsp;17、<code>cp 原文件 目标文件</code>：拷贝文件到此目录下并命名为目标文件。<code>cp 原文件 目录</code>：拷贝文件到目录下。<code>cp -r a b</code>：拷贝a目录到b目录下。<br><br><img src="/2018/12/04/【Linux】Linux基础-2/19.png" alt="基础指令"><br><br>&emsp;&emsp;到此为止Linux的基本常用指令就全部介绍完毕了，正如我一开始说的呢样，不要去背Linux指令，在使用中理解，用的多了自然就熟悉了，在下个章节我们会介绍如何使用<strong>Xshell</strong>远程控制终端，并且如何在终端上编写程序，还请大家准备下<strong>Xshell</strong>这款软件。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/02/【Linux】Linux基础-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/02/【Linux】Linux基础-1/" itemprop="url">【Linux】Linux基础-1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-02T23:11:01+08:00">
-                2018-12-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.7k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Linux基础"><a href="#Linux基础" class="headerlink" title="Linux基础"></a>Linux基础</h1><p>&emsp;&emsp;在本篇教程中我会陆续开始简单介绍Linux操作系统，我们学习C语言，作为一个后端开发工程师，将来与Linux打交道是必不可少的，我们所写的代码也都会要求在Linux系统下可以运行，因此在简单学习过C语言过后，我们不得不尽快开始熟悉Linux操作系统，最终目的是为了适应Linux下编程，尤其是Linux下的网络编程，这是不得不尽快开始的一步。</p>
-<h2 id="第一节"><a href="#第一节" class="headerlink" title="第一节"></a>第一节</h2><h3 id="Linux安装"><a href="#Linux安装" class="headerlink" title="Linux安装"></a>Linux安装</h3><h4 id="准备材料"><a href="#准备材料" class="headerlink" title="准备材料"></a>准备材料</h4><p>&emsp;&emsp;1、vmare12版本。<br><br>&emsp;&emsp;2、centOS-7的64位Linux镜像文件。<br><br>&emsp;&emsp;本博客不提供材料的获取途径，请大家准备。</p>
-<h4 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h4><p>&emsp;&emsp;1、我们首先安装vmare12，安装后打开vm会呈现以下的界面。<br><br><img src="/2018/12/02/【Linux】Linux基础-1/1.png" alt="初始界面"><br><br>&emsp;&emsp;此处我已经实现装好了一个Linux虚拟机，因此在界面上有显示出来，不过这些都无关紧要，我们接下来新建一个新的Linux虚拟机。<br>&emsp;&emsp;我们按下ctrl+n快捷键，或者在左上角文件选项中选择<strong>新建虚拟机</strong>即可弹出以下新建窗口，我们果断选择<strong>典型</strong>选项然后选择下一步快速创建即可。<br><br><img src="/2018/12/02/【Linux】Linux基础-1/2.png" alt="安装流程1"><br><br>&emsp;&emsp;2、之后我们选择<strong>安装程序光盘映像文件</strong>并且在路径中选中我们之前准备好的centOS-7的64位Linux镜像文件即可。之后便可以在我们的虚拟机中安装Linux系统。这里要注意的一点是<strong><em>尽量保证路径全是英文字符或者数字不要出现中文，否则有可能出错。</em></strong><br><br><img src="/2018/12/02/【Linux】Linux基础-1/3.png" alt="安装流程2"><br><br>&emsp;&emsp;3、之后输入我们的用户名以及密码。<strong>大家务必记住这里的用户名以及密码，之后我们还会经常使用。</strong><br><br><img src="/2018/12/02/【Linux】Linux基础-1/4.png" alt="安装流程3"><br><br>&emsp;&emsp;4、在之后的页面中输入虚拟机名称及路径即可，这个大家都可以根据自身情况自定义，但是尽量给虚拟机的路径下留出足够大的空间，<strong>至少应有40G来保证Linux系统的流畅运行</strong>。<br><br><img src="/2018/12/02/【Linux】Linux基础-1/5.png" alt="安装流程4"><br><br>&emsp;&emsp;5、之后我们需要将页面中的两个参数，<strong>最大磁盘大小</strong>及<strong>将虚拟磁盘存储为单个文件</strong>选项全部改为下图所示，这样将会大大的提升我们日后使用Linux时的体验。<br><br><img src="/2018/12/02/【Linux】Linux基础-1/6.png" alt="安装流程5"><br><br>&emsp;&emsp;6、在此页面中我们需要根据自身电脑性能对给虚拟机分配的硬件进行优化，初始的设置并不足以使虚拟机流畅运行，因此我们选择<strong>自定义硬件。</strong><br><br><img src="/2018/12/02/【Linux】Linux基础-1/7.png" alt="安装流程6"><br><br>&emsp;&emsp;之后<strong>将虚拟机内存更改为2048。</strong><br><br><img src="/2018/12/02/【Linux】Linux基础-1/8.png" alt="安装流程6"><br><br>&emsp;&emsp;然后<strong>将虚拟机的处理器数量及每个处理器的核心数全部改为2</strong>，以上这些设置都会使日后我们使用虚拟机时更加顺畅。<br><br><img src="/2018/12/02/【Linux】Linux基础-1/9.png" alt="安装流程6"><br><br>&emsp;&emsp;之后我们关闭自定义硬件页面，点击完成即可创建好一个虚拟机。<br><br>&emsp;&emsp;7、点击完成后虚拟机会自动帮我们初始化Linux的安装程序，稍等片刻后，我们之后会进入以下页面。（如果有哪项还红着就点进去再点左上角DONE返回即可）<br><br><img src="/2018/12/02/【Linux】Linux基础-1/10.png" alt="安装流程7"><br><br>&emsp;&emsp;之后我们所要做的则是按照下图所示顺序将圈红的这一项更改一下，以便我们之后使用Linux即可开始正式安装。<br><br><img src="/2018/12/02/【Linux】Linux基础-1/14.jpg" alt="安装流程7"><br><br><img src="/2018/12/02/【Linux】Linux基础-1/11.png" alt="安装流程7"><br><br>&emsp;&emsp;更改完成后点击左上角<strong>DONE</strong>返回主页面再点击右下角<strong>Begin Installation</strong>即可开始安装<br><br><img src="/2018/12/02/【Linux】Linux基础-1/15.jpg" alt="安装流程7"><br><br>&emsp;&emsp;8、在安装页面我们无需做任何更改，我们之前所输入的密码会被直接认作为root密码，我们所创建的用户会自动生成Linux用户，如果之前没有设置，可以在这里设置。之后我们只需要等进度条加载慢后重启虚拟机即可进入Linux。<br><br><img src="/2018/12/02/【Linux】Linux基础-1/13.png" alt="安装流程8"><br><br>&emsp;&emsp;9、在第一次进入Linux我们要对Linux进行初始用户配置。在进入接下来页面时我们只需要点击这个出现感叹号的新选项进入选择同意协议再返回即可进行下一步。<br><br><img src="/2018/12/02/【Linux】Linux基础-1/16.png" alt="安装流程9"><br><br><img src="/2018/12/02/【Linux】Linux基础-1/17.png" alt="安装流程9"><br><br>&emsp;&emsp;10、之后我们选择自己的用户，输入之前我们设置的密码并且选择语言，然后一路下一步即可正式进入Linux系统。<br><br><img src="/2018/12/02/【Linux】Linux基础-1/18.png" alt="安装流程10"><br><br><img src="/2018/12/02/【Linux】Linux基础-1/19.jpg" alt="安装流程10"><br></p>
-<h3 id="Linux基本介绍"><a href="#Linux基本介绍" class="headerlink" title="Linux基本介绍"></a>Linux基本介绍</h3><p>&emsp;&emsp;我们虽然安装好了Linux并且可以开始使用了，不过请注意我们以后使用Linux则都是使用Linux的终端而放弃了Linux的图形界面，因为在服务器传输时命令行的传输远比界面传输要高效很多，并且在一些硬件上并达不到支持使用图形界面的配置，因此我们之后则大多都是在Linux上利用终端和命令行的方式使用Linux。</p>
-<h4 id="什么是Linux"><a href="#什么是Linux" class="headerlink" title="什么是Linux"></a>什么是Linux</h4><p>&emsp;&emsp;Linux是一个操作系统的内核，及一个操作系统最为核心的部分，如常见的Android操作系统用的则就是Linux内核，而Linux的发新版则是以Linux为操作系统内核的一系列操作系统的合集。Linux之所以出名有很多原因，可以说现在只要牵扯服务端开发则Linux就是我们必不可少需要接触的东西。他继承了Unix的很多思想，可以说是Unix的子孙后代之一，在Unix这个强大的内核下派生出了很多后辈，他们被统称为Unix-like操作系统，与Windows操作系统不同的是这类系统崇尚去创造小而精的工具然后互相配合去完成一项复杂的任务，而Linux则是其派系中最为成功的系统之一。</p>
-<h4 id="Linux怎么学习"><a href="#Linux怎么学习" class="headerlink" title="Linux怎么学习"></a>Linux怎么学习</h4><p>&emsp;&emsp;如果说学习C语言需要一倍的时间，学习数据结构及算法需要两倍的时间，学习Linux则需要付出三倍甚至更多的时间，Linux不光需要我们平时不断的熟悉使用不断的练习，还需要我们多多了解Linux相关理论，两者结合才能掌握Linux，因此我也推荐大家多多参阅Linux相关书籍，多多了解Linux底层原理，对我们的学习都有很大帮助。我同时将Linux学习分为大致三个部分。<br><br>&emsp;&emsp;1、基本操作（指令操作）<br><br>&emsp;&emsp;2、编程接口<br><br>&emsp;&emsp;3、网络编程<br><br>&emsp;&emsp;以上三个部分无论哪个部分都十分重要，因此我们都不可掉以轻心，要理论实践相互及结合才行。从下一节开始我会开始介绍一些最为基础的Linux指令，同时讲解如何将Linux与Xshell结合起来使用。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2076,7 +2124,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">65</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2098,7 +2146,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2195,7 +2243,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共175.6k字</span>
+  <span class="post-count">博客全站共182.2k字</span>
 </div>
 
         ﻿
