@@ -264,6 +264,206 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/28/【Cpp】第二章-类和对象-下/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/28/【Cpp】第二章-类和对象-下/" itemprop="url">【Cpp】第二章-类和对象-下</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-28T15:09:14+08:00">
+                2019-05-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index">
+                    <span itemprop="name">Cpp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.5k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h1><h2 id="初始化列表"><a href="#初始化列表" class="headerlink" title="初始化列表"></a>初始化列表</h2><p>&emsp;&emsp;我们之前想要在类创建时就对类进行初始化时使用构造函数直接在构造函数中对成员变量进行赋值。但是这种方法并非是最好的方法，并且有一些情况比如说常成员函数我们就无法在构造函数中初始化，因此有了新的对成员进行初始化的方法——<strong>初始化列表</strong>。</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>&emsp;&emsp;初始化列表是和构造函数写在一起的，会在执行成员函数函数体之前优先利用初始化列表对成员变量赋予初值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using std::cout;</span><br><span class="line">using std::endl;</span><br><span class="line">class A</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">  A(int x = 4, int y = 5):_x(x), _y(y)                                                      </span><br><span class="line">  &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  int GetX()</span><br><span class="line">  &#123;</span><br><span class="line">    return _x;</span><br><span class="line">  &#125;</span><br><span class="line">  int GetY()</span><br><span class="line">  &#123;</span><br><span class="line">    return _y;</span><br><span class="line">  &#125;</span><br><span class="line">private:</span><br><span class="line">  int _x;</span><br><span class="line">  int _y;</span><br><span class="line">&#125;;</span><br><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">  Test(int a, int&amp; b, int c, A d):_a(a), _b(b), _c(c), _d(d)</span><br><span class="line">  &#123;</span><br><span class="line">    cout &lt;&lt; _a &lt;&lt; &quot;\t&quot; &lt;&lt; _b &lt;&lt; &quot;\t&quot; &lt;&lt; _c &lt;&lt; &quot;\t&quot; &lt;&lt; _d.GetX() &lt;&lt; &quot;\t&quot; &lt;&lt; d.GetY() &lt;&lt; endl;</span><br><span class="line">        cout &lt;&lt; &quot;building seccess&quot; &lt;&lt; endl;</span><br><span class="line">  &#125;</span><br><span class="line">private:</span><br><span class="line">  const int _a;</span><br><span class="line">  int&amp; _b;</span><br><span class="line">  int _c;</span><br><span class="line">  A _d;</span><br><span class="line">  </span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int b = 2;</span><br><span class="line">  A d;</span><br><span class="line">  Test(1, b, 3, d);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;在初始化列表中进行成员的初始化是最优的，因为对于自定义的类一定会先用初始化列表进行初始化。</p>
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><p>&emsp;&emsp;1、有几种一定需要在初始化列表中才能进行初始化的成员变量：<strong>常成员，引用，没有默认构造函数的自定义类类型成员</strong>。<br><br>&emsp;&emsp;2、类类型成员不论是否在初始化列表中是否显示初始化都会自动在初始化列表中进行构造函数的调用。<br><br>&emsp;&emsp;3、每个成员在初始化列表中只能出现一次。<br><br>&emsp;&emsp;4、初始化顺序与初始化列表无关，只与成员在类中声明先后有关。<br><br>&emsp;&emsp;5、优先在初始化列表中初始化所有成员，尤其是类类型成员。</p>
+<h2 id="explicit关键字"><a href="#explicit关键字" class="headerlink" title="explicit关键字"></a>explicit关键字</h2><p>&emsp;&emsp;我们在对对象进行初始化的时候可以进行这样的构造。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;               </span><br><span class="line">using std::cout;</span><br><span class="line">using std::endl;</span><br><span class="line">class A</span><br><span class="line">&#123;       </span><br><span class="line">public:  </span><br><span class="line">  A(int x, int y = 5):_x(x), _y(y)</span><br><span class="line">  &#123;</span><br><span class="line">            </span><br><span class="line">  &#125;</span><br><span class="line">  int GetX()</span><br><span class="line">  &#123;                               </span><br><span class="line">    return _x;</span><br><span class="line">  &#125;                               </span><br><span class="line">  int GetY()                      </span><br><span class="line">  &#123;  </span><br><span class="line">    return _y;</span><br><span class="line">  &#125;              </span><br><span class="line">private:    </span><br><span class="line">  int _x;  </span><br><span class="line">  int _y;</span><br><span class="line">&#125;;  </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  A a = 4;//等同A a(4);</span><br><span class="line">  cout &lt;&lt; a.GetX() &lt;&lt; &quot;\t&quot; &lt;&lt; a.GetY() &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这种构造函数的调用仅适用于调用只有一个参数的构造函数，这种情况下可以达到隐式转换的效果。但是如果我们不想支持这种隐式转换呢？我们就可以在构造函数前加上<code>explicit</code>关键字，这样就可以仅用构造函数的隐式转换。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">explicit A(int x, int y = 5):_x(x), _y(y)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第二章-类和对象]$ make</span><br><span class="line">g++ -g Init.cpp -o Init</span><br><span class="line">Init.cpp: 在函数‘int main()’中:</span><br><span class="line">Init.cpp:40:9: 错误：请求从‘int’转换到非标量类型‘A’</span><br><span class="line">   A a = 4;</span><br><span class="line">         ^</span><br><span class="line">make: *** [Init] 错误 1</span><br></pre></td></tr></table></figure></p>
+<h2 id="static静态成员"><a href="#static静态成员" class="headerlink" title="static静态成员"></a>static静态成员</h2><h3 id="静态成员变量和静态成员函数"><a href="#静态成员变量和静态成员函数" class="headerlink" title="静态成员变量和静态成员函数"></a>静态成员变量和静态成员函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">  public:</span><br><span class="line">    Test()</span><br><span class="line">    &#123;</span><br><span class="line">      _num++;</span><br><span class="line">    &#125;</span><br><span class="line">    static int GetNum()</span><br><span class="line">    &#123;</span><br><span class="line">      return _num;</span><br><span class="line">    &#125;</span><br><span class="line">  private:</span><br><span class="line">    static int _num;//静态成员变量</span><br><span class="line">&#125;;</span><br><span class="line">int Test::_num = 0;//在类外进行初始化</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  Test test[4];</span><br><span class="line">  cout &lt;&lt; Test::GetNum() &lt;&lt; endl;//用类+域限定符调用静态成员函数</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第二章-类和对象]$ ./static</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;静态成员是属于整个类的成员，同时也是属于所有类的实例化对象的成员，它们在类被定义后即被初始化，静态成员可以被所有的实例化对象操作。<br><br>&emsp;&emsp;以上这个代码我们用静态成计算类的构造函数调用次数。</p>
+<h3 id="特性-1"><a href="#特性-1" class="headerlink" title="特性"></a>特性</h3><p>&emsp;&emsp;1、静态成员变量必须在类外进行初始化。<br><br>&emsp;&emsp;2、静态成员函数中不含<code>this</code>指针因此不可以使用非静态成员。<br><br>&emsp;&emsp;3、静态成员属于这个类和所有实例对象因此用类或者对象都可以调用静态成员，前提其是公有。<br><br>&emsp;&emsp;4、非静态成员函数也可以调用静态成员。</p>
+<h3 id="static作用"><a href="#static作用" class="headerlink" title="static作用"></a>static作用</h3><p>&emsp;&emsp;这里我们又了解了<code>static</code>的新的作用，我们总结一下<code>static</code>一共有哪些作用。<br>&emsp;&emsp;1、修饰局部变量，改变生命周期。<br><br>&emsp;&emsp;2、修饰全局变量，改变链接属性，使其只在当前文件可见。<br><br>&emsp;&emsp;3、修饰成员函数，将其变为静态，无<code>this</code>指针。<br><br>&emsp;&emsp;4、修饰成员变量，将其变为静态成员变量。</p>
+<h2 id="为成员变量设置默认值（C-11）"><a href="#为成员变量设置默认值（C-11）" class="headerlink" title="为成员变量设置默认值（C++11）"></a>为成员变量设置默认值（C++11）</h2><p>&emsp;&emsp;这个语法只有在支持11版本的编译器上才可以使用，这种语法相当于给成员变量设定了默认值，十分类似于参数缺省。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">  public:</span><br><span class="line">    Test()&#123;&#125;</span><br><span class="line">    int _a = 1;</span><br><span class="line">    int _b = 2;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  Test t;</span><br><span class="line">  cout &lt;&lt; t._a &lt;&lt; &quot;\t&quot; &lt;&lt; t._b &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第二章-类和对象]$ ./default</span><br><span class="line">1	2</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这种设置默认值的语法如果我们并没有在构造函数中给成员变量赋值则会将其赋为这里的默认值。</p>
+<h2 id="友元"><a href="#友元" class="headerlink" title="友元"></a>友元</h2><p>&emsp;&emsp;有的时候我们想要在外部使用一个对象的成员变量但是又不想破坏其封装的时候就需要借助友元的语法，如果一个函数或者类是另一个类的友元，则这个函数或者类就可以自由使用另一个类中的私有成员。</p>
+<h3 id="友元函数"><a href="#友元函数" class="headerlink" title="友元函数"></a>友元函数</h3><p>&emsp;&emsp;例如我们要书写一个<code>&lt;&lt;</code>的重载函数让其可以按照我们的规则打印类中的成员，这个函数如果写在类中则左操作数永远被我们的类本身占据我们想要让<code>ostream</code>的对象作为左操作数的时候就只能定义在类外，看这样以来就无法访问类中的私有成员，这是我们就可以借助友元。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">  //将其声明为友元函数                                         </span><br><span class="line">  friend ostream&amp; operator&lt;&lt;(ostream&amp; _cout, const Test&amp; test);</span><br><span class="line">  private:         </span><br><span class="line">    int _a;        </span><br><span class="line">    int _b;        </span><br><span class="line">  public:                                  </span><br><span class="line">    Test(int a = 1, int b = 2):_a(a), _b(b)</span><br><span class="line">    &#123;              </span><br><span class="line">                   </span><br><span class="line">    &#125;              </span><br><span class="line">&#125;;                                                   </span><br><span class="line">ostream&amp; operator&lt;&lt;(ostream&amp; _cout, const Test&amp; test)</span><br><span class="line">&#123;                                             </span><br><span class="line">  _cout &lt;&lt; test._a &lt;&lt; &quot;\t&quot; &lt;&lt; test._b &lt;&lt; endl;</span><br><span class="line">  return _cout;    </span><br><span class="line">&#125;                  </span><br><span class="line">int main()         </span><br><span class="line">&#123;                  </span><br><span class="line">  Test test;       </span><br><span class="line">  cout &lt;&lt; test;    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第二章-类和对象]$ ./friend</span><br><span class="line">1	2</span><br></pre></td></tr></table></figure></p>
+<h3 id="友元类"><a href="#友元类" class="headerlink" title="友元类"></a>友元类</h3><p>&emsp;&emsp;友元类和友元函数一样，一旦一个类是另一个类的友元，他就可以访问其的私有成员。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;                                           </span><br><span class="line">using namespace std;                         </span><br><span class="line">class B;//前置声明                           </span><br><span class="line">class A                                      </span><br><span class="line">&#123;                                            </span><br><span class="line">  //将其声明为友元类                                          </span><br><span class="line">  friend class B;                            </span><br><span class="line">  //将其声明为友元函数                       </span><br><span class="line"> friend  ostream&amp; operator&lt;&lt;(ostream&amp; _cout, const B&amp; test);</span><br><span class="line">  private:                                   </span><br><span class="line">    int _a;                                  </span><br><span class="line">    int _b;                                  </span><br><span class="line">  public:                                    </span><br><span class="line">    A(int a = 1, int b = 2):_a(a), _b(b)     </span><br><span class="line">    &#123;                                        </span><br><span class="line">                                             </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">class B                                           </span><br><span class="line">&#123;</span><br><span class="line">  friend ostream&amp; operator&lt;&lt;(ostream&amp; _cout, const B&amp; test);</span><br><span class="line">  private:                                                    </span><br><span class="line">    int _a;    </span><br><span class="line">    int _b;</span><br><span class="line">    A _classA;</span><br><span class="line">  public:</span><br><span class="line">    B(int a = 3, int b = 4):_a(a), _b(b)</span><br><span class="line">    &#123;       </span><br><span class="line">      //直接访问A类的私有成员</span><br><span class="line">      _classA._a = a;</span><br><span class="line">      _classA._b = b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">ostream&amp; operator&lt;&lt;(ostream&amp; _cout, const B&amp; test)</span><br><span class="line">&#123;</span><br><span class="line">  _cout &lt;&lt; test._a &lt;&lt; &quot;\t&quot; &lt;&lt; test._b &lt;&lt; endl;</span><br><span class="line">  _cout &lt;&lt; test._classA._a &lt;&lt; &quot;\t&quot; &lt;&lt; test._classA._b &lt;&lt; endl;</span><br><span class="line">  return _cout;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  B b;</span><br><span class="line">  cout &lt;&lt; b;</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第二章-类和对象]$ ./friend</span><br><span class="line">3	4</span><br><span class="line">3	4</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;以上这个例子综合使用了友元类和友元函数，友元类让B可以随意访问A的成员，但是要注意友元的关系是单向的，B是A的友元，但是A并不是B的友元，因此A不能访问B的成员。</p>
+<h2 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h2><p>&emsp;&emsp;内部类是在一个类内部所定义的类。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;                                         </span><br><span class="line">using namespace std;</span><br><span class="line">class A            </span><br><span class="line">&#123;        </span><br><span class="line">  private:                              </span><br><span class="line">    int _a;</span><br><span class="line">    int _b; </span><br><span class="line">    static int num;</span><br><span class="line">  public:   </span><br><span class="line">    A(int a = 1, int b = 2):_a(a), _b(b)</span><br><span class="line">    &#123;</span><br><span class="line">      num++;  </span><br><span class="line">    &#125;          </span><br><span class="line">    //内部类   </span><br><span class="line">    class B  </span><br><span class="line">    &#123;                                       </span><br><span class="line">      private:</span><br><span class="line">        int _a;</span><br><span class="line">        int _b;</span><br><span class="line">      public:              </span><br><span class="line">        B(int a = 3, int b = 4):_a(a), _b(b)</span><br><span class="line">        &#123;                                                </span><br><span class="line"></span><br><span class="line">        &#125;                     </span><br><span class="line">        void Test(A classA)</span><br><span class="line">        &#123;</span><br><span class="line">          cout &lt;&lt; classA._a &lt;&lt; &quot;\t&quot; &lt;&lt; classA._b &lt;&lt; endl;</span><br><span class="line">          cout &lt;&lt; _a &lt;&lt; &quot;\t&quot; &lt;&lt; _b &lt;&lt; endl;</span><br><span class="line">          cout &lt;&lt; num &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line">int A::num = 0;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  A::B b;//内部类的实例化</span><br><span class="line">  A a;</span><br><span class="line">  b.Test(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[misaki@localhost 第二章-类和对象]$ ./insideclass</span><br><span class="line">1	2</span><br><span class="line">3	4</span><br><span class="line">1</span><br></pre></td></tr></table></figure></p>
+<h3 id="特性-2"><a href="#特性-2" class="headerlink" title="特性"></a>特性</h3><p>&emsp;&emsp;1、内部类是外部类的友元类。<br><br>&emsp;&emsp;2、外部类与内部类独立，不能用外部类访问内部类。<br><br>&emsp;&emsp;3、对外部类取大小与内部类无关<br><br>&emsp;&emsp;4、内部类可以不用加访问限定符就可以访问外部类的静态、枚举成员。# 类和对象</p>
+<h2 id="初始化列表-1"><a href="#初始化列表-1" class="headerlink" title="初始化列表"></a>初始化列表</h2><p>&emsp;&emsp;我们之前想要在类创建时就对类进行初始化时使用构造函数直接在构造函数中对成员变量进行赋值。但是这种方法并非是最好的方法，并且有一些情况比如说常成员函数我们就无法在构造函数中初始化，因此有了新的对成员进行初始化的方法——<strong>初始化列表</strong>。</p>
+<h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><p>&emsp;&emsp;初始化列表是和构造函数写在一起的，会在执行成员函数函数体之前优先利用初始化列表对成员变量赋予初值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using std::cout;</span><br><span class="line">using std::endl;</span><br><span class="line">class A</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">  A(int x = 4, int y = 5):_x(x), _y(y)                                                      </span><br><span class="line">  &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  int GetX()</span><br><span class="line">  &#123;</span><br><span class="line">    return _x;</span><br><span class="line">  &#125;</span><br><span class="line">  int GetY()</span><br><span class="line">  &#123;</span><br><span class="line">    return _y;</span><br><span class="line">  &#125;</span><br><span class="line">private:</span><br><span class="line">  int _x;</span><br><span class="line">  int _y;</span><br><span class="line">&#125;;</span><br><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">  Test(int a, int&amp; b, int c, A d):_a(a), _b(b), _c(c), _d(d)</span><br><span class="line">  &#123;</span><br><span class="line">    cout &lt;&lt; _a &lt;&lt; &quot;\t&quot; &lt;&lt; _b &lt;&lt; &quot;\t&quot; &lt;&lt; _c &lt;&lt; &quot;\t&quot; &lt;&lt; _d.GetX() &lt;&lt; &quot;\t&quot; &lt;&lt; d.GetY() &lt;&lt; endl;</span><br><span class="line">        cout &lt;&lt; &quot;building seccess&quot; &lt;&lt; endl;</span><br><span class="line">  &#125;</span><br><span class="line">private:</span><br><span class="line">  const int _a;</span><br><span class="line">  int&amp; _b;</span><br><span class="line">  int _c;</span><br><span class="line">  A _d;</span><br><span class="line">  </span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int b = 2;</span><br><span class="line">  A d;</span><br><span class="line">  Test(1, b, 3, d);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;在初始化列表中进行成员的初始化是最优的，因为对于自定义的类一定会先用初始化列表进行初始化。</p>
+<h3 id="特性-3"><a href="#特性-3" class="headerlink" title="特性"></a>特性</h3><p>&emsp;&emsp;1、有几种一定需要在初始化列表中才能进行初始化的成员变量：<strong>常成员，引用，没有默认构造函数的自定义类类型成员</strong>。<br><br>&emsp;&emsp;2、类类型成员不论是否在初始化列表中是否显示初始化都会自动在初始化列表中进行构造函数的调用。<br><br>&emsp;&emsp;3、每个成员在初始化列表中只能出现一次。<br><br>&emsp;&emsp;4、初始化顺序与初始化列表无关，只与成员在类中声明先后有关。<br><br>&emsp;&emsp;5、优先在初始化列表中初始化所有成员，尤其是类类型成员。</p>
+<h2 id="explicit关键字-1"><a href="#explicit关键字-1" class="headerlink" title="explicit关键字"></a>explicit关键字</h2><p>&emsp;&emsp;我们在对对象进行初始化的时候可以进行这样的构造。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;               </span><br><span class="line">using std::cout;</span><br><span class="line">using std::endl;</span><br><span class="line">class A</span><br><span class="line">&#123;       </span><br><span class="line">public:  </span><br><span class="line">  A(int x, int y = 5):_x(x), _y(y)</span><br><span class="line">  &#123;</span><br><span class="line">            </span><br><span class="line">  &#125;</span><br><span class="line">  int GetX()</span><br><span class="line">  &#123;                               </span><br><span class="line">    return _x;</span><br><span class="line">  &#125;                               </span><br><span class="line">  int GetY()                      </span><br><span class="line">  &#123;  </span><br><span class="line">    return _y;</span><br><span class="line">  &#125;              </span><br><span class="line">private:    </span><br><span class="line">  int _x;  </span><br><span class="line">  int _y;</span><br><span class="line">&#125;;  </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  A a = 4;//等同A a(4);</span><br><span class="line">  cout &lt;&lt; a.GetX() &lt;&lt; &quot;\t&quot; &lt;&lt; a.GetY() &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这种构造函数的调用仅适用于调用只有一个参数的构造函数，这种情况下可以达到隐式转换的效果。但是如果我们不想支持这种隐式转换呢？我们就可以在构造函数前加上<code>explicit</code>关键字，这样就可以禁用单参数构造函数的隐式类型转换。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">explicit A(int x, int y = 5):_x(x), _y(y)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第二章-类和对象]$ make</span><br><span class="line">g++ -g Init.cpp -o Init</span><br><span class="line">Init.cpp: 在函数‘int main()’中:</span><br><span class="line">Init.cpp:40:9: 错误：请求从‘int’转换到非标量类型‘A’</span><br><span class="line">   A a = 4;</span><br><span class="line">         ^</span><br><span class="line">make: *** [Init] 错误 1</span><br></pre></td></tr></table></figure></p>
+<h2 id="static静态成员-1"><a href="#static静态成员-1" class="headerlink" title="static静态成员"></a>static静态成员</h2><h3 id="静态成员变量和静态成员函数-1"><a href="#静态成员变量和静态成员函数-1" class="headerlink" title="静态成员变量和静态成员函数"></a>静态成员变量和静态成员函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">  public:</span><br><span class="line">    Test()</span><br><span class="line">    &#123;</span><br><span class="line">      _num++;</span><br><span class="line">    &#125;</span><br><span class="line">    static int GetNum()</span><br><span class="line">    &#123;</span><br><span class="line">      return _num;</span><br><span class="line">    &#125;</span><br><span class="line">  private:</span><br><span class="line">    static int _num;//静态成员变量</span><br><span class="line">&#125;;</span><br><span class="line">int Test::_num = 0;//在类外进行初始化</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  Test test[4];</span><br><span class="line">  cout &lt;&lt; Test::GetNum() &lt;&lt; endl;//用类+域限定符调用静态成员函数</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第二章-类和对象]$ ./static</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;静态成员是属于整个类的成员，同时也是属于所有类的实例化对象的成员，它们在类被定义后即被初始化，静态成员可以被所有的实例化对象操作。<br><br>&emsp;&emsp;以上这个代码我们用静态成计算类的构造函数调用次数。</p>
+<h3 id="特性-4"><a href="#特性-4" class="headerlink" title="特性"></a>特性</h3><p>&emsp;&emsp;1、静态成员变量必须在类外进行初始化。<br><br>&emsp;&emsp;2、静态成员函数中不含<code>this</code>指针因此不可以使用非静态成员。<br><br>&emsp;&emsp;3、静态成员属于这个类和所有实例对象因此用类或者对象都可以调用静态成员，前提其是公有。<br><br>&emsp;&emsp;4、非静态成员函数也可以调用静态成员。</p>
+<h3 id="static作用-1"><a href="#static作用-1" class="headerlink" title="static作用"></a>static作用</h3><p>&emsp;&emsp;这里我们又了解了<code>static</code>的新的作用，我们总结一下<code>static</code>一共有哪些作用。<br>&emsp;&emsp;1、修饰局部变量，改变生命周期。<br><br>&emsp;&emsp;2、修饰全局变量，改变链接属性，使其只在当前文件可见。<br><br>&emsp;&emsp;3、修饰成员函数，将其变为静态，无<code>this</code>指针。<br><br>&emsp;&emsp;4、修饰成员变量，将其变为静态成员变量。</p>
+<h2 id="为成员变量设置默认值（C-11）-1"><a href="#为成员变量设置默认值（C-11）-1" class="headerlink" title="为成员变量设置默认值（C++11）"></a>为成员变量设置默认值（C++11）</h2><p>&emsp;&emsp;这个语法只有在支持11版本的编译器上才可以使用，这种语法相当于给成员变量设定了默认值，十分类似于参数缺省。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">  public:</span><br><span class="line">    Test()&#123;&#125;</span><br><span class="line">    int _a = 1;</span><br><span class="line">    int _b = 2;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  Test t;</span><br><span class="line">  cout &lt;&lt; t._a &lt;&lt; &quot;\t&quot; &lt;&lt; t._b &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第二章-类和对象]$ ./default</span><br><span class="line">1	2</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这种设置默认值的语法如果我们并没有在构造函数中给成员变量赋值则会将其赋为这里的默认值。</p>
+<h2 id="友元-1"><a href="#友元-1" class="headerlink" title="友元"></a>友元</h2><p>&emsp;&emsp;有的时候我们想要在外部使用一个对象的成员变量但是又不想破坏其封装的时候就需要借助友元的语法，如果一个函数或者类是另一个类的友元，则这个函数或者类就可以自由使用另一个类中的私有成员。</p>
+<h3 id="友元函数-1"><a href="#友元函数-1" class="headerlink" title="友元函数"></a>友元函数</h3><p>&emsp;&emsp;例如我们要书写一个<code>&lt;&lt;</code>的重载函数让其可以按照我们的规则打印类中的成员，这个函数如果写在类中则左操作数永远被我们的类本身占据我们想要让<code>ostream</code>的对象作为左操作数的时候就只能定义在类外，看这样以来就无法访问类中的私有成员，这是我们就可以借助友元。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">  //将其声明为友元函数                                         </span><br><span class="line">  friend ostream&amp; operator&lt;&lt;(ostream&amp; _cout, const Test&amp; test);</span><br><span class="line">  private:         </span><br><span class="line">    int _a;        </span><br><span class="line">    int _b;        </span><br><span class="line">  public:                                  </span><br><span class="line">    Test(int a = 1, int b = 2):_a(a), _b(b)</span><br><span class="line">    &#123;              </span><br><span class="line">                   </span><br><span class="line">    &#125;              </span><br><span class="line">&#125;;                                                   </span><br><span class="line">ostream&amp; operator&lt;&lt;(ostream&amp; _cout, const Test&amp; test)</span><br><span class="line">&#123;                                             </span><br><span class="line">  _cout &lt;&lt; test._a &lt;&lt; &quot;\t&quot; &lt;&lt; test._b &lt;&lt; endl;</span><br><span class="line">  return _cout;    </span><br><span class="line">&#125;                  </span><br><span class="line">int main()         </span><br><span class="line">&#123;                  </span><br><span class="line">  Test test;       </span><br><span class="line">  cout &lt;&lt; test;    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第二章-类和对象]$ ./friend</span><br><span class="line">1	2</span><br></pre></td></tr></table></figure></p>
+<h3 id="友元类-1"><a href="#友元类-1" class="headerlink" title="友元类"></a>友元类</h3><p>&emsp;&emsp;友元类和友元函数一样，一旦一个类是另一个类的友元，他就可以访问其的私有成员。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;                                           </span><br><span class="line">using namespace std;                         </span><br><span class="line">class B;//前置声明                           </span><br><span class="line">class A                                      </span><br><span class="line">&#123;                                            </span><br><span class="line">  //将其声明为友元类                                          </span><br><span class="line">  friend class B;                            </span><br><span class="line">  //将其声明为友元函数                       </span><br><span class="line"> friend  ostream&amp; operator&lt;&lt;(ostream&amp; _cout, const B&amp; test);</span><br><span class="line">  private:                                   </span><br><span class="line">    int _a;                                  </span><br><span class="line">    int _b;                                  </span><br><span class="line">  public:                                    </span><br><span class="line">    A(int a = 1, int b = 2):_a(a), _b(b)     </span><br><span class="line">    &#123;                                        </span><br><span class="line">                                             </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">class B                                           </span><br><span class="line">&#123;</span><br><span class="line">  friend ostream&amp; operator&lt;&lt;(ostream&amp; _cout, const B&amp; test);</span><br><span class="line">  private:                                                    </span><br><span class="line">    int _a;    </span><br><span class="line">    int _b;</span><br><span class="line">    A _classA;</span><br><span class="line">  public:</span><br><span class="line">    B(int a = 3, int b = 4):_a(a), _b(b)</span><br><span class="line">    &#123;       </span><br><span class="line">      //直接访问A类的私有成员</span><br><span class="line">      _classA._a = a;</span><br><span class="line">      _classA._b = b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">ostream&amp; operator&lt;&lt;(ostream&amp; _cout, const B&amp; test)</span><br><span class="line">&#123;</span><br><span class="line">  _cout &lt;&lt; test._a &lt;&lt; &quot;\t&quot; &lt;&lt; test._b &lt;&lt; endl;</span><br><span class="line">  _cout &lt;&lt; test._classA._a &lt;&lt; &quot;\t&quot; &lt;&lt; test._classA._b &lt;&lt; endl;</span><br><span class="line">  return _cout;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  B b;</span><br><span class="line">  cout &lt;&lt; b;</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第二章-类和对象]$ ./friend</span><br><span class="line">3	4</span><br><span class="line">3	4</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;以上这个例子综合使用了友元类和友元函数，友元类让B可以随意访问A的成员，但是要注意友元的关系是单向的，B是A的友元，但是A并不是B的友元，因此A不能访问B的成员。</p>
+<h2 id="内部类-1"><a href="#内部类-1" class="headerlink" title="内部类"></a>内部类</h2><p>&emsp;&emsp;内部类是在一个类内部所定义的类。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;                                         </span><br><span class="line">using namespace std;</span><br><span class="line">class A            </span><br><span class="line">&#123;        </span><br><span class="line">  private:                              </span><br><span class="line">    int _a;</span><br><span class="line">    int _b; </span><br><span class="line">    static int num;</span><br><span class="line">  public:   </span><br><span class="line">    A(int a = 1, int b = 2):_a(a), _b(b)</span><br><span class="line">    &#123;</span><br><span class="line">      num++;  </span><br><span class="line">    &#125;          </span><br><span class="line">    //内部类   </span><br><span class="line">    class B  </span><br><span class="line">    &#123;                                       </span><br><span class="line">      private:</span><br><span class="line">        int _a;</span><br><span class="line">        int _b;</span><br><span class="line">      public:              </span><br><span class="line">        B(int a = 3, int b = 4):_a(a), _b(b)</span><br><span class="line">        &#123;                                                </span><br><span class="line"></span><br><span class="line">        &#125;                     </span><br><span class="line">        void Test(A classA)</span><br><span class="line">        &#123;</span><br><span class="line">          cout &lt;&lt; classA._a &lt;&lt; &quot;\t&quot; &lt;&lt; classA._b &lt;&lt; endl;</span><br><span class="line">          cout &lt;&lt; _a &lt;&lt; &quot;\t&quot; &lt;&lt; _b &lt;&lt; endl;</span><br><span class="line">          cout &lt;&lt; num &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line">int A::num = 0;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  A::B b;//内部类的实例化</span><br><span class="line">  A a;</span><br><span class="line">  b.Test(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[misaki@localhost 第二章-类和对象]$ ./insideclass</span><br><span class="line">1	2</span><br><span class="line">3	4</span><br><span class="line">1</span><br></pre></td></tr></table></figure></p>
+<h3 id="特性-5"><a href="#特性-5" class="headerlink" title="特性"></a>特性</h3><p>&emsp;&emsp;1、内部类是外部类的友元类。<br><br>&emsp;&emsp;2、外部类与内部类独立，不能用外部类访问内部类。<br><br>&emsp;&emsp;3、对外部类取大小与内部类无关<br><br>&emsp;&emsp;4、内部类可以不用加访问限定符就可以访问外部类的静态、枚举成员。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/19/【Linux】第八章-多线程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1930,196 +2130,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/31/【Linux】第三章-进程概念/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/31/【Linux】第三章-进程概念/" itemprop="url">【Linux】第三章-进程概念</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-31T10:30:25+08:00">
-                2019-03-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  4.4k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第三章-进程概念"><a href="#第三章-进程概念" class="headerlink" title="第三章 进程概念"></a>第三章 进程概念</h1><p>&emsp;&emsp;从第三章起我们将进入Linux系统编程的阶段，我们将从计算机操作系统的角度进一步学习Linux。</p>
-<h2 id="冯诺依曼体系结构"><a href="#冯诺依曼体系结构" class="headerlink" title="冯诺依曼体系结构"></a>冯诺依曼体系结构</h2><p>&emsp;&emsp;在这里又要旧话重提讲一下冯诺依曼体系结构，在冯诺依曼提出计算机的理论组成结构后，现代计算机的组成结构基本都是按照这一套冯诺依曼几十年前提出的体系结构进程设计与制造的。可以说<strong>冯诺依曼奠定了现代计算机的硬件体系结构</strong>。<br><br>&emsp;&emsp;冯诺依曼体系结构可以概括为将计算机分为以下几个部分：1、输入设备（键盘）；2、输出设备（显示器）3、存储器（内存）；4、运算器（cpu）；5、控制器（cpu）。<br><br>&emsp;&emsp;对于冯诺依曼体系结构的理解我们不应该只停留在字面上，我们要深入理解计算机的硬件之间数据流的关系，计算机内部在我们执行各种操作的时候数据流是如何移动的？这些理解会随着对计算机系统的理解强化而更加深入。</p>
-<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><p>&emsp;&emsp;操作系统可以笼统解释为是一个安装在计算机中的软件，为了让计算机更加方便使用。但实际上，操作系统是<strong>统筹合理管理计算机上的软硬件资源</strong>的工具。<br><br>&emsp;&emsp;那么操作系统如何管理计算机呢？其实计算机在进行管理时会将计算机上的一个个模块用类似于结构的东西进行描述以便于信息的管理，之后再利用数据结构进行组织，因此可以描述为六个字：<strong>先描述，后组织</strong>。<br><br>&emsp;&emsp;计算机上的安装的硬件往往不能直接进行使用，我们需要通过<strong>驱动</strong>这个媒介才能进行使用，因此对下计算机则会组织和管理驱动来管理硬件。对上操作系统会将系统调用接口进行封装和管理变成库(lib)之后才会提供给用户进行使用。就像我们在写C语言时使用的系统函数，这里调用的接口不是直接的系统调用接口而是包含在库中的一层封装是为了让我们更加方便的进行系统调用从而控制硬件执行操作。<br><br>&emsp;&emsp;因此在这里我们可以概括操作系统为：对下管理硬件资源，对上提供良好的执行环境。</p>
-<h2 id="进程概念"><a href="#进程概念" class="headerlink" title="进程概念"></a>进程概念</h2><h3 id="什么是进程"><a href="#什么是进程" class="headerlink" title="什么是进程"></a>什么是进程</h3><p>&emsp;&emsp;进程：<strong>进行中的程序</strong>。那么计算机系统是怎么描述和组织一个个进程的呢？系统通过一个叫<strong>进程控制块</strong>的东西进行描述和组织一个个进程，简称<strong>PCB</strong>。而在Linux上<strong>PCB</strong>是一个结构体，这个结构体中保存着一个个进程的信息。因此对于操作系统来说一个<strong>PCB</strong>就是一个进程，系统在管理进程实际上就是在管理一个个<strong>PCB</strong>，这是系统管理进程的媒介。</p>
-<h3 id="PCB"><a href="#PCB" class="headerlink" title="PCB"></a>PCB</h3><p>&emsp;&emsp;那么PCB都包含有哪些信息呢？<br><br>&emsp;&emsp;1、PID：这是PCB中最为重要的信息，也是我们区分不同的进程的标志。每一个进程都有一个属于自己的ID编号这个编号就存储在PID中。<br><br>&emsp;&emsp;2、进程状态：任务的状态信息。<br><br>&emsp;&emsp;3、优先级：相比于其他进程的优先级。<br><br>&emsp;&emsp;4、程序计数器：由于CPU一次只能同时执行一个进程，因此为了达到看上去可以同时执行多个进程因此CPU会不停的高速在各个进程中进行切换执行，一次执行一点，这个被称为CPU轮循机制。那么在不停切换的时候需要记录各个进程当前执行到的代码，因此就在PCB中进行保存。程序计数器就是记录下一次执行的命令的地址。<br><br>&emsp;&emsp;5、内存指针：包括程序代码和进程相关数据的指针。<br><br>&emsp;&emsp;6、上下文数据：进程执行时CPU寄存器中存储的数据。<br><br>&emsp;&emsp;7、IO状态信息：包括IO请求和分配给进程的IO设备和打开的文件等。<br><br>&emsp;&emsp;8、记账信息：处理的时间综合，使用时钟综合，时间限制等。<br><br>&emsp;&emsp;9、其他信息。<br></p>
-<h3 id="进程查看"><a href="#进程查看" class="headerlink" title="进程查看"></a>进程查看</h3><p>&emsp;&emsp;在Linux中进程的信息都保存在<code>/proc</code>这个系统文件夹中，我们可以使用<code>ls /proc/</code>来查看进程信息。同样我们也可以用<code>ps</code>或<code>top</code>来查看进程信息。<br><br>&emsp;&emsp;我们可以首先写一个可以一直执行的程序然后来查看这个进程的信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  while(1)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;%d\n&quot;, getpid());//getpid()函数可以得到当前进程的PID</span><br><span class="line">    sleep(1);                               </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第三章]$ ./a.out</span><br><span class="line">5517</span><br><span class="line">5517</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;我们重新打开一个终端查看以下这个进程的信息。<br><br>&emsp;&emsp;先用查看系统文件的方式查看一下进程信息。<br><br><img src="/2019/03/31/【Linux】第三章-进程概念/1.jpg" alt="查看进程"><br><br>&emsp;&emsp;我们确实在系统文件中找到了我们的进程，但是这样的文件信息不太便于我们直接查看进程的信息。因此接下来我们使用<code>ps</code>命令。<br><br><img src="/2019/03/31/【Linux】第三章-进程概念/2.jpg" alt="查看进程"><br><br>&emsp;&emsp;在这个命令执行后我们可以查看到进程的PID以及占用虚拟内存及物理内存的多少和大小以及进程的状态和执行的命令等。<br></p>
-<h3 id="创建进程"><a href="#创建进程" class="headerlink" title="创建进程"></a>创建进程</h3><p>&emsp;&emsp;我们可以在一个进程中使用系统命令<code>fork()</code>创建其子进程，我们创建子进程可以更快的处理数量很多的数据。<br><br>&emsp;&emsp;<code>fork()</code>是有返回值的，在父进程中<code>fork()</code>返回子进程的PID，在子进程中返回0，由此我们可以区分父子进程。由于子进程会完全复制父进程的PID因此子进程在创建后会和父进程一起执行创建进程之后的语句直到进程结束。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> *</span><br><span class="line"> * fork初使用</span><br><span class="line"> * 通过复制调用进程，创建一个新的进程（子进程）</span><br><span class="line"> */</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  printf(&quot;parent pid = %d\n&quot;, getpid());</span><br><span class="line">  pid_t pid = fork();//复制了父进程的PCB，因此程序计数器也会跟父进程一致，因此子进程下一句执行的代码和父进程一致</span><br><span class="line">  printf(&quot;child1:%d\n&quot;, pid);</span><br><span class="line">  if(pid &lt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  else if(pid == 0)//fork有返回值，子进程返回0，父进程返回的是子进程的pid</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;child:%d\n&quot;, getpid());//得到当前进程的PID</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;parent:%d\n&quot;, getpid());//得到当前进程的PID                                                         </span><br><span class="line">  &#125;</span><br><span class="line">  printf(&quot;Misaki\n&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第三章]$ ./Creat</span><br><span class="line">parent pid = 6200</span><br><span class="line">child1:6201</span><br><span class="line">parent:6200</span><br><span class="line">Misaki</span><br><span class="line">child1:0</span><br><span class="line">child:6201</span><br><span class="line">Misaki</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;在这个例子中父进程先执行之后才执行了子进程，并且子进程只执行了<code>fork()</code>之后的语句。</p>
-<h2 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h2><p>&emsp;&emsp;在程序执行后，每个进程都有属于自己的状态，并且我们可以通过<code>ps -aux</code>或者<code>ps -axj</code>命令查看到进程的状态。基本状态分为以下几种。<br><br>&emsp;&emsp;1、运行状态(R)：这个状态表明进程要么正在运行要么就在进程队列中。<br><br>&emsp;&emsp;2、睡眠状态(S)：表示进程正在等待某个时间的完成。同时睡眠也分为可中断和不可中断的睡眠。这里的睡眠指可中断睡眠。<br><br>&emsp;&emsp;3、磁盘睡眠状态(D)：这里的睡眠指的即是不可中断睡眠。这个状态的进程往往是在等待IO的结束。<br><br>&emsp;&emsp;4、停止状态(T)：这里的停止状态指的是通过指令让一个进程处于暂停状态，同时我们是随时可以将其恢复继续运行的。<br><br>&emsp;&emsp;5、死亡状态(X)：这个状态并不会在查看进程的时候显示，因为这个状态的进程已经完全停止了，是不可恢复的。<br></p>
-<h3 id="僵尸进程"><a href="#僵尸进程" class="headerlink" title="僵尸进程"></a>僵尸进程</h3><p>&emsp;&emsp;这是要尤为重点讨论一个进程的状态——<strong>僵尸进程</strong>。这是一种十分危险的进程状态，是由于子进程在运行中退出但父进程并未读取子进程的退出状态码所导致的，并且此时的子进程为了等待父进程读取退出状态码一直处于僵死状态，由此既产生僵尸进程，直到父进程也退出。以下我将演示僵尸进程的形成。<br><br>&emsp;&emsp;我首先书写了一个程序达到让创建新进程后让父进程睡眠60秒并且让子进程立刻退出，由此来达到制造一个长达60秒的僵尸进程。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  pid_t id = fork();</span><br><span class="line">  if(id &lt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">    perror(&quot;fork&quot;);</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  else if(id &gt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;父进程:%d\n&quot;, getpid());</span><br><span class="line">    sleep(60);</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;子进程:%d\n&quot;, getpid());</span><br><span class="line">    _exit(-1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;之后我们运行程序后，用新的控制台查看查看进程状态即可得到如下图的信息。<br><br><img src="/2019/03/31/【Linux】第三章-进程概念/3.jpg" alt="查看进程"><br><br>&emsp;&emsp;可以看到我们的子进程已经变成了僵尸进程。<br><br>&emsp;&emsp;造成僵尸进程的后果：<br><br>&emsp;&emsp;1、浪费资源。由于僵尸进程一直不退出，父进程一直在关心自己子进程的退出，但是迟迟不会读取，由此系统需要一直维护僵尸进程，并且如果有大量的僵尸进程也会消耗大量资源进行维护。<br><br>&emsp;&emsp;2、内存泄漏。由于创造进程需要消耗内存而内存一直无法得到释放，就会造成内存泄漏。<br><br>&emsp;&emsp;那我们如何关闭僵尸进程呢？也很简单，只需要关闭他的父进程即可。至于如何避免造成僵尸进程，我们需要用到进程等待技术，这一点我们之后再讲。<br></p>
-<h3 id="孤儿进程"><a href="#孤儿进程" class="headerlink" title="孤儿进程"></a>孤儿进程</h3><p>&emsp;&emsp;孤儿进程也是一种特殊的进程。他是在父进程先退出子进程还在执行的情况下造成的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  pid_t pid = fork();</span><br><span class="line">  if(pid &lt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">    perror(&quot;fork error&quot;);</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  else if(pid == 0)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;I am child:%d\n&quot;, getpid());</span><br><span class="line">    sleep(60);                           </span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;I am parent:%d\n&quot;, getpid());</span><br><span class="line">    sleep(5);</span><br><span class="line">    exit(0);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第三章]$ ./Guer</span><br><span class="line">I am parent:4646</span><br><span class="line">I am child:4647</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;以上这个程序我们创造了一个持续一分钟的孤儿进程。我们在另一个终端中查看下父进程退出前后的进程信息。<br><br>&emsp;&emsp;前：<br><br><img src="/2019/03/31/【Linux】第三章-进程概念/4.jpg" alt="前"><br><br>&emsp;&emsp;后：<br><br><img src="/2019/03/31/【Linux】第三章-进程概念/5.jpg" alt="后"><br><br>&emsp;&emsp;通过父进程退出前后我们可以看出来子进程的父进程会从原来的父进程变成<strong>1号</strong>进程——<code>init进程</code>。这个进程就像是一个巨大的孤儿院，只要你有<strong>init进程回收</strong>机制，我们的孤儿进程就会被1号进程领养。<br></p>
-<h2 id="进程优先级"><a href="#进程优先级" class="headerlink" title="进程优先级"></a>进程优先级</h2><h3 id="PRI-NI"><a href="#PRI-NI" class="headerlink" title="PRI + NI"></a>PRI + NI</h3><p>&emsp;&emsp;在操作系统下，我们往往是多个进程同时执行，但是往往在不同的进程中拥有着优先级别，系统会将资源优先分配给优先级高的进程，这样重要的进程才不会显得卡顿。我们的进程往往分为<strong>交互式进程</strong>和<strong>批处理进程</strong>，交互式进程要求一旦用户操作就优先运行，因此它们的优先级往往要高于批处理进程。我们先用<code>ps -elf</code>查看一下进程的优先级。<br><br><img src="/2019/03/31/【Linux】第三章-进程概念/6.jpg" alt="进程优先级"><br><br>&emsp;&emsp;我们主要关注这两行数据，<code>PRI</code>和<code>NI</code>，它们共同决定了一个进程的优先级。<code>PRI(优先级) = PRI(初始) + NI(NICE值)</code>，我们往往无法直接改变一个程序的<code>PRI</code>优先级，但是我们可以通过修改进程的<code>NI</code>值来达到修改进程优先级的目的。<code>PRI</code>值越小则优先级越高，<code>NI</code>值的范围为-20 ~ 19，一共40个优先级级别。<br><br>&emsp;&emsp;我们可以使用<code>nice -n 新NICE值 -p PID</code>来更改一个已有进程的<code>NICE值</code>，也可以使用<code>nice -n 新NICE值 可执行程序</code>来用一个<code>NICE</code>值运行一个程序。不过我们要注意<strong>修改NICE值需要root用户</strong>。</p>
-<h3 id="其他概念"><a href="#其他概念" class="headerlink" title="其他概念"></a>其他概念</h3><p>&emsp;&emsp;1、并行：cpu资源充足，多个程序同时运行。<br><br>&emsp;&emsp;2、并发：cpu资源不足，多个程序轮换运行。<br><br>&emsp;&emsp;3、独立性：多个进程之间相互独立。<br><br>&emsp;&emsp;4、竞争性：进程多资源少，多个进程间竞争资源。<br></p>
-<h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>&emsp;&emsp;环境变量是保存系统运行环境参数的变量。常见环境变量：<code>PATH</code>，<code>HOME</code>，<code>SHELL</code>。<br></p>
-<h3 id="环境变量相关基础指令"><a href="#环境变量相关基础指令" class="headerlink" title="环境变量相关基础指令"></a>环境变量相关基础指令</h3><p>&emsp;&emsp;1、<code>echo $NAME</code>：可以查看一个环境变量。<br><br>&emsp;&emsp;2、<code>env</code>：查看所有环境变量。<br><br>&emsp;&emsp;3、<code>export</code>：声明一个环境变量。<br><br>&emsp;&emsp;4、<code>unset</code>：删除一个环境变量。<br><br>&emsp;&emsp;我们在将一个程序的路径加入<code>PATH</code>环境变量后即可直接使用程序名执行程序。<code>export PATH=$PATH:程序路径</code>。<br></p>
-<h3 id="在程序中获取环境变量"><a href="#在程序中获取环境变量" class="headerlink" title="在程序中获取环境变量"></a>在程序中获取环境变量</h3><h4 id="通过命令行第三个参数"><a href="#通过命令行第三个参数" class="headerlink" title="通过命令行第三个参数"></a>通过命令行第三个参数</h4><p>&emsp;&emsp;每个程序在执行时都会接收到操作系统的一张表，这张表是由字符指针数组构成的，每个指针都会指向一个以’\0’结尾的环境变量，并且这张表存储在main函数的第三个参数中。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int main(int argc, char* argv[], char* env[])</span><br><span class="line">&#123;</span><br><span class="line"> int i = 0;</span><br><span class="line"> for(; env[i]; i++)&#123;</span><br><span class="line"> printf(&quot;%s\n&quot;, env[i]);</span><br><span class="line"> &#125;</span><br><span class="line"> return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;由此即可将所有的环境变量打印出来。</p>
-<h4 id="通过第三方变量environ"><a href="#通过第三方变量environ" class="headerlink" title="通过第三方变量environ"></a>通过第三方变量environ</h4><p>&emsp;&emsp;在C语言的<code>libc</code>官方库中，有一个事先定义好的全局变量<code>environ</code>，这个变量也指向环境变量表，我们可以通过它来找到所有的环境变量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line"> extern char** environ;</span><br><span class="line"> int i = 0;</span><br><span class="line"> for(; environ[i]; i++)&#123;</span><br><span class="line"> printf(&quot;%s\n&quot;, environ[i]);</span><br><span class="line"> &#125;</span><br><span class="line"> return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="通过系统调用获得环境变量"><a href="#通过系统调用获得环境变量" class="headerlink" title="通过系统调用获得环境变量"></a>通过系统调用获得环境变量</h4><p>&emsp;&emsp;<code>getenv()</code>是一个系统调用接口专门用来帮助我们在程序中获取环境变量的值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line"> printf(&quot;%s\n&quot;, getenv(&quot;PATH&quot;));</span><br><span class="line"> return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="程序地址空间"><a href="#程序地址空间" class="headerlink" title="程序地址空间"></a>程序地址空间</h2><p>&emsp;&emsp;我们之前在学习C语言研究计算机内存时将内存分为几个基础区域，但是我们计算机在存储数据时真的如我们所想将数据就这么随意的散布在内存中么？并且在存储时如果每个进程都这样进行分配岂不是会很难管理?<br></p>
-<h3 id="虚拟地址和物理地址"><a href="#虚拟地址和物理地址" class="headerlink" title="虚拟地址和物理地址"></a>虚拟地址和物理地址</h3><p>&emsp;&emsp;我们先通过一段代码来看看其中的端倪。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int g_val = 0;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line"> pid_t id = fork();</span><br><span class="line"> if(id &lt; 0)&#123;</span><br><span class="line"> perror(&quot;fork&quot;);</span><br><span class="line"> return 0;</span><br><span class="line"> &#125;</span><br><span class="line"> else if(id == 0)&#123; //child,子进程肯定先跑完，也就是子进程先修改，完成之后，父进程再读取</span><br><span class="line"> g_val=100;</span><br><span class="line"> printf(&quot;child[%d]: %d : %p\n&quot;, getpid(), g_val, &amp;g_val);</span><br><span class="line"> &#125;else&#123; //parent</span><br><span class="line"> sleep(3);</span><br><span class="line"> printf(&quot;parent[%d]: %d : %p\n&quot;, getpid(), g_val, &amp;g_val);</span><br><span class="line"> &#125;</span><br><span class="line"> sleep(1);</span><br><span class="line"> return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">child[3046]: 100 : 0x80497e8</span><br><span class="line">parent[3045]: 0 : 0x80497e8</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;为什么会这样呢，命名地址相同但是值却不同？我们的系统在给每个进程分配内存时都会进行一套处理，所让我们看到的地址都不是真实的地址我们称之为<strong>虚拟地址</strong>，与之相对的，真实的在内存中的存储方法是不可见的，是由系统进行管理的，我们称这种真正的地址为<strong>物理地址</strong>。所以在我们上面这个程序中父进程与子进程的变量的地址相同其实是它们的虚拟地址相同，但必然有着不同的物理地址，因此才会有不同的值。</p>
-<h3 id="虚拟地址空间"><a href="#虚拟地址空间" class="headerlink" title="虚拟地址空间"></a>虚拟地址空间</h3><p>&emsp;&emsp;在每个程序执行时系统就会为它分配一块物理内存，纳闷物理内存是如何和虚拟内存关联的呢？那就必然有着一个中间起到连接作用的工具——<strong>页表</strong>。页表是一用来记录虚拟地址与物理地址它们之间的关系，并且对内存数据进行管理。如下所示。<br><br><img src="/2019/03/31/【Linux】第三章-进程概念/7.png" alt="虚拟地址空间"><br><br>&emsp;&emsp;不过在我们创建子进程时也并不是一旦创建就会直接分配物理内存，这样有点过于浪费内存空间了。得益于<strong>写时拷贝技术</strong>可以让我们创建完子进程后父子进程公用同一块物理内存，只有在子进程改变变量时才会分配新的物理内存，这样大大减少了对内存的消耗。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2174,7 +2184,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2196,7 +2206,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2293,7 +2303,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共182.2k字</span>
+  <span class="post-count">博客全站共184.8k字</span>
 </div>
 
         ﻿

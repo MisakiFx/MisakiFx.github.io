@@ -264,6 +264,176 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/【Linux】Linux编程-基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/05/【Linux】Linux编程-基础/" itemprop="url">【Linux】Linux编程-基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-05T22:32:16+08:00">
+                2018-12-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.6k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Linux编程-基础"><a href="#Linux编程-基础" class="headerlink" title="Linux编程 基础"></a>Linux编程 基础</h1><p>&emsp;&emsp;我们学习Linux的主要目的就是为了在让我们所写的代码可以在Linux环境下稳定运行，因为作为一个服务端程序员，我们将来所接触的服务器的系统内核全部都为Linux，也就是说我们所写的所有代码都要求在Linux服务器上依然可以稳定运行，这是作为服务端程序员的基本素养。因此Linux环境下的编程也是我们必须要学习的。</p>
+<h2 id="第1节"><a href="#第1节" class="headerlink" title="第1节"></a>第1节</h2><h3 id="Linux编程准备材料"><a href="#Linux编程准备材料" class="headerlink" title="Linux编程准备材料"></a>Linux编程准备材料</h3><p>&emsp;&emsp;我们将来并不是直接在服务器上对Linux服务器进行编程，更多的是用远程链接的方式来操作服务器，因此作为远程链接的桥梁有一款软件是我们今后会经常使用的，也是之前我所提过的<strong>Xshell</strong>。其实在Linux系统内核外壳有一门独到的脚本编程语言，我们利用这款脚本语言来控制Linux，这款语言就叫<strong>shell</strong>。我们之前所说的Linux基本命令其实就是在利用shell脚本语言来控制Linux系统。而在这里所说的<strong>Xshell</strong>这么一款模拟Linux终端的模拟软件，在Xshell里链接到我们的Linux系统后的操作就与直接在Linux终端里的操作几乎完全一样了（<del>实际上还是有一些区别</del>）。因此我们之后的所有操作都会利用Xshell来远程控制我们的虚拟机。因此在Linux编程中<strong>Xshell</strong>是必不可少的。<br><br>&emsp;&emsp;Xshell下载地址：<a href="https://gitee.com/HGtz2222/xshell_install_package/raw/master/Xshell-6.0.0082p.exe" target="_blank" rel="noopener">https://gitee.com/HGtz2222/xshell_install_package/raw/master/Xshell-6.0.0082p.exe</a></p>
+<h3 id="将Xshell连接到Linux"><a href="#将Xshell连接到Linux" class="headerlink" title="将Xshell连接到Linux"></a>将Xshell连接到Linux</h3><p>&emsp;&emsp;1、打开Linux虚拟机和Xshell。我们要将Linux连接到Xshell首先当然肯定是要先打开我们的虚拟机啦,当然Xshell也要打开<br><br>&emsp;&emsp;2、在Linux终端输入<code>ifconfig</code>指令，然后在下图红框处找到自己的ip地址。<br><br><img src="/2018/12/05/【Linux】Linux编程-基础/1.png" alt="Xshell连接"><br><br>&emsp;&emsp;然后在Xshell中输入如下图的命令。<br><br><img src="/2018/12/05/【Linux】Linux编程-基础/2.png" alt="Xshell连接"><br><br>&emsp;&emsp;之后按要求输入Linux中的用户名及密码即可连接上虚拟机。<br><br><img src="/2018/12/05/【Linux】Linux编程-基础/3.png" alt="Xshell连接"><br><br>&emsp;&emsp;连接上之后的操作都和Linux终端中的一致了。同时Xshell比Linux的终端好看了不止一点，可以改变界面透明度和背景，使用起来心情舒畅多了。</p>
+<h3 id="如何在Linux中编程"><a href="#如何在Linux中编程" class="headerlink" title="如何在Linux中编程"></a>如何在Linux中编程</h3><p>&emsp;&emsp;正如我们之前在Windows中使用的vs2017这个ide一样，在Windows中我们大多使用类如这样方便的集成式ide来进行编程，ide将我们编写程序所需要用到的工具进行整合，合为一体供我们使用，十分方便快捷。<br><br>&emsp;&emsp;而在Linux中不同于Windows的是，Linux这类操作系统更崇尚的是利用简而精的软件而并非Windows使用所崇尚的这种一站集成式的软件，因此在Linux中编程我们并不会接触到类似于vs2017这样的集成式的开发环境，而是将其打散成多个小软件分别使用。这样的方式是类Windows操作系统与类Unix操作系统关键性的区别。<br><br>&emsp;&emsp;那么在vs2017这个继承开发环境中都包含了哪些基本的功能供我们使用呢？可以大致分为以下四种，并且我们在Linux中都找到了对应的软件来代替vs2017中这一功能，我也一并将其列出来。<br><br>&emsp;&emsp;1、代码编辑器 —— vim。<br><br>&emsp;&emsp;2、编译器 —— gcc。<br><br>&emsp;&emsp;3、调试器 —— gdb。<br><br>&emsp;&emsp;4、项目组织 —— makefile。<br><br>&emsp;&emsp;以上这四款基本软件我们今后在Linux编程中会经常使用，可以说只要是在Linux下编程就必定会用到这四款软件。那么我们怎么在Linux下找到这四款软件呢？<br></p>
+<h3 id="yum使用"><a href="#yum使用" class="headerlink" title="yum使用"></a>yum使用</h3><p>&emsp;&emsp;在Linux中内置了一个类似于应用商店的东西，我们称之为<strong>包管理器</strong>。在这个应用商店中我们可以找到一些我们常用的包，来提供给我们的Linux一些新的扩展功能。接下来我会以在yum下载<strong>rzsz</strong>这个软件包为例讲解如何使用yum。<strong><em>以下流程均需虚拟机联网</em></strong>。<br><br>&emsp;&emsp;1、我们先利用yum来搜索rzsz的软件包。输入<code>yum list | grep rzsz</code>命令，稍等即可出现搜索结果。如果过长时间未出现结果可取消重试或检查网络连接后重试。(<code>ctrl+c</code>取消命令)<br><br><img src="/2018/12/05/【Linux】Linux编程-基础/4.png" alt="Xshell连接"><br><br>&emsp;&emsp;2、切换到root管理员下载安装rzsz既可。确保自己在root管理员权限下输入<code>yum install 包名</code>即可自动安装，其中包名为我们刚刚搜索出来的软件包的名称。<br><br>&emsp;&emsp;<strong>注意</strong>：在Linux下安装删除软件均需切换到root管理员才可执行。<br><br>&emsp;&emsp;（输入<code>su</code>命令后输入root密码后即可切换为root管理员。）<br><br><img src="/2018/12/05/【Linux】Linux编程-基础/5.png" alt="Xshell连接"><br><br>&emsp;&emsp;之后我们的rzsz就安装成功了，如果需要删除这个包，则也需要在root管理员权限下，输入<code>yum erase 包名</code>即可。当操作结束后最好退出root权限（输入<code>exit</code>即可退出）。<del>毕竟还是用普通用户比较安全。</del><br><br>&emsp;&emsp;虽说我们安装好了rzsz但是这个包到底有什么用处呢？大致作用可以解释为让Windows和Linux两个系统上的文件可以自由快速传输，如果没有这个软件包纯粹利用FTP进行文件传输有着极高的延迟，而且不够方便，而有了rzsz这可以大大改善这一点，是我们将来工作的必备软件包之一。</p>
+<h3 id="之后的准备"><a href="#之后的准备" class="headerlink" title="之后的准备"></a>之后的准备</h3><p>&emsp;&emsp;在介绍完yum的使用后，我们平时使用的很多软件包都可以直接从yum上进行下载，但也并非所有东西yum里都有。<br><br>&emsp;&emsp;但是在Linux编程上我们要经常使用<strong>vim、gcc、gdb、makefile</strong>这四款软件，但是好消息是这四款软件有的在Linux上已经提前安装好了，我们直接使用即可。关于这四款软件的具体使用会在<strong>Linux编程</strong>的其他章节继续介绍。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/04/【Linux】Linux基础-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1825,178 +1995,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/08/【C语言】第三章-函数-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/08/【C语言】第三章-函数-1/" itemprop="url">【C语言】第三章-函数-1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-08T00:16:11+08:00">
-                2018-11-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C语言初阶/" itemprop="url" rel="index">
-                    <span itemprop="name">C语言初阶</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.4k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第三章-函数"><a href="#第三章-函数" class="headerlink" title="第三章 函数"></a>第三章 函数</h1><h2 id="第1节"><a href="#第1节" class="headerlink" title="第1节"></a>第1节</h2><p>&emsp;&emsp;之前有简单介绍过函数，函数时C语言中不可缺少的一环，可以极大的将代码重复利用，提高我们的工作效率，也会使代码的可读性更高，使代码更加好看。因此这个章节我们将详细讲讲C语言中的函数。</p>
-<h3 id="函数的分类"><a href="#函数的分类" class="headerlink" title="函数的分类"></a>函数的分类</h3><h4 id="库函数"><a href="#库函数" class="headerlink" title="库函数"></a>库函数</h4><p>&emsp;&emsp;C语言基础库中有一些大佬们提前写好的函数放在文件中，一共我们进行更方便更快捷的使用，要使用对应的库函数只需要在文件开头引入对应的头文件即可，这可对我们程序编写带来了不少方便。例如<code>#include &lt;stdio.h&gt;</code>；<code>#include &lt;string.h&gt;</code>。<br><br>&emsp;&emsp;有些同学或许会有疑问，那么库函数这么方便那么我们需不需要把库函数背下来呢？<strong>答案当然是不需要的。</strong> 因为常用的库函数我们用多了自然就熟记于心，然而不常用的库函数等我们需要用他们的时候再去查看<strong>官方文档</strong>即可，注意我这里是的是官方的文档，作为一个程序员要养成多看文档，及时看文档的习惯，相比把库函数背下来冒着有可能出错的风险我们不如到用的时候花一些时间去查看官方文档。在此我推荐一个网址：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="http://www.cplusplus.com/" target="_blank" rel="noopener">http://www.cplusplus.com/</a><br><br>&emsp;&emsp;这个是C语言国际委员会官方编写的文档，也是最为准确的文档。也许有的同学更喜欢上MSDN查看文档，但是我要说的是，MSDN是微软发布的，和官方的比谁更有权威相信大家都能轻易评判出来的吧！<br><br>&emsp;&emsp;对于C语言的基础库函数来说，我只能用一个字来形容：<strong>弱。</strong> 弱爆了的弱，而且C语言要是想要添加第三方库函数还及其麻烦，十分不辩解，相比下JAVA简直是一股清流啊。因此既然库函数无法满足我们的日常需求，就得要我们自己动手了，接下来我接着介绍<strong>自定义函数</strong>。</p>
-<h4 id="自定义函数"><a href="#自定义函数" class="headerlink" title="自定义函数"></a>自定义函数</h4><p>&emsp;&emsp;自定义函数，正如其名，就是我们自己定义的函数，那么自定义函数需要遵循什么格式呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ret_type fun_name(para 1,* )</span><br><span class="line">&#123;</span><br><span class="line">    statement;//语句项</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;没错以上这个就是自定义函数的模版了，返回值+函数名+（括号内参数）+大括号包含语句项的方式即可定义出一个供我们自己使用的函数。下面是一个判断数字大小的简单的例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int get_max(int x, int y)</span><br><span class="line">&#123;</span><br><span class="line">    return (x &gt; y) ? x : y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;在这个函数中我用了一个三目运算符，用来判断x, y中更大的值并且返回。于是这么一个比较大小的函数就被我定义出来了。</p>
-<h3 id="函数的参数"><a href="#函数的参数" class="headerlink" title="函数的参数"></a>函数的参数</h3><p>&emsp;&emsp;在函数被调用的时候，函数中的参数会发生一些微妙的改变。在调用的时候传给函数的值，这样的参数我们称之为<strong>实参</strong>，而在函数定义时，后面括号的值我们则称之为<strong>形参</strong>，这里十分容易搞混，简单来说就是函数定义时的参数是形参，调用时的参数是实参。为什么我们要区分实参和形参呢？<br><br>&emsp;&emsp;在函数调用过程中，我们将函数值传递进函数体中的时候，实际在函数体内形成了一份新的内存空间用来存储我们传递进去的值，因此形参在函数体内无论再怎么改变都不会影响调用函数时使用的实参。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">void exchange(int num1, int num2)</span><br><span class="line">&#123;</span><br><span class="line">	int t = num1;</span><br><span class="line">	num1 = num2;</span><br><span class="line">	num2 = t;</span><br><span class="line">&#125;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int num1 = 1;</span><br><span class="line">	int num2 = 2;</span><br><span class="line">	exchange(num1, num2);</span><br><span class="line">	printf(&quot;num1 = %d,num2 = %d\n&quot;, num1, num2);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;运行以上的代码就会发现在函数内部我们明明已经交换num1和num2的值但是为什么在主函数中却没有任何改变呢？这就是我们所说的实参与形参以及函数<strong>副本传递参数</strong>的特性，大家只需要记住一句话即可：<strong><em>传给函数的形参不过是实参的一个副本</em></strong>。<br><br>&emsp;&emsp;但是如果我们要是想在函数中对实参进行改变我们该怎么做呢？没错这里我们就要用到C语言的灵魂工具——指针。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">void exchange(int* num1, int* num2)</span><br><span class="line">&#123;</span><br><span class="line">	int t = *num1;</span><br><span class="line">	*num1 = *num2;</span><br><span class="line">	*num2 = t;</span><br><span class="line">&#125;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int num1 = 1;</span><br><span class="line">	int num2 = 2;</span><br><span class="line">	exchange(&amp;num1, &amp;num2);</span><br><span class="line">	printf(&quot;num1 = %d,num2 = %d\n&quot;, num1, num2);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;我们将代码稍作修改，将函数类型转为指针型，大家就会发现，num1和num2的值已经交换了，这其中能够交换都得多亏我们使用指针找到了实参的地址，才能在函数内对其进行修改。<br><br>&emsp;&emsp;关于函数的调用在下一节会有详细讲解。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2051,7 +2049,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2073,7 +2071,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2170,7 +2168,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共182.2k字</span>
+  <span class="post-count">博客全站共184.8k字</span>
 </div>
 
         ﻿
