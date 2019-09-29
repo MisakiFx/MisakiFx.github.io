@@ -264,6 +264,223 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/【MySQL】第六章-表的增删改查/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/06/【MySQL】第六章-表的增删改查/" itemprop="url">【MySQL】第六章-表的增删改查</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-06T17:32:31+08:00">
+                2019-02-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.6k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第六章-表的增删改查"><a href="#第六章-表的增删改查" class="headerlink" title="第六章 表的增删改查"></a>第六章 表的增删改查</h1><p>&emsp;&emsp;本章开始介绍表的增删改查，是数据库操作中最为重要的部分，尤其是数据查找，基本数据库的所有操作的核心都在于查找。</p>
+<h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><p>&emsp;&emsp;在建表过后我们就要进行数据的插入，在此我们可以进行数据的全列插入也可以进行多行数据的指定列插入，这里有最常用的几种语法，接下来开始分别介绍。首先我们先建一个表，以这个表为例进行举例。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; create table student </span><br><span class="line">    -&gt; (</span><br><span class="line">    -&gt;     id int primary key auto_increment,</span><br><span class="line">    -&gt;     name varchar(20) not null,</span><br><span class="line">    -&gt;     class_id int </span><br><span class="line">    -&gt; );</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<h3 id="单行整列插入"><a href="#单行整列插入" class="headerlink" title="单行整列插入"></a>单行整列插入</h3><p>&emsp;&emsp;接下来我们对整列数据都进行插入，一次只插入一行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; insert into student values(1, &apos;钢铁侠&apos;, 1000);</span><br><span class="line">Query OK, 1 row affected (0.08 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; insert into student values(2, &apos;擎天柱&apos;, 1001);</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;然后我们打印一下整表的数据看下结果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select * from student;</span><br><span class="line">+----+-----------+----------+</span><br><span class="line">| id | name      | class_id |</span><br><span class="line">+----+-----------+----------+</span><br><span class="line">|  1 | 钢铁侠    |     1000 |</span><br><span class="line">|  2 | 擎天柱    |     1001 |</span><br><span class="line">+----+-----------+----------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;我们已经将数据插入进去了。</p>
+<h3 id="多行指定列插入"><a href="#多行指定列插入" class="headerlink" title="多行指定列插入"></a>多行指定列插入</h3><p>&emsp;&emsp;当我们想要一次插入多行并且指定特殊列给定数据时就可以使用以下的语法，并且<strong>未赋值的列会自动赋予默认值</strong>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; insert into student(name,class_id) values(&apos;大黄蜂&apos;,1003),(&apos;蜘蛛侠&apos;,1004);</span><br><span class="line">Query OK, 2 rows affected (0.00 sec)</span><br><span class="line">Records: 2  Duplicates: 0  Warnings: 0</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;查看一下数据。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select * from student;</span><br><span class="line">+----+-----------+----------+</span><br><span class="line">| id | name      | class_id |</span><br><span class="line">+----+-----------+----------+</span><br><span class="line">|  1 | 钢铁侠    |     1000 |</span><br><span class="line">|  2 | 擎天柱    |     1001 |</span><br><span class="line">|  3 | 大黄蜂    |     1003 |</span><br><span class="line">|  4 | 蜘蛛侠    |     1004 |</span><br><span class="line">+----+-----------+----------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;可以看到数据已经插入，并且插入了两行，由于我对<code>id</code>字段设置了自增长，于是即使我不给它值也会自动帮我们填充。</p>
+<h3 id="插入否则更新"><a href="#插入否则更新" class="headerlink" title="插入否则更新"></a>插入否则更新</h3><p>&emsp;&emsp;这种插入方式针对的是当我们设置的主键或者唯一键产生冲突时形成替代方案的做法。当我们插入一个数据如果数据中的主键或者唯一键与已经存在的数据冲突我们就会对其进行数据更新，至于更新哪些数据都是由我们来指定的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; insert into student values(1, &apos;奇异博士&apos;, 1000)</span><br><span class="line">    -&gt; on duplicate key update name = &apos;奇异博士&apos;, class_id = 1000;</span><br><span class="line">Query OK, 2 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;打印当前数据。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select * from student;</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">| id | name         | class_id |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">|  1 | 奇异博士     |     1000 |</span><br><span class="line">|  2 | 擎天柱       |     1001 |</span><br><span class="line">|  3 | 大黄蜂       |     1003 |</span><br><span class="line">|  4 | 蜘蛛侠       |     1004 |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;由于我们擦汗如的数据主键冲突我们将目标主键那一行其他字段的值进行了修改，当然如果没有冲突的话就会整行插入新的数据了。不过此时要注意我们更新不可更新主键或唯一键的值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; insert into student values(1, &apos;奇异博士&apos;, 1000) on duplicate key update id = 2, name = &apos;奇异博士&apos;, class_id = 1000;</span><br><span class="line">ERROR 1062 (23000): Duplicate entry &apos;2&apos; for key &apos;PRIMARY&apos;</span><br></pre></td></tr></table></figure></p>
+<h3 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h3><p>&emsp;&emsp;这种语法也是针对处理主键或唯一键的冲突数据的，如果插入的数据不产生冲突则直接插入，如果产生冲突则完全替换原数据。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; replace into student values(2, &apos;绿巨人&apos;, 1001);</span><br><span class="line">Query OK, 2 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; select * from student;</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">| id | name         | class_id |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">|  1 | 奇异博士     |     1000 |</span><br><span class="line">|  2 | 绿巨人       |     1001 |</span><br><span class="line">|  3 | 大黄蜂       |     1003 |</span><br><span class="line">|  4 | 蜘蛛侠       |     1004 |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;以上这几种插入语法都十分简单，最为常用的是前两种插入，我们之前也有大量使用，掌握起来也很简单。</p>
+<h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><p>&emsp;&emsp;查找是本章的重点，也是数据库最为常用的操作。</p>
+<h3 id="全列查询"><a href="#全列查询" class="headerlink" title="全列查询"></a>全列查询</h3><p>&emsp;&emsp;全列查询我们之前经常使用，语法及案例如下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select * from student;</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">| id | name         | class_id |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">|  1 | 奇异博士     |     1000 |</span><br><span class="line">|  2 | 绿巨人       |     1001 |</span><br><span class="line">|  3 | 大黄蜂       |     1003 |</span><br><span class="line">|  4 | 蜘蛛侠       |     1004 |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<h3 id="指定列查询"><a href="#指定列查询" class="headerlink" title="指定列查询"></a>指定列查询</h3><p>&emsp;&emsp;如果我们只想查询表中指定字段的数据，则可以使用以下的语法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select id, name from student;</span><br><span class="line">+----+--------------+</span><br><span class="line">| id | name         |</span><br><span class="line">+----+--------------+</span><br><span class="line">|  1 | 奇异博士     |</span><br><span class="line">|  2 | 绿巨人       |</span><br><span class="line">|  3 | 大黄蜂       |</span><br><span class="line">|  4 | 蜘蛛侠       |</span><br><span class="line">+----+--------------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<h3 id="查询字段为表达式"><a href="#查询字段为表达式" class="headerlink" title="查询字段为表达式"></a>查询字段为表达式</h3><p>&emsp;&emsp;我们可以将数据进行一些处理之后再进行查询，比如我们将<code>id</code>字段整体加1之后再打印。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select id + 1, name, class_id from student;</span><br><span class="line">+--------+--------------+----------+</span><br><span class="line">| id + 1 | name         | class_id |</span><br><span class="line">+--------+--------------+----------+</span><br><span class="line">|      2 | 奇异博士     |     1000 |</span><br><span class="line">|      3 | 绿巨人       |     1001 |</span><br><span class="line">|      4 | 大黄蜂       |     1003 |</span><br><span class="line">|      5 | 蜘蛛侠       |     1004 |</span><br><span class="line">+--------+--------------+----------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;我们甚至可以直接查询表达式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select id, name, class_id, 10 from student;</span><br><span class="line">+----+--------------+----------+----+</span><br><span class="line">| id | name         | class_id | 10 |</span><br><span class="line">+----+--------------+----------+----+</span><br><span class="line">|  1 | 奇异博士     |     1000 | 10 |</span><br><span class="line">|  2 | 绿巨人       |     1001 | 10 |</span><br><span class="line">|  3 | 大黄蜂       |     1003 | 10 |</span><br><span class="line">|  4 | 蜘蛛侠       |     1004 | 10 |</span><br><span class="line">+----+--------------+----------+----+</span><br><span class="line">4 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;我们还可以将多个字段进行操作之后打印。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select id, name, class_id + id from student;</span><br><span class="line">+----+--------------+---------------+</span><br><span class="line">| id | name         | class_id + id |</span><br><span class="line">+----+--------------+---------------+</span><br><span class="line">|  1 | 奇异博士     |          1001 |</span><br><span class="line">|  2 | 绿巨人       |          1003 |</span><br><span class="line">|  3 | 大黄蜂       |          1006 |</span><br><span class="line">|  4 | 蜘蛛侠       |          1008 |</span><br><span class="line">+----+--------------+---------------+</span><br><span class="line">4 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;如果我们觉得列名太长的话我们可以使用<code>as</code>语法指定别名。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select id, name, class_id + id as 表达式 from student;</span><br><span class="line">+----+--------------+-----------+</span><br><span class="line">| id | name         | 表达式    |</span><br><span class="line">+----+--------------+-----------+</span><br><span class="line">|  1 | 奇异博士     |      1001 |</span><br><span class="line">|  2 | 绿巨人       |      1003 |</span><br><span class="line">|  3 | 大黄蜂       |      1006 |</span><br><span class="line">|  4 | 蜘蛛侠       |      1008 |</span><br><span class="line">+----+--------------+-----------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<h3 id="结果去重"><a href="#结果去重" class="headerlink" title="结果去重"></a>结果去重</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; insert into student(name, class_id) values(&apos;葫芦娃&apos;, 1000);</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; select * from student;</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">| id | name         | class_id |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">|  1 | 奇异博士     |     1000 |</span><br><span class="line">|  2 | 绿巨人       |     1001 |</span><br><span class="line">|  3 | 大黄蜂       |     1003 |</span><br><span class="line">|  4 | 蜘蛛侠       |     1004 |</span><br><span class="line">|  5 | 葫芦娃       |     1000 |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;我们插入了一条新的数据，之后我们发现葫芦娃的班级和奇异博士的班级重复了，我想要去重，该怎么办呢。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select distinct class_id from student;</span><br><span class="line">+----------+</span><br><span class="line">| class_id |</span><br><span class="line">+----------+</span><br><span class="line">|     1000 |</span><br><span class="line">|     1001 |</span><br><span class="line">|     1003 |</span><br><span class="line">|     1004 |</span><br><span class="line">+----------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;加入<code>distinct</code>关键字即可去重，不过我们要注意，只有打印出来的字段完全一致才会进行去重，当我们如果打印了多个字段，但是两行数据间各字段的值并不都是相同的则不会去重。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select distinct name, class_id from student;</span><br><span class="line">+--------------+----------+</span><br><span class="line">| name         | class_id |</span><br><span class="line">+--------------+----------+</span><br><span class="line">| 奇异博士     |     1000 |</span><br><span class="line">| 绿巨人       |     1001 |</span><br><span class="line">| 大黄蜂       |     1003 |</span><br><span class="line">| 蜘蛛侠       |     1004 |</span><br><span class="line">| 葫芦娃       |     1000 |</span><br><span class="line">+--------------+----------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<h3 id="where条件"><a href="#where条件" class="headerlink" title="where条件"></a>where条件</h3><p>&emsp;&emsp;如果说查询是数据库中最重要操作，那么<code>where</code>条件则是查询中最重要的语法。所谓<code>where</code>条件不过是再查询中加入条件，查询目标要求的数据。<br><br><img src="/2019/02/06/【MySQL】第六章-表的增删改查/1.png" alt="操作符"><br><br>&emsp;&emsp;在where条件中我们也许会用到以上的操作符，接下来举几个例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select * from student where class_id = 1000;</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">| id | name         | class_id |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">|  1 | 奇异博士     |     1000 |</span><br><span class="line">|  5 | 葫芦娃       |     1000 |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这个案例是查找<code>class_id</code>为1000的学生。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select * from student where class_id = 1000 or class_id = 1001;</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">| id | name         | class_id |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">|  1 | 奇异博士     |     1000 |</span><br><span class="line">|  2 | 绿巨人       |     1001 |</span><br><span class="line">|  5 | 葫芦娃       |     1000 |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">3 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这个案例是查找<code>class_id</code>为1000或者为1001的学生。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select * from student where id between 1 and 3;</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">| id | name         | class_id |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">|  1 | 奇异博士     |     1000 |</span><br><span class="line">|  2 | 绿巨人       |     1001 |</span><br><span class="line">|  3 | 大黄蜂       |     1003 |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">3 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这个案例是查找<code>id</code>在1和3之间的学生。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select * from student where id in (2,3,5,6);</span><br><span class="line">+----+-----------+----------+</span><br><span class="line">| id | name      | class_id |</span><br><span class="line">+----+-----------+----------+</span><br><span class="line">|  2 | 绿巨人    |     1001 |</span><br><span class="line">|  3 | 大黄蜂    |     1003 |</span><br><span class="line">|  5 | 葫芦娃    |     1000 |</span><br><span class="line">+----+-----------+----------+</span><br><span class="line">3 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这个案例是查找<code>id</code>为2或者3或者5或者6的学生。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select * from student where name like &apos;奇%&apos;;</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">| id | name         | class_id |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">|  1 | 奇异博士     |     1000 |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这个案例是查找姓名开头为<code>奇</code>的学生，这里用到了模糊查找，<code>%</code>则表示匹配任意多个包括0个字符。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select * from student where name like &apos;奇___&apos;;</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">| id | name         | class_id |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">|  1 | 奇异博士     |     1000 |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;而这个案例中的模糊查找用到了<code>_</code>则严格匹配指定数量的字符，如果我们在后面只打一个呢么是查找不到的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select * from student where name like &apos;奇_&apos;;</span><br><span class="line">Empty set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;关于<code>where</code>的操作就先说到这里，这个操作十分灵活，还需要在实践中去拓宽。</p>
+<h3 id="结果排序"><a href="#结果排序" class="headerlink" title="结果排序"></a>结果排序</h3><p>&emsp;&emsp;我们查询的结果打印出来往往是无序的，是根据插入的先后进行打印的，因此我们需要对数据进行排序，这就要用到接下来的语法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select * from student order by class_id;</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">| id | name         | class_id |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">|  1 | 奇异博士     |     1000 |</span><br><span class="line">|  5 | 葫芦娃       |     1000 |</span><br><span class="line">|  2 | 绿巨人       |     1001 |</span><br><span class="line">|  3 | 大黄蜂       |     1003 |</span><br><span class="line">|  4 | 蜘蛛侠       |     1004 |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;默认的排序顺序是升序的我们可以通过加入<code>DESC</code>改变为降序。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select * from student order by class_id desc;</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">| id | name         | class_id |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">|  4 | 蜘蛛侠       |     1004 |</span><br><span class="line">|  3 | 大黄蜂       |     1003 |</span><br><span class="line">|  2 | 绿巨人       |     1001 |</span><br><span class="line">|  1 | 奇异博士     |     1000 |</span><br><span class="line">|  5 | 葫芦娃       |     1000 |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">5 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这里要注意的是<code>NULL</code>被视为最小的值，同时如果查询没有加入<code>order by</code>那么这个数据就是无序的，这点不要混淆。<br><br>&emsp;&emsp;同时排序中可以按照表达式排序，也可以使用别名。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select id, name, class_id, id + class_id as 表达式 from student order by 表达式;</span><br><span class="line">+----+--------------+----------+-----------+</span><br><span class="line">| id | name         | class_id | 表达式    |</span><br><span class="line">+----+--------------+----------+-----------+</span><br><span class="line">|  1 | 奇异博士     |     1000 |      1001 |</span><br><span class="line">|  2 | 绿巨人       |     1001 |      1003 |</span><br><span class="line">|  5 | 葫芦娃       |     1000 |      1005 |</span><br><span class="line">|  3 | 大黄蜂       |     1003 |      1006 |</span><br><span class="line">|  4 | 蜘蛛侠       |     1004 |      1008 |</span><br><span class="line">+----+--------------+----------+-----------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<h3 id="筛选分页结果"><a href="#筛选分页结果" class="headerlink" title="筛选分页结果"></a>筛选分页结果</h3><p>&emsp;&emsp;我们在对一个表进行查询时有时表中数据会很多，一次查询会导致卡死，于是我们可以进行筛选分页，分波查询。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select * from student order by id limit 3 offset 0;</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">| id | name         | class_id |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">|  1 | 奇异博士     |     1000 |</span><br><span class="line">|  2 | 绿巨人       |     1001 |</span><br><span class="line">|  3 | 大黄蜂       |     1003 |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">3 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;以上的操作我们将数据按<code>id</code>字段进行排序，并且分页显示，一页三个，以上我们打印了第一页。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select * from student order by id limit 3 offset 3;</span><br><span class="line">+----+-----------+----------+</span><br><span class="line">| id | name      | class_id |</span><br><span class="line">+----+-----------+----------+</span><br><span class="line">|  4 | 蜘蛛侠    |     1004 |</span><br><span class="line">|  5 | 葫芦娃    |     1000 |</span><br><span class="line">+----+-----------+----------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;由于第二页不足三个，但是打印不会有影响。</p>
+<h2 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h2><p>&emsp;&emsp;说完查找，修改和删除就显得简单多了，首先是修改。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select id, name from student where id = 1;</span><br><span class="line">+----+--------------+</span><br><span class="line">| id | name         |</span><br><span class="line">+----+--------------+</span><br><span class="line">|  1 | 奇异博士     |</span><br><span class="line">+----+--------------+</span><br><span class="line">1 row in set (0.01 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;我现在想要把<code>id</code>为1的学生名字改成钢铁侠，可以使用以下的语法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; update student set name = &apos;钢铁侠&apos; where id = 1;</span><br><span class="line">Query OK, 1 row affected (0.09 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 0</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; select id, name from student where id = 1;</span><br><span class="line">+----+-----------+</span><br><span class="line">| id | name      |</span><br><span class="line">+----+-----------+</span><br><span class="line">|  1 | 钢铁侠    |</span><br><span class="line">+----+-----------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这样就已经修改完成了，这个语法是最为常用的修改语法，可以修改单个数据，也可以修改整表数据。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; update student set class_id = class_id + 1;</span><br><span class="line">Query OK, 5 rows affected (0.02 sec)</span><br><span class="line">Rows matched: 5  Changed: 5  Warnings: 0</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; select * from student;</span><br><span class="line">+----+-----------+----------+</span><br><span class="line">| id | name      | class_id |</span><br><span class="line">+----+-----------+----------+</span><br><span class="line">|  1 | 钢铁侠    |     1001 |</span><br><span class="line">|  2 | 绿巨人    |     1002 |</span><br><span class="line">|  3 | 大黄蜂    |     1004 |</span><br><span class="line">|  4 | 蜘蛛侠    |     1005 |</span><br><span class="line">|  5 | 葫芦娃    |     1001 |</span><br><span class="line">+----+-----------+----------+</span><br><span class="line">5 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;不过要注意修改全表的语句要慎用。</p>
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p>&emsp;&emsp;删除的语法也很简单，删除单行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; delete from student where id = 5;</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; select * from student;</span><br><span class="line">+----+-----------+----------+</span><br><span class="line">| id | name      | class_id |</span><br><span class="line">+----+-----------+----------+</span><br><span class="line">|  1 | 钢铁侠    |     1001 |</span><br><span class="line">|  2 | 绿巨人    |     1002 |</span><br><span class="line">|  3 | 大黄蜂    |     1004 |</span><br><span class="line">|  4 | 蜘蛛侠    |     1005 |</span><br><span class="line">+----+-----------+----------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这样就删除了单行的数据，同时也可以删除整表的数据，但同时要慎用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; delete from student;</span><br><span class="line">Query OK, 4 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; select * from student;</span><br><span class="line">Empty set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;但是删除整表数据不会重置<code>auto_increment</code>数值。<br>&emsp;&emsp;相比于删除整表还有一种截断表的操作，起作用也可以删除整表数据，但是其只能对整表操作，并且由于不会对数据进行操作所以速度更快，并且会重置<code>auto_increment</code>值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; insert into student(name, class_id) values(&apos;关羽&apos;,1003),(&apos;刘备&apos;,1004);</span><br><span class="line">Query OK, 2 rows affected (0.01 sec)</span><br><span class="line">Records: 2  Duplicates: 0  Warnings: 0</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; select * from student;</span><br><span class="line">+----+--------+----------+</span><br><span class="line">| id | name   | class_id |</span><br><span class="line">+----+--------+----------+</span><br><span class="line">|  6 | 关羽   |     1003 |</span><br><span class="line">|  7 | 刘备   |     1004 |</span><br><span class="line">+----+--------+----------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;我们接着上次删除的表继续插入数据，自增长从6开始，之后我们截断表。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; truncate student;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; select * from student;</span><br><span class="line">Empty set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;数据也同样被清楚了，但是<code>auto_increment</code>也同时被重置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; insert into student(name, class_id) values(&apos;钢铁侠&apos;,1000);</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; select * from student;</span><br><span class="line">+----+-----------+----------+</span><br><span class="line">| id | name      | class_id |</span><br><span class="line">+----+-----------+----------+</span><br><span class="line">|  1 | 钢铁侠    |     1000 |</span><br><span class="line">+----+-----------+----------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; show create table student;</span><br><span class="line">+---------+----------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| Table   | Create Table                                                                                                                                       |</span><br><span class="line">+---------+----------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| student | CREATE TABLE `student` (</span><br><span class="line">  `id` int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `name` varchar(20) NOT NULL,</span><br><span class="line">  `class_id` int(11) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`id`)</span><br><span class="line">) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 |</span><br><span class="line">+---------+----------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<h2 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h2><p><img src="/2019/02/06/【MySQL】第六章-表的增删改查/2.png" alt="聚合函数"><br><br>&emsp;&emsp;这些就是常用的聚合函数，接下来我们举几个例子看下他们的实际用法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select * from student;</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">| id | name         | class_id |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">|  1 | 钢铁侠       |     1000 |</span><br><span class="line">|  2 | 蜘蛛侠       |     1001 |</span><br><span class="line">|  3 | 绿巨人       |     1002 |</span><br><span class="line">|  4 | 奇异博士     |     1003 |</span><br><span class="line">|  5 | 美国队长     |     1000 |</span><br><span class="line">+----+--------------+----------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;我们先向表中插入测试数据。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select count(id) from student;</span><br><span class="line">+-----------+</span><br><span class="line">| count(id) |</span><br><span class="line">+-----------+</span><br><span class="line">|         5 |</span><br><span class="line">+-----------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;返回<code>id</code>数据的数量，不会将<code>NULL</code>包含进去。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select sum(id) from student;</span><br><span class="line">+---------+</span><br><span class="line">| sum(id) |</span><br><span class="line">+---------+</span><br><span class="line">|      15 |</span><br><span class="line">+---------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;显示<code>id</code>的和。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select avg(id) from student;</span><br><span class="line">+---------+</span><br><span class="line">| avg(id) |</span><br><span class="line">+---------+</span><br><span class="line">|  3.0000 |</span><br><span class="line">+---------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;显示<code>id</code>的平均值。</p>
+<h2 id="group-by语句"><a href="#group-by语句" class="headerlink" title="group by语句"></a>group by语句</h2><p>&emsp;&emsp;<code>group by</code>是分组语句，用于按照某一数据进行分组计算打印。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select avg(id), name, class_id from student group by class_id;</span><br><span class="line">+---------+--------------+----------+</span><br><span class="line">| avg(id) | name         | class_id |</span><br><span class="line">+---------+--------------+----------+</span><br><span class="line">|  3.0000 | 钢铁侠       |     1000 |</span><br><span class="line">|  2.0000 | 蜘蛛侠       |     1001 |</span><br><span class="line">|  3.0000 | 绿巨人       |     1002 |</span><br><span class="line">|  4.0000 | 奇异博士     |     1003 |</span><br><span class="line">+---------+--------------+----------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;以上的就是按照<code>class_id</code>进行分组，然后打印出各班级的平均<code>id</code>的值。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/31/【C语言】第十章-字符串及内存函数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1914,173 +2131,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/08/【Linux】Linux编程-vim篇/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/08/【Linux】Linux编程-vim篇/" itemprop="url">【Linux】Linux编程-vim篇</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-08T21:21:41+08:00">
-                2018-12-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Linux编程-vim篇"><a href="#Linux编程-vim篇" class="headerlink" title="Linux编程 vim篇"></a>Linux编程 vim篇</h1><h2 id="第1节"><a href="#第1节" class="headerlink" title="第1节"></a>第1节</h2><h3 id="vim是什么"><a href="#vim是什么" class="headerlink" title="vim是什么"></a>vim是什么</h3><p>&emsp;&emsp;vim是一种基于Linux环境下的编辑器，上节也给大家已经提过，我们要想在Linux下编程需要四样东西来替代vs这个集成的开发环境，其中最为核心的载体就是这个vim的编辑器，没有它，我们甚至无法书写代码。<br><br>&emsp;&emsp;在Linux下除过vim这个编辑器十分经典之外，还有一款编辑器也深受大家喜爱，就是<strong>emacs</strong>。这两款编辑器之所以受大家欢迎以至于后续几十年的编辑器都无法超越有几点最主要的原因。<br><br>&emsp;&emsp;1、支持丰富的快捷键和编辑方式。<br><br>&emsp;&emsp;2、支持非常强大的扩展能力。<br><br>&emsp;&emsp;3、都有一门强大的编程语言作为支撑。<br><br>&emsp;&emsp;说到支撑他们的编程语言就不得不提emacs背后的编程语言<strong>lisp</strong>。之前我们说万物都出自C语言，其实并非如此，除过C语言外还有一个编程语言的祖师爷就是<strong>lisp</strong>。这是两款风格相差很大的编程语言，如果大家有兴趣可以去自行了解。这里不再赘述<br><br>&emsp;&emsp;虽说vim和emacs这两款编辑器各有各的千秋，都是编辑器中的祖师爷，但我选择emacs作为我的首选编辑器，也作为接下来讲解的重点（如果有同学对emacs感兴趣自然可以选择emacs作为自己的首选），并且最好的是在每一个Linux系统中都自带了vim编辑器，因此我们无需在自行安装了。</p>
-<h3 id="vim使用"><a href="#vim使用" class="headerlink" title="vim使用"></a>vim使用</h3><h4 id="vim基础介绍"><a href="#vim基础介绍" class="headerlink" title="vim基础介绍"></a>vim基础介绍</h4><p>&emsp;&emsp;由于我们的Linux已经自带了vim，所以我们可以直接使用。输入<code>vim</code>即可看到它的界面了。<br><br><img src="/2018/12/08/【Linux】Linux编程-vim篇/1.png" alt="vim使用"><br><br>&emsp;&emsp;会发现vim的界面十分的丑，毕竟是在控制台下，这也是无可奈何啊。那么如何退出界面呢？输入<code>:q</code>即可退出了。<strong>注意：前面要有个冒号才行！</strong>。<br><br>&emsp;&emsp;关于vim使用呢其实vim官方有一篇教学文档，大家退出vim界面后输入<code>vimtutor</code>即可进入官方教学文档。（输入<code>vimt</code>+<code>tab</code>即可补全了，<code>tab</code>是补全键可以帮助我们快速输入指令，要常用）。<br><br>&emsp;&emsp;在官方教学文档里大家跟着教学步骤一步一步练习，多多练习即可掌握vim的所有常用操作，一定切记一点：<strong>千万不要硬背指令或者快捷键，在使用中记忆才为上策。</strong><br><br>&emsp;&emsp;在vim下一共有<strong>普通，插入，命令，可视，替换</strong>五种模式，在我们用vim打开一篇文档，我们默认进入的就是普通模式，在普通模式下更为方便我们进行文档浏览，在这个模式下我们有丰富的快捷键供我们在页面间进行条件及光标移动。插入模式是当我们想要修改文档时才会进入的模式。命令模式里有一些命令方便我们对vim进行配置修改，页面跳转等等，用法丰富。可视模式下我们最常用的操作是选中文档片段进行删除，复制或剪切。替换模式则允许我们对文本内容进行替换。</p>
-<h4 id="vim指令"><a href="#vim指令" class="headerlink" title="vim指令"></a>vim指令</h4><p>&emsp;&emsp;vim的快捷键及指令很多，在此我们着重介绍常用的几条指令。同时为了方便快捷键操作vim分为了几个模式，而我们大多数快捷键都是在<strong>普通模式</strong>下使用的。<br><br>&emsp;&emsp;1、在vim中我们除了上下左右方向键可以移动光标外，还提供了新的四个快捷键供我们进行光标移动。<code>j:下</code>；<code>k:上</code>；<code>h:左</code>；<code>l:右</code>。在vim下尤为推荐大家使用这四个控制光标移动的方向键，因为使用起来更为方便，最主要这是你学习过vim的象征！<br><br>&emsp;&emsp;2、普通模式进入其他模式的方式有很多种，最为普通的是按<code>i</code>进入插入模式，<code>:</code>进入命令模式，<code>v</code>进入可视模式，<code>R</code>进入替换模式。而其他模式回到普通模式下最为常用的方法永远是按<code>esc</code>。因此常按<code>esc</code>往往也会成为使用vim的程序员的习惯<br><br>&emsp;&emsp;3、<code>x</code>进行单个字符的删除。<br><br>&emsp;&emsp;4、在一个目录下输入指令<code>vim 文件名</code>打开一个已有的文件或创建一个新文件。输入<code>:</code>进入命令模式下输入<code>w</code>进行保存，<code>q</code>进行退出，<code>wq</code>保存并退出，<code>q!</code>不保存强制退出。<br><br>&emsp;&emsp;5、<code>w</code>可将光标从目前位置移动到下一个单词的头部，<code>e</code>可将光标从目前位置移动到下一个单词的尾部，<code>$</code>则可以将光标移动到行末，<code>b</code>表示移动到上个单词头。<br><br>&emsp;&emsp;6、<code>d</code>表示删除指令，一般和光标跳转指令连用。<code>dw</code>表示从光标目前位置删除到下一个单词头部位置（不包含头部），<code>de</code>表示从光标目前为止删除到下一个单词的尾部位置（包含尾部），<code>d$</code>表示从光标当前位置删除到行尾（删除整行）。<br><br>&emsp;&emsp;7、同时我们可以使用数字加指令的方式对很多指令进行重复执行。例如<code>2w</code> == <code>w</code>+<code>w</code>，<code>d2w</code>==<code>dw</code> + <code>dw</code>，等等，可自行尝试。<br><br>&emsp;&emsp;8、普通模式下<code>u</code>表示撤销操作，<code>U</code>表示撤销对整行的操作。<code>Ctrl r</code>表示重做，及撤销撤销操作。<br><br>&emsp;&emsp;9、<code>dd</code>将整行进行删除/剪切，<code>p</code>将剪切板里的内容往光标后进行粘贴，<code>P</code>将剪贴板里的内容往光标前进行粘贴。<br><br>&emsp;&emsp;10、<code>r</code>将单个字符进行替换，<code>R</code>将进入替换模式接下来输入的内容都替换为输入内容，知道返回普通模式。<br><br>&emsp;&emsp;11、<code>c</code>命令于<code>d</code>命令类似，依然于其他命令构成组合命令，例如<code>cw</code>，<code>ce</code>等，但不同是<code>c</code>命令使用完后会进入插入模式。<br><br>&emsp;&emsp;12、输入<code>:</code>进入命令模式下，输入<code>set nu</code>可现实行号。<br><br>&emsp;&emsp;13、<code>ctrl g</code>显示当前行数，并显示光标位置信息。<br><br>&emsp;&emsp;14、<code>shift g</code>跳转至文本尾，<code>gg</code>跳转至文本头，<code>&#39;</code>回到跳转前行数。<br><br>&emsp;&emsp;15、<code>/查找内容</code>进入命令模式下，输入查找内容进行查找，并且<code>n</code>寻找下一个，<code>N</code>寻找上一个。<br><br>&emsp;&emsp;16、光标在括号上按<code>%</code>进行括号匹配快速移动，自动跳转至匹配括号处。<br><br>&emsp;&emsp;17、输入<code>:</code>进入命令模式之后输入<code>s/查找内容/替换结果/gc</code>进行一行的内容替换，<code>%s/查找内容/替换结果/gc</code>进行全文的内容替换，其中<code>g</code>表示搜索整个一行，<code>c</code>表示替换前询问<code>%s</code>表示全文替换。<br><br>&emsp;&emsp;18、<code>o</code>在本行下创建新行并进入插入模式，<code>O</code>在本行上面创建新行并进入插入模式。<br><br>&emsp;&emsp;19、<code>v</code>进入可视模式，光标移动选中语句后按<code>y</code>可进行复制。同时<code>yy</code>可复制一行。同样的使用<code>p</code>或<code>P</code>进行粘贴。<br><br>&emsp;&emsp;20、<code>a</code>进入插入模式表示在光标后插入，与<code>i</code>类似。同时使用<code>I</code>或<code>A</code>在行首或行尾插入。<br><br>&emsp;&emsp;vim的基础指令介绍就到此为止了，vim的使用远不止这些快捷键及指令，想要更好的更熟练的使用vim还需要不断地练习，在实践中学习才是最高效的。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2135,7 +2185,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2157,7 +2207,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2254,7 +2304,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共186.8k字</span>
+  <span class="post-count">博客全站共188.9k字</span>
 </div>
 
         ﻿

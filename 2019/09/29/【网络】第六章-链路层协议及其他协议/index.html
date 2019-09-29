@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="C语言,进阶," />
+  <meta name="keywords" content="网络,链路层," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="第八章 数据的存储&amp;emsp;&amp;emsp;从本章开始就正式进入了C语言进阶篇的学习，我们将从更为底层的角度思考C语言中更为复杂的机制和语法。 第一节基本数据类型&amp;emsp;&amp;emsp;C语言中的基本数据类型在初阶篇已经探讨过了，分为整形，浮点型，字符型与构造类型几个大类，每个类型都有着不同的容量，所占的内存大小也不尽相同，有的甚至在不同系统下都有着不同的大小因此必须在实核情境下选择合适的数据类型进">
-<meta name="keywords" content="C语言,进阶">
+<meta name="description" content="链路层协议及其他协议链路层功能&amp;emsp;&amp;emsp;负责相邻设备之间的数据帧传输。&amp;emsp;&amp;emsp;网络层负责主导数据传输方向，而链路层更加偏向底层，用来引导相邻主机间数据如何传输，之后由物理信号传输数据。 以太网协议&amp;emsp;&amp;emsp;以太网协议用于在链路层组织数据，主导相邻主机之间的数据传输方向。&amp;emsp;&amp;emsp;在以太网协议中有一个重要概念MAC地址：相邻设备定位的地址，也">
+<meta name="keywords" content="网络,链路层">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【C语言】第八章-数据的存储">
-<meta property="og:url" content="http://yoursite.com/2019/01/21/【C语言】第八章-数据的存储/index.html">
+<meta property="og:title" content="【网络】第六章-链路层协议及其他协议">
+<meta property="og:url" content="http://yoursite.com/2019/09/29/【网络】第六章-链路层协议及其他协议/index.html">
 <meta property="og:site_name" content="Misaki`s blog">
-<meta property="og:description" content="第八章 数据的存储&amp;emsp;&amp;emsp;从本章开始就正式进入了C语言进阶篇的学习，我们将从更为底层的角度思考C语言中更为复杂的机制和语法。 第一节基本数据类型&amp;emsp;&amp;emsp;C语言中的基本数据类型在初阶篇已经探讨过了，分为整形，浮点型，字符型与构造类型几个大类，每个类型都有着不同的容量，所占的内存大小也不尽相同，有的甚至在不同系统下都有着不同的大小因此必须在实核情境下选择合适的数据类型进">
+<meta property="og:description" content="链路层协议及其他协议链路层功能&amp;emsp;&amp;emsp;负责相邻设备之间的数据帧传输。&amp;emsp;&amp;emsp;网络层负责主导数据传输方向，而链路层更加偏向底层，用来引导相邻主机间数据如何传输，之后由物理信号传输数据。 以太网协议&amp;emsp;&amp;emsp;以太网协议用于在链路层组织数据，主导相邻主机之间的数据传输方向。&amp;emsp;&amp;emsp;在以太网协议中有一个重要概念MAC地址：相邻设备定位的地址，也">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-21T09:24:30.000Z">
+<meta property="og:updated_time" content="2019-09-29T10:07:09.985Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【C语言】第八章-数据的存储">
-<meta name="twitter:description" content="第八章 数据的存储&amp;emsp;&amp;emsp;从本章开始就正式进入了C语言进阶篇的学习，我们将从更为底层的角度思考C语言中更为复杂的机制和语法。 第一节基本数据类型&amp;emsp;&amp;emsp;C语言中的基本数据类型在初阶篇已经探讨过了，分为整形，浮点型，字符型与构造类型几个大类，每个类型都有着不同的容量，所占的内存大小也不尽相同，有的甚至在不同系统下都有着不同的大小因此必须在实核情境下选择合适的数据类型进">
+<meta name="twitter:title" content="【网络】第六章-链路层协议及其他协议">
+<meta name="twitter:description" content="链路层协议及其他协议链路层功能&amp;emsp;&amp;emsp;负责相邻设备之间的数据帧传输。&amp;emsp;&amp;emsp;网络层负责主导数据传输方向，而链路层更加偏向底层，用来引导相邻主机间数据如何传输，之后由物理信号传输数据。 以太网协议&amp;emsp;&amp;emsp;以太网协议用于在链路层组织数据，主导相邻主机之间的数据传输方向。&amp;emsp;&amp;emsp;在以太网协议中有一个重要概念MAC地址：相邻设备定位的地址，也">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/21/【C语言】第八章-数据的存储/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/09/29/【网络】第六章-链路层协议及其他协议/"/>
 
 
 
 
 
-  <title>【C语言】第八章-数据的存储 | Misaki`s blog</title>
+  <title>【网络】第六章-链路层协议及其他协议 | Misaki`s blog</title>
   
 
 
@@ -265,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/21/【C语言】第八章-数据的存储/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/29/【网络】第六章-链路层协议及其他协议/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MisakiFx">
@@ -282,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【C语言】第八章-数据的存储</h1>
+          <h1 class="post-title" itemprop="name headline">【网络】第六章-链路层协议及其他协议</h1>
         
 
         <div class="post-meta">
@@ -294,8 +294,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-21T02:50:42+08:00">
-                2019-01-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-29T18:02:17+08:00">
+                2019-09-29
               </time>
             
 
@@ -317,8 +317,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C语言进阶/" itemprop="url" rel="index">
-                    <span itemprop="name">C语言进阶</span>
+                  <a href="/categories/网络/" itemprop="url" rel="index">
+                    <span itemprop="name">网络</span>
                   </a>
                 </span>
 
@@ -348,7 +348,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.2k
+                  2.1k
                 </span>
               
 
@@ -373,16 +373,23 @@
       
 
       
-        <h1 id="第八章-数据的存储"><a href="#第八章-数据的存储" class="headerlink" title="第八章 数据的存储"></a>第八章 数据的存储</h1><p>&emsp;&emsp;从本章开始就正式进入了C语言进阶篇的学习，我们将从更为底层的角度思考C语言中更为复杂的机制和语法。</p>
-<h2 id="第一节"><a href="#第一节" class="headerlink" title="第一节"></a>第一节</h2><h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><p>&emsp;&emsp;C语言中的基本数据类型在初阶篇已经探讨过了，分为整形，浮点型，字符型与构造类型几个大类，每个类型都有着不同的容量，所占的内存大小也不尽相同，有的甚至在不同系统下都有着不同的大小因此必须在实核情境下选择合适的数据类型进行使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">char        //字符数据类型，占1字节</span><br><span class="line">short       //短整型，占2字节</span><br><span class="line">int         //整形，占4字节</span><br><span class="line">long        //长整型，占4字节</span><br><span class="line">long long   //更长的整形，占8字节</span><br><span class="line">float       //单精度浮点数，占4字节</span><br><span class="line">double      //双精度浮点数，占8字节</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;其中整形数组类型分为有符号和无符号类型，无符号类型不能表示负数，否则会导致很严重的数据出错问题，关于为什么出错与数据在内存中的存储有很大的关系，之后我们会进行解释。</p>
-<h3 id="整形在内存中的存储"><a href="#整形在内存中的存储" class="headerlink" title="整形在内存中的存储"></a>整形在内存中的存储</h3><h4 id="大端字节序、小端字节序"><a href="#大端字节序、小端字节序" class="headerlink" title="大端字节序、小端字节序"></a>大端字节序、小端字节序</h4><p>&emsp;&emsp;数据在内存中的存储形式都是以二进制数的方式所表示的，比如说我们要将<code>int</code>型<code>8</code>这个十进制数存入内存，编译器会帮助我们将其转换为二进制形式<code>00000000 00000000 00000000 00001000</code>，一共32位，这里我们先不探讨数据在内存中是怎么转换为二进制形式进行存储的。这32位二进制一共是4个字节，系统会以每个字节为一个单位继续宁内存存储，因此为了方便起见，我们往往将内存中的数据以<strong>十六进制</strong>进行表示，因为1位十六进制数等于4位二进制数，也就是一个字节原本需要8位二进制表示，现在只需要用2位十六进制进行表示即可，通常我们在内存监视器中所看到的数据存储也大多是以十六进制进行表示的。将这么一串二进制转换为八进制即可表示为<code>00 00 00 08</code>。<strong>但是实际在内存中是以二进制进行存储的，在这里用十六进制是为了方便我们进行观察。</strong><br><br>&emsp;&emsp;之后就要将这么一串数据存入内存中了，但是就在这里问题出现了，我们是要将最高位1个字节的数据首先存储在低地址区，还是要将最低位1个字节的数据首先存储在低地址区呢？其实这两种存储方式都得到了实施，而具体的存储方式与我们电脑的<strong>CPU</strong>密切相关（其实也并不仅有CPU决定，具体来说是和环境也就是平台密切相关，但CPU占大头），因此在当前的市场就有了大小端字节序之称，专门用来用来区分这两种不同的数据在内存中的存储方式。<br><br>&emsp;&emsp;<strong>1、大端字节序：低位存储在高地址上，依然以以上的例子为例，则在内存中以这样的方式进行存储：<code>00 00 00 08</code>。</strong><br><br>&emsp;&emsp;<strong>2、小端字节序：低位存储在低地址上，依然以以上的例子为例，则在内存中以这样的方式进行存储：<code>08 00 00 00</code>。</strong><br><br>&emsp;&emsp;<strong><em>注意：大小端字节序仅仅决定数据在内存中的存储，并不会因此改变数据本身的值！！！</em></strong><br>&emsp;&emsp;有了以上的原理，我们即可使用代码验证我们当前的环境是大端还是小端了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int a = 0x11223344;</span><br><span class="line">  char* p = (char*)&amp;a;</span><br><span class="line">  if(*p == 0x11)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;大端！\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;小端！\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;通过以上的代码，我们将内存中的数据取头一个字节的数据进行验证的方法即可判断是大端还是小端。</p>
-<h4 id="整形在内存中的存储-1"><a href="#整形在内存中的存储-1" class="headerlink" title="整形在内存中的存储"></a>整形在内存中的存储</h4><p>&emsp;&emsp;接下来就是数据是如何转换为二进制并且在内存中进行储存的问题了。首先是整型是如何在内存中进行存储的呢？这就要牵扯到<strong>原码，补码，反码</strong>三个紧密联系的二进制码了。<br><br>&emsp;&emsp;计算机在内存中都是以<strong>补码</strong>的形式进行存储的，而我们直接将一个数转换成二进制的所形成的最多只能被称为<strong>原码</strong>其重要进行两步转换。<br></p>
-<h5 id="有符号整形"><a href="#有符号整形" class="headerlink" title="有符号整形"></a>有符号整形</h5><p>&emsp;&emsp;这里我们先以有符号进行演示，之后再讨论无符号。这次我们以<code>(int)-8</code>为例，在有符号的情况下，我们的数据会将第一位二进制留出来作为符号位，<code>0</code>表示正数，<code>1</code>表示负数，这也是为什么32位的整形在有符号的情况下最大值只能到21亿的原因，因为有一位被保留出来做了符号位。除过第一位我们将数据原本的值转换为二进制即可表示为<code>10000000 00000000 00000000 00001000</code>，这段代码即被称为<strong>原码</strong>。之后我们想要转换为补码还得先将其转换为反码，就是在原码的基础上，除过符号位外全部按位取反即可变为<code>11111111 11111111 11111111 11110111</code>这就是<strong>反码</strong>。之后我们只需再将反码 +1即可变为<strong>补码</strong><code>11111111 11111111 11111111 11111000</code>这就是实际上有符号整形在内存中的存储形式了。<br><br>&emsp;&emsp;而以上的转换过程只对负整数适用，而<strong>正整数的原反补码都相同。</strong></p>
-<h5 id="无符号整形"><a href="#无符号整形" class="headerlink" title="无符号整形"></a>无符号整形</h5><p>&emsp;&emsp;无符号整形与有符号整形基本类似，只是其省略了最高位的符号位而已，因此使得无符号的最大值比有符号整形最大值大了一倍，但也因此使得无符号整型无法表示负数。<br><br>&emsp;&emsp;但是在这里值得强调的一点是，一个数据存储在内存中进行存储，尽管存储的形式完全一致，内容也完全一致，但是我们使用不同的理解方法去理解，就会有完全不同的结果。这点我们从以下这个例子就可以看出来。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  unsigned int a = -1;</span><br><span class="line">  printf(&quot;%u\n&quot;, a);  </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">4294967295</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;从执行结果就可以看出其中的问题，在存储数据的时候我们虽然定义了一个无符号的整形，但是当我们存储负数时编译器也并不会报错，此使-1会按照有符号负整数的方式进行存储在内存中，<code>11111111 11111111 11111111 11111111</code>，但是当我们使用无符号将其进行打印时，编译器又会将此数据以无符号正整数的方式将其编译转换成十进制就得出了我们最终的结果，因此可以看出同一个数据有多种理解方式因此得出的结果也不尽相同，并且无符号数据类型同时也是十分危险的，十分容易出错，因此我并不推荐经常使用它们。<br><br>&emsp;&emsp;但是说了这么多我们为什么要如此大费周章使用补码存储数据呢？这又与我们电脑的cpu密切相关<br>了，由于我们的cpu只有加法器，我们想要更为方便与简单的处理减法以及表示负数我们就需要想出一种最为合理和简单方式，因此补码诞生了，这使得cpu可以将符号域与数值域共同参与运算，大大提高了运算效率，因此将数据存储为补码是必要的。</p>
-<h4 id="浮点型在内存中的存储"><a href="#浮点型在内存中的存储" class="headerlink" title="浮点型在内存中的存储"></a>浮点型在内存中的存储</h4><p>&emsp;&emsp;关于浮点型在内存中的存储十分复杂，在这里只作简单讲解。<br><br>&emsp;&emsp;首先浮点型在内存中的存储与整形可以说是天差地别。根据国际标准IEEE的规定，任意一个二进制浮点数可以表示为以下的形式<code>(-1) ^ S * M * 2 ^ E</code>，然而其中E和M的大小共同决定着这个数据的精度，而<code>double</code>之所以比<code>float</code>进度更高也是因为其在数据存储域的划分上有着更多的存储空间，关于其中的细节，还有着十分严密甚至是严苛的规定和标准，具体请参考<strong>IEEE 754</strong>。</p>
+        <h1 id="链路层协议及其他协议"><a href="#链路层协议及其他协议" class="headerlink" title="链路层协议及其他协议"></a>链路层协议及其他协议</h1><h2 id="链路层功能"><a href="#链路层功能" class="headerlink" title="链路层功能"></a>链路层功能</h2><p>&emsp;&emsp;负责相邻设备之间的数据帧传输。<br>&emsp;&emsp;网络层负责主导数据传输方向，而链路层更加偏向底层，用来引导相邻主机间数据如何传输，之后由物理信号传输数据。</p>
+<h2 id="以太网协议"><a href="#以太网协议" class="headerlink" title="以太网协议"></a>以太网协议</h2><p>&emsp;&emsp;以太网协议用于在链路层组织数据，主导相邻主机之间的数据传输方向。<br>&emsp;&emsp;在以太网协议中有一个重要概念<strong>MAC地址</strong>：相邻设备定位的地址，也就是物理网卡的硬件地址，标识每一块网卡，在两块网卡之间的数据传输起到作用</p>
+<h3 id="协议构成"><a href="#协议构成" class="headerlink" title="协议构成"></a>协议构成</h3><p>&emsp;&emsp;6字节目的MAC地址：标志数据发向哪块网卡。<br>&emsp;&emsp;6字节源MAC地址：标志数据从那块网卡发来。<br>&emsp;&emsp;2字节上层协议类型：及ip协议等。<br>&emsp;&emsp;46-1500字节数据：传输的数据。<br>&emsp;&emsp;4字节以太帧尾：在其中包含校验和。</p>
+<h2 id="ARP协议"><a href="#ARP协议" class="headerlink" title="ARP协议"></a>ARP协议</h2><p>&emsp;&emsp;要想在链路层进行传输我们得知道目的MAC地址，那么我们如何获得MAC地址？这里就要用到ARP协议。</p>
+<h3 id="协议作用"><a href="#协议作用" class="headerlink" title="协议作用"></a>协议作用</h3><p>&emsp;&emsp;ARP协议是介于网络层与链路层之间的协议，通过IP地址获取MAC地址。</p>
+<h3 id="协议原理"><a href="#协议原理" class="headerlink" title="协议原理"></a>协议原理</h3><p>&emsp;&emsp;通过发送一个ARP请求数据包，要求指定ip地址的设备将自己的MAC地址做一个应答响应回来，并且<strong>对ip地址和MAC地址的关系进行映射缓存</strong>，但是缓存时间很短，通常只有30分钟。</p>
+<h2 id="MTU"><a href="#MTU" class="headerlink" title="MTU"></a>MTU</h2><p>&emsp;&emsp;之前在网络层有提到过MTU，最大传输单元，即以太头包裹的数据大小（不包括头大小），IP协议头及其包裹的UDP数据如果总大于MTU则会在网络层进行数据分片，然后再通过链路层进行传输，而组织和分片数据都是在网络层，这里要讲的是MTU对TCP和UDP协议分别的影响。</p>
+<h3 id="对TCP协议的影响"><a href="#对TCP协议的影响" class="headerlink" title="对TCP协议的影响"></a>对TCP协议的影响</h3><p>&emsp;&emsp;tcp在传输层进行传输的时候因为可靠传输会自动进行数据分段传输，之前的TCP协议中的滑动窗口机制介绍也有提到过，分段大小即称为<code>MSS</code>。通信双方在三次握手的时候计算自身<code>MSS = MTU - IP - TCP</code>，双方取较小的MSS作为最大数据段传输大小。因为TCP在传输层会进行自动数据分段，所以在网络层不会进行数据分片。</p>
+<h3 id="对UDP协议的影响"><a href="#对UDP协议的影响" class="headerlink" title="对UDP协议的影响"></a>对UDP协议的影响</h3><p>&emsp;&emsp;UDP数据报在网络层如果大小大于<code>MTU</code>但是小于IP最大传输大小即<code>64k</code>则需要在网络层进行数据分片，如果分片越多由于UDP的不可靠传输则丢包可能性越大，对端重组数据失败几率就越大，意思是说如果UDP分片越多则数据丢包可能性越大。一个UDP包中的数据最大默认情况下也就是<code>MTU(默认1500字节) - IP头(20字节) - UDP头(8字节) = 1472字节</code>。</p>
+<h1 id="其他协议"><a href="#其他协议" class="headerlink" title="其他协议"></a>其他协议</h1><h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><h3 id="DNS的诞生"><a href="#DNS的诞生" class="headerlink" title="DNS的诞生"></a>DNS的诞生</h3><p>&emsp;&emsp;DNS<code>Domain Name System</code>是域名系统。我们的服务器的IP地址往往是点分十进制的，十分难于记忆，于是便产生了域名，方便我们记忆查找服务器，例如<code>www.baidu.com</code>就是一个域名。当我们访问这个域名时，会首先将域名转换为对应的IP地址，那么要进行转换那就必须要有一个服务器存储映射关系帮助我们进行转换，这些服务器叫做<strong>域名服务器</strong>。<br>&emsp;&emsp;首先产生的是<strong>跟域名服务器</strong>，根域名服务器是最高级域名服务器，但是为了分摊访问压力进行容灾处理全世界一共有<strong>13台</strong>根域名服务器，分布在世界各地。</p>
+<h3 id="DNS服务器的层级划分"><a href="#DNS服务器的层级划分" class="headerlink" title="DNS服务器的层级划分"></a>DNS服务器的层级划分</h3><p>&emsp;&emsp;就算全世界有13台根域名服务器这也远远不够用，因此根域名服务器为了再次分摊压力它只向下授权，授权世界权威组织可以继续建立域名服务器，便于域名解析。<br>&emsp;&emsp;根域名服务器向下的一级授权是<strong>顶级域名服务器</strong>。例如<code>.com/.org/.gov/.edu/.cn/.jp/.us</code>。<br>&emsp;&emsp;顶级域名服务器还可以继续向下授权，授权出<strong>二级域名服务器</strong>。例如<code>.baidu.com/.qq.com</code>。以此类推还有<strong>三级域名服务器</strong><code>.baike.baidu.com</code>。</p>
+<h3 id="域名的解析流程"><a href="#域名的解析流程" class="headerlink" title="域名的解析流程"></a>域名的解析流程</h3><p>&emsp;&emsp;通过域名访问服务器需要进行域名解析，域名解析会经过以下步骤进行解析，会以此经过以下步骤查找映射。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">浏览器 -&gt; 浏览器缓存 -&gt; 查看本机host文件 -&gt; 本地域名服务器</span><br><span class="line">本地域名服务器查找不到对应域名则会按照以下顺序依次请求上级域名服务器查询域名：</span><br><span class="line">本地域名服务器 -&gt; 根域名服务器 </span><br><span class="line">本地域名服务器 -&gt; 顶级域名服务器</span><br><span class="line">本地域名服务器 -&gt; 二级域名服务器</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这种访问方式是<strong>迭代</strong>的请求方式，即当本地域名服务器查找不到对应域名则主动请求根域名服务器，如果根域名服务器找不到对应域名则返回顶级域名服务器地址让本地域名服务器自己去请求顶级域名服务器，同理顶级域名服务器找不到会返回二级域名服务器逐层往下。还有一种<strong>递归</strong>的请求方式，当本地域名服务器向根域名服务器发出请求时如果根域名服务器无法找到域名则会自己主动去访问顶级域名服务器查找，如果找不到就继续相下级查找，如果找到则返回。</p>
+<h3 id="当浏览器输入url回车后发生那些事情"><a href="#当浏览器输入url回车后发生那些事情" class="headerlink" title="当浏览器输入url回车后发生那些事情"></a>当浏览器输入url回车后发生那些事情</h3><p>&emsp;&emsp;1、域名解析流程进行域名解析得到服务器IP地址。<br>&emsp;&emsp;2、根据url组织http协议格式的请求数据。<br>&emsp;&emsp;3、基于Socket流程搭建tcp客户端，向得到的服务器地址发送http请求数据</p>
+<h2 id="ICMP协议"><a href="#ICMP协议" class="headerlink" title="ICMP协议"></a>ICMP协议</h2><p>&emsp;&emsp;网络层协议，主要实现网络探测功能。<code>ping</code>就利用到了ICMP协议，注意<code>ping</code>只是用了网络层协议因此不使用端口。</p>
+<h2 id="NAT技术"><a href="#NAT技术" class="headerlink" title="NAT技术"></a>NAT技术</h2><h3 id="NAT的作用"><a href="#NAT的作用" class="headerlink" title="NAT的作用"></a>NAT的作用</h3><p>&emsp;&emsp;网络地址转换服务。我们在向主机发送数据时举要通过网关设备，网关设备将数据发送给指定主机号还要求目标主机将返回数据依旧通过此网关返回，因此在网关中会替换IP投中的源IP地址为此网关地址，这样就能做到让数据<strong>怎么去，怎么回</strong>。但是一个网关设备上肯定有多条数据等待转发，又如何标记哪条数据属于哪个主机呢？这里利用了不同的端口向不同的目的主机发送数据，并且建立映射，不同的端口映射一个目的主机一个源主机，这样数据返回时根据端口也能找到要返回的主机。这种根据端口建立映射的技术也叫<code>NAPT</code>技术。<br>&emsp;&emsp;NAT一般部署在网关上。</p>
+<h3 id="代理服务器"><a href="#代理服务器" class="headerlink" title="代理服务器"></a>代理服务器</h3><p>&emsp;&emsp;乍一看NAT技术和代理服务器的功能十分相似，但实际上有着很多区别：<br>&emsp;&emsp;1、NAT是网络基础设备之一，用于解决IP地址不足的问题。代理服务器则偏向于应用。<br>&emsp;&emsp;2、NAT作用在网络层，直接替换IP地址，代理服务器作用在应用层。<br>&emsp;&emsp;3、NAT一般在局域网的出口部署，而代理服务器可以部署在局域网，也可以在广域网，也可以跨网。<br>&emsp;&emsp;4、NAT部署在防火墙，路由器等设备上，代理服务器是一个软件，部署在服务器上。</p>
 
       
     </div>
@@ -435,9 +442,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/C语言/" rel="tag"># C语言</a>
+            <a href="/tags/网络/" rel="tag"># 网络</a>
           
-            <a href="/tags/进阶/" rel="tag"># 进阶</a>
+            <a href="/tags/链路层/" rel="tag"># 链路层</a>
           
         </div>
       
@@ -450,8 +457,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/20/【MySQL】第四章-数据类型/" rel="next" title="【MySQL】第四章-数据类型">
-                <i class="fa fa-chevron-left"></i> 【MySQL】第四章-数据类型
+              <a href="/2019/09/24/【Cpp】第十三章-异常/" rel="next" title="【Cpp】第十三章-异常">
+                <i class="fa fa-chevron-left"></i> 【Cpp】第十三章-异常
               </a>
             
           </div>
@@ -459,10 +466,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/23/【C语言】第九章-指针进阶/" rel="prev" title="【C语言】第九章-指针进阶">
-                【C语言】第九章-指针进阶 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -626,7 +629,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第八章-数据的存储"><span class="nav-number">1.</span> <span class="nav-text">第八章 数据的存储</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一节"><span class="nav-number">1.1.</span> <span class="nav-text">第一节</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本数据类型"><span class="nav-number">1.1.1.</span> <span class="nav-text">基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整形在内存中的存储"><span class="nav-number">1.1.2.</span> <span class="nav-text">整形在内存中的存储</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#大端字节序、小端字节序"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">大端字节序、小端字节序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#整形在内存中的存储-1"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">整形在内存中的存储</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#有符号整形"><span class="nav-number">1.1.2.2.1.</span> <span class="nav-text">有符号整形</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#无符号整形"><span class="nav-number">1.1.2.2.2.</span> <span class="nav-text">无符号整形</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#浮点型在内存中的存储"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">浮点型在内存中的存储</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#链路层协议及其他协议"><span class="nav-number">1.</span> <span class="nav-text">链路层协议及其他协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#链路层功能"><span class="nav-number">1.1.</span> <span class="nav-text">链路层功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太网协议"><span class="nav-number">1.2.</span> <span class="nav-text">以太网协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#协议构成"><span class="nav-number">1.2.1.</span> <span class="nav-text">协议构成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARP协议"><span class="nav-number">1.3.</span> <span class="nav-text">ARP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#协议作用"><span class="nav-number">1.3.1.</span> <span class="nav-text">协议作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#协议原理"><span class="nav-number">1.3.2.</span> <span class="nav-text">协议原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MTU"><span class="nav-number">1.4.</span> <span class="nav-text">MTU</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对TCP协议的影响"><span class="nav-number">1.4.1.</span> <span class="nav-text">对TCP协议的影响</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对UDP协议的影响"><span class="nav-number">1.4.2.</span> <span class="nav-text">对UDP协议的影响</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他协议"><span class="nav-number">2.</span> <span class="nav-text">其他协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS"><span class="nav-number">2.1.</span> <span class="nav-text">DNS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS的诞生"><span class="nav-number">2.1.1.</span> <span class="nav-text">DNS的诞生</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS服务器的层级划分"><span class="nav-number">2.1.2.</span> <span class="nav-text">DNS服务器的层级划分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#域名的解析流程"><span class="nav-number">2.1.3.</span> <span class="nav-text">域名的解析流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#当浏览器输入url回车后发生那些事情"><span class="nav-number">2.1.4.</span> <span class="nav-text">当浏览器输入url回车后发生那些事情</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ICMP协议"><span class="nav-number">2.2.</span> <span class="nav-text">ICMP协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NAT技术"><span class="nav-number">2.3.</span> <span class="nav-text">NAT技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NAT的作用"><span class="nav-number">2.3.1.</span> <span class="nav-text">NAT的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代理服务器"><span class="nav-number">2.3.2.</span> <span class="nav-text">代理服务器</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
