@@ -264,6 +264,192 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/08/【C语言】第十一章-自定义类型详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/08/【C语言】第十一章-自定义类型详解/" itemprop="url">【C语言】第十一章-自定义类型详解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-08T18:24:48+08:00">
+                2019-02-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C语言进阶/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言进阶</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.6k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第十一章-自定义类型详解"><a href="#第十一章-自定义类型详解" class="headerlink" title="第十一章-自定义类型详解"></a>第十一章-自定义类型详解</h1><h2 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h2><p>&emsp;&emsp;结构体的基本知识在我之前<strong>C语言初阶</strong>的部分已经有详细说明过了，这里知识稍微体积之后便进入更为深层的方面。</p>
+<h3 id="结构体的声明"><a href="#结构体的声明" class="headerlink" title="结构体的声明"></a>结构体的声明</h3><p>&emsp;&emsp;结构体声明的声明及使用是十分简单且方便的，使用以下的语法我们即可声明一个自定义的结构体。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">typedef struct test</span><br><span class="line">&#123;</span><br><span class="line">  int a;</span><br><span class="line">  char b[1024];</span><br><span class="line">&#125;Test;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  Test test;</span><br><span class="line">  test.a = 10;</span><br><span class="line">  strcpy(test.b, &quot;Main&quot;);</span><br><span class="line">  printf(&quot;%d, %s\n&quot;, test.a, test.b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">10, Main</span><br></pre></td></tr></table></figure></p>
+<h3 id="匿名结构体"><a href="#匿名结构体" class="headerlink" title="匿名结构体"></a>匿名结构体</h3><p>&emsp;&emsp;但是有一种较为特殊的结构体，这种结构体没有名称，因此它在声明结束后无法再次定义变量，只能一次性使用，我们称这种结构体为<strong>匿名结构体</strong>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">struct</span><br><span class="line">&#123;</span><br><span class="line">  int a;</span><br><span class="line">&#125;test;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  test.a = 10;          </span><br><span class="line">  printf(&quot;%d\n&quot;,test.a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">10</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这种匿名结构体只能供我们一次性使用，声明结束后不能再定义其他的结构体变量。</p>
+<h3 id="结构体的自引用"><a href="#结构体的自引用" class="headerlink" title="结构体的自引用"></a>结构体的自引用</h3><p>&emsp;&emsp;结构体的自引用一般大多数用在链表，图，树等数据结构中，之后在数据结构有关章节中我们会经常用到链式存储结构，这时候就要用到我们的结构体的自引用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">typedef struct test</span><br><span class="line">&#123;</span><br><span class="line">  int a;</span><br><span class="line">  char b[10];</span><br><span class="line">  struct test* next;//一般用于指向下一个相同类型的结构体</span><br><span class="line">&#125;Test;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  Test test;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;在这个结构体的定义中我们就将结构体本身的指针包含进了结构体中，这个在链式存储中一般用于指向下一个结构体起到寻址的作用，但是我们要注意在自引用中只能包含其本身的指针，不能直接自引用，否则将是不合法的。</p>
+<h3 id="结构体内存对齐"><a href="#结构体内存对齐" class="headerlink" title="结构体内存对齐"></a>结构体内存对齐</h3><p>&emsp;&emsp;<strong>这个部分是结构体中十分重要的一个知识点，在面试和笔试中也是常考点。</strong><br>&emsp;&emsp;我们之前计算结构体大小都是将结构体各成员变量大小之和相加就得出了结构体的总大小，但是我们看接下来这个例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">typedef struct test</span><br><span class="line">&#123;</span><br><span class="line">  char c1;</span><br><span class="line">  short a;</span><br><span class="line">  char c2;                      </span><br><span class="line">&#125;Test;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  Test test;</span><br><span class="line">  printf(&quot;%lu\n&quot;, sizeof(test));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">6</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;从以上这个例子可以看出这个结构体占了6个字节，但是个成员加起来应该就是4个字节啊，这是为什么呢？<br><br>&emsp;&emsp;其实结构体大小的计算与内存对齐有着很大的关系，以下是内存对齐的基本规则：<br><br>&emsp;&emsp;1. 第一个成员在与结构体变量偏移量为0的地址处。<br><br>&emsp;&emsp;2. 其他成员变量要对齐到某个数字（对齐数）的整数倍的地址处。<br>对齐数 = 编译器默认的一个对齐数 与 该成员大小的较小值。 VS中默认的值为8 Linux中的默认值为4。<br><br>&emsp;&emsp;3. 结构体总大小为最大对齐数（每个成员变量都有一个对齐数）的整数倍。<br><br>&emsp;&emsp; 4. 如果嵌套了结构体的情况，嵌套的结构体对齐到自己的最大对齐数的整数倍处，结构体的整体大小就是<br>所有最大对齐数（含嵌套结构体的对齐数）的整数倍。<br><br>&emsp;&emsp;接下来我们用以上的规则来计算一下刚才这个结构体的总大小。首先<code>char</code>类型放在地址为0的地方，占一个字节。<code>short</code>的大小为2，我的环境是<code>Linux</code>所以默认对齐数为4，<code>short</code>小于它所以<code>short</code>对齐为2，于是要放在地址为2的整数倍的地方，于是舍弃1这个地址放在2处，占两个字节，此时的总大小为1 + 1（补齐）+ 2 = 4。之后还要再放一个<code>char</code>同理得对齐数为1，放在任意地址处即可，于是放在5处，占一个字节。由此所有变量都放完了，但是根据规则中第三条我们还要让总大小为最大对齐数得整数倍，在这个结构体中最大对齐数为<code>short</code>的对齐数，为2，于是此时末尾还要再补齐一个字节，于是总大小为1 + 1（补齐）+ 2 + 1（补齐） = 6。由此这个结构体的大小才算是真正得出。<br><br>&emsp;&emsp;但是为什么会出现内存对齐这个规定呢？<br>这是为了某些平台的原因及性能的原因，其中牵扯到更为底层的知识，为了性能和平台牺牲这点内存换来更高的效率是完全值得的。<br><br>&emsp;&emsp;接下来还有几个例子以供练习。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">typedef struct test</span><br><span class="line">&#123;</span><br><span class="line">  char c1;</span><br><span class="line">  int a;</span><br><span class="line">  char c2;</span><br><span class="line">&#125;Test;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  Test test;                    </span><br><span class="line">  printf(&quot;%lu\n&quot;, sizeof(test));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">12</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;1 + 3（补齐）+ 4 + 1 + 3（补齐） = 12。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">typedef struct test</span><br><span class="line">&#123;</span><br><span class="line">  char c1;</span><br><span class="line">  char c2;                      </span><br><span class="line">  int a;</span><br><span class="line">&#125;Test;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  Test test;</span><br><span class="line">  printf(&quot;%lu\n&quot;, sizeof(test));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">8</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;1 + 1 + 2（补齐） + 4 = 8。<br><br>&emsp;&emsp;从以上这个例子可以看出相同的成员变量就连不同的声明顺序也会导致结构体大小的不同。<br><br>&emsp;&emsp;当然我们也可以修改系统默认的对齐数，通过一个宏即可。<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>#pragma pack(对齐数)</code><br><br>&emsp;&emsp;这样即可修改默认的对齐数。</p>
+<h3 id="位段"><a href="#位段" class="headerlink" title="位段"></a>位段</h3><p>&emsp;&emsp;位段是规定结构体中各部分成员所占空间的一种语法，由此来达到节省占用空间的效果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">typedef struct test</span><br><span class="line">&#123;</span><br><span class="line">  int a : 2;//只占两位</span><br><span class="line">  int b : 5;//只占五位</span><br><span class="line">&#125;Test;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  Test test;</span><br><span class="line">  test.a = 3;</span><br><span class="line">  test.b = 31;                      </span><br><span class="line">  printf(&quot;%d,%d\n&quot;, test.a, test.b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">-1,-1</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;我们只要给他们赋予超过存储空间的值就会出现问题。</p>
+<h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2><p>&emsp;&emsp;枚举类型是一种类似于用宏定义常量的自定义类型。</p>
+<h3 id="枚举的定义"><a href="#枚举的定义" class="headerlink" title="枚举的定义"></a>枚举的定义</h3><p>&emsp;&emsp;枚举定义与结构体的声明十分类似，不过我们要谨记中间的每个常量要用<code>,</code>隔开。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">enum Sex</span><br><span class="line">&#123;</span><br><span class="line">  MALE,</span><br><span class="line">  FEMALE,</span><br><span class="line">  UNKNOWN,</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  printf(&quot;MALE = %d,FEMALE = %d, UNKNOWN = %d\n&quot;, MALE, FEMALE, UNKNOWN);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这样我们就定义了一个枚举类型，其中的每个变量都是常量，我们可以直接使用。如果我们并没有给他们进行赋值的话他们会从上到下从0开始一次增长1自动赋值，但是如果我们给钱一个数赋值了的话它们会从前一个数的值开始依次增长1自动赋值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">enum Sex</span><br><span class="line">&#123;</span><br><span class="line">  MALE = 2,                                                              </span><br><span class="line">  FEMALE,</span><br><span class="line">  UNKNOWN,</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  printf(&quot;MALE = %d,FEMALE = %d, UNKNOWN = %d\n&quot;, MALE, FEMALE, UNKNOWN);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main </span><br><span class="line">MALE = 2,FEMALE = 3, UNKNOWN = 4</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;同时我们还可以用枚举类型定义变量，这样定义的变量的值就必须是枚举常量中出现的常量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">enum Sex</span><br><span class="line">&#123;</span><br><span class="line">  MALE,</span><br><span class="line">  FEMALE,</span><br><span class="line">  UNKNOWN,</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  enum Sex sex = MALE;</span><br><span class="line">  printf(&quot;sex = %d\n&quot;, sex);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">sex = 0</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这样定义的变量就不得不使用枚举中的常量，否则会进行报错，多了一步验证。</p>
+<h3 id="为什么使用枚举"><a href="#为什么使用枚举" class="headerlink" title="为什么使用枚举"></a>为什么使用枚举</h3><p>&emsp;&emsp;1、枚举类型有验证检查，更加严谨。<br><br>&emsp;&emsp;2、枚举类型一次可以定义多个常量，十分方便。<br><br>&emsp;&emsp;3、枚举类型可以防止命名污染。</p>
+<h2 id="联合体"><a href="#联合体" class="headerlink" title="联合体"></a>联合体</h2><p>&emsp;&emsp;联合体也叫共用体，是一种较为特殊的自定义类型。</p>
+<h3 id="声明与使用"><a href="#声明与使用" class="headerlink" title="声明与使用"></a>声明与使用</h3><p>&emsp;&emsp;联合体与结构体体定义起来的语法完全一致，但他们有一点不同的地方就在于，结构体声明了很多个成员变量，在使用的时候可以同时使用里面所有的成员变量，但联合体则更倾向于多选一，定义了很多的成员变量，但是只能使用其中一个，而且其大小也是根据其中最大的成员变量决定的，因此联合体是一个<del>很抠门</del>的类型，但是它也可以有效节省空间，在一些情况下有很大作用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">union Un</span><br><span class="line">&#123;</span><br><span class="line">  char c;</span><br><span class="line">  int i;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  union Un un;</span><br><span class="line">  printf(&quot;%lu\n&quot;,sizeof(un));</span><br><span class="line">  un.i = 4;</span><br><span class="line">  un.c = &apos;a&apos;;</span><br><span class="line">  printf(&quot;%d\n&quot;, un.i);      </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$  ./Main</span><br><span class="line">4</span><br><span class="line">97</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;从以上这个例子可以看出共用体所占空间的确与结构体是不一样的，并且当我们同时给两个成员变量赋值时另一个成员变量会扰乱其他成员变量的赋值，由此可见它们确实是存储在同一块内存空间上的。<br><br>&emsp;&emsp;其实共用体除了节省空间这一项优点上其实它有很多其它作用，可以帮助我们很方便的完成一些不用共用体就很难做到的东西，这都和它独特的特性有关。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;stdint.h&gt;</span><br><span class="line">union Ip</span><br><span class="line">&#123;</span><br><span class="line">  uint32_t a;</span><br><span class="line">  struct</span><br><span class="line">  &#123;</span><br><span class="line">    char d1;</span><br><span class="line">    char d2;</span><br><span class="line">    char d3;</span><br><span class="line">    char d4;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  union Ip ip;</span><br><span class="line">  ip.a = 0x1;</span><br><span class="line">  printf(&quot;%d.%d.%d.%d\n&quot;, ip.d1,ip.d2,ip.d3,ip.d4);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">1.0.0.0</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;用这种方式则可以轻松做到ip地址间两种表示形式的转换，同时用联合体还可以做到我们之前写过的大小端的验证。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/【MySQL】第六章-表的增删改查/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1957,180 +2143,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/【Linux】Linux编程-gcc-gdb-makefile篇/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/14/【Linux】Linux编程-gcc-gdb-makefile篇/" itemprop="url">【Linux】Linux编程-gcc,gdb,makefile篇</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T18:00:29+08:00">
-                2018-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.4k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="【Linux】Linux编程-gcc-gdb-makefile篇"><a href="#【Linux】Linux编程-gcc-gdb-makefile篇" class="headerlink" title="【Linux】Linux编程-gcc,gdb,makefile篇"></a>【Linux】Linux编程-gcc,gdb,makefile篇</h1><p>&emsp;&emsp;在介绍了vim的使用后我们已经可以在Linux中的vim书写代码了，但是如果想要vim使用更加舒畅我们还需要向vim的配置文件中增加相关配置才行，这些都交给大家自行选择了。但是真正想要在Linux中运行代码光靠vim是不够的，我们还需要编译器，调试器，以及文件管理工具共同配合才行。</p>
-<h2 id="gcc"><a href="#gcc" class="headerlink" title="gcc"></a>gcc</h2><p>&emsp;&emsp;在Linux中我们有现成的编译器可供我们使用，这个编译器就是<strong>gcc</strong>，gcc的编译标准是C标准委员会所提供的最为官方的编译准则，因此学会使用gcc的使用后我们不光可以在Linux中使用gcc编程也可以在Windows下使用记事本+gcc的方式进行编程。<br></p>
-<h3 id="基本指令"><a href="#基本指令" class="headerlink" title="基本指令"></a>基本指令</h3><p>&emsp;&emsp;我们可以使用<code>man gcc</code>打开gcc的说明文档，可以发现，gcc的使用还是比较复杂的，里面有各种指令选项可供我们选择，但是大多的选项我们目前还使用不到，最为常用的语法大家只需要记住一条即可。<br><br>&emsp;&emsp;<code>gcc 文件名.c -g -o 编译结果文件名</code><br><br>&emsp;&emsp;<code>-o</code>选项是改名选项，我们在后面跟上自己目标想要使用的名字即可。如果不适用<code>-o</code>选项会自动将结果命名为<code>a.out</code>。<code>-g</code>则是生成Debug版本方便我们后面用gdb进行调试。</p>
-<h3 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h3><p>&emsp;&emsp;在之前我们在Windows下使用ide进行编程的时候，我们总是一个编译运行，ide就自动执行整个编译过程并且执行显示结果了，我们往往无需关心编译过程中编译器都做了哪些事情，但是在Linux下编程的时候往往就更能感受到编译器在编译过程中都做了哪些事，这个过程对我们来说也显得更为重要。<br><br>&emsp;&emsp;<strong>1、宏替换</strong><br><br>&emsp;&emsp;在这个过程下，编译器会将我们在.c文件中以<code>#</code>开头的宏定义和引入头文件预先编译一遍并且加到代码中，这也是以<code>#</code>开头的语句我们叫他预处理语句的原因。我们可以对一个<code>.c</code>文件执行以下命令。<br><br>&emsp;&emsp;<code>gcc -E 文件名.c -o 结果文件名.i</code><br><br>&emsp;&emsp;执行过后就会发现当前目录下产生了预处理过后的<code>.i</code>文件，用vim打开文件会发现代码与我们之前所书写的略有不同，因为所有的预处理指令都不见了，因为他们已经和我们所写的代码结合起来了。在这条指令中<code>-E</code>是<strong>预处理选项</strong>。<br><br>&emsp;&emsp;<strong>2、编译</strong><br><br>&emsp;&emsp;编译过程是将我们之前生成的预处理结果<code>.i</code>文件转换为汇编语言文件的过程，这是一个将高级语言向底层转换的过程。<br><br>&emsp;&emsp;<code>gcc -S 文件名.i -o 结果文件名.s</code><br><br>&emsp;&emsp;执行过语句过后目录下便会出现编译过后的<code>.s</code>汇编语言文件，用vim打开后会发现我们的代码已经全部转换为汇编语言的版本了。<code>-S</code>是汇编选项。<br><br>&emsp;&emsp;<strong>3、汇编</strong><br><br>&emsp;&emsp;汇编过程是将我们之前生成的汇编文件转换为机器码的过程，因为我们的计算机只认得机器码，也就是二进制文件，因此我们还需做一步转换才能让计算机识别。<br><br>&emsp;&emsp;<code>gcc -c 文件名.s -o 结果文件名.o</code><br><br>&emsp;&emsp;要注意这条语句中的<code>-c</code>是小写的，之前的命令中<code>-S</code>和<code>-E</code>都是大写。在这条语句执行过后我们就会发现目录下多出了<code>-o</code>二进制文件，也就是我们所说的目标文件，同样用vim打开这个文件，会发现全是乱码，因为我们的文件已经转换为二进制文件了。<code>-c</code>是汇编选项。<br><br>&emsp;&emsp;<strong>4、链接</strong><br><br>&emsp;&emsp;在转换为目标文件后我们的编译过程就只需要最后一步了。在C语言程序中我们往往会写很多个C语言文件，最后一步则就是将我们所写的多个文件进行整合汇总的过程。<br><br>&emsp;&emsp;<code>gcc 文件名.o -o 结果可执行文件名</code><br><br>&emsp;&emsp;在链接指令中我们无需其他选项，执行完成后即可发现我们的目录中多出了可执行文件，到此编译全部结束。<br></p>
-<h2 id="gdb"><a href="#gdb" class="headerlink" title="gdb"></a>gdb</h2><p>&emsp;&emsp;在Linux上的调试器上手有一定的门槛，因为gdb是作为控制台的编译器的是没有图形界面的，这就对我们的操作和调试带来了一定的难度。<br></p>
-<h3 id="基本指令-1"><a href="#基本指令-1" class="headerlink" title="基本指令"></a>基本指令</h3><p>&emsp;&emsp;<strong>最好在编译时加上<code>-g</code>选项生成Debug版本，否则会导致gdb部分指令无法使用。</strong><br><br>&emsp;&emsp;1、<code>gdb 可执行文件</code>进入gdb调试。<br><br>&emsp;&emsp;2、<code>break + 行号/函数名</code>打断点。<br><br>&emsp;&emsp;3、<code>info break</code>查看断点信息。<br><br>&emsp;&emsp;4、<code>delte + 断点编号</code>删除断点。<br><br>&emsp;&emsp;5、<code>run</code>让程序从头开始运行，遇到断点停止。<br><br>&emsp;&emsp;6、<code>continue</code>让程序继续运行。<strong>当程序遇到断点停止想要继续运行时使用<code>continue</code>，使用<code>run</code>会让程序重新开始运行。</strong><br><br>&emsp;&emsp;7、<code>print 变量名</code>查看当前状态下变量信息。<br><br>&emsp;&emsp;8、<code>list</code>查看当前执行到的语句附近的语句。<br><br>&emsp;&emsp;9、<code>bt</code>查看调用栈。<br><br>&emsp;&emsp;10、<code>next</code>单步执行下一条语句。<br><br>&emsp;&emsp;11、<code>quit</code>退出gdb调试器。<br></p>
-<h3 id="核心转储文件"><a href="#核心转储文件" class="headerlink" title="核心转储文件"></a>核心转储文件</h3><p>&emsp;&emsp;当我们在ide中对于内存操作不当读取了不合法的内存后我们的程序会强制终止，并且ide会报错，那么我们在Linux中如果执行了类似于读取了非法的内存之类的内存使用不当的错误后会发生什么呢？<br><br>&emsp;&emsp;我们可以尝试写一个文件专门用来读取一个非法的内存，来看看会发生什么。<br><br>&emsp;&emsp;将我们写好的错误代码编译之后执行。会发现出现了<code>段错误（吐核）</code>的错误信息。对，这就是Linux下内存出错的表现。段错误是Linux内存出错的错误代称，我们暂时先不研究，那么后面的吐核是什么意思呢？所谓吐核就是生成一个错误报告告诉我们哪出错了，更像是车祸现场。但是我们查看这个目录下也没有新的文件生成啊，那么核吐到哪了呢？<br><br>&emsp;&emsp;其实核普遍很大，因此不是想吐就能吐的除了来的，那么我们想要这个核能够吐出来该怎么做呢？<br><br>&emsp;&emsp;执行指令<code>ulimit -a</code>，然后再执行<code>ulimit -c unlimited</code>指令，之后再去运行我们有错的代码生成的可执行文件即可看到我们当前目录下多出了一个<code>core</code>文件，这个就是所谓的核，那么我们怎么查看这个核的信息呢？我们的每个核都对应一个可执行文件，因此为了查看到正确的信息我们需要将可执行文件与核配对才能查看因此执行以下命令即可用gdb查看核了。<code>gdb 可执行文件 core文件名</code>。这个核也被称为<strong>核心转储文件</strong>。用gdb打开后即可发现gdb已经将报错的具体信息核代码的行数都列出来了。<br><br>&emsp;&emsp;其实在实际编程中我们有很多情况下无法使用gdb进行调试，比如说遇到几率性bug，因此我们要学会用诸如输出的方式来进行调试，归根到底gdb不过是一个辅助我们调试的工具罢了，千万不要依赖于此调试工具，gdb往往更擅长于解决程序崩溃的问题。</p>
-<h2 id="makefile"><a href="#makefile" class="headerlink" title="makefile"></a>makefile</h2><p>&emsp;&emsp;makefile工具与前两者有很大区别之处就在于其需要哦我们完全自定义指令所执行的内容，也就是说在使用makefile前我们需要首先自行编写一个<strong>Makefile</strong>文件。<br></p>
-<h3 id="Makefile配置"><a href="#Makefile配置" class="headerlink" title="Makefile配置"></a>Makefile配置</h3><p>&emsp;&emsp;首先我们用vim创建一个Makefile文件。<code>vim Makefile</code>。<br><br>&emsp;&emsp;Makefile的配置每一条语句都基本有三个模块组成。<br><br>&emsp;&emsp;<code>[目标]:[依赖](可无)</code><br><br>&emsp;&emsp;&emsp;&emsp;<code>[操作]</code><br><br>&emsp;&emsp;我们首先在Makefile文件中输入以下操作来讲我们编写好的<code>.c</code>文件编译出来。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">目标文件:.c文件</span><br><span class="line">    gcc -g .c文件 -o 目标文件</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;随后保存退出vim，在控制台中执行<code>make 目标文件</code>命令，即可发现我们我们自动执行了编译语句，<code>.c</code>文件已经被自动编译并生成了目标文件。<br><br>&emsp;&emsp;关于makefile的用法有很多十分多样，其中主要体现在Makefile配置的编写，不过一般情况下我们不会经常去编写Makefile文件，一般都是借助工具进行编写。关于Makefile的其他语法还需进一步学习。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2185,7 +2197,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2207,7 +2219,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2304,7 +2316,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共188.9k字</span>
+  <span class="post-count">博客全站共193.4k字</span>
 </div>
 
         ﻿

@@ -264,6 +264,180 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/【Linux】Linux编程-gcc-gdb-makefile篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/14/【Linux】Linux编程-gcc-gdb-makefile篇/" itemprop="url">【Linux】Linux编程-gcc,gdb,makefile篇</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T18:00:29+08:00">
+                2018-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.4k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="【Linux】Linux编程-gcc-gdb-makefile篇"><a href="#【Linux】Linux编程-gcc-gdb-makefile篇" class="headerlink" title="【Linux】Linux编程-gcc,gdb,makefile篇"></a>【Linux】Linux编程-gcc,gdb,makefile篇</h1><p>&emsp;&emsp;在介绍了vim的使用后我们已经可以在Linux中的vim书写代码了，但是如果想要vim使用更加舒畅我们还需要向vim的配置文件中增加相关配置才行，这些都交给大家自行选择了。但是真正想要在Linux中运行代码光靠vim是不够的，我们还需要编译器，调试器，以及文件管理工具共同配合才行。</p>
+<h2 id="gcc"><a href="#gcc" class="headerlink" title="gcc"></a>gcc</h2><p>&emsp;&emsp;在Linux中我们有现成的编译器可供我们使用，这个编译器就是<strong>gcc</strong>，gcc的编译标准是C标准委员会所提供的最为官方的编译准则，因此学会使用gcc的使用后我们不光可以在Linux中使用gcc编程也可以在Windows下使用记事本+gcc的方式进行编程。<br></p>
+<h3 id="基本指令"><a href="#基本指令" class="headerlink" title="基本指令"></a>基本指令</h3><p>&emsp;&emsp;我们可以使用<code>man gcc</code>打开gcc的说明文档，可以发现，gcc的使用还是比较复杂的，里面有各种指令选项可供我们选择，但是大多的选项我们目前还使用不到，最为常用的语法大家只需要记住一条即可。<br><br>&emsp;&emsp;<code>gcc 文件名.c -g -o 编译结果文件名</code><br><br>&emsp;&emsp;<code>-o</code>选项是改名选项，我们在后面跟上自己目标想要使用的名字即可。如果不适用<code>-o</code>选项会自动将结果命名为<code>a.out</code>。<code>-g</code>则是生成Debug版本方便我们后面用gdb进行调试。</p>
+<h3 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h3><p>&emsp;&emsp;在之前我们在Windows下使用ide进行编程的时候，我们总是一个编译运行，ide就自动执行整个编译过程并且执行显示结果了，我们往往无需关心编译过程中编译器都做了哪些事情，但是在Linux下编程的时候往往就更能感受到编译器在编译过程中都做了哪些事，这个过程对我们来说也显得更为重要。<br><br>&emsp;&emsp;<strong>1、宏替换</strong><br><br>&emsp;&emsp;在这个过程下，编译器会将我们在.c文件中以<code>#</code>开头的宏定义和引入头文件预先编译一遍并且加到代码中，这也是以<code>#</code>开头的语句我们叫他预处理语句的原因。我们可以对一个<code>.c</code>文件执行以下命令。<br><br>&emsp;&emsp;<code>gcc -E 文件名.c -o 结果文件名.i</code><br><br>&emsp;&emsp;执行过后就会发现当前目录下产生了预处理过后的<code>.i</code>文件，用vim打开文件会发现代码与我们之前所书写的略有不同，因为所有的预处理指令都不见了，因为他们已经和我们所写的代码结合起来了。在这条指令中<code>-E</code>是<strong>预处理选项</strong>。<br><br>&emsp;&emsp;<strong>2、编译</strong><br><br>&emsp;&emsp;编译过程是将我们之前生成的预处理结果<code>.i</code>文件转换为汇编语言文件的过程，这是一个将高级语言向底层转换的过程。<br><br>&emsp;&emsp;<code>gcc -S 文件名.i -o 结果文件名.s</code><br><br>&emsp;&emsp;执行过语句过后目录下便会出现编译过后的<code>.s</code>汇编语言文件，用vim打开后会发现我们的代码已经全部转换为汇编语言的版本了。<code>-S</code>是汇编选项。<br><br>&emsp;&emsp;<strong>3、汇编</strong><br><br>&emsp;&emsp;汇编过程是将我们之前生成的汇编文件转换为机器码的过程，因为我们的计算机只认得机器码，也就是二进制文件，因此我们还需做一步转换才能让计算机识别。<br><br>&emsp;&emsp;<code>gcc -c 文件名.s -o 结果文件名.o</code><br><br>&emsp;&emsp;要注意这条语句中的<code>-c</code>是小写的，之前的命令中<code>-S</code>和<code>-E</code>都是大写。在这条语句执行过后我们就会发现目录下多出了<code>-o</code>二进制文件，也就是我们所说的目标文件，同样用vim打开这个文件，会发现全是乱码，因为我们的文件已经转换为二进制文件了。<code>-c</code>是汇编选项。<br><br>&emsp;&emsp;<strong>4、链接</strong><br><br>&emsp;&emsp;在转换为目标文件后我们的编译过程就只需要最后一步了。在C语言程序中我们往往会写很多个C语言文件，最后一步则就是将我们所写的多个文件进行整合汇总的过程。<br><br>&emsp;&emsp;<code>gcc 文件名.o -o 结果可执行文件名</code><br><br>&emsp;&emsp;在链接指令中我们无需其他选项，执行完成后即可发现我们的目录中多出了可执行文件，到此编译全部结束。<br></p>
+<h2 id="gdb"><a href="#gdb" class="headerlink" title="gdb"></a>gdb</h2><p>&emsp;&emsp;在Linux上的调试器上手有一定的门槛，因为gdb是作为控制台的编译器的是没有图形界面的，这就对我们的操作和调试带来了一定的难度。<br></p>
+<h3 id="基本指令-1"><a href="#基本指令-1" class="headerlink" title="基本指令"></a>基本指令</h3><p>&emsp;&emsp;<strong>最好在编译时加上<code>-g</code>选项生成Debug版本，否则会导致gdb部分指令无法使用。</strong><br><br>&emsp;&emsp;1、<code>gdb 可执行文件</code>进入gdb调试。<br><br>&emsp;&emsp;2、<code>break + 行号/函数名</code>打断点。<br><br>&emsp;&emsp;3、<code>info break</code>查看断点信息。<br><br>&emsp;&emsp;4、<code>delte + 断点编号</code>删除断点。<br><br>&emsp;&emsp;5、<code>run</code>让程序从头开始运行，遇到断点停止。<br><br>&emsp;&emsp;6、<code>continue</code>让程序继续运行。<strong>当程序遇到断点停止想要继续运行时使用<code>continue</code>，使用<code>run</code>会让程序重新开始运行。</strong><br><br>&emsp;&emsp;7、<code>print 变量名</code>查看当前状态下变量信息。<br><br>&emsp;&emsp;8、<code>list</code>查看当前执行到的语句附近的语句。<br><br>&emsp;&emsp;9、<code>bt</code>查看调用栈。<br><br>&emsp;&emsp;10、<code>next</code>单步执行下一条语句。<br><br>&emsp;&emsp;11、<code>quit</code>退出gdb调试器。<br></p>
+<h3 id="核心转储文件"><a href="#核心转储文件" class="headerlink" title="核心转储文件"></a>核心转储文件</h3><p>&emsp;&emsp;当我们在ide中对于内存操作不当读取了不合法的内存后我们的程序会强制终止，并且ide会报错，那么我们在Linux中如果执行了类似于读取了非法的内存之类的内存使用不当的错误后会发生什么呢？<br><br>&emsp;&emsp;我们可以尝试写一个文件专门用来读取一个非法的内存，来看看会发生什么。<br><br>&emsp;&emsp;将我们写好的错误代码编译之后执行。会发现出现了<code>段错误（吐核）</code>的错误信息。对，这就是Linux下内存出错的表现。段错误是Linux内存出错的错误代称，我们暂时先不研究，那么后面的吐核是什么意思呢？所谓吐核就是生成一个错误报告告诉我们哪出错了，更像是车祸现场。但是我们查看这个目录下也没有新的文件生成啊，那么核吐到哪了呢？<br><br>&emsp;&emsp;其实核普遍很大，因此不是想吐就能吐的除了来的，那么我们想要这个核能够吐出来该怎么做呢？<br><br>&emsp;&emsp;执行指令<code>ulimit -a</code>，然后再执行<code>ulimit -c unlimited</code>指令，之后再去运行我们有错的代码生成的可执行文件即可看到我们当前目录下多出了一个<code>core</code>文件，这个就是所谓的核，那么我们怎么查看这个核的信息呢？我们的每个核都对应一个可执行文件，因此为了查看到正确的信息我们需要将可执行文件与核配对才能查看因此执行以下命令即可用gdb查看核了。<code>gdb 可执行文件 core文件名</code>。这个核也被称为<strong>核心转储文件</strong>。用gdb打开后即可发现gdb已经将报错的具体信息核代码的行数都列出来了。<br><br>&emsp;&emsp;其实在实际编程中我们有很多情况下无法使用gdb进行调试，比如说遇到几率性bug，因此我们要学会用诸如输出的方式来进行调试，归根到底gdb不过是一个辅助我们调试的工具罢了，千万不要依赖于此调试工具，gdb往往更擅长于解决程序崩溃的问题。</p>
+<h2 id="makefile"><a href="#makefile" class="headerlink" title="makefile"></a>makefile</h2><p>&emsp;&emsp;makefile工具与前两者有很大区别之处就在于其需要哦我们完全自定义指令所执行的内容，也就是说在使用makefile前我们需要首先自行编写一个<strong>Makefile</strong>文件。<br></p>
+<h3 id="Makefile配置"><a href="#Makefile配置" class="headerlink" title="Makefile配置"></a>Makefile配置</h3><p>&emsp;&emsp;首先我们用vim创建一个Makefile文件。<code>vim Makefile</code>。<br><br>&emsp;&emsp;Makefile的配置每一条语句都基本有三个模块组成。<br><br>&emsp;&emsp;<code>[目标]:[依赖](可无)</code><br><br>&emsp;&emsp;&emsp;&emsp;<code>[操作]</code><br><br>&emsp;&emsp;我们首先在Makefile文件中输入以下操作来讲我们编写好的<code>.c</code>文件编译出来。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">目标文件:.c文件</span><br><span class="line">    gcc -g .c文件 -o 目标文件</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;随后保存退出vim，在控制台中执行<code>make 目标文件</code>命令，即可发现我们我们自动执行了编译语句，<code>.c</code>文件已经被自动编译并生成了目标文件。<br><br>&emsp;&emsp;关于makefile的用法有很多十分多样，其中主要体现在Makefile配置的编写，不过一般情况下我们不会经常去编写Makefile文件，一般都是借助工具进行编写。关于Makefile的其他语法还需进一步学习。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/08/【Linux】Linux编程-vim篇/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1815,173 +1989,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/17/【C语言】项目-三子棋/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/17/【C语言】项目-三子棋/" itemprop="url">【C语言】项目-三子棋</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-17T19:57:57+08:00">
-                2018-11-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/项目/" itemprop="url" rel="index">
-                    <span itemprop="name">项目</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.7k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="C语言项目"><a href="#C语言项目" class="headerlink" title="C语言项目"></a>C语言项目</h1><h2 id="三子棋"><a href="#三子棋" class="headerlink" title="三子棋"></a>三子棋</h2><h3 id="实现思想"><a href="#实现思想" class="headerlink" title="实现思想"></a>实现思想</h3><p>&emsp;&emsp;大家都玩过五子棋，也对五子棋的游戏规则不陌生，今天我们就仿照五子棋做一个三子棋，以函数模块为进行封装逐步实现，并且实现一个万能算法，可以达到n*n的棋盘上玩n子棋（<del>前提是屏幕够大</del>）。<br><br>&emsp;&emsp;实现具体思想很简单，先做出菜单，然后根据玩家选择执行不同的内容函数，如果选择游戏则开始三子棋的游戏主体函数，执行完成之后重新执行菜单，知道玩家选择退出游戏！<br><br>&emsp;&emsp;三子棋的主体游戏思想也很简单，用一个数组表示棋盘，每一个回合开始前先打印棋盘，随后让玩家进行坐标选择要落子的地方，此时注意 <strong>要判断玩家输入是否合法</strong>，玩家输入后将棋盘上的数据进行更改，并判断是否已经分出胜负，未结束的话是由电脑随机选择坐标进行落子（<del>在这里我们暂时先进行简单的设计，让电脑随机落子</del>），电脑落子完成后也要判断是否游戏已经结束，未结束的话重新打印棋盘即可完成一个循环。在游戏中我们应该考虑到游戏有三中胜负情况，分别是：<strong>玩家胜、电脑胜和平局。</strong></p>
-<h3 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br></pre></td><td class="code"><pre><span class="line">/*!</span><br><span class="line"> * \文件名 源.cpp</span><br><span class="line"> * \日期 2018/11/10 13:35</span><br><span class="line"> *</span><br><span class="line"> * \作者 Misaki</span><br><span class="line"> * 联系方式  1761607418@qq.com</span><br><span class="line"> *</span><br><span class="line"> * 文件描述: 三子棋</span><br><span class="line"> *</span><br><span class="line">*/</span><br><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#define ROW 5//棋盘行</span><br><span class="line">#define COL 5//棋盘列</span><br><span class="line">#define WIN 5//获胜条件</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;windows.h&gt;</span><br><span class="line">#include &lt;time.h&gt;</span><br><span class="line">char g_board[ROW][COL];</span><br><span class="line">/*</span><br><span class="line">将棋盘进行初始化</span><br><span class="line">*/</span><br><span class="line">void initBoard()</span><br><span class="line">&#123;</span><br><span class="line">	for (int row = 0; row &lt; ROW; row++)</span><br><span class="line">	&#123;</span><br><span class="line">		for (int col = 0; col &lt; COL; col++)</span><br><span class="line">		&#123;</span><br><span class="line">			g_board[row][col] = &apos; &apos;;//空位置用&apos; &apos;表示</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">/*</span><br><span class="line">打印菜单</span><br><span class="line">*/</span><br><span class="line">int menu()</span><br><span class="line">&#123;</span><br><span class="line">	system(&quot;cls&quot;);</span><br><span class="line">	int choose = 0;</span><br><span class="line">	printf(&quot;1、开始游戏\n&quot;);</span><br><span class="line">	printf(&quot;2、游戏说明\n&quot;);</span><br><span class="line">	printf(&quot;3、退出\n&quot;);</span><br><span class="line">	printf(&quot;请选择：&quot;);</span><br><span class="line">	scanf(&quot;%d&quot;, &amp;choose);</span><br><span class="line">	return choose;</span><br><span class="line">&#125;</span><br><span class="line">/*</span><br><span class="line">打印棋盘</span><br><span class="line">*/</span><br><span class="line">void printBoard()</span><br><span class="line">&#123;</span><br><span class="line">	system(&quot;cls&quot;);</span><br><span class="line">	for (int col = 0; col &lt; COL; col++)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot; _____&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	printf(&quot; \n&quot;);</span><br><span class="line">	for (int row = 0; row &lt; ROW; row++)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;|&quot;);</span><br><span class="line">		for (int col = 0; col &lt; COL; col++)</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;%6c&quot;, &apos;|&apos;);</span><br><span class="line">		&#125;</span><br><span class="line">		printf(&quot;\n|&quot;);</span><br><span class="line">		for (int col = 0; col &lt; COL; col++)</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;  %c  |&quot;, g_board[row][col]);</span><br><span class="line">		&#125;</span><br><span class="line">		printf(&quot;\n|&quot;);</span><br><span class="line">		for (int col = 0; col &lt; COL; col++)</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;_____|&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		printf(&quot;\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	printf(&quot;\n&quot;);</span><br><span class="line">&#125;</span><br><span class="line">/*</span><br><span class="line">玩家回合</span><br><span class="line">*/</span><br><span class="line">void playerMove(int* row, int* col)</span><br><span class="line">&#123;</span><br><span class="line">	printf(&quot;玩家回合：\n&quot;);</span><br><span class="line">	int rowt = 0, colt = 0, result;</span><br><span class="line">	while (1)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;请输入坐标：(格式：y x)&quot;);</span><br><span class="line">		if (result = scanf(&quot;%d%d&quot;, &amp;rowt, &amp;colt) != 2)</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;你输的是坐标么？重来\n&quot;);</span><br><span class="line">			rewind(stdin);</span><br><span class="line">			continue;</span><br><span class="line">		&#125;</span><br><span class="line">		if (rowt &lt; 0 || rowt &gt;= ROW || colt &lt; 0 || colt &gt;= COL)</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;输入坐标不合法，请重新输入！\n&quot;);</span><br><span class="line">			rewind(stdin);</span><br><span class="line">			continue;</span><br><span class="line">		&#125;</span><br><span class="line">		if (g_board[rowt][colt] != &apos; &apos;)</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;这个位置已经有子了！\n&quot;);</span><br><span class="line">			rewind(stdin);</span><br><span class="line">			continue;</span><br><span class="line">		&#125;</span><br><span class="line">		g_board[rowt][colt] = &apos;x&apos;;</span><br><span class="line">		//将值返回出去</span><br><span class="line">		*row = rowt;</span><br><span class="line">		*col = colt;</span><br><span class="line">		break;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">void computerMove(int* row, int* col)</span><br><span class="line">&#123;</span><br><span class="line">	int rowt = 0;</span><br><span class="line">	int colt = 0;</span><br><span class="line">	while (1)</span><br><span class="line">	&#123;</span><br><span class="line">		rowt = rand() % (ROW);</span><br><span class="line">		colt = rand() % (COL);</span><br><span class="line">		if (g_board[rowt][colt] == &apos; &apos;)</span><br><span class="line">		&#123;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	g_board[rowt][colt] = &apos;o&apos;;</span><br><span class="line">	//将值返回出去</span><br><span class="line">	*row = rowt;</span><br><span class="line">	*col = colt;</span><br><span class="line">&#125;</span><br><span class="line">/*</span><br><span class="line">判断是否平局</span><br><span class="line">*/</span><br><span class="line">int isdraw()</span><br><span class="line">&#123;</span><br><span class="line">	int num = 0;</span><br><span class="line">	for (int i = 0; i &lt; ROW; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		for (int j = 0; j &lt; COL; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			if (g_board[i][j] == &apos; &apos;)</span><br><span class="line">			&#123;</span><br><span class="line">				num++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	if (num == 0)//平局了，棋盘满了</span><br><span class="line">	&#123;</span><br><span class="line">		return 1;</span><br><span class="line">	&#125;</span><br><span class="line">	else//还能打</span><br><span class="line">	&#123;</span><br><span class="line">		return 0;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">/*</span><br><span class="line">判断是否三子相连</span><br><span class="line">参数：当前下子位置</span><br><span class="line">返回值：谁获得胜利</span><br><span class="line">*/</span><br><span class="line">char judge(int row, int col)</span><br><span class="line">&#123;</span><br><span class="line">	int num =1;//计数相连棋子个数</span><br><span class="line">	int i = 1;//判断周围第i个棋子是否相同</span><br><span class="line">	//从左到右的判断</span><br><span class="line">	for (i = 1; i &lt; WIN; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		if ((col + i) &gt; (COL - 1) || g_board[row][col] != g_board[row][col + i])</span><br><span class="line">		&#123;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">		num++;</span><br><span class="line">	&#125;</span><br><span class="line">	//从右到左的判断</span><br><span class="line">	for (i = 1; i &lt; WIN; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		if ((col - i) &lt; 0 || g_board[row][col] != g_board[row][col - i])</span><br><span class="line">		&#123;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">		num++;</span><br><span class="line">	&#125;</span><br><span class="line">	if (num &gt;= WIN)</span><br><span class="line">	&#123;</span><br><span class="line">		return g_board[row][col];</span><br><span class="line">	&#125;</span><br><span class="line">	num = 1;</span><br><span class="line">	//从上到下的判断</span><br><span class="line">	for (i = 1; i &lt; WIN; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		if ((row + i) &gt; (ROW - 1) || g_board[row][col] != g_board[row + i][col])</span><br><span class="line">		&#123;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">		num++;</span><br><span class="line">	&#125;</span><br><span class="line">	//从下到上的判断</span><br><span class="line">	for (i = 1; i &lt; WIN; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		if ((row - i) &lt; 0 || g_board[row][col] != g_board[row - i][col])</span><br><span class="line">		&#123;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">		num++;</span><br><span class="line">	&#125;</span><br><span class="line">	if (num &gt;= WIN)</span><br><span class="line">	&#123;</span><br><span class="line">		return g_board[row][col];</span><br><span class="line">	&#125;</span><br><span class="line">	num = 1;</span><br><span class="line">	//从左上到右下的判断</span><br><span class="line">	for (i = 1; i &lt; WIN; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		if ((row + i) &gt; (ROW - 1) || (col + i) &gt; (COL - 1) || g_board[row][col] != g_board[row + i][col + i])</span><br><span class="line">		&#123;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">		num++;</span><br><span class="line">	&#125;</span><br><span class="line">	//从右下到左上的判断</span><br><span class="line">	for (i = 1; i &lt; WIN; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		if ((row - i) &lt; 0 || (col - i) &lt; 0 || g_board[row][col] != g_board[row - i][col - i])</span><br><span class="line">		&#123;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">		num++;</span><br><span class="line">	&#125;</span><br><span class="line">	if (num &gt;= WIN)</span><br><span class="line">	&#123;</span><br><span class="line">		return g_board[row][col];</span><br><span class="line">	&#125;</span><br><span class="line">	num = 1;</span><br><span class="line">	//从右上到左下的判断</span><br><span class="line">	for (i = 1; i &lt; WIN; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		if ((row + i) &gt; (ROW - 1) || (col - i) &lt; 0 || g_board[row][col] != g_board[row + i][col - i])</span><br><span class="line">		&#123;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">		num++;</span><br><span class="line">	&#125;</span><br><span class="line">	//从左下到右上的判断</span><br><span class="line">	for (i = 1; i &lt; WIN; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		if ((row - i) &lt; 0 || (col + i) &gt; (COL - 1) || g_board[row][col] != g_board[row - i][col + i])</span><br><span class="line">		&#123;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">		num++;</span><br><span class="line">	&#125;</span><br><span class="line">	if (num &gt;= WIN)</span><br><span class="line">	&#123;</span><br><span class="line">		return g_board[row][col];</span><br><span class="line">	&#125;</span><br><span class="line">	if (isdraw())//平局了</span><br><span class="line">	&#123;</span><br><span class="line">		return &apos;d&apos;;</span><br><span class="line">	&#125;</span><br><span class="line">	else</span><br><span class="line">	&#123;</span><br><span class="line">		return &apos; &apos;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">/*</span><br><span class="line">游戏是否结束</span><br><span class="line">*/</span><br><span class="line">int isOver(int row, int col)</span><br><span class="line">&#123;</span><br><span class="line">	char c = judge(row, col);</span><br><span class="line">	if (c == &apos; &apos;)</span><br><span class="line">	&#123;</span><br><span class="line">		return 0;</span><br><span class="line">	&#125;</span><br><span class="line">	if (c == &apos;x&apos;)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;恭喜你赢了！\n&quot;);</span><br><span class="line">		system(&quot;pause&quot;);</span><br><span class="line">		return 1;</span><br><span class="line">	&#125;</span><br><span class="line">	if (c == &apos;o&apos;)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;不走运，你输了！\n&quot;);</span><br><span class="line">		system(&quot;pause&quot;);</span><br><span class="line">		return 1;</span><br><span class="line">	&#125;</span><br><span class="line">	else</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;平局！\n&quot;);</span><br><span class="line">		system(&quot;pause&quot;);</span><br><span class="line">		return 1;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">/*</span><br><span class="line">游戏主体</span><br><span class="line">*/</span><br><span class="line">void mainGame()</span><br><span class="line">&#123;</span><br><span class="line">	int row = 0;</span><br><span class="line">	int col = 0;</span><br><span class="line">	//初始化棋盘</span><br><span class="line">	initBoard();</span><br><span class="line">	//打印棋盘</span><br><span class="line">	printBoard();</span><br><span class="line">	//循环控制游戏进程</span><br><span class="line">	while (1)</span><br><span class="line">	&#123;</span><br><span class="line">		//玩家开始下</span><br><span class="line">		playerMove(&amp;row, &amp;col);</span><br><span class="line">		//打印棋盘</span><br><span class="line">		printBoard();</span><br><span class="line">		//判定是否游戏结束</span><br><span class="line">		if (isOver(row, col))</span><br><span class="line">		&#123;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">		//电脑下</span><br><span class="line">		computerMove(&amp;row, &amp;col);</span><br><span class="line">		//打印棋盘</span><br><span class="line">		printBoard();</span><br><span class="line">		printf(&quot;计算机回合↑\n&quot;);</span><br><span class="line">		//判定是否游戏结束</span><br><span class="line">		if (isOver(row, col))</span><br><span class="line">		&#123;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">void gameExplain()</span><br><span class="line">&#123;</span><br><span class="line">	system(&quot;cls&quot;);</span><br><span class="line">	printf(&quot;五子棋你会玩，三子棋你不会玩？\n&quot;);</span><br><span class="line">	printf(&quot;什么你五子棋都不会玩，你不会百度，搜狗，goole啊！\n&quot;);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	srand(time(NULL));</span><br><span class="line">	while (1)</span><br><span class="line">	&#123;</span><br><span class="line">		int choose = menu();</span><br><span class="line">		if (choose == 1)</span><br><span class="line">		&#123;</span><br><span class="line">			mainGame();</span><br><span class="line">			continue;</span><br><span class="line">		&#125;</span><br><span class="line">		if (choose == 2)</span><br><span class="line">		&#123;</span><br><span class="line">			gameExplain();</span><br><span class="line">			continue;</span><br><span class="line">		&#125;</span><br><span class="line">		if (choose == 3)</span><br><span class="line">		&#123;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">		else</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;别瞎比选！\n&quot;);</span><br><span class="line">			rewind(stdin);</span><br><span class="line">			system(&quot;pause&quot;);</span><br><span class="line">			continue;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	printBoard();</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;在这里值得一提的是我用来判断是否获胜的算法，算法可总结为以落子为中心，向横纵正斜和反斜四个方向分别计数，以达到统计是否已经连子获胜的目的。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2036,7 +2043,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2058,7 +2065,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2155,7 +2162,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共188.9k字</span>
+  <span class="post-count">博客全站共193.4k字</span>
 </div>
 
         ﻿

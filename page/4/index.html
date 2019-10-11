@@ -264,6 +264,192 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/25/【Linux】第五章-基础IO/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/25/【Linux】第五章-基础IO/" itemprop="url">【Linux】第五章-基础IO</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-25T14:44:22+08:00">
+                2019-04-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.7k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第五章-基础IO"><a href="#第五章-基础IO" class="headerlink" title="第五章 基础IO"></a>第五章 基础IO</h1><h2 id="回顾标准库IO接口"><a href="#回顾标准库IO接口" class="headerlink" title="回顾标准库IO接口"></a>回顾标准库IO接口</h2><p>&emsp;&emsp;我们在C语言中已经见过很多包含在标准库中的IO接口：<code>fopen fclose fwrite fread fseek...</code>，在<code>fopen</code>中有一些不同的文件打开模式：<code>r r+ w w+ a...</code>，而要想对文件进行操作我们需要用到<strong>句柄</strong>——<code>FILE*</code>，之前我们称之为句柄，但它实际上是一个文件流指针，<code>stdout stdin stderr</code>他们也是文件流指针，用来操作和控制文件和IO流。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//标准IO回顾</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  FILE* fp = NULL;//句柄，文件流指针</span><br><span class="line">  fp = fopen(&quot;./tmp.txt&quot;, &quot;a&quot;);</span><br><span class="line">  if(fp == NULL)</span><br><span class="line">  &#123;</span><br><span class="line">    perror(&quot;fopen error&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  char* ptr = &quot;Misaki&quot;;</span><br><span class="line">  fwrite(ptr, strlen(ptr), 1, fp);</span><br><span class="line">  char buf[1024] = &#123; 0 &#125;;</span><br><span class="line">  fread(buf, 1023, 1, fp);          </span><br><span class="line">  printf(&quot;buf = %s\n&quot;, buf);</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="系统调用接口"><a href="#系统调用接口" class="headerlink" title="系统调用接口"></a>系统调用接口</h2><p>&emsp;&emsp;除过标准库中的IO接口我们的系统中也有系统调用接口可以直接进行IO流的控制，我们自然可以用这些系统调用接口来控制文件。标准库中的IO接口也不过是系统调用接口的一层封装。而直接使用系统调用接口可以实现的功能更为丰富，但同时也更难以操作。</p>
+<h3 id="open"><a href="#open" class="headerlink" title="open()"></a>open()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;//要想使用系统IO必选加这个头文件</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  //int open(const char *pathname, int flags, mode_t mode);</span><br><span class="line">  //pathname:路径名</span><br><span class="line">  //flags:选项标志</span><br><span class="line">  //      必选：必选其一</span><br><span class="line">  //          O_RDONLY 只读</span><br><span class="line">  //          O_WRONLY 只写</span><br><span class="line">  //          O_RDWR   可读可写</span><br><span class="line">  //      可选项：</span><br><span class="line">  //          O_CREAT  文件不存在则创建，存在则打开</span><br><span class="line">  //          O_EXCL   与O_CREAT同用时若文件存在则报错</span><br><span class="line">  //          O_TRUNC  打开文件同时截断文件长度为0</span><br><span class="line">  //          O_APPEND 写追加模式</span><br><span class="line">  //mode:创建文件时给定权限（八进制数字）</span><br><span class="line">  //  mode &amp; (umask)</span><br><span class="line">  //返回值:文件描述符-正整数    错误:-1</span><br><span class="line">  umask(0);//设置当前进程的权限掩码为0                         </span><br><span class="line">  int fd = open(&quot;./tmp.txt&quot;, O_RDWR | O_CREAT | O_TRUNC, 0777);</span><br><span class="line">  if(fd &lt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">    perror(&quot;open error&quot;);</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;此时由于我们加上了截断选项文件中的内容会被全部清空。如果我们在语句中不加mode权限系统会默认给随机的权限，这是十分危险的，我们自己创建的文件可能连我们自己都打不开。<br><br>&emsp;&emsp;我们可以看到我们创建的文件以及权限已经按照我们的预期设置好了。<br><br><img src="/2019/04/25/【Linux】第五章-基础IO/1.jpg" alt="open"><br></p>
+<h3 id="write"><a href="#write" class="headerlink" title="write()"></a>write()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;//要想使用系统IO必选加这个头文件</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  umask(0);//设置当前进程的权限掩码为0      </span><br><span class="line">  int fd = open(&quot;./tmp.txt&quot;, O_RDWR | O_CREAT | O_TRUNC, 0777);</span><br><span class="line">  if(fd &lt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">    perror(&quot;open error&quot;);</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  //ssize_t write(int fd, const void *buf, size_t count);</span><br><span class="line">  //fd:打开文件所返回的文件描述符</span><br><span class="line">  //buf:要想文件写入的数据</span><br><span class="line">  //count:要写的数据长度             </span><br><span class="line">  //返回值:实际的写入字节数，错误：-1</span><br><span class="line">  char buf[1024] = &quot;Misaki&quot;;</span><br><span class="line">  int ret = write(fd, buf, sizeof(buf));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;这样我们即可将数据写入到文件中。之后是读取函数。</p>
+<h3 id="read"><a href="#read" class="headerlink" title="read()"></a>read()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;//要想使用系统IO必选加这个头文件</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  umask(0);//设置当前进程的权限掩码为0      </span><br><span class="line">  int fd = open(&quot;./tmp.txt&quot;, O_RDWR | O_CREAT | O_TRUNC, 0777);</span><br><span class="line">  if(fd &lt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">    perror(&quot;open error&quot;);</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  char buf[1024] = &quot;Misaki&quot;;            </span><br><span class="line">  int ret = write(fd, buf, sizeof(buf));</span><br><span class="line">  //ssize_t read(int fd, void *buf, size_t count);</span><br><span class="line">  //fd:打开文件所返回的文件描述符</span><br><span class="line">  //buf:对读取到的数据进行存储的位置</span><br><span class="line">  //count:要读取得数据长度</span><br><span class="line">  //返回值:实际的读取的字节数，错误：-1</span><br><span class="line">  memset(buf, 0x00, 1024);//将缓冲区清零</span><br><span class="line">  ret = read(fd, buf, 1023);</span><br><span class="line">  if(ret &lt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">    perror(&quot;read error&quot;);</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  printf(&quot;read buf = %s\n&quot;, buf);</span><br><span class="line">  printf(&quot;ret = %d\n&quot;, ret);                    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[misaki@localhost 第五章-基础IO]$ ./SystemIO</span><br><span class="line">read buf = </span><br><span class="line">ret = 0</span><br></pre></td></tr></table></figure>
+<h3 id="lseek"><a href="#lseek" class="headerlink" title="lseek()"></a>lseek()</h3><p>&emsp;&emsp;但是我们发现并没有向缓冲区中读取文件中的数据，这是因为我们在写入数据后文件中的描述符停留在文件末尾，之后就是文件结束符因此无法读取之前的数据，于是我们需要一个函数将描述符移动到文件最开始。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;//要想使用系统IO必选加这个头文件</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  umask(0);//设置当前进程的权限掩码为0      </span><br><span class="line">  int fd = open(&quot;./tmp.txt&quot;, O_RDWR | O_CREAT | O_TRUNC, 0777);</span><br><span class="line">  if(fd &lt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">    perror(&quot;open error&quot;);</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  char buf[1024] = &quot;Misaki&quot;;            </span><br><span class="line">  int ret = write(fd, buf, sizeof(buf));</span><br><span class="line">  //off_t lseek(int fd, off_t offset, int whence);</span><br><span class="line">  //fd:打开文件所返回的文件描述符</span><br><span class="line">  //offset:偏移量</span><br><span class="line">  //whence:偏移位置</span><br><span class="line">  //       SEEK_CUR 当前位置</span><br><span class="line">  //       SEEK_SET 文件起始位置</span><br><span class="line">  //       SEEK_END 文件末尾</span><br><span class="line">  lseek(fd, 0, SEEK_SET);</span><br><span class="line">  memset(buf, 0x00, 1024);//将缓冲区清零</span><br><span class="line">  ret = read(fd, buf, 1023);</span><br><span class="line">  if(ret &lt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">    perror(&quot;read error&quot;);</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  printf(&quot;read buf = %s\n&quot;, buf);</span><br><span class="line">  printf(&quot;ret = %d\n&quot;, ret);                    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第五章-基础IO]$ ./SystemIO</span><br><span class="line">read buf = Misaki</span><br><span class="line">ret = 1023</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这样读取就成功了。</p>
+<h3 id="close"><a href="#close" class="headerlink" title="close"></a>close</h3><p>&emsp;&emsp;使用完文件一定别忘了关闭，否则会造成文件描述符泄漏。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;//要想使用系统IO必选加这个头文件</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  umask(0);//设置当前进程的权限掩码为0      </span><br><span class="line">  int fd = open(&quot;./tmp.txt&quot;, O_RDWR | O_CREAT | O_TRUNC, 0777);</span><br><span class="line">  if(fd &lt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">    perror(&quot;open error&quot;);</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  char buf[1024] = &quot;Misaki&quot;;            </span><br><span class="line">  int ret = write(fd, buf, sizeof(buf));</span><br><span class="line">  lseek(fd, 0, SEEK_SET);</span><br><span class="line">  memset(buf, 0x00, 1024);//将缓冲区清零</span><br><span class="line">  ret = read(fd, buf, 1023);</span><br><span class="line">  if(ret &lt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">    perror(&quot;read error&quot;);</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  printf(&quot;read buf = %s\n&quot;, buf);</span><br><span class="line">  printf(&quot;ret = %d\n&quot;, ret); </span><br><span class="line">  //int close(int fd);</span><br><span class="line">  close(fd);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h2><h3 id="文件描述符？文件流指针？"><a href="#文件描述符？文件流指针？" class="headerlink" title="文件描述符？文件流指针？"></a>文件描述符？文件流指针？</h3><p>&emsp;&emsp;我们知道了标准库使用的是文件流指针，而系统调用接口使用的是文件描述符，那么什么是文件描述符呢？我们通过对系统调用接口的练习使用知道了文件描述符是一个整数。而我们知道库函数与系统调用接口是上下级调用关系，那么文件描述符在其中又起到什么作用呢？<br><br>&emsp;&emsp;我们打开文件时，操作系统在内存中要创建相应的数据结构来描述目标文件。于是就有了<code>file</code>结构体。表示一个已经打开的文件对象。而进程执行<code>open</code>系统调用，所以必须让进程和文件关联起来。每个进程都有一个指针<code>*files</code>,指向一张表<code>files_struct</code>,该表最重要的部分就是包涵一个指针数组，每个元素都是一个指向打开文件的指针！所以，本质上，文件描述符就是该数组的下标。所以，只要拿着文件描述符，就可以找到对应的文件<br><br><img src="/2019/04/25/【Linux】第五章-基础IO/2.png" alt="文件描述符"><br><br>&emsp;&emsp;这张表存储在PCB中。<br><br>&emsp;&emsp;文件流指针是一个结构体，其中就包括了文件描述符，当我们使用标准库接口进行io，则最终是通过文件流指针找到文件描述符进而对文件进行操作。<br><br>&emsp;&emsp;而每个进程在执行时会默认打开三个文件<code>stdin(标准输入) stdout(标准输出) stderr(标准错误)</code>对应的物理设备一般是键盘，显示器，显示器，这三个默认打开的文件对应的文件描述符分别是<code>0, 1, 2</code>。</p>
+<h3 id="缓冲区"><a href="#缓冲区" class="headerlink" title="缓冲区"></a>缓冲区</h3><p>&emsp;&emsp;缓冲区实际上是文件流指针为每个文件所维护的一个缓冲区(用户态)。其保存在文件流指针中，但是如果我们不使用标准库IO而直接使用系统调用接口我们则不会使用到文件流指针，自然系统就不会创建缓冲区，更不会先将数据搁在缓冲区中。<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>write(1, &quot;Misaki&quot;, 7);</code><br><br>&emsp;&emsp;这段命令会直接在标准输出文件中打印数据，并不会通过缓冲区。</p>
+<h3 id="文件描述符分配规则"><a href="#文件描述符分配规则" class="headerlink" title="文件描述符分配规则"></a>文件描述符分配规则</h3><p>&emsp;&emsp;最小未使用。文件描述符默认会给文件分配当前最小的且未使用的文件描述符。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//文件描述符分配原则：最小未使用</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  close(1);//我们关闭了标准输出，文件描述符1空闲</span><br><span class="line">  int fd = open(&quot;./tmp.txt&quot;, O_RDWR);//tmp.txt的文件描述符被分配为最小的未使用1</span><br><span class="line">  printf(&quot;%d\n&quot;, fd);</span><br><span class="line">  fflush(stdout);//刷新缓冲区                                                  </span><br><span class="line">  close(fd);                      </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这段代码执行后在屏幕上不会有打印，但在tmp.txt文件中会打印1。这是因为标准输出已经被我们关闭了，并且文件描述符1此时已经指向了tmp.txt因此我们使用printf()进行打印也会打印在<code>tmp.txt</code>中。</p>
+<h3 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h3><p>&emsp;&emsp;我们之前关闭了<code>stdout</code>文件并且让新创建的文件的文件描述符自动变成了1，由此我们原本要打印到屏幕上的内容到了<code>tmp.txt</code>中，这个过程我们叫输出重定向，及将原本要输入到一个文件中的内容重定向使其输入到另一个文件中。我们可以用<code>&gt; &gt;&gt;</code>来进行重定向，同时我们也可以在程序中利用<code>dup()</code>系统调用来达到重定向的目的。<br><br>&emsp;&emsp;<code>dup(int oldfd, int newfd)</code>，将<code>newfd</code>重定向到<code>oldfd</code>所指向的文件，如果<code>newfd</code>已有打开文件则关闭文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">/*文件描述符*/                                           </span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    //int dup2(int oldfd, int newfd);</span><br><span class="line">    //  将newfd重定向到oldfd所指向的文件</span><br><span class="line">    //  若newfd本身已有打开文件，重定向时则关闭已打开文件</span><br><span class="line">    int fd = open(&quot;./tmp.txt&quot;, O_RDWR);</span><br><span class="line"></span><br><span class="line">    //让1也指向了fd所指向的文件</span><br><span class="line">    dup2(fd, 1);</span><br><span class="line"></span><br><span class="line">    printf(&quot;%d\n&quot;, fd);</span><br><span class="line">    fflush(stdout);</span><br><span class="line">    close(fd);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h2><h3 id="文件系统简介"><a href="#文件系统简介" class="headerlink" title="文件系统简介"></a>文件系统简介</h3><p>&emsp;&emsp;我们磁盘上没有一个分区就有一个文件系统用于管理文件存储。我们的文件系统是通过分块来存储文件数据的，为了方便的找到文件相关信息，我们文件系统创建了一个个<code>inode</code>结点用于存放一个个结点的文件信息，并且在<code>inode</code>中存放着文件数据具体存放的数据块的位置。并且还有一个<code>inode table</code>用来统一管理当前分区中所有的<code>inode</code>结点。同时我们还有两个工具<code>inode_bitmap</code>和<code>data_bitmap</code>用来分别在<code>inode table</code>和<code>数据区</code>找到空闲位置用来存储文件的<code>inode</code>和文件的数据。<br>&emsp;&emsp;存储文件流程：通过<code>inode_bitmap</code>在<code>inode table</code>中找到空闲的<code>inode</code>结点，通过<code>data_bitmap</code>在数据区域找到空闲数据块，将数据块位置信息，记录到<code>inode</code>结点中，将文件数据写入数据块中，将文件名和<code>inode</code>节点号写入父目录文件中。父目录文件是目录下用于查看当前目录下有什么文件的表。如果我们要查询某个目录下的某个文件我们会现在目录文件中查询这个文件的<code>inode</code>结点信息（但其实这个结点是在<code>inode_table</code>中进行存储的），然后通过<code>inode</code>再找到这个文件的数据具体所存进的数据块，来查询数据。<br></p>
+<h3 id="硬链接-软链接"><a href="#硬链接-软链接" class="headerlink" title="硬链接/软链接"></a>硬链接/软链接</h3><p>&emsp;&emsp;硬链接是通过复制原文件的<code>inode</code>达到创建链接的目的，可以理解硬链接为原文件的别名。<code>ln 原文件 硬链接</code>，与原文件没有什么区别。<br><br>&emsp;&emsp;软连接一个独立的文件，文件内容里存储着原文件的地址与名字，软连接有着新的<code>inode</code>结点，每次软连接通过它自身的数据找到原文件的文件名再查找到源文件。<code>ln -s 源文件 软连接</code>，是原文件的一个快捷方式。<br><br>&emsp;&emsp;区别：<br><br>&emsp;&emsp;1、删除原文件，软连接失效，硬链接无影响。<br><br>&emsp;&emsp;2、软链接可以跨分区建立，硬链接不行。<br><br>&emsp;&emsp;3、软连接文件可以针对目录创建，硬链接不行。<br></p>
+<h2 id="动态库-静态库"><a href="#动态库-静态库" class="headerlink" title="动态库/静态库"></a>动态库/静态库</h2><h3 id="生成"><a href="#生成" class="headerlink" title="生成"></a>生成</h3><p>&emsp;&emsp;生成动态库：<code>gcc -fPIC -c b.c -o b.o</code>,<code>gcc --share b.o -o libmytest.so</code><br><br>&emsp;&emsp;生成静态库：<code>gcc -c b.c -o b.o</code>,<code>ar -cr libmytest.a b.o</code><br><br>&emsp;&emsp;gcc选项：<code>-fPIC</code>：产生位置无关代码。<code>--share</code>：生成一个共享库。<br><br>&emsp;&emsp;ar选项：<code>-c</code>：创建一个静态库。<code>-r</code>：新增库文件。</p>
+<h3 id="库的使用"><a href="#库的使用" class="headerlink" title="库的使用"></a>库的使用</h3><h4 id="动态库"><a href="#动态库" class="headerlink" title="动态库"></a>动态库</h4><p>&emsp;&emsp;由于我们动态库的默认查找路径是<code>/lib64</code>，我们可以将我们的库移到这个路径下就可以直接链接了，当然也可以使用一下这种方法来增加环境变量或者参数来让程序连接到库。<br><br>&emsp;&emsp;1、我们要增加参数更改查找库的路径<code>gcc a.c -o main -L. -lmytest</code>。其中<code>-L</code>指定库的路径，<code>-l</code>指定库的名称。我们也可以增加环境变量来增加查找库的路径<code>export LIBRARY_PATH=.</code>。<br><br>&emsp;&emsp;2、我们的动态库在程序运行时也需要库的存在，因此我们要增加环境变量来让程序运行时也能找的到库。<code>export LD_LIBRARY_PATH=.</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">add.h:</span><br><span class="line">int add(int num1, int num2); </span><br><span class="line">add.c:</span><br><span class="line">#include &quot;add.h&quot;</span><br><span class="line"></span><br><span class="line">int add(int num1, int num2)</span><br><span class="line">&#123;</span><br><span class="line">  return num1 + num2;      </span><br><span class="line">&#125;</span><br><span class="line">main.c:</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &quot;add.h&quot;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  printf(&quot;%d\n&quot;, add(1,3));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;终端中执行代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[misaki@localhost add]$ gcc add.c -fPIC -c -o add.o</span><br><span class="line">[misaki@localhost add]$ gcc --share add.o -o libmyMath.so</span><br><span class="line">[misaki@localhost add]$ export LD_LIBRARY_PATH=.</span><br><span class="line">[misaki@localhost add]$ gcc main.c -L. -lmyMath -o main</span><br><span class="line">[misaki@localhost add]$ ./main</span><br><span class="line">4</span><br></pre></td></tr></table></figure></p>
+<h4 id="静态库"><a href="#静态库" class="headerlink" title="静态库"></a>静态库</h4><p>&emsp;&emsp;通常链接静态库的时候并不会使用<code>-static</code>静态链接，而是将静态库放到指定路径下直接使用<code>gcc -L路径 -l库名称</code>直接指定库的链接路径去生成可执行程序。<code>-static</code>会将可执行程序全部使用静态链接生成，不依赖任何动态库。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">add.h:</span><br><span class="line">int add(int num1, int num2); </span><br><span class="line">add.c:</span><br><span class="line">#include &quot;add.h&quot;</span><br><span class="line"></span><br><span class="line">int add(int num1, int num2)</span><br><span class="line">&#123;</span><br><span class="line">  return num1 + num2;      </span><br><span class="line">&#125;</span><br><span class="line">main.c:</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &quot;add.h&quot;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  printf(&quot;%d\n&quot;, add(1,3));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;终端中执行代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[misaki@localhost add]$ gcc -c add.c -o add.o</span><br><span class="line">[misaki@localhost add]$ ar -cr libmyMath.a add.o</span><br><span class="line">[misaki@localhost add]$ gcc main.c -L. -lmyMath -o main</span><br><span class="line">[misaki@localhost add]$ ./main </span><br><span class="line">4</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/24/【Linux】第四章-进程控制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1853,192 +2039,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/08/【C语言】第十一章-自定义类型详解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/08/【C语言】第十一章-自定义类型详解/" itemprop="url">【C语言】第十一章-自定义类型详解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-08T18:24:48+08:00">
-                2019-02-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C语言进阶/" itemprop="url" rel="index">
-                    <span itemprop="name">C语言进阶</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.6k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第十一章-自定义类型详解"><a href="#第十一章-自定义类型详解" class="headerlink" title="第十一章-自定义类型详解"></a>第十一章-自定义类型详解</h1><h2 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h2><p>&emsp;&emsp;结构体的基本知识在我之前<strong>C语言初阶</strong>的部分已经有详细说明过了，这里知识稍微体积之后便进入更为深层的方面。</p>
-<h3 id="结构体的声明"><a href="#结构体的声明" class="headerlink" title="结构体的声明"></a>结构体的声明</h3><p>&emsp;&emsp;结构体声明的声明及使用是十分简单且方便的，使用以下的语法我们即可声明一个自定义的结构体。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">typedef struct test</span><br><span class="line">&#123;</span><br><span class="line">  int a;</span><br><span class="line">  char b[1024];</span><br><span class="line">&#125;Test;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  Test test;</span><br><span class="line">  test.a = 10;</span><br><span class="line">  strcpy(test.b, &quot;Main&quot;);</span><br><span class="line">  printf(&quot;%d, %s\n&quot;, test.a, test.b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">10, Main</span><br></pre></td></tr></table></figure></p>
-<h3 id="匿名结构体"><a href="#匿名结构体" class="headerlink" title="匿名结构体"></a>匿名结构体</h3><p>&emsp;&emsp;但是有一种较为特殊的结构体，这种结构体没有名称，因此它在声明结束后无法再次定义变量，只能一次性使用，我们称这种结构体为<strong>匿名结构体</strong>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">struct</span><br><span class="line">&#123;</span><br><span class="line">  int a;</span><br><span class="line">&#125;test;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  test.a = 10;          </span><br><span class="line">  printf(&quot;%d\n&quot;,test.a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">10</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这种匿名结构体只能供我们一次性使用，声明结束后不能再定义其他的结构体变量。</p>
-<h3 id="结构体的自引用"><a href="#结构体的自引用" class="headerlink" title="结构体的自引用"></a>结构体的自引用</h3><p>&emsp;&emsp;结构体的自引用一般大多数用在链表，图，树等数据结构中，之后在数据结构有关章节中我们会经常用到链式存储结构，这时候就要用到我们的结构体的自引用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">typedef struct test</span><br><span class="line">&#123;</span><br><span class="line">  int a;</span><br><span class="line">  char b[10];</span><br><span class="line">  struct test* next;//一般用于指向下一个相同类型的结构体</span><br><span class="line">&#125;Test;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  Test test;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;在这个结构体的定义中我们就将结构体本身的指针包含进了结构体中，这个在链式存储中一般用于指向下一个结构体起到寻址的作用，但是我们要注意在自引用中只能包含其本身的指针，不能直接自引用，否则将是不合法的。</p>
-<h3 id="结构体内存对齐"><a href="#结构体内存对齐" class="headerlink" title="结构体内存对齐"></a>结构体内存对齐</h3><p>&emsp;&emsp;<strong>这个部分是结构体中十分重要的一个知识点，在面试和笔试中也是常考点。</strong><br>&emsp;&emsp;我们之前计算结构体大小都是将结构体各成员变量大小之和相加就得出了结构体的总大小，但是我们看接下来这个例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">typedef struct test</span><br><span class="line">&#123;</span><br><span class="line">  char c1;</span><br><span class="line">  short a;</span><br><span class="line">  char c2;                      </span><br><span class="line">&#125;Test;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  Test test;</span><br><span class="line">  printf(&quot;%lu\n&quot;, sizeof(test));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">6</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;从以上这个例子可以看出这个结构体占了6个字节，但是个成员加起来应该就是4个字节啊，这是为什么呢？<br><br>&emsp;&emsp;其实结构体大小的计算与内存对齐有着很大的关系，以下是内存对齐的基本规则：<br><br>&emsp;&emsp;1. 第一个成员在与结构体变量偏移量为0的地址处。<br><br>&emsp;&emsp;2. 其他成员变量要对齐到某个数字（对齐数）的整数倍的地址处。<br>对齐数 = 编译器默认的一个对齐数 与 该成员大小的较小值。 VS中默认的值为8 Linux中的默认值为4。<br><br>&emsp;&emsp;3. 结构体总大小为最大对齐数（每个成员变量都有一个对齐数）的整数倍。<br><br>&emsp;&emsp; 4. 如果嵌套了结构体的情况，嵌套的结构体对齐到自己的最大对齐数的整数倍处，结构体的整体大小就是<br>所有最大对齐数（含嵌套结构体的对齐数）的整数倍。<br><br>&emsp;&emsp;接下来我们用以上的规则来计算一下刚才这个结构体的总大小。首先<code>char</code>类型放在地址为0的地方，占一个字节。<code>short</code>的大小为2，我的环境是<code>Linux</code>所以默认对齐数为4，<code>short</code>小于它所以<code>short</code>对齐为2，于是要放在地址为2的整数倍的地方，于是舍弃1这个地址放在2处，占两个字节，此时的总大小为1 + 1（补齐）+ 2 = 4。之后还要再放一个<code>char</code>同理得对齐数为1，放在任意地址处即可，于是放在5处，占一个字节。由此所有变量都放完了，但是根据规则中第三条我们还要让总大小为最大对齐数得整数倍，在这个结构体中最大对齐数为<code>short</code>的对齐数，为2，于是此时末尾还要再补齐一个字节，于是总大小为1 + 1（补齐）+ 2 + 1（补齐） = 6。由此这个结构体的大小才算是真正得出。<br><br>&emsp;&emsp;但是为什么会出现内存对齐这个规定呢？<br>这是为了某些平台的原因及性能的原因，其中牵扯到更为底层的知识，为了性能和平台牺牲这点内存换来更高的效率是完全值得的。<br><br>&emsp;&emsp;接下来还有几个例子以供练习。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">typedef struct test</span><br><span class="line">&#123;</span><br><span class="line">  char c1;</span><br><span class="line">  int a;</span><br><span class="line">  char c2;</span><br><span class="line">&#125;Test;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  Test test;                    </span><br><span class="line">  printf(&quot;%lu\n&quot;, sizeof(test));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">12</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;1 + 3（补齐）+ 4 + 1 + 3（补齐） = 12。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">typedef struct test</span><br><span class="line">&#123;</span><br><span class="line">  char c1;</span><br><span class="line">  char c2;                      </span><br><span class="line">  int a;</span><br><span class="line">&#125;Test;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  Test test;</span><br><span class="line">  printf(&quot;%lu\n&quot;, sizeof(test));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">8</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;1 + 1 + 2（补齐） + 4 = 8。<br><br>&emsp;&emsp;从以上这个例子可以看出相同的成员变量就连不同的声明顺序也会导致结构体大小的不同。<br><br>&emsp;&emsp;当然我们也可以修改系统默认的对齐数，通过一个宏即可。<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>#pragma pack(对齐数)</code><br><br>&emsp;&emsp;这样即可修改默认的对齐数。</p>
-<h3 id="位段"><a href="#位段" class="headerlink" title="位段"></a>位段</h3><p>&emsp;&emsp;位段是规定结构体中各部分成员所占空间的一种语法，由此来达到节省占用空间的效果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">typedef struct test</span><br><span class="line">&#123;</span><br><span class="line">  int a : 2;//只占两位</span><br><span class="line">  int b : 5;//只占五位</span><br><span class="line">&#125;Test;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  Test test;</span><br><span class="line">  test.a = 3;</span><br><span class="line">  test.b = 31;                      </span><br><span class="line">  printf(&quot;%d,%d\n&quot;, test.a, test.b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">-1,-1</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;我们只要给他们赋予超过存储空间的值就会出现问题。</p>
-<h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2><p>&emsp;&emsp;枚举类型是一种类似于用宏定义常量的自定义类型。</p>
-<h3 id="枚举的定义"><a href="#枚举的定义" class="headerlink" title="枚举的定义"></a>枚举的定义</h3><p>&emsp;&emsp;枚举定义与结构体的声明十分类似，不过我们要谨记中间的每个常量要用<code>,</code>隔开。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">enum Sex</span><br><span class="line">&#123;</span><br><span class="line">  MALE,</span><br><span class="line">  FEMALE,</span><br><span class="line">  UNKNOWN,</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  printf(&quot;MALE = %d,FEMALE = %d, UNKNOWN = %d\n&quot;, MALE, FEMALE, UNKNOWN);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这样我们就定义了一个枚举类型，其中的每个变量都是常量，我们可以直接使用。如果我们并没有给他们进行赋值的话他们会从上到下从0开始一次增长1自动赋值，但是如果我们给钱一个数赋值了的话它们会从前一个数的值开始依次增长1自动赋值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">enum Sex</span><br><span class="line">&#123;</span><br><span class="line">  MALE = 2,                                                              </span><br><span class="line">  FEMALE,</span><br><span class="line">  UNKNOWN,</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  printf(&quot;MALE = %d,FEMALE = %d, UNKNOWN = %d\n&quot;, MALE, FEMALE, UNKNOWN);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main </span><br><span class="line">MALE = 2,FEMALE = 3, UNKNOWN = 4</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;同时我们还可以用枚举类型定义变量，这样定义的变量的值就必须是枚举常量中出现的常量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">enum Sex</span><br><span class="line">&#123;</span><br><span class="line">  MALE,</span><br><span class="line">  FEMALE,</span><br><span class="line">  UNKNOWN,</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  enum Sex sex = MALE;</span><br><span class="line">  printf(&quot;sex = %d\n&quot;, sex);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">sex = 0</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这样定义的变量就不得不使用枚举中的常量，否则会进行报错，多了一步验证。</p>
-<h3 id="为什么使用枚举"><a href="#为什么使用枚举" class="headerlink" title="为什么使用枚举"></a>为什么使用枚举</h3><p>&emsp;&emsp;1、枚举类型有验证检查，更加严谨。<br><br>&emsp;&emsp;2、枚举类型一次可以定义多个常量，十分方便。<br><br>&emsp;&emsp;3、枚举类型可以防止命名污染。</p>
-<h2 id="联合体"><a href="#联合体" class="headerlink" title="联合体"></a>联合体</h2><p>&emsp;&emsp;联合体也叫共用体，是一种较为特殊的自定义类型。</p>
-<h3 id="声明与使用"><a href="#声明与使用" class="headerlink" title="声明与使用"></a>声明与使用</h3><p>&emsp;&emsp;联合体与结构体体定义起来的语法完全一致，但他们有一点不同的地方就在于，结构体声明了很多个成员变量，在使用的时候可以同时使用里面所有的成员变量，但联合体则更倾向于多选一，定义了很多的成员变量，但是只能使用其中一个，而且其大小也是根据其中最大的成员变量决定的，因此联合体是一个<del>很抠门</del>的类型，但是它也可以有效节省空间，在一些情况下有很大作用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">union Un</span><br><span class="line">&#123;</span><br><span class="line">  char c;</span><br><span class="line">  int i;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  union Un un;</span><br><span class="line">  printf(&quot;%lu\n&quot;,sizeof(un));</span><br><span class="line">  un.i = 4;</span><br><span class="line">  un.c = &apos;a&apos;;</span><br><span class="line">  printf(&quot;%d\n&quot;, un.i);      </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$  ./Main</span><br><span class="line">4</span><br><span class="line">97</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;从以上这个例子可以看出共用体所占空间的确与结构体是不一样的，并且当我们同时给两个成员变量赋值时另一个成员变量会扰乱其他成员变量的赋值，由此可见它们确实是存储在同一块内存空间上的。<br><br>&emsp;&emsp;其实共用体除了节省空间这一项优点上其实它有很多其它作用，可以帮助我们很方便的完成一些不用共用体就很难做到的东西，这都和它独特的特性有关。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;stdint.h&gt;</span><br><span class="line">union Ip</span><br><span class="line">&#123;</span><br><span class="line">  uint32_t a;</span><br><span class="line">  struct</span><br><span class="line">  &#123;</span><br><span class="line">    char d1;</span><br><span class="line">    char d2;</span><br><span class="line">    char d3;</span><br><span class="line">    char d4;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  union Ip ip;</span><br><span class="line">  ip.a = 0x1;</span><br><span class="line">  printf(&quot;%d.%d.%d.%d\n&quot;, ip.d1,ip.d2,ip.d3,ip.d4);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">1.0.0.0</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;用这种方式则可以轻松做到ip地址间两种表示形式的转换，同时用联合体还可以做到我们之前写过的大小端的验证。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2093,7 +2093,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2115,7 +2115,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2212,7 +2212,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共188.9k字</span>
+  <span class="post-count">博客全站共193.4k字</span>
 </div>
 
         ﻿
