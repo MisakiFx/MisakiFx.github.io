@@ -264,6 +264,180 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/09/【网络】第一章-网络基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/09/【网络】第一章-网络基础/" itemprop="url">【网络】第一章-网络基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-09T19:21:08+08:00">
+                2019-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络/" itemprop="url" rel="index">
+                    <span itemprop="name">网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.8k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="网络基础"><a href="#网络基础" class="headerlink" title="网络基础"></a>网络基础</h1><p>&emsp;&emsp;在这个章节先对计算机网络进行大概简单的介绍，之后的章节会逐个进行深入的讨论。</p>
+<h2 id="网络发展背景"><a href="#网络发展背景" class="headerlink" title="网络发展背景"></a>网络发展背景</h2><h2 id="网络的构成"><a href="#网络的构成" class="headerlink" title="网络的构成"></a>网络的构成</h2><p>&emsp;&emsp;网络一开始先利用<strong>交换机</strong>进行两台计算机之间的互联及数据交换，一台主机将数据发给交换机，交换机再发送给另一台，不会起任何冲突。<br><br><img src="/2019/09/09/【网络】第一章-网络基础/1.png" alt="交换机"><br><br>&emsp;&emsp;但是假如又要加入一台主机，交换机就会起矛盾，它不知道该将数据发给哪台主机。为此又出现了新的数据交换工具，<strong>路由器</strong>，路由器可以自己选择将数据发送给合适的主机。<br><img src="/2019/09/09/【网络】第一章-网络基础/2.png" alt="路由器"><br><br>&emsp;&emsp;由此便构成了一个小型局域网。<br><img src="/2019/09/09/【网络】第一章-网络基础/3.png" alt="局域网"><br><br>&emsp;&emsp;假如此时又有一个这样的<strong>局域网</strong>，他们之间又通过路由器进行数据交换，于是它们又构成了一个更大一些的局域网。一旦局域网变得更大，就会变成城域网，之后是广域网，由此构成网络环境。局域网城域网与广域网之间的区别<strong>由网络的覆盖范围而决定</strong>。<br><img src="/2019/09/09/【网络】第一章-网络基础/4.png" alt="局域网"><br></p>
+<h2 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h2><p>&emsp;&emsp;IP地址在网络中唯一的标识了一个主机，数据从哪里来要到哪里去都要用到ip地址。IP地址由一个4个字节的无符号整数组成，因此一共可以标识42亿个主机，这在计算机发明之初大家可能都认为这是一个天文数字了，肯定够用了，但在现在来看这明显不够用啊，怎么办呢？</p>
+<h3 id="DHCP-NAT"><a href="#DHCP-NAT" class="headerlink" title="DHCP/NAT"></a>DHCP/NAT</h3><p>&emsp;&emsp;伟大的人类想到两种缓兵之计，<strong>DHCP/NAT</strong>技术。DHCP技术使路由器可以动态给连接到自己的主机分配ip地址，也就是内网IP地址（这个IP地址外网是连接不到的），谁上网给谁分配，这样可以减少ip地址的使用情况。但是还是不够啊，怎么办？呢就让大家共用同一个ip地址吧，于是路由器建立映射，将内网所有主机的内网ip建立映射，收集所有数据统一使用自己的ip地址进行数据发送到外网，等收取数据时再根据映射发给内网中的主机，这样就可以极大减少IP地址的使用。但是目前来看ip地址依然十分紧张，因此现在国家也在强力发展ipv6，这是一个16个字节的整数，这个足够用了，不过困难的是ipv6不兼容ipv4因此目前发展并不是很好。</p>
+<h2 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h2><p>&emsp;&emsp;端口(port)，在一台主机上唯一标识一个进程，在网络通讯中用来表示数据从主机上的哪一个进程发出，并发送给另一台主机上的哪一个进程。网络通信每一条数据中，都会包含两条信息：源端口，目的端口。<br>&emsp;&emsp;端口的是一个<code>uint16_t</code>类型的，因此端口范围从0-65535。并且一个端口只能被一个进程占用，但一个进程可以使用多个端口。</p>
+<h2 id="网络协议"><a href="#网络协议" class="headerlink" title="网络协议"></a>网络协议</h2><p>&emsp;&emsp;网络通信中，为了保证字符编码，数据格式，传输方式的一致性，需要通信双方使用数据格式的约定，若要实现网络互联，就需要定理网络通信协议标准，统一网络通信数据格式。<br>&emsp;&emsp;在网络通信中每条数据都会包含一个五元组（源ip地址/源端口/目的IP地址/目的端口/协议）。</p>
+<h2 id="协议分层"><a href="#协议分层" class="headerlink" title="协议分层"></a>协议分层</h2><p>&emsp;&emsp;按照提供的服务，协议，接口对环境进行分层，从底层来说就是一种封装，上层并不需要关心下层的一个实现，直接使用就可以，使用的更加灵活方便。协议分层之后，通信环境层次清晰，并且每一次的功能具体实现会变得简单化，更容易形成标准。<br>&emsp;&emsp;在网络通信中环境也是十分复杂的，因此为了更加容易的去实现网络通信功能因此对整个通信环境进行分层。</p>
+<h3 id="OSI七层模型"><a href="#OSI七层模型" class="headerlink" title="OSI七层模型"></a>OSI七层模型</h3><p>&emsp;&emsp;OSI七层模型(由上至下)：<strong>应用层-&gt;表示层-&gt;会话层-&gt;传输层-&gt;网络层-&gt;链路层-&gt;物理层</strong>。<br>&emsp;&emsp;但是这种模型并不实用，因为表示层，会话层和应用层功能相近分开进行实现反倒十分麻烦，因此现在并不常用这套模型，因为有更好的模型进行替代。</p>
+<h3 id="tcp-ip五层模型"><a href="#tcp-ip五层模型" class="headerlink" title="tcp/ip五层模型"></a>tcp/ip五层模型</h3><p>&emsp;&emsp;tcp/ip五层模型(由上至下)：<strong>应用层-&gt;传输层-&gt;网络层-&gt;链路层-&gt;物理层</strong>。<br>&emsp;&emsp;<strong>tcp/ip</strong>协议是一个协议簇，其中有着很多的协议，而tcp/ip是其中的代表协议，因此以此命名。其中还有很多常用的协议。<br>&emsp;&emsp;五层模型每一层都有属于自己的协议，组织不同的数据形式，以下由高至低讨论。<br>&emsp;&emsp;应用层：负责应用程序之间的数据沟通。这个层中的协议一部分是软件开发者为了组织数据的同时进行数据加密自己定制的协议，被称为<strong>自定制协议</strong>；当然还有一部分是由于协议定制的十分方便，广为流传大家都在使用，这类协议被称为<strong>知名协议</strong>，例如<strong>HTTP</strong>协议。<br>&emsp;&emsp;传输层：负责端与端之间的数据沟通。封装端口信息，用来标识数据由哪个进程发出，目标到哪个进程中去。常见协议有<strong>TCP/UDP</strong>协议。<br>&emsp;&emsp;网络层：负责地址管理与路由选择。负责选择让数据如何通过最合适的路径传达到目标路由器上。常见协议：<strong>IP</strong>协议，常用设备有<strong>路由器</strong>。<br>&emsp;&emsp;链路层：相邻设备之间的数据传输。在实际中要将数据实际发送到与自己相邻的主机，一般来说是通过广电信号进行传输，但是为了能够找到目标主机，在底层网卡往往有着自己的一个地址用来标识自己，这个地址叫做<strong>MAC</strong>地址，链路层就是通过<strong>MAC</strong>地址找到实际要传输数据的网卡并将数据交给它。常见协议<strong>以太网协议Ethernt</strong>，常见设备<strong>交换机</strong>。<br>&emsp;&emsp;物理层：负责光电信号的传输。这一侧就是物理的信号传输了。常见协议<strong>以太网协议</strong>，常见设备<strong>集线器</strong>。</p>
+<h2 id="网络通信数据的传输流程"><a href="#网络通信数据的传输流程" class="headerlink" title="网络通信数据的传输流程"></a>网络通信数据的传输流程</h2><p><img src="/2019/09/09/【网络】第一章-网络基础/5.png" alt="交换机"><br><br>&emsp;&emsp;以上标识的就是数据在网络通信中传输的流程，发送数据时每一层都会在信息中加入类似结构体的东西对数据进行封装，接受数据时也会一层一层解开响应的结构体获取数据。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/31/【Cpp】《Effective-C-》第一章-让自己习惯C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1897,204 +2071,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/20/【算法】第一章-动态规划/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/20/【算法】第一章-动态规划/" itemprop="url">【算法】第一章-动态规划</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-20T18:25:03+08:00">
-                2019-07-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.2k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第一章-动态规划"><a href="#第一章-动态规划" class="headerlink" title="第一章-动态规划"></a>第一章-动态规划</h1><h2 id="动态规划求解模式"><a href="#动态规划求解模式" class="headerlink" title="动态规划求解模式"></a>动态规划求解模式</h2><p>&emsp;&emsp;动态规划具备了一下三个特点：<br>&emsp;&emsp;1、把原来的问题分解成了几个相似子问题<br>&emsp;&emsp;2、所有的子问题只需要解决一次<br>&emsp;&emsp;3、储存子问题的解<br>&emsp;&emsp;从以下四个角度考虑：<br>&emsp;&emsp;1、初始状态定义<br>&emsp;&emsp;2、状态间转移方程<br>&emsp;&emsp;3、状态的初始化<br>&emsp;&emsp;4、返回结果<br>&emsp;&emsp;解决问题主要适用于：查找最优解，最大值/最小值，可不可行，是不是，方案个数</p>
-<h2 id="例1-斐波那契数列"><a href="#例1-斐波那契数列" class="headerlink" title="例1 斐波那契数列"></a>例1 斐波那契数列</h2><p>&emsp;&emsp;牛客网:<br><a href="https://www.nowcoder.com/questionTerminal/c6c7742f5ba7442aada113136ddea0c3" target="_blank" rel="noopener">https://www.nowcoder.com/questionTerminal/c6c7742f5ba7442aada113136ddea0c3</a><br><br>&emsp;&emsp;动态规划解法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int Fibonacci(int n) &#123;</span><br><span class="line">        vector&lt;int&gt; ret(n + 1, 0);</span><br><span class="line">        //初始状态</span><br><span class="line">        ret[1] = ret[2] = 1;</span><br><span class="line">        //递推公式</span><br><span class="line">        //ret[i] = ret [i - 1] + ret[i - 2];</span><br><span class="line">        for(int i = 3; i &lt;= n; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            ret[i] = ret[i - 1] + ret[i - 2];</span><br><span class="line">        &#125;</span><br><span class="line">        return ret[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h2 id="例2-变态青蛙跳台阶"><a href="#例2-变态青蛙跳台阶" class="headerlink" title="例2 变态青蛙跳台阶"></a>例2 变态青蛙跳台阶</h2><p>&emsp;&emsp;牛客网：<br><a href="https://www.nowcoder.com/questionTerminal/22243d016f6b47f2a6928b4313c85387" target="_blank" rel="noopener">https://www.nowcoder.com/questionTerminal/22243d016f6b47f2a6928b4313c85387</a><br></p>
-<h3 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h3><h4 id="定义状态"><a href="#定义状态" class="headerlink" title="定义状态"></a>定义状态</h4><p>&emsp;&emsp;跳上i级台阶的方法数</p>
-<h4 id="状态转移方程"><a href="#状态转移方程" class="headerlink" title="状态转移方程"></a>状态转移方程</h4><p>&emsp;&emsp;分解：<br>&emsp;&emsp;一次跳1级台阶：1， F(i - 1)<br>&emsp;&emsp;一次跳2级台阶：2， F(i - 2)<br>&emsp;&emsp;……<br>&emsp;&emsp;推得状态转移方程：<br>&emsp;&emsp;F(i) = F(i - 1) + F(i - 2) + … + F(1)<br>&emsp;&emsp;F(i - 1) = F(i - 2) + F(i - 3) + … + F(1)<br>&emsp;&emsp;F(i) = F(i - 1) + F(i - 1) = 2 * F(i - 1);</p>
-<h4 id="初始状态和最终状态"><a href="#初始状态和最终状态" class="headerlink" title="初始状态和最终状态"></a>初始状态和最终状态</h4><p>&emsp;&emsp;F(1) = 1,求F(n)。</p>
-<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int jumpFloorII(int number) &#123;</span><br><span class="line">        //初始状态</span><br><span class="line">        int f1 = 1;</span><br><span class="line">        //状态转移方程：F(i) = 2 * F(i - 1)</span><br><span class="line">        for(int i = 2; i &lt;= number; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            f1 = 2 * f1;</span><br><span class="line">        &#125;</span><br><span class="line">        return f1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>&emsp;&emsp;根据状态转移方程我们可以得知，<code>F(n) = 2 ^ (n - 1)</code>;所以可以得到优化：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int jumpFloorII(int number) &#123;</span><br><span class="line">        return (1 &lt;&lt; (number - 1));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h2 id="例3-求连续最大子数组的和"><a href="#例3-求连续最大子数组的和" class="headerlink" title="例3 求连续最大子数组的和"></a>例3 求连续最大子数组的和</h2><p>&emsp;&emsp;牛客网：</p>
-<p><a href="https://www.nowcoder.com/questionTerminal/459bd355da1549fa8a49e350bf3df484" target="_blank" rel="noopener">https://www.nowcoder.com/questionTerminal/459bd355da1549fa8a49e350bf3df484</a></p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><h4 id="定义状态-1"><a href="#定义状态-1" class="headerlink" title="定义状态"></a>定义状态</h4><p>&emsp;&emsp;到此项为止前i项的连续子序列的最大和</p>
-<h4 id="状态转移方程-1"><a href="#状态转移方程-1" class="headerlink" title="状态转移方程"></a>状态转移方程</h4><p>&emsp;&emsp;F(i) = max(F(i - 1) + a[i], a[i]);</p>
-<h4 id="初始状态和最终状态-1"><a href="#初始状态和最终状态-1" class="headerlink" title="初始状态和最终状态"></a>初始状态和最终状态</h4><p>&emsp;&emsp;初始状态F[0] = a[0]。<br>&emsp;&emsp;最终结果max(F[i])。</p>
-<h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int FindGreatestSumOfSubArray(vector&lt;int&gt; array) &#123;</span><br><span class="line">        if(array.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">        vector&lt;int&gt; ret(array.size(), 0);</span><br><span class="line">        //初始状态</span><br><span class="line">        ret[0] = array[0];</span><br><span class="line">        //状态转移</span><br><span class="line">        for(int i = 1; i &lt; array.size(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            ret[i] = max(array[i] + ret[i - 1], array[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        //求max(F[i])</span><br><span class="line">        int maxNum = ret[0];</span><br><span class="line">        for(int i = 0; i &lt; ret.size(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            maxNum = max(maxNum, ret[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        return maxNum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="例4-word-break-字符串分割"><a href="#例4-word-break-字符串分割" class="headerlink" title="例4 word-break(字符串分割)"></a>例4 word-break(字符串分割)</h2><p>&emsp;&emsp;牛客网：<br><a href="https://www.nowcoder.com/questionTerminal/5f3b7bf611764c8ba7868f3ed40d6b2c" target="_blank" rel="noopener">https://www.nowcoder.com/questionTerminal/5f3b7bf611764c8ba7868f3ed40d6b2c</a></p>
-<h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><h4 id="定义状态-2"><a href="#定义状态-2" class="headerlink" title="定义状态"></a>定义状态</h4><p>&emsp;&emsp;F(i)：前i个字符能否被分割。</p>
-<h4 id="状态转移方程-2"><a href="#状态转移方程-2" class="headerlink" title="状态转移方程"></a>状态转移方程</h4><p>&emsp;&emsp;F(i): F(i)能否被分割取决于前j项能否被分割和j + 1到第i项能否被分割。（此处j取0 ~ i - 1）<br>&emsp;&emsp;得递推方程F(i) : F(j) &amp;&amp; (j + 1 ~ i)能否被分割</p>
-<h4 id="初始状态和最终状态-2"><a href="#初始状态和最终状态-2" class="headerlink" title="初始状态和最终状态"></a>初始状态和最终状态</h4><p>&emsp;&emsp;初始状态：F(0) = true。<br>&emsp;&emsp;最终状态F(n)。</p>
-<h3 id="实现-2"><a href="#实现-2" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool wordBreak(string s, unordered_set&lt;string&gt; &amp;dict) &#123;</span><br><span class="line">        if(s.empty() || dict.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        vector&lt;bool&gt; Fn(s.size() + 1, false);</span><br><span class="line">        //初始状态</span><br><span class="line">        Fn[0] = true;</span><br><span class="line">        for(int i = 1; i &lt;= s.size(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            //状态转移</span><br><span class="line">            //F(i) = F(j) &amp;&amp; (j + 1 ~ i), (0 &lt;= j &lt; i)能否被分割</span><br><span class="line">            for(int j = i - 1; j &gt;= 0; j--)</span><br><span class="line">            &#123;</span><br><span class="line">                if(Fn[j] &amp;&amp; dict.find(s.substr(j, i - j)) != dict.end())</span><br><span class="line">                &#123;</span><br><span class="line">                    Fn[i] = true;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //最终状态</span><br><span class="line">        return Fn[s.size()];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="例5-triangle-三角矩阵最短路"><a href="#例5-triangle-三角矩阵最短路" class="headerlink" title="例5 triangle(三角矩阵最短路)"></a>例5 triangle(三角矩阵最短路)</h2><p>&emsp;&emsp;牛客网：<br><a href="https://www.nowcoder.com/questionTerminal/2b7995aa4f7949d99674d975489cb7da" target="_blank" rel="noopener">https://www.nowcoder.com/questionTerminal/2b7995aa4f7949d99674d975489cb7da</a></p>
-<h3 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h3><h4 id="定义状态-3"><a href="#定义状态-3" class="headerlink" title="定义状态"></a>定义状态</h4><p>&emsp;&emsp;F[i][j]: 从(0, 0)到(i, j)的最短路径和。</p>
-<h4 id="状态转移方程-3"><a href="#状态转移方程-3" class="headerlink" title="状态转移方程"></a>状态转移方程</h4><p>&emsp;&emsp;一般情况下，走到每个位置的最短路径都可以看作是上一行相邻两个位置的最短路径+这个位置的路径长度，数学描述：F[i][j]:min(F[i - 1][j], F[i - 1][j - 1]) + a[i][j]。<br>&emsp;&emsp;但要考虑边界状态：当在矩阵边缘时只有一种选择的情况，即F[i][0] = F[i - 1][0];F[i][i] = F[i - 1][i - 1]。</p>
-<h4 id="初始状态和最终状态-3"><a href="#初始状态和最终状态-3" class="headerlink" title="初始状态和最终状态"></a>初始状态和最终状态</h4><p>&emsp;&emsp;初始状态：F[0][0] = a[0][0]。<br>&emsp;&emsp;最终状态：min(F[n - 1][j])，即最后一行中的最小值。</p>
-<h3 id="实现-3"><a href="#实现-3" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int minimumTotal(vector&lt;vector&lt;int&gt; &gt; &amp;triangle) &#123;</span><br><span class="line">        if(triangle.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">        //初始状态</span><br><span class="line">        vector&lt;vector&lt;int&gt;&gt; ret(triangle);</span><br><span class="line">        //状态转移</span><br><span class="line">        int row = ret.size();</span><br><span class="line">        for(int i = 1; i &lt; row; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            ret[i][0] = ret[i - 1][0] + triangle[i][0];</span><br><span class="line">        &#125;</span><br><span class="line">        for(int i = 1; i &lt; row; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            ret[i][i] = ret[i - 1][i - 1] + triangle[i][i];</span><br><span class="line">        &#125;</span><br><span class="line">        for(int i = 1; i &lt; row; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            for(int j = 1; j &lt; i; ++j)</span><br><span class="line">            &#123;</span><br><span class="line">                ret[i][j] = min(ret[i - 1][j], ret[i - 1][j - 1]) + triangle[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //最终状态</span><br><span class="line">        int minSum = ret[row - 1][0];</span><br><span class="line">        for(int i = 1; i &lt; row; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            minSum = min(minSum, ret[row - 1][i]);</span><br><span class="line">        &#125;</span><br><span class="line">        return minSum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="例6-求路径数量"><a href="#例6-求路径数量" class="headerlink" title="例6 求路径数量"></a>例6 求路径数量</h2><p>牛客网：<br><a href="https://www.nowcoder.com/questionTerminal/3cdf08dd4e974260921b712f0a5c8752" target="_blank" rel="noopener">https://www.nowcoder.com/questionTerminal/3cdf08dd4e974260921b712f0a5c8752</a></p>
-<h3 id="分析-3"><a href="#分析-3" class="headerlink" title="分析"></a>分析</h3><h4 id="状态定义"><a href="#状态定义" class="headerlink" title="状态定义"></a>状态定义</h4><p>&emsp;&emsp;F[i][j]：从左上角到达下标(i, j)的路径总数</p>
-<h4 id="状态转移方程-4"><a href="#状态转移方程-4" class="headerlink" title="状态转移方程"></a>状态转移方程</h4><p>&emsp;&emsp;if(a[i][j] == 1) F[i][j] = 0;<br>&emsp;&emsp;if(a[i][j] == 0) F[i][j] = F[i][j - 1] + F[i - 1][j]。</p>
-<h4 id="初始状态和最终状态-4"><a href="#初始状态和最终状态-4" class="headerlink" title="初始状态和最终状态"></a>初始状态和最终状态</h4><p>&emsp;&emsp;初始状态：如果第一行第一列有障碍物表示这条路走不通则路径数置0，否则只有一条路径，置一if(a[0][j]) == 1) F[0][j] = 0，if(a[i][0] == 1) F[i][0] = 0，这种情况下这条路走不通。<br>&emsp;&emsp;最终状态：F[i][j]。</p>
-<h3 id="实现-4"><a href="#实现-4" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int uniquePathsWithObstacles(vector&lt;vector&lt;int&gt; &gt; &amp;obstacleGrid) &#123;</span><br><span class="line">        if(obstacleGrid.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">        if(obstacleGrid[0][0] == 1)</span><br><span class="line">        &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">        int row = obstacleGrid.size();</span><br><span class="line">        int col = obstacleGrid[0].size();</span><br><span class="line">        vector&lt;vector&lt;int&gt;&gt; pathNum(row, vector&lt;int&gt;(col, 0));</span><br><span class="line">        for(int i = 0; i &lt; row; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            if(obstacleGrid[i][0] == 1)</span><br><span class="line">            &#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                pathNum[i][0] = 1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        for(int i = 0; i &lt; col; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            if(obstacleGrid[0][i] == 1)</span><br><span class="line">            &#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            else </span><br><span class="line">            &#123;</span><br><span class="line">                pathNum[0][i] = 1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        for(int i = 1; i &lt; row; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            for(int j = 1; j &lt; col; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                if(obstacleGrid[i][j] == 1)</span><br><span class="line">                &#123;</span><br><span class="line">                    pathNum[i][j] = 0;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    pathNum[i][j] = pathNum[i][j - 1] + pathNum[i - 1][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return pathNum[row - 1][col - 1];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="例7-背包问题"><a href="#例7-背包问题" class="headerlink" title="例7 背包问题"></a>例7 背包问题</h2><p>&emsp;&emsp;lintcode：<br><a href="https://www.lintcode.com/problem/backpack-ii/description" target="_blank" rel="noopener">https://www.lintcode.com/problem/backpack-ii/description</a></p>
-<h3 id="分析-4"><a href="#分析-4" class="headerlink" title="分析"></a>分析</h3><p>&emsp;&emsp;背包问题是一类问题，主要是求解约束条件下的最优解问题。</p>
-<h4 id="状态定义-1"><a href="#状态定义-1" class="headerlink" title="状态定义"></a>状态定义</h4><p>&emsp;&emsp;F[i][j]：前i个商品，包的重量为j的最大价值。定义二维数组遍历所有商品，和到当前商品情况下背包容量从0 - max的所有情况下的最大值求解，遍历到最后则可得到n个全部商品情况下背包最大容量max下背包可拿的最大价值F[n][max]。</p>
-<h4 id="状态转移方程-5"><a href="#状态转移方程-5" class="headerlink" title="状态转移方程"></a>状态转移方程</h4><p>&emsp;&emsp;当前商品空间大于包能承受的总空间，放不下直接跳过。数学描述：if(w[i] &gt; j) F[i][j] = F[i - 1][j]。<br>&emsp;&emsp;当前商品空间小于等于包能承受总空间，可以选择放可以选择不放，如果不放入，则F[i][j] = F[i - 1][j]；如果放入，则当前重量等于遍历到的上一个商品并且空间还有w[i]这么大的时候的价值+本商品的价值，最大价值F[i][j] = F[i - 1][j - w[i]] + v[i]，选择放入或不放入商品情况中的最大值作为最优解。数学描述：if(w[i] &lt;= j) max(F[i - 1][j], F[i - 1][j - w[i]] + v[i]);</p>
-<h4 id="初始状态和最终状态-5"><a href="#初始状态和最终状态-5" class="headerlink" title="初始状态和最终状态"></a>初始状态和最终状态</h4><p>&emsp;&emsp;初始状态：没有商品时，F[0][j] = 0,最大容量为0时F[i][0] = 0。<br>&emsp;&emsp;最终状态：遍历完全部n个商品，并且背包总容量为最大值m时得到最大价值F[n][m]。</p>
-<h3 id="实现-5"><a href="#实现-5" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    /**</span><br><span class="line">     * @param m: An integer m denotes the size of a backpack</span><br><span class="line">     * @param A: Given n items with size A[i]</span><br><span class="line">     * @param V: Given n items with value V[i]</span><br><span class="line">     * @return: The maximum value</span><br><span class="line">     */</span><br><span class="line">    int backPackII(int m, vector&lt;int&gt; &amp;A, vector&lt;int&gt; &amp;V) &#123;</span><br><span class="line">        if(A.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">        int row = A.size();</span><br><span class="line">        vector&lt;vector&lt;int&gt;&gt; maxValue(row + 1, vector&lt;int&gt;(m + 1, 0));</span><br><span class="line">        for(int i = 1; i &lt;= row; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            for(int j = 1; j &lt;= m; ++j)</span><br><span class="line">            &#123;</span><br><span class="line">                if(A[i - 1] &gt; j)</span><br><span class="line">                &#123;</span><br><span class="line">                    maxValue[i][j] = maxValue[i - 1][j];</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    maxValue[i][j] = max(maxValue[i - 1][j], maxValue[i - 1][j - A[i - 1]] + V[i - 1]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return maxValue[row][m];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2149,7 +2125,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2268,7 +2244,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共193.4k字</span>
+  <span class="post-count">博客全站共195.2k字</span>
 </div>
 
         ﻿

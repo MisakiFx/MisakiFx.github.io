@@ -264,6 +264,179 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/14/【项目】快备/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/10/14/【项目】快备/" itemprop="url">【项目】快备</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-14T21:06:35+08:00">
+                2019-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/项目/" itemprop="url" rel="index">
+                    <span itemprop="name">项目</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.7k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="快备"><a href="#快备" class="headerlink" title="快备"></a>快备</h1><h2 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h2><p>&emsp;&emsp;本项目开发完全在Centos7.2版本下使用C/Cpp进行开发，gcc版本5.3.1，用到的库有httplib，boost及zlib，工具有gcc,gdb,makefile,git。</p>
+<h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><h3 id="功能介绍"><a href="#功能介绍" class="headerlink" title="功能介绍"></a>功能介绍</h3><p>&emsp;&emsp;“快备”可以让Windows用户安全可靠的将文件上传到云端进行备份，并且可以随时下载下来。“快备”通过在用户本地创建一个共享文件夹，只要用户将需要备份的文件放入文件夹内，启动程序快备即可自动完成备份，并且如果共享文件夹中文件有了修改则会再次自动备份文件。在云端，文件会存储在指定目录下，如果一个文件长期未被下载则会被自动标记为低热度文件，“快备”会将其自动打包压缩存储起来以节省空间，如果用户下载此文件则会自动将其解压，恢复为高热度文件。用户想要下载文件只需要打开浏览器访问服务器即可得到文件列表，点击对应文件即可下载。</p>
+<h3 id="功能模块"><a href="#功能模块" class="headerlink" title="功能模块"></a>功能模块</h3><h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h4><p>&emsp;&emsp;客户端主要负责文件信息的监控来判断需要备份的文件和将文件传输到服务端，具有以下功能：<br>&emsp;&emsp;1、文件监控功能。这个功能主要时为了辨别共享文件夹中有哪些文件需要备份。客户端会实时对共享文件夹进行循环监控，监控时会在内存中临时生成一个映射，用于存储文件名及其对应的文件信息，文件信息由最后修改时间和文件大小组成，而每轮监控都会遍历目录获取每个文件的文件信息与存储在内存中的文件信息进行对比，如果内存中没有此文件信息或文件信息不符则说明文件是新增的或者是修改过的需要进行备份。在每轮遍历结束时会将所有文件信息写入一个<code>.list</code>文件进行存储，用于下次启动程序时获取相应的文件信息。<br>&emsp;&emsp;2、文件上传功能。当检测出有文件需要备份时则会组织<code>HTTP</code>协议将文件传输到服务器上。传输过程中，考虑到传输的速度我选择利用多线程分块并行对文件进行传输，以提高传输速度。分块传输是利用多线程分别读取文件的不同部分来实现的，同时将分块信息通过<code>HTTP</code>协议中的<code>range</code>发送给服务端方便服务端进行接收。</p>
+<h4 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h4><p>&emsp;&emsp;服务端主要负责文件的接收存储，低热度文件压缩及文件在浏览器显示下载。其具有以下功能：<br>&emsp;&emsp;1、文件接收功能。当客户端发送<code>HTTP</code>请求要求服务端接收文件数据时，由于是分块对文件进行传输，因此服务端也需要对文件分块进行接收，只需要结合客户端发送的<code>range</code>信息将数据写入文件即可。<br>&emsp;&emsp;2、低热度文件压缩存储功能。对文件热度检测需要对文件进行监控，为了文件接收下载与文件监控两不误我采用多线程的方式对文件进行监控。监控中遍历存储文件的文件夹，获取文件夹中每个文件的最后修改时间用于判断是否是地热度文件，如果是低热度文件则需要进行压缩存储。文件压缩存储在另一个文件夹中，为了能够通过原文件找到压缩后的文件于是建立映射，并将映射存储在一个<code>.list</code>文件中。映射的添加在接收文件成功后就会添加映射，而非压缩文件后才会添加映射。<br>&emsp;&emsp;3、文件列表获取功能。文件列表获取是为了方便用户在浏览器上查看所有可下载文件。文件列表只需要遍历存储文件映射的<code>.list</code>文件即可获取压缩后的及未压缩的所有文件名，通过<code>HTTP</code>协议返回给浏览器即可。<br>&emsp;&emsp;4、文件数据获取功能。如果要获取的是一个未压缩的高热度文件则读取所有文件信息返回给浏览器即可，如果是低热度且已经是压缩文件则需要通过原文件名和映射信息找到压缩文件并且解压缩回原文件再读取文件信息返回给浏览器进行下载。</p>
+<h2 id="项目中遇到的问题"><a href="#项目中遇到的问题" class="headerlink" title="项目中遇到的问题"></a>项目中遇到的问题</h2><h3 id="在客户端如何检测文件是否需要备份"><a href="#在客户端如何检测文件是否需要备份" class="headerlink" title="在客户端如何检测文件是否需要备份"></a>在客户端如何检测文件是否需要备份</h3><p>&emsp;&emsp;客户端要分辨出哪些文件需要备份哪些不需要备份，这是必然要有的功能。这里我采用存储大小和最后修改时间的方式进行解决这个问题，并且为了下次启动这个程序依然可以读取到上次备份的文件信息我将文件信息写入一个文件中。</p>
+<h3 id="在服务端如何检测低热度文件并且进行压缩"><a href="#在服务端如何检测低热度文件并且进行压缩" class="headerlink" title="在服务端如何检测低热度文件并且进行压缩"></a>在服务端如何检测低热度文件并且进行压缩</h3><p>&emsp;&emsp;为了完成低热度文件压缩必须能够检测出哪些是地热度文件，在这里我通过开启多线程获取文件信息对文件是否是低热度文件进行判断，并且利用<code>zlib</code>库对文件进行压缩存储，然后将原文件与压缩文件建立映射来保证可以通过原文件找到压缩文件来解决这个问题。</p>
+<h3 id="多线程的线程安全问题"><a href="#多线程的线程安全问题" class="headerlink" title="多线程的线程安全问题"></a>多线程的线程安全问题</h3><p>&emsp;&emsp;由于用了多线程，就有可能出现同时读写临界资源的情况发生。为了解决这个问题我用读写锁来控制程序中临界资源多读少写的问题。用文件锁来防止多个一个文件同时被读写的问题。</p>
+<h2 id="项目效果预览"><a href="#项目效果预览" class="headerlink" title="项目效果预览"></a>项目效果预览</h2><p>&emsp;&emsp;客户端上传文件。<br><br><img src="/2019/10/14/【项目】快备/1.png" alt="客户端"><br><br>&emsp;&emsp;服务端对低热度文件进行压缩存储。<br><img src="/2019/10/14/【项目】快备/2.png" alt="客户端"><br><br>&emsp;&emsp;用户下载文件。<br><br><img src="/2019/10/14/【项目】快备/3.png" alt="客户端"><br><br>&emsp;&emsp;下载后文件解压缩恢复为原文件。<br><br><img src="/2019/10/14/【项目】快备/4.png" alt="客户端"><br></p>
+<h2 id="项目扩展方向"><a href="#项目扩展方向" class="headerlink" title="项目扩展方向"></a>项目扩展方向</h2><p>&emsp;&emsp;可以进一步实现用户登录功能，不同用户拥有不同的用户空间，每个用户只能下载自己上传的文件。<br>&emsp;&emsp;目前文件上传大小是有限的，主要是因为内存不足无法将数据全部到内存中，但是可以采用并行和串行结合的方式对文件进行分块上传。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/29/【网络】第七章-典型IO模型/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1900,180 +2073,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/09/【网络】第一章-网络基础/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/09/【网络】第一章-网络基础/" itemprop="url">【网络】第一章-网络基础</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-09T19:21:08+08:00">
-                2019-09-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网络/" itemprop="url" rel="index">
-                    <span itemprop="name">网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.8k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="网络基础"><a href="#网络基础" class="headerlink" title="网络基础"></a>网络基础</h1><p>&emsp;&emsp;在这个章节先对计算机网络进行大概简单的介绍，之后的章节会逐个进行深入的讨论。</p>
-<h2 id="网络发展背景"><a href="#网络发展背景" class="headerlink" title="网络发展背景"></a>网络发展背景</h2><h2 id="网络的构成"><a href="#网络的构成" class="headerlink" title="网络的构成"></a>网络的构成</h2><p>&emsp;&emsp;网络一开始先利用<strong>交换机</strong>进行两台计算机之间的互联及数据交换，一台主机将数据发给交换机，交换机再发送给另一台，不会起任何冲突。<br><br><img src="/2019/09/09/【网络】第一章-网络基础/1.png" alt="交换机"><br><br>&emsp;&emsp;但是假如又要加入一台主机，交换机就会起矛盾，它不知道该将数据发给哪台主机。为此又出现了新的数据交换工具，<strong>路由器</strong>，路由器可以自己选择将数据发送给合适的主机。<br><img src="/2019/09/09/【网络】第一章-网络基础/2.png" alt="路由器"><br><br>&emsp;&emsp;由此便构成了一个小型局域网。<br><img src="/2019/09/09/【网络】第一章-网络基础/3.png" alt="局域网"><br><br>&emsp;&emsp;假如此时又有一个这样的<strong>局域网</strong>，他们之间又通过路由器进行数据交换，于是它们又构成了一个更大一些的局域网。一旦局域网变得更大，就会变成城域网，之后是广域网，由此构成网络环境。局域网城域网与广域网之间的区别<strong>由网络的覆盖范围而决定</strong>。<br><img src="/2019/09/09/【网络】第一章-网络基础/4.png" alt="局域网"><br></p>
-<h2 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h2><p>&emsp;&emsp;IP地址在网络中唯一的标识了一个主机，数据从哪里来要到哪里去都要用到ip地址。IP地址由一个4个字节的无符号整数组成，因此一共可以标识42亿个主机，这在计算机发明之初大家可能都认为这是一个天文数字了，肯定够用了，但在现在来看这明显不够用啊，怎么办呢？</p>
-<h3 id="DHCP-NAT"><a href="#DHCP-NAT" class="headerlink" title="DHCP/NAT"></a>DHCP/NAT</h3><p>&emsp;&emsp;伟大的人类想到两种缓兵之计，<strong>DHCP/NAT</strong>技术。DHCP技术使路由器可以动态给连接到自己的主机分配ip地址，也就是内网IP地址（这个IP地址外网是连接不到的），谁上网给谁分配，这样可以减少ip地址的使用情况。但是还是不够啊，怎么办？呢就让大家共用同一个ip地址吧，于是路由器建立映射，将内网所有主机的内网ip建立映射，收集所有数据统一使用自己的ip地址进行数据发送到外网，等收取数据时再根据映射发给内网中的主机，这样就可以极大减少IP地址的使用。但是目前来看ip地址依然十分紧张，因此现在国家也在强力发展ipv6，这是一个16个字节的整数，这个足够用了，不过困难的是ipv6不兼容ipv4因此目前发展并不是很好。</p>
-<h2 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h2><p>&emsp;&emsp;端口(port)，在一台主机上唯一标识一个进程，在网络通讯中用来表示数据从主机上的哪一个进程发出，并发送给另一台主机上的哪一个进程。网络通信每一条数据中，都会包含两条信息：源端口，目的端口。<br>&emsp;&emsp;端口的是一个<code>uint16_t</code>类型的，因此端口范围从0-65535。并且一个端口只能被一个进程占用，但一个进程可以使用多个端口。</p>
-<h2 id="网络协议"><a href="#网络协议" class="headerlink" title="网络协议"></a>网络协议</h2><p>&emsp;&emsp;网络通信中，为了保证字符编码，数据格式，传输方式的一致性，需要通信双方使用数据格式的约定，若要实现网络互联，就需要定理网络通信协议标准，统一网络通信数据格式。<br>&emsp;&emsp;在网络通信中每条数据都会包含一个五元组（源ip地址/源端口/目的IP地址/目的端口/协议）。</p>
-<h2 id="协议分层"><a href="#协议分层" class="headerlink" title="协议分层"></a>协议分层</h2><p>&emsp;&emsp;按照提供的服务，协议，接口对环境进行分层，从底层来说就是一种封装，上层并不需要关心下层的一个实现，直接使用就可以，使用的更加灵活方便。协议分层之后，通信环境层次清晰，并且每一次的功能具体实现会变得简单化，更容易形成标准。<br>&emsp;&emsp;在网络通信中环境也是十分复杂的，因此为了更加容易的去实现网络通信功能因此对整个通信环境进行分层。</p>
-<h3 id="OSI七层模型"><a href="#OSI七层模型" class="headerlink" title="OSI七层模型"></a>OSI七层模型</h3><p>&emsp;&emsp;OSI七层模型(由上至下)：<strong>应用层-&gt;表示层-&gt;会话层-&gt;传输层-&gt;网络层-&gt;链路层-&gt;物理层</strong>。<br>&emsp;&emsp;但是这种模型并不实用，因为表示层，会话层和应用层功能相近分开进行实现反倒十分麻烦，因此现在并不常用这套模型，因为有更好的模型进行替代。</p>
-<h3 id="tcp-ip五层模型"><a href="#tcp-ip五层模型" class="headerlink" title="tcp/ip五层模型"></a>tcp/ip五层模型</h3><p>&emsp;&emsp;tcp/ip五层模型(由上至下)：<strong>应用层-&gt;传输层-&gt;网络层-&gt;链路层-&gt;物理层</strong>。<br>&emsp;&emsp;<strong>tcp/ip</strong>协议是一个协议簇，其中有着很多的协议，而tcp/ip是其中的代表协议，因此以此命名。其中还有很多常用的协议。<br>&emsp;&emsp;五层模型每一层都有属于自己的协议，组织不同的数据形式，以下由高至低讨论。<br>&emsp;&emsp;应用层：负责应用程序之间的数据沟通。这个层中的协议一部分是软件开发者为了组织数据的同时进行数据加密自己定制的协议，被称为<strong>自定制协议</strong>；当然还有一部分是由于协议定制的十分方便，广为流传大家都在使用，这类协议被称为<strong>知名协议</strong>，例如<strong>HTTP</strong>协议。<br>&emsp;&emsp;传输层：负责端与端之间的数据沟通。封装端口信息，用来标识数据由哪个进程发出，目标到哪个进程中去。常见协议有<strong>TCP/UDP</strong>协议。<br>&emsp;&emsp;网络层：负责地址管理与路由选择。负责选择让数据如何通过最合适的路径传达到目标路由器上。常见协议：<strong>IP</strong>协议，常用设备有<strong>路由器</strong>。<br>&emsp;&emsp;链路层：相邻设备之间的数据传输。在实际中要将数据实际发送到与自己相邻的主机，一般来说是通过广电信号进行传输，但是为了能够找到目标主机，在底层网卡往往有着自己的一个地址用来标识自己，这个地址叫做<strong>MAC</strong>地址，链路层就是通过<strong>MAC</strong>地址找到实际要传输数据的网卡并将数据交给它。常见协议<strong>以太网协议Ethernt</strong>，常见设备<strong>交换机</strong>。<br>&emsp;&emsp;物理层：负责光电信号的传输。这一侧就是物理的信号传输了。常见协议<strong>以太网协议</strong>，常见设备<strong>集线器</strong>。</p>
-<h2 id="网络通信数据的传输流程"><a href="#网络通信数据的传输流程" class="headerlink" title="网络通信数据的传输流程"></a>网络通信数据的传输流程</h2><p><img src="/2019/09/09/【网络】第一章-网络基础/5.png" alt="交换机"><br><br>&emsp;&emsp;以上标识的就是数据在网络通信中传输的流程，发送数据时每一层都会在信息中加入类似结构体的东西对数据进行封装，接受数据时也会一层一层解开响应的结构体获取数据。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2128,7 +2127,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2247,7 +2246,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共193.4k字</span>
+  <span class="post-count">博客全站共195.2k字</span>
 </div>
 
         ﻿
