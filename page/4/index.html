@@ -264,6 +264,195 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/02/【Linux】第七章-进程信号/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/02/【Linux】第七章-进程信号/" itemprop="url">【Linux】第七章-进程信号</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-02T15:40:40+08:00">
+                2019-05-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.6k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第七章-进程信号"><a href="#第七章-进程信号" class="headerlink" title="第七章-进程信号"></a>第七章-进程信号</h1><h2 id="信号基本认识"><a href="#信号基本认识" class="headerlink" title="信号基本认识"></a>信号基本认识</h2><p>&emsp;&emsp;生活中处处充满信号，信号的存在就是是为了传递和表达信息，通知事件的发生。并且信号是有生命周期的，信号在产生后到处理完毕之前才是信号的有效期。<br><br>&emsp;&emsp;在对于系统来说，当软件中断，便会产生信号，通知发生了某件事情，为了说明不同的事件，所以系统中的信号有不同的种类。</p>
+<h3 id="信号的种类"><a href="#信号的种类" class="headerlink" title="信号的种类"></a>信号的种类</h3><p>&emsp;&emsp;在Linux下我们可以使用<code>kill -l</code>产看信号的种类，会发现一共有62种不同的信号。其中1-31号信号每个都有各自对应的事件，它们继承于Unix，被称为<strong>非可靠信号/非实时信号</strong>；而34-64号信号是后续添加的信号，并无对应的事件，成为<strong>可靠信号/实时信号</strong>。所谓可靠信号与非可靠信号的区别在于非可靠信号是可能会丢失的，有可能产生多次信号才只会处理一次，而可靠信号产生多少次信号就必定会执行多少次。实时信号与非实时信号的区别在于实时信号在信号产生后便会立刻处理，而非实时信号则可能会延时处理。<br></p>
+<h3 id="信号的生命周期"><a href="#信号的生命周期" class="headerlink" title="信号的生命周期"></a>信号的生命周期</h3><p>&emsp;&emsp;操作系统产生信号，注册在进程中，进程就收到了信号，但并不会立刻处理，在处理前会先注销信号，之后才会处理信号。<br><br>&emsp;&emsp;&emsp;&emsp;<code>产生-&gt;信号在进程中注册-&gt;信号在进程中注销-&gt;处理信号</code></p>
+<h2 id="信号的产生"><a href="#信号的产生" class="headerlink" title="信号的产生"></a>信号的产生</h2><p>&emsp;&emsp;信号的产生分为两个途径：<strong>硬件产生</strong>，<strong>软件产生</strong>。</p>
+<h3 id="硬件产生"><a href="#硬件产生" class="headerlink" title="硬件产生"></a>硬件产生</h3><p>&emsp;&emsp;我们在终止我们的进程时往往会使用快捷键<code>ctrl + c</code>，其实这个快捷键原理就是操作系统向进程发送了<code>SIGINT</code>信号造成进程结束，这就是硬件产生的信号。由硬件产生的信号还有很多例如<code>ctrl + |:终止信号</code>，<code>ctrl + z 停止信号</code>等等。</p>
+<h3 id="软件产生"><a href="#软件产生" class="headerlink" title="软件产生"></a>软件产生</h3><p>&emsp;&emsp;我们在强杀进程时会使用<code>kill -9 pid</code>，这里<code>kill</code>就是一个软件，会向指定进程发送指定信号，在使用强杀时则是发送了9号信号，将进程强制杀死。<br><br>&emsp;&emsp;同时我们还可以在进程中向进程发送信号，C语言中将信号已经提前定义成了宏为了方便我们使用一些函数来发送信号。</p>
+<h4 id="kill"><a href="#kill" class="headerlink" title="kill()"></a>kill()</h4><p>&emsp;&emsp;<code>int kill(pid_t pid, int sig);</code>函数来向指定进程发送指定信号。</p>
+<h4 id="raise"><a href="#raise" class="headerlink" title="raise"></a>raise</h4><p>&emsp;&emsp;使用<code>int raise(int sig);</code>向调用进程发送指定信号。</p>
+<h4 id="abort"><a href="#abort" class="headerlink" title="abort"></a>abort</h4><p>&emsp;&emsp;使用<code>abort()</code>向调用进程发送<code>SIGABRT</code>信号。</p>
+<h4 id="alarm"><a href="#alarm" class="headerlink" title="alarm"></a>alarm</h4><p>&emsp;&emsp;使用<code>unsigned int alarm(unsigned int seconds);</code>在<code>seconds</code>秒后向调用进程发送信号。</p>
+<h3 id="核心转储"><a href="#核心转储" class="headerlink" title="核心转储"></a>核心转储</h3><p>&emsp;&emsp;核心转储文件(core dump)是在事件发生后记录事件发生的过程和原因的文件，方便我们事后调试，由于核心转储文件占用空间，默认是关闭的。我们可以用<code>ulimit -a</code>查看core dump是否开启，使用<code>ulimit -c 大小</code>设置核心转储文件大小，开启核心转储。在发生段错误后我们即可使用<code>gdb core.pid</code>来查看核心转储文件的信息。<br><br>&emsp;&emsp;不过，我们直到在发生内存错误的时候Linux会报错说产生段错误并且退出进程，产生核心转储文件，但其实进程退出并非是由进程自己退出的，而是收到了操作系统发出的11号信号<code>SIGSEGV</code>，一旦进程收到这个信号便会终止并且报错说产生段错误随后生成核心转储文件，因此进程的退出和终止其实是由这个信号导致的。当发生内存错误时系统会自动调用<code>kill()</code>函数发送<code>SIGSEGV</code>信号到该进程，终止进程。</p>
+<h2 id="信号的注册"><a href="#信号的注册" class="headerlink" title="信号的注册"></a>信号的注册</h2><p>&emsp;&emsp;给一个进程注册信号是在进程的pcb中进行了一个标记，这个标记由一个结构体<code>sigset_t</code>利用位图构成<strong>信号集</strong>进行标记，并且存入pcb中的<code>pending</code>信号集中，用来对应62种信号是否已经注册到进程中。同时还有另外一个<code>sigqueque</code>队列，用来按照注册顺序逐一处理信号。信号传入进程将<code>pending</code>上对应位置1表示此类信号存在，随后将信号存入<code>sigqueque</code>队列。但非可靠信号和可靠信号的注册还有区别。</p>
+<h3 id="非可靠信号的注册"><a href="#非可靠信号的注册" class="headerlink" title="非可靠信号的注册"></a>非可靠信号的注册</h3><p>&emsp;&emsp;当信号传给进程时，进程会判断<code>pending</code>集合位图相应位是否为1；若为0则将其置1，并将其组织到<code>sigqueque</code>队列中；若为1则什么都不做（信号丢失）。</p>
+<h3 id="可靠信号的注册"><a href="#可靠信号的注册" class="headerlink" title="可靠信号的注册"></a>可靠信号的注册</h3><p>&emsp;&emsp;信号传递给进程时，进程不管位图上是否为1，都会将位图置1，并且再添加到<code>sigqueque</code>队列中，如果有多次传入则拥有多个结点（信号不会丢失）。</p>
+<h2 id="信号的注销"><a href="#信号的注销" class="headerlink" title="信号的注销"></a>信号的注销</h2><h3 id="非可靠信号的注销"><a href="#非可靠信号的注销" class="headerlink" title="非可靠信号的注销"></a>非可靠信号的注销</h3><p>&emsp;&emsp;因为非可靠信号的信号结点只有一个，因此删除结点，位图直接置0；</p>
+<h3 id="可靠信号的注销"><a href="#可靠信号的注销" class="headerlink" title="可靠信号的注销"></a>可靠信号的注销</h3><p>&emsp;&emsp;因为可靠信号的信号结点可能有多个，若还有相同结点，则位图依然置1，否则置0。</p>
+<h2 id="信号的处理"><a href="#信号的处理" class="headerlink" title="信号的处理"></a>信号的处理</h2><p>&emsp;&emsp;信号处理有三大方式：默认，忽略，自定义。</p>
+<h3 id="信号捕捉初识"><a href="#信号捕捉初识" class="headerlink" title="信号捕捉初识"></a>信号捕捉初识</h3><h4 id="signal"><a href="#signal" class="headerlink" title="signal()"></a>signal()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;                           </span><br><span class="line">#include &lt;unistd.h&gt;            </span><br><span class="line">#include &lt;stdlib.h&gt;  </span><br><span class="line">#include &lt;signal.h&gt;</span><br><span class="line">/**                            </span><br><span class="line"> *                      </span><br><span class="line"> * typedef void (*sighandler_t)(int);</span><br><span class="line"> * sighandler_t signal(int signum, sighandler_t handler);</span><br><span class="line"> * signum: 信号编号</span><br><span class="line"> * handler: 信号处理方式，函数指针</span><br><span class="line"> *          SIG_DFL    默认处理方式                                            </span><br><span class="line"> *          SIG_IGN    忽略处理方式                                      </span><br><span class="line"> * 修改信号的处理方式                                                 </span><br><span class="line"> */                        </span><br><span class="line">void sigcb(int signo)</span><br><span class="line">&#123;                             </span><br><span class="line">  printf(&quot;signal:%d\n&quot;, signo);      </span><br><span class="line">&#125;                                         </span><br><span class="line">int main()</span><br><span class="line">&#123;  </span><br><span class="line">  //signal(SIGINT, SIG_DFL);//执行默认的SIGINT功能</span><br><span class="line">  //signal(SIGINT, SIG_IGN);//忽略SIGINT信号的处理</span><br><span class="line">  signal(SIGINT, sigcb);//按自定义方式处理</span><br><span class="line">  while(1)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;----------\n&quot;);</span><br><span class="line">    sleep(1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第七章-进程信号]$ ./signal</span><br><span class="line">----------</span><br><span class="line">----------</span><br><span class="line">^Csignal:2</span><br><span class="line">----------</span><br><span class="line">----------</span><br><span class="line">----------</span><br><span class="line">----------</span><br><span class="line">^Csignal:2</span><br><span class="line">----------</span><br><span class="line">^Csignal:2</span><br><span class="line">----------</span><br><span class="line">^Csignal:2</span><br><span class="line">----------</span><br><span class="line">^Csignal:2</span><br><span class="line">----------</span><br><span class="line">----------</span><br><span class="line">----------</span><br><span class="line">----------</span><br><span class="line">^\退出(吐核)</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;可以看到我们再向进程发送<code>SIGINT</code>信号时，执行的已经是我们自定义的功能了。<br><br>&emsp;&emsp;信号默认的处理方式和忽略处理方式都是在内核中定义好的，那么自定义处理方式又是怎么捕捉的呢？<br><br>&emsp;&emsp;当进程因为系统调用、中断或者异常进入内核态，当完成内核功能，准备返回用户态主控流程时检测是否有信号待处理，如果有调用<code>do_signal()</code>函数处理信号，如果信号处理方式是自定义的则返回用户态执行自定义处理函数，再通过<code>sigreturn()</code>返回内核态，再次检查是否有信号待处理，若无则调用<code>sys_sigreturn</code>返回用户态从主控流程上次被中断的地方继续执行。</p>
+<h4 id="sigaction"><a href="#sigaction" class="headerlink" title="sigaction()"></a>sigaction()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;                                                           </span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;signal.h&gt;</span><br><span class="line">struct sigaction act, oldact;</span><br><span class="line">void sigcb(int signo)</span><br><span class="line">&#123;</span><br><span class="line">  printf(&quot;signal:%d\n&quot;, signo);</span><br><span class="line">  //将原本的处理方式还原</span><br><span class="line">  sigaction(SIGINT, &amp;oldact, NULL);</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  //int sigaction(int signum, struct sigaction* act, struct sigaction* oldact);</span><br><span class="line">  //使用act动作替换signum原有的处理动作，并且将原有处理动作拷贝到oldact中</span><br><span class="line">  //struct sigaction是预先定义好的结构体，用于存放信号修改的功能的数据</span><br><span class="line">  act.sa_handler = sigcb;  </span><br><span class="line">  act.sa_flags = 0;   </span><br><span class="line">  //清空信号集合</span><br><span class="line">  sigemptyset(&amp;act.sa_mask);</span><br><span class="line">  sigaction(SIGINT, &amp;act, &amp;oldact);</span><br><span class="line">  while(1)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;----------\n&quot;);</span><br><span class="line">    sleep(1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第七章-进程信号]$ ./signal</span><br><span class="line">----------</span><br><span class="line">----------</span><br><span class="line">^Csignal:2</span><br><span class="line">----------</span><br><span class="line">----------</span><br><span class="line">^C</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;这段代码中我们先将<code>SIGINT</code>的处理方式替换为我们自定义的方式，调用一次自定义处理的同时又将其还原。</p>
+<h2 id="信号的阻塞"><a href="#信号的阻塞" class="headerlink" title="信号的阻塞"></a>信号的阻塞</h2><p>&emsp;&emsp;暂时阻止信号被递达，信号依然可以注册，只是暂时不处理，解除阻塞之后才会处理。<br><br>&emsp;&emsp;信号的递达：动作-信号的处理。<br><br>&emsp;&emsp;信号的未决：状态-信号冲产生到处理之前的状态。<br><br>&emsp;&emsp;在进程的pcb中有一个<code>blocked</code>集合，当某一种信号被阻塞时，会将<code>blocked</code>集合中对应的位置1，表示这种信号被阻塞。因此信号的阻塞过程实际就是在pcb的<code>blocked</code>信号阻塞集合中标记信号，信号到来之后暂时不处理。<br><br>&emsp;&emsp;但是有两个信号无法被阻塞——<code>SIGKILL-9,SIGSTOP-19</code>无法被阻塞，无法被自定义，无法被忽略。<br></p>
+<h2 id="竞态条件"><a href="#竞态条件" class="headerlink" title="竞态条件"></a>竞态条件</h2><p>&emsp;&emsp;因为运行时序而造成数据竞争——导致数据二义性。函数中所完成的操作并非原子性操作，并且操作的数据是一个全局数据。如果一个函数中操作了全局性数据，并且这个操作不是原子性操作，并且这个操作不受保护，则这个函数是一个不可重入函数。不可重入函数指不能在多个时序的运行中重复调用（重复调用有可能会造成数据二义性）。可重入函数指在多个是虚的运行中重复调用，不会造成异常影响。<code>malloc/free</code>就是不可重入函数。<br></p>
+<h2 id="volatile关键字"><a href="#volatile关键字" class="headerlink" title="volatile关键字"></a>volatile关键字</h2><p>&emsp;&emsp;保持内存可见性——每次操作变量都需要重新从内存中获取。防止编译器过度优化。</p>
+<h2 id="SIGCHLD"><a href="#SIGCHLD" class="headerlink" title="SIGCHLD"></a>SIGCHLD</h2><p>&emsp;&emsp;自定义信号处理方式<code>sigcb</code>，当子进程退出，操作系统发送信号给父进程，直接触发信号回调<code>sigcb</code>，用户主要在<code>sigcb</code>中调用<code>wait/waitpid</code>就可以处理子进程的退出。<br><br>&emsp;&emsp;<code>SIGCHLD</code>是一个非可靠信号，假如有多个子进程同时退出了，则有可能造成时间丢失，造成<code>sigcb</code>只被回调一次，只处理了一个子进程。<br><br>&emsp;&emsp;必须使用非阻塞，否则没有子进程退出的时候waitpid将阻塞导致程序无法回到主控流程。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/01/【Linux】项目-minishell的实现/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1853,187 +2042,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/【C语言】第十二章-动态内存管理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/19/【C语言】第十二章-动态内存管理/" itemprop="url">【C语言】第十二章-动态内存管理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-19T00:45:35+08:00">
-                2019-02-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C语言进阶/" itemprop="url" rel="index">
-                    <span itemprop="name">C语言进阶</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.6k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第十二章-动态内存管理"><a href="#第十二章-动态内存管理" class="headerlink" title="第十二章 动态内存管理"></a>第十二章 动态内存管理</h1><h2 id="为什么会出现动态内存分配"><a href="#为什么会出现动态内存分配" class="headerlink" title="为什么会出现动态内存分配"></a>为什么会出现动态内存分配</h2><p>&emsp;&emsp;这个问题要结合数组来进行讨论。在C99之前的标准中，C语言中数组的定义要求必须给定常量的大小才能定义数组，也就是说数组变量的内存空间在编译时就已成定局，无法更改。那我们如果想要申请一块内存空间，空间大小在运行时才进行确定该怎么做呢？这就要用到动态的内存分配了，这里的空间大小的确定是在运行时才进行确定的。</p>
-<h2 id="动态内存分配函数"><a href="#动态内存分配函数" class="headerlink" title="动态内存分配函数"></a>动态内存分配函数</h2><h3 id="malloc和free"><a href="#malloc和free" class="headerlink" title="malloc和free"></a>malloc和free</h3><p>&emsp;&emsp;在内存的动态分配中，首当其冲最为重要的两个函数就是<code>malloc</code>和<code>free</code>函数，它们挑起了动态内存分配的大梁。<br>&emsp;&emsp;<code>malloc</code>函数负责向计算机申请一块连续的内存空间，并且返回指向该块内存的指针。<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>void* malloc(size_t size);</code><br><br>&emsp;&emsp;但是值得注意的是<code>malloc</code>所返回的指针的类型是<code>void*</code>型，所以在实际使用中我们往往要进行牵制类型转换将其转换为我们想要的指针类型。关于这个函数还有以下几点说明。<br><br>&emsp;&emsp;1、如果开辟空间成功则返回一个指向该空间的指针。<br><br>&emsp;&emsp;2、如果开辟空间失败则返回<code>NULL</code>。<br><br>&emsp;&emsp;3、如果参数为<strong>0</strong>则是未定义行为。<br><br>&emsp;&emsp;4、返回类型为<code>void*</code>所以编译器并不知道所开辟的空间的类型，由使用者决定。<br><br>&emsp;&emsp;既然开辟了空间，并且这个空间编译器不会帮我们自动将其释放那么就必然要求我们在使用完毕后将其释放，不浪费内存空间不造成泄露，因此就出现了<code>free</code>函数。<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>void free (void* ptr);</code><br><br>&emsp;&emsp;1、如果参数<code>ptr</code>的不是动态开辟的则行为是未定义的。<br><br>&emsp;&emsp;2、如果参数<code>ptr == NULL</code>则函数什么都不做。<br><br>&emsp;&emsp;<code>malloc</code>和<code>free</code>函数都在<code>stdlib.h</code>头文件中。<br><br>&emsp;&emsp;以下举一个动态分配内存并且释放的例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int n = 0;</span><br><span class="line">  printf(&quot;请输入要分配的数组的内存空间的大小：&quot;);</span><br><span class="line">  scanf(&quot;%d&quot;, &amp;n);</span><br><span class="line">  int* array = (int*)malloc(sizeof(int) * n);</span><br><span class="line">  printf(&quot;分配成功！\n&quot;);</span><br><span class="line">  printf(&quot;请给数组赋值：&quot;);</span><br><span class="line">  for(int i = 0; i &lt; n; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;array[i]);</span><br><span class="line">  &#125;</span><br><span class="line">  for(int i = 0; i &lt; n; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;%d\t&quot;, array[i]);</span><br><span class="line">  &#125;</span><br><span class="line">  printf(&quot;\n&quot;);</span><br><span class="line">  free(array);</span><br><span class="line">  array = NULL;</span><br><span class="line">  printf(&quot;数组已经释放!\n&quot;);                     </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main </span><br><span class="line">请输入要分配的数组的内存空间的大小：8</span><br><span class="line">分配成功！</span><br><span class="line">请给数组赋值：1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">1	2	3	4	5	6	7	8	</span><br><span class="line">数组已经释放!</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;在以上这个例子中我们动态地在程序运行时对一个数组进行了空间的分配，并且让用户对数组进行了赋值，之后打印，数组使用完毕后我们又用<code>free</code>函数将其空间释放。这是一个很简单但是很实用的动态内存分配的例子。在这个例子中要尤为记住的一点是我们在进行动态的内存分配后一定不能忘记在使用完毕后将内存空间释放，并且将指针赋值为<code>NULL</code>，这一点是十分关键的，否则将造成内存泄漏和野指针，对程序造成很大的影响。<br><br>&emsp;&emsp;往往内存泄漏不是我们忘记<code>free</code>而是不经意间造成的，以下就是一个典型的内存泄漏的例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int* p = (int*)malloc(sizeof(int));</span><br><span class="line">  p = (int*)malloc(sizeof(int));</span><br><span class="line">  free(p);    </span><br><span class="line">  p = NULL;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这个例子中我们明明进行了释放却也造成了内存泄漏，这是因为我们申请了两次内存空间，但是用同一个指针来接收，只释放了一次，因此造成了内存的泄漏。因此我们在实际使用中牵扯动态内存分配的时候都一定要小心又小心。</p>
-<h3 id="calloc"><a href="#calloc" class="headerlink" title="calloc"></a>calloc</h3><p>&emsp;&emsp;C语言还提供了一个函数进行动态内存分配。这个函数与<code>malloc</code>函数很相似，但是有一点不同的是这个函数会自动进行初始化。但是初始化有时候也不尽然全是好事，当我们要申请一个特别大的空间时，初始化会浪费很多很多的时间。<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<br><code>void* calloc(size_t num, size_t size);</code><br><br>&emsp;&emsp;<code>calloc</code>的功能是分配<code>num</code>个大小为<code>size</code>的内存空间，并将内存空间初始化为0。举个例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;  </span><br><span class="line">#include &lt;stdlib.h&gt;  </span><br><span class="line">int main()  </span><br><span class="line">&#123;  </span><br><span class="line">  int n = 0;  </span><br><span class="line">  printf(&quot;请输入数组长度：&quot;);  </span><br><span class="line">  scanf(&quot;%d&quot;, &amp;n);  </span><br><span class="line">  int* array = (int*)calloc(n, sizeof(int));</span><br><span class="line">  for(int i = 0; i &lt; n; i++)  </span><br><span class="line">  &#123;  </span><br><span class="line">    printf(&quot;%d\n&quot;, array[i]);  </span><br><span class="line">  &#125;  </span><br><span class="line">  free(array);                              </span><br><span class="line">&#125;                                           </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">请输入数组长度：8</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;在以上这个例子中我们看到<code>calloc</code>确实可以进行动态内存分配并且进行了初始化，但是这也是又两面性的。因此也要谨慎使用。</p>
-<h3 id="realloc"><a href="#realloc" class="headerlink" title="realloc"></a>realloc</h3><p>&emsp;&emsp;当我们将内存空间进行动态分配后我们如果想要扩大我们分配的内存该怎么做呢？我们可以分配一块新的内存然后将原来内存中的数据再放到新的内存中。但是在C语言标准库中为了方便已经给我们准备了这么一个扩容函数<code>realloc</code>。<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<br><code>void* realloc(void* ptr, size_t size);</code><br><br>&emsp;&emsp;<code>ptr</code>是要调整大小的内存空间，<code>size</code>是调整后的大小。至于计算机是怎么进行扩容的呢？这里要分两种情况。<br><br>&emsp;&emsp;1、如果目标内存空间后面有足够大小的空间则直接将后面的空间归入目标空间中即可。<br><br>&emsp;&emsp;2、如果目标空间后面没有足够大小的空间则在内存中重新寻找一片足够大小的空间进行开辟并且将原来的数据放入到新的空间中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int n = 0;</span><br><span class="line">  printf(&quot;请输入数组的长度：&quot;);</span><br><span class="line">  scanf(&quot;%d&quot;, &amp;n);</span><br><span class="line">  int* array = (int*)malloc(sizeof(int) * n);</span><br><span class="line">  printf(&quot;请输入目标扩容的大小：&quot;);</span><br><span class="line">  scanf(&quot;%d&quot;, &amp;n);</span><br><span class="line">  array = (int*)realloc(array, n * sizeof(int));</span><br><span class="line">  printf(&quot;扩容成功!\n&quot;);</span><br><span class="line">  printf(&quot;请给数组赋值：&quot;);</span><br><span class="line">  for(int i = 0; i &lt; n; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;array[i]);</span><br><span class="line">  &#125;</span><br><span class="line">  printf(&quot;打印数组：&quot;);                         </span><br><span class="line">  for(int i = 0; i &lt; n; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;%d\n&quot;, array[i]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">请输入数组的长度：5</span><br><span class="line">请输入目标扩容的大小：8</span><br><span class="line">扩容成功!</span><br><span class="line">请给数组赋值：1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">打印数组：1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;以上这个例子我们成功对已经分配的内存空间进行了扩容。</p>
-<h2 id="常见动态内存错误"><a href="#常见动态内存错误" class="headerlink" title="常见动态内存错误"></a>常见动态内存错误</h2><p>&emsp;&emsp;1、对<code>NULL</code>指针的解引用操作。<br><br>&emsp;&emsp;2、对动态开辟空间越界访问。<br><br>&emsp;&emsp;3、对非动态内存使用<code>free</code>释放。<br><br>&emsp;&emsp;4、释放一块动态开辟内存的一部分。<br><br>&emsp;&emsp;5、对同一块内存多次释放。<br><br>&emsp;&emsp;6、动态开辟内存忘记释放。<br><br>&emsp;&emsp;以上的错误都是十分常见的，因此我们在对内存进行操作的时候一定要万分小心。</p>
-<h2 id="C-C-程序内存开辟"><a href="#C-C-程序内存开辟" class="headerlink" title="C/C++程序内存开辟"></a>C/C++程序内存开辟</h2><p>&emsp;&emsp;在这里将详细介绍下计算机内存中的几个区域。<br><br>&emsp;&emsp;1. 栈区（stack）：在执行函数时，函数内局部变量的存储单元都可以在栈上创建，函数执行结束时这些<br>存储单元自动被释放。栈内存分配运算内置于处理器的指令集中，效率很高，但是分配的内存容量有<br>限。 栈区主要存放运行函数而分配的局部变量、函数参数、返回数据、返回地址等。<br><br>&emsp;&emsp;2. 堆区（heap）：一般由程序员分配释放， 若程序员不释放，程序结束时可能由OS回收 。分配方式类似<br>于链表。<br><br>&emsp;&emsp;3. 数据段（静态区）（static）存放全局变量、静态数据。程序结束后由系统释放。<br><br>&emsp;&emsp;4. 代码段：存放函数体（类成员函数和全局函数）的二进制代码。<br><br>&emsp;&emsp;通常我们定义的变量都存在栈区，动态分配内存时变量的空间都是在堆区上进行分配的，堆区有着更大更充足的空间。由此一来我们对动态内存分配就有了更深的了解。</p>
-<h3 id="柔性数组"><a href="#柔性数组" class="headerlink" title="柔性数组"></a>柔性数组</h3><p>&emsp;&emsp;柔性数组是在C99中最新的语法，其允许在结构体中最后一个成员是一个位置大小的数组，这就是<strong>柔性数组</strong>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">typedef struct st_type</span><br><span class="line">&#123;</span><br><span class="line">  int i;</span><br><span class="line">  int a[];//柔性数组成员</span><br><span class="line">&#125;type_a;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  type_a* p = (type_a*)malloc(sizeof(type_a) + sizeof(int) * 10);//为结构体分配内存空间</span><br><span class="line">  p-&gt;i = 0;</span><br><span class="line">  for(int i = 0 ;i &lt; 10; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    p-&gt;a[i] = 0;</span><br><span class="line">  &#125;</span><br><span class="line">  for(int i = 0; i &lt; 10; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;%d\n&quot;, p-&gt;a[i]);                                                           </span><br><span class="line">  &#125;</span><br><span class="line">  free(p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;在以上这个例子中我们使用了柔性数组，在使用柔性数组的时候我们要对结构体进行动态内存分配，并且分配的空间要大于结构体除柔性数组外的空间。<br><br>&emsp;&emsp;柔性数组的特点：<br><br>&emsp;&emsp;1、结构体中柔性数组前面必须至少一个其他成员。<br><br>&emsp;&emsp;2、<code>sizeof</code>测量结构体大小不包括柔性数组的大小。<br><br>&emsp;&emsp;3包含柔性数组的结构体用<code>malloc</code>进行内存动态分配，并且分配的内存大于结构体大小以适应 预期大小。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2083,7 +2096,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2105,7 +2118,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2202,7 +2215,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共209.8k字</span>
+  <span class="post-count">博客全站共211k字</span>
 </div>
 
         ﻿
