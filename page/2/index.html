@@ -264,6 +264,181 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/22/【网络】第五章-网络层协议/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/22/【网络】第五章-网络层协议/" itemprop="url">【网络】第五章-网络层协议</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-22T18:47:12+08:00">
+                2019-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络/" itemprop="url" rel="index">
+                    <span itemprop="name">网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.1k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="网络层协议"><a href="#网络层协议" class="headerlink" title="网络层协议"></a>网络层协议</h1><p>&emsp;&emsp;理解网络层功能，常见协议。</p>
+<h2 id="网络层功能"><a href="#网络层功能" class="headerlink" title="网络层功能"></a>网络层功能</h2><p>&emsp;&emsp;网络层主要负责地址管理以及路由选择。在网络中我们从一个ip到另一个ip有很多条路可以走，而网络层则是帮我们规划我们传输数据的最佳路线。</p>
+<h2 id="ip协议"><a href="#ip协议" class="headerlink" title="ip协议"></a>ip协议</h2><h3 id="协议字段"><a href="#协议字段" class="headerlink" title="协议字段"></a>协议字段</h3><p>&emsp;&emsp;<strong>1、4位版本</strong>：当前的协议是IPV4还是IPV6，由socket创建时传入的地址域决定。<br>&emsp;&emsp;<strong>2、4位首部长度</strong>：决定了头部有多长，以4个字节为单位。<br>&emsp;&emsp;<strong>3、8位服务类型</strong>：3位优先权字段（已弃用），1位保留字段必须置0，4位TOS字段分别表示最小延时，最大吞吐量，最高可靠性，最小成本。这四者互相冲突，只能选择一个，根据场景选用合理的服务类型。<br>&emsp;&emsp;<strong>4、16位总长度</strong>：是数据长度，传输层协议头和ip头的总长度，最大报文不超过64k，由此可见UDP报文数据的最大大小并没有64k-8，还应该减去ip头部大小。对于UDP来说如果数据报文长度小于最大报文长度则可以进行传输，但是在传输时还有一个限制——<code>MTU</code>，最大传输单元，这个限制是链路层的限制，限制了传输时最大的数据帧大小，如果UDP报文大于<code>MTU</code>大小则无法通过链路层的传输，此时为了能够传输则会进行<strong>数据分片</strong>。<br>&emsp;&emsp;<strong>5、16位标识</strong>：用于标识当前数据属于哪一个udp数据包。<br>&emsp;&emsp;<strong>6、3位标志</strong>：第一位保留，第二位标识是否禁止分片，1表示禁止，第三位表示更多分片，即如果分片了的话，最后一个分片置为1，其它为0，类似于结束标记。<br>&emsp;&emsp;<strong>7、13位片偏移</strong>：用于标识当前报文在原始udp数据包中的偏移量，单位为8个字节。<br>&emsp;&emsp;<strong>8、8位生存时间</strong>：<code>TTL</code>，之前有讲过<code>MSL</code>，但是在网络中真正的报文生存时间是按照<code>TTL</code>和<code>MSL</code>共同计算的。<code>TTL</code>是所能经过的路由器跳数，8位最大255跳，发送出去之后开始计算，每经过一个主机则-1，当到0时则认为通信失败，丢弃数据。这个属性主要是为了防备路由环路的情况<br>&emsp;&emsp;<strong>9、8位协议</strong>：标识上层协议类型，TCP/UDP等。<br>&emsp;&emsp;<strong>10、16位首部校验和</strong>：用域校验数据一致性。<br>&emsp;&emsp;<strong>11、32位源ip地址</strong>：从哪个主机来。<br>&emsp;&emsp;<strong>12、32位目的ip地址</strong>：到哪个主机去。<br>&emsp;&emsp;<strong>13、40字节选项数据</strong>：不一定有。</p>
+<h3 id="数据分片"><a href="#数据分片" class="headerlink" title="数据分片"></a>数据分片</h3><p>&emsp;&emsp;当<code>mtu &lt; IP头和IP数据大小 &lt; 64k</code>则会在网络层进行数据分片，TCP协议不会进行数据分片，因为其在传输层会协商<code>MSS</code>。将一个大包分为多个小包，在应用层叫<strong>分包</strong>，在传输层叫<strong>分段</strong>，在网络层叫<strong>分片</strong>，数据分片主要针对UDP。<br>&emsp;&emsp;ip协议在进行分片时会一次取出<code>MTU-ip头</code>大小的数据然后分别封装一个ip头，这样就会封装成多个ip报文然后分别进行发送。<br>&emsp;&emsp;但是此时可能会有问题，分片后并不能保证按照顺序被对端接收，对端对分片进行重组的时候也无从知道重组的顺序，不过好在ip头信息中有几条信息*来帮助我们确定其属于哪一个数据包以及分片顺序。<br>&emsp;&emsp;<strong>标识</strong>字段帮助我们找到当前ip数据包原本属于哪个udp数据包，<strong>片偏移</strong>字段帮助我们找到当前ip数据包在原udp报文中的相对位置，并且其单位为8个字节，完全足够标识64k数据的偏移量，这也说明了ip对udp报文的每个分片必然都是8的整数倍。</p>
+<h2 id="地址管理"><a href="#地址管理" class="headerlink" title="地址管理"></a>地址管理</h2><h3 id="ip地址的构成"><a href="#ip地址的构成" class="headerlink" title="ip地址的构成"></a>ip地址的构成</h3><p>&emsp;&emsp;ip地址由<strong>网络号 + 主机号</strong>组成。<br>&emsp;&emsp;1、网络号：每一个路由器向自己子网中的主机分配地址的时候，这些地址中都应该包含这个网络的标记，这个标记用于区分每一个网络。每一个网络的网络号只要不一样则分配的ip地址就不会冲突。<br>&emsp;&emsp;2、主机号：每一个主机的ip地址不但要具备网络的标识，还需要能够再局域网中唯一标识，这个唯一标识称之为主机号。</p>
+<h3 id="网段的划分"><a href="#网段的划分" class="headerlink" title="网段的划分"></a>网段的划分</h3><p>&emsp;&emsp;ip地址就是一个拥有4个字节的无符号整形，不过我们经常用点分十进制进行标识，<strong>早期</strong>对网段根据网络号和主机号所占位数的不同划分为五类地址：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">A类：高8位中高一位：0，低7位是网络号；剩下的都是主机号。(0.0.0.0 ~ 127.255.255.255)</span><br><span class="line">B类：高16位中高两位：10，低14位网络号；剩下主机号。(128.0.0.0 ~ 191.255.255.255)</span><br><span class="line">C类：高24位中高三位：110，低21位网络号；剩下主机号。(192.0.0.0 ~ 223.255.255.255)</span><br><span class="line">D类：高4位固定：1110。(224.0.0.0 ~ 239.255.255.255)</span><br><span class="line">E类：高5位固定：11110。(240.0.0.0 ~ 247.255.255.255)</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;如今这种划分方式已经被淘汰，新的网段划分使用<strong>CIDR</strong>的方式进行划分，对网络的划分借助了一个字段叫<strong>子网掩码</strong>。<br>&emsp;&emsp;子网掩码是一个<code>uint32_t</code>类型的数据，由连续的二进制1组成。它如何帮助我们划分网络呢？<br>&emsp;&emsp;<strong>子网掩码取反可以得到局域网中的最大主机号</strong>。例如<code>255.255.255.0 取反-&gt; 0.0.0.255</code>，则这个网段中的最大主机号为255。<br>&emsp;&emsp;</p>
+<h3 id="特殊的ip地址"><a href="#特殊的ip地址" class="headerlink" title="特殊的ip地址"></a>特殊的ip地址</h3><p>&emsp;&emsp;主机号全为0的地址–网络号。<br>&emsp;&emsp;主机号全为1–udp的局域网广播地址。<br>&emsp;&emsp;<code>127.0.0.1</code>–虚拟回环网卡，用于本机网络测试。<br>&emsp;&emsp;<code>0.0.0.0</code>–本机任意地址。</p>
+<h3 id="局域网组建规则"><a href="#局域网组建规则" class="headerlink" title="局域网组建规则"></a>局域网组建规则</h3><p>&emsp;&emsp;并不是所有网络号都能用于组建局域网，因为如果所有网络都能组件局域网则仍然有可能造成重复，因此规定能够组件私网的网络号只有以下几种：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">10.*.*.* </span><br><span class="line">172.16.*.* ~ 172.31.*.*</span><br><span class="line">192.168.*.*</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;局域网时相邻的网络不能使用相同的网络号，会造成地址分配冲突。这里的相邻网络指的是同一路由器不同网卡所属的网络，一台路由器可以身处多个网络中，记录在同一路由器的<strong>路由表</strong>上的网络都是相邻网络。</p>
+<h2 id="路由选择"><a href="#路由选择" class="headerlink" title="路由选择"></a>路由选择</h2><p>&emsp;&emsp;每个路由器上都有一张路由表，记录当前路由器所相连的网络，当路由器接收一个数据，则取出目的ip地址，通过路由表判断当前数据的目的主机属于哪一个相邻的网络（使用相邻网络的地址与子网掩码进行相与，然后与目的网络的网络号进行比较）。若属于某个相邻的网络则使用相对应的网卡将数据发送出去，若路由表匹配失败，则将数据发送到下一层网络设备。<br><br><img src="/2019/09/22/【网络】第五章-网络层协议/1.png" alt="路由选择"><br><br>&emsp;&emsp;上图大概描述了一个运营商与各个独立用户之间搭建局域网进行通信的简易模型，但实际上原要比这复杂得多。<br>&emsp;&emsp;路由选择并不困难，最为困难的是路由表生成算法。例如距离向量算法，LS算法等。关于路由选择有着很多的算法这里不再深入讨论。<br>&emsp;&emsp;关于路由选择和网络搭建十分复杂，是一门独立的学科，还需要进一步研究讨论。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/22/【网络】第四章-传输层协议/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1917,177 +2092,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/30/【Cpp】第八章-STL-deque类/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/30/【Cpp】第八章-STL-deque类/" itemprop="url">【Cpp】第八章-STL_deque类</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-30T16:39:49+08:00">
-                2019-07-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/" itemprop="url" rel="index">
-                    <span itemprop="name">Cpp</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.4k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="deque类"><a href="#deque类" class="headerlink" title="deque类"></a>deque类</h1><h2 id="基础介绍"><a href="#基础介绍" class="headerlink" title="基础介绍"></a>基础介绍</h2><p>&emsp;&emsp;<code>deque</code>是双端队列，它提供了和<code>vector</code>类似的接口但是底层的实现与<code>vector</code>完全不同，<code>vector</code>底层用三个指针指向数组的起点，尾部和总容量的尾部，并且所有元素都是连续的，但是在<code>deque</code>中所有元素并不一定都是在连续的内存空间上的。<code>deque</code>在底层实现上是将一个连续的空间分段进行管理，并将它们的首地址用一个指针数组进行管理，这样特殊的存储结构使得它在头部和尾部增加元素比<code>vector</code>更加高效，但是底层实现更为复杂，存储了很多额外信息。如果抛去在头部和尾部增加元素，在中间任意位置添加元素，它的效率比vector更高，但是比list要低。</p>
-<h2 id="常用接口"><a href="#常用接口" class="headerlink" title="常用接口"></a>常用接口</h2><h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deque();                                                  //构造空的双端队列</span><br><span class="line">deque(size_type n, const value_type &amp;val = value_type()); //用n个值为val的元素构造双端队列</span><br><span class="line">deque(InputIterator first, InputIterator last);           //用[first, last)的区间构造双端队列</span><br><span class="line">deque(const deque &amp;x);                                    //双端队列的拷贝构造函数</span><br></pre></td></tr></table></figure>
-<h3 id="迭代器相关"><a href="#迭代器相关" class="headerlink" title="迭代器相关"></a>迭代器相关</h3><p>&emsp;&emsp;由于<code>deque</code>在内存上并不完全是连续的因此想要保持deque的连续性，这个任务就落到了迭代器身上。在底层实现上，<code>deque</code>将一段一段连续的内存称为一个缓冲区(buffer)，并将这些缓冲区的首尾地址存储在一个map中用以映射，map中一个存储缓冲区的地址对应一个结点(node)信息用于标记这个键值对，这样就构建好了基础架构。在迭代器中存储了4个信息，分别是当前结点(cur)，当前缓冲区的头(first)，当前缓冲区的尾(last)以及在map中用以标记当前缓冲区的地址的结点(node)信息。并且在<code>deque</code>内部已经存储好了两个迭代器<code>start</code>和<code>finish</code>用于标记<code>deque</code>的头和尾元素。这样即可完成将一段一段连续的空间在逻辑结构上构成一段连续空间的目的。<br>&emsp;&emsp;当从头遍历<code>deque</code>时，<code>start</code>迭代器中<code>first</code>和<code>last</code>已经从map中找到了第一个结点的缓冲区首尾信息并进行了保存，于是<code>cur</code>就从<code>first</code>开始遍历这个缓冲区，当遍历到<code>last</code>时就重新到map中寻找写一个结点的缓冲区收尾地址并且替换掉原来<code>first</code>和<code>last</code>值，继续遍历，这样即可完成遍历直到最后一个结点也遍历完。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">iterator begin();                       //返回deque起始位置迭代器</span><br><span class="line">iterator end();                         //返回deque最后一个元素下一个位置的迭代器</span><br><span class="line">reverse_iterator rbegin();              //返回deque起始位置的反向迭代器(即end())</span><br><span class="line">reverse_iterator rend();                //返回deque最后一个元素下一个位置的反向迭代器(begin())</span><br><span class="line">const_iterator cbegin() const;          //返回deque起始位置的const迭代器</span><br><span class="line">const_iterator cend() const;            //返回deque最后一个元素下一个位置的const迭代器</span><br><span class="line">const_reverse_iterator crbegin() const; //返回deque起始位置的const反向迭代器(即crend())</span><br><span class="line">const_reverse_iterator crend() const;   //返回deque最后一个元素下一个位置的const反向迭代器(crbegin())</span><br></pre></td></tr></table></figure></p>
-<h3 id="容量相关"><a href="#容量相关" class="headerlink" title="容量相关"></a>容量相关</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">size_type size() const;               //返回deque中有效元素个数</span><br><span class="line">bool empty() const;                   //检测deque是否为空，是返回true，否则返回false</span><br><span class="line">void resize(size_type sz, T c = T()); //将deque中的元素改变到sz，多出的空间用c填充</span><br></pre></td></tr></table></figure>
-<h3 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">reference operator[](size_type n);                         //返回deque中n位置上元素的引用</span><br><span class="line">const_reference operator[](size_type n) const;             //返回deque中n位置上元素的const 引用</span><br><span class="line">reference front();                                         //返回deque中首元素的引用</span><br><span class="line">const_reference front() const;                             //返回deque中首元素的const引用</span><br><span class="line">reference back();                                          //返回deque中最后一个元素的引用</span><br><span class="line">const_reference back() const;                              //返回deque中最后一个元素的const引用</span><br><span class="line">void push_back(const value_type &amp;val);                     //deque尾部插入元素val</span><br><span class="line">void pop_back();                                           //删除deque尾部元素</span><br><span class="line">void push_front(const value_type &amp;val);                    //deque头部插入元素val</span><br><span class="line">void pop_front();                                          //删除deque头部元素</span><br><span class="line">iterator insert(iterator position, const value_type &amp;val); //在deque的position位置插入值为val的元素</span><br><span class="line">void insert(iterator position, size_type n,</span><br><span class="line">            const value_type &amp;val);                                      //在deque的position位置插入n个值为val的元素</span><br><span class="line">void insert(iterator position, InputIterator first, InputIterator last); //在deque的position位置插入[first, last)区间中的元素</span><br><span class="line">iterator erase(iterator position);                                       //删除deque中position位置的元素，并返回该位置的下一个位置</span><br><span class="line">iterator erase(iterator first, iterator last);                           //删除deque中[first, last)区间中的元素，并返回last位置</span><br><span class="line">void swap(deque &amp; x);                                                    //交换两个deque中的内容</span><br><span class="line">void clear();                                                            //将deque中的元素清空</span><br><span class="line">iterator emplace(const_iterator position, Args &amp;&amp; ... args);             //在deque的position位置构造元素，将元素所需内容通过参数类表传入</span><br><span class="line">void emplace_front(Args &amp;&amp; ... args);                                    //在deque的头部构造元素，元素的参数通过参数列表传入</span><br><span class="line">void emplace_back(Args &amp;&amp; ... args);                                     //在deque的尾部构造元素，元素的参数通过参数列表传入</span><br></pre></td></tr></table></figure>
-<h3 id="综合运用"><a href="#综合运用" class="headerlink" title="综合运用"></a>综合运用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;deque&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    deque&lt;int&gt; deq;</span><br><span class="line">    deq.push_front(1);</span><br><span class="line">    deq.push_back(2);</span><br><span class="line">    deque&lt;int&gt;::iterator it = deq.begin();</span><br><span class="line">    it = deq.insert(it, 0);</span><br><span class="line">    while(it != deq.end())</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; *it &lt;&lt; endl;</span><br><span class="line">        it++;</span><br><span class="line">    &#125;</span><br><span class="line">    it = deq.erase(--it);</span><br><span class="line">    it = deq.begin();</span><br><span class="line">    while(it != deq.end())</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; *it &lt;&lt; endl;</span><br><span class="line">        it++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>&emsp;&emsp;双端队列<code>deque</code>是一个设计并不算成功的容器，如果要随机访问单纯的查询多一点可以用<code>vector</code>而且更加方便，如果需要频繁插入那么<code>list</code>效率又会跟高，因此<code>deque</code>并不常用，其最常用的地方就是在作为适配器<code>stack</code>和<code>queue</code>的底层存储容器。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2142,7 +2146,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">74</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2164,7 +2168,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2261,7 +2265,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共213.4k字</span>
+  <span class="post-count">博客全站共214.5k字</span>
 </div>
 
         ﻿
