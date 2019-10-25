@@ -264,6 +264,172 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/25/【DS】栈的压入、弹出序列/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/10/25/【DS】栈的压入、弹出序列/" itemprop="url">【DS】栈的压入、弹出序列</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-25T10:17:16+08:00">
+                2019-10-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  553
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="栈的压入、弹出序列"><a href="#栈的压入、弹出序列" class="headerlink" title="栈的压入、弹出序列"></a>栈的压入、弹出序列</h1><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>&emsp;&emsp;输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否可能为该栈的弹出顺序。假设压入栈的所有数字均不相等。例如序列1,2,3,4,5是某栈的压入顺序，序列4,5,3,2,1是该压栈序列对应的一个弹出序列，但4,3,5,1,2就不可能是该压栈序列的弹出序列。（注意：这两个序列的长度是相等的）<br><br>&emsp;&emsp;<a href="https://www.nowcoder.com/practice/d77d11405cc7470d82554cb392585106?tpId=13&amp;&amp;tqId=11174&amp;rp=2&amp;ru=/activity/oj&amp;qru=/ta/coding-interviews/question-ranking" target="_blank" rel="noopener">https://www.nowcoder.com/practice/d77d11405cc7470d82554cb392585106?tpId=13&amp;&amp;tqId=11174&amp;rp=2&amp;ru=/activity/oj&amp;qru=/ta/coding-interviews/question-ranking</a></p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>&emsp;&emsp;这道题我们可以使用笨点的方法列举出所有弹出序列然乎一一比较判断，但是这样的实现方法事件复杂度很高，并不高效，于是采用以下的解法，只需要O(n)的时间复杂度。<br><br>&emsp;&emsp;1、首先我们初始化入栈序列和出栈序列和一个空栈，并用两个指针<code>ptr1 ptr2</code>首先指向两个序列的第一个元素。<br><img src="/2019/10/25/【DS】栈的压入、弹出序列/1.png" alt="题解"><br><br>&emsp;&emsp;2、只要<strong>栈为空</strong>或者<strong>当前栈顶元素与出栈序列中<code>ptr2</code>所指的元素不相同</strong>，则将入栈序列中<code>ptr1</code>所指的元素压入栈，并将<code>ptr1</code>后移。<br><br><img src="/2019/10/25/【DS】栈的压入、弹出序列/2.png" alt="题解"><br><br><img src="/2019/10/25/【DS】栈的压入、弹出序列/3.png" alt="题解"><br><br><img src="/2019/10/25/【DS】栈的压入、弹出序列/4.png" alt="题解"><br><br><img src="/2019/10/25/【DS】栈的压入、弹出序列/5.png" alt="题解"><br><br>&emsp;&emsp;3、如果<strong>当前栈顶元素与出栈序列中<code>ptr2</code>所指元素相同</strong>，则将当前栈顶元素出栈，并将<code>ptr2</code>后移。<br><img src="/2019/10/25/【DS】栈的压入、弹出序列/6.png" alt="题解"><br><br>&emsp;&emsp;4、重复第2第3步，如果<code>ptr2</code>可以遍历完出栈序列，则说明出栈序列是该栈的一个弹出顺序。如果<code>ptr1</code>中的入栈元素已经全部压入栈但是栈顶元素依然与出栈序列中<code>ptr2</code>所指元素不相同，还需要入栈，则说明出栈序列不是该栈的一个弹出顺序。<br><img src="/2019/10/25/【DS】栈的压入、弹出序列/7.png" alt="题解"><br><br><img src="/2019/10/25/【DS】栈的压入、弹出序列/11.png" alt="题解"><br><br><img src="/2019/10/25/【DS】栈的压入、弹出序列/8.png" alt="题解"><br><br><img src="/2019/10/25/【DS】栈的压入、弹出序列/9.png" alt="题解"><br><br><img src="/2019/10/25/【DS】栈的压入、弹出序列/10.png" alt="题解"><br></p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool IsPopOrder(vector&lt;int&gt; pushV,vector&lt;int&gt; popV) &#123;</span><br><span class="line">        int pushi = 0, popi = 0;</span><br><span class="line">        stack&lt;int&gt; sta;</span><br><span class="line">        while(popi &lt; popV.size())</span><br><span class="line">        &#123;</span><br><span class="line">            if(sta.empty() || (sta.top() != popV[popi]))</span><br><span class="line">            &#123;</span><br><span class="line">                if(pushi &lt; pushV.size())</span><br><span class="line">                &#123;</span><br><span class="line">                    sta.push(pushV[pushi]);</span><br><span class="line">                    pushi++;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    return false;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                sta.pop();</span><br><span class="line">                popi++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/24/【Linux】请问下面的程序一共输出多少个“-”？/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1820,199 +1986,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/23/【Cpp】第十二章-多态/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/23/【Cpp】第十二章-多态/" itemprop="url">【Cpp】第十二章-多态</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-23T16:36:17+08:00">
-                2019-09-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/" itemprop="url" rel="index">
-                    <span itemprop="name">Cpp</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  6.6k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h1><p>&emsp;&emsp;几乎所有面向对象语言我们总能在其中听到这么几个特点，封装，继承，多态，对于Cpp也不例外，那么什么是多态，Cpp又是如何实现多态的呢？</p>
-<h2 id="多态的概念"><a href="#多态的概念" class="headerlink" title="多态的概念"></a>多态的概念</h2><p>&emsp;&emsp;什么是多态？多态就是当不同的对象去完成某种相同的事务时却展现出完全不同的行为状态。在生活中也存在着各种各样的多态，例如当我们要买票时不同的人有着不同的票，学生票，成人票等等；又比如说当别人家的孩子到你家来做客时，你父母对待你和对待ta之间的差距也体现了多态。具体点说，多态可以让我们定义的对象根据对象的不同调用不同的函数，尽管这些函数名、参数、返回值都是相同的。这一点是不是听上去类似于重载？或者说类似于之前继承中的重定义？但接下来你会发现这其中有着很大的差别。</p>
-<h2 id="如何实现多态"><a href="#如何实现多态" class="headerlink" title="如何实现多态"></a>如何实现多态</h2><h3 id="构成多态的条件"><a href="#构成多态的条件" class="headerlink" title="构成多态的条件"></a>构成多态的条件</h3><p>&emsp;&emsp;以下是一个简单的实现了多态的例子，我们看看这些类和哦我们往常所写的类有哪些不同。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    virtual void BuyTicket()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;full ticket!&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">class Student: public Person</span><br><span class="line">&#123;</span><br><span class="line">    virtual void BuyTicket()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;student ticket!&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Person* p = new Person();</span><br><span class="line">    p-&gt;BuyTicket();</span><br><span class="line">    Person* p2 = new Student();//切割，将子类对象指针赋值给父类指针</span><br><span class="line">    p2-&gt;BuyTicket();</span><br><span class="line">    delete p;</span><br><span class="line">    delete p2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">full ticket!</span><br><span class="line">student ticket!</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这段代码中我们用相同类型的指针通过指向不同类型的对象从而调用了不同的函数，实现了多态。要构成多态，必须满足两个条件：<br>&emsp;&emsp;1、必须通过基类的指针或者引用调用构成多态的函数。<br>&emsp;&emsp;2、被调用的构成多态的函数必定是<strong>虚函数</strong>，并且在子类中完成了重写/覆盖。<br>&emsp;&emsp;那么什么是虚函数呢？</p>
-<h3 id="虚函数"><a href="#虚函数" class="headerlink" title="虚函数"></a>虚函数</h3><p>&emsp;&emsp;被<code>virtual</code>关键字修饰的成员函数就是虚函数，在上面的例子中基类和派生类中的<code>BuyTicket()</code>就是虚函数，并且如果基类中的函数为虚函数，派生类中的重写函数不用加<code>virtual</code>也会默认被视为虚函数。但是这里又出现了一个概念，<strong>重写</strong>。</p>
-<h3 id="重写-覆盖"><a href="#重写-覆盖" class="headerlink" title="重写(覆盖)"></a>重写(覆盖)</h3><p>&emsp;&emsp;之前我们有讲过重载，重定义，这里又提出了重写的概念，那么什么是重写，又如何构成重写呢？<br>&emsp;&emsp;重写是构成多态的前提，而构成重写要求<strong>必须是派生类中有一个虚函数与基类中的虚函数函数名、参数、返回值完全相同</strong>，才能构成重写。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    virtual void BuyTicket()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;full ticket!&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">class Student: public Person</span><br><span class="line">&#123;</span><br><span class="line">    //参数不同无法构成重写</span><br><span class="line">    virtual void BuyTicket(int)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;student ticket!&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Person* p = new Person();</span><br><span class="line">    p-&gt;BuyTicket();</span><br><span class="line">    Person* p2 = new Student();//切割，将子类对象指针赋值给父类指针</span><br><span class="line">    p2-&gt;BuyTicket();</span><br><span class="line">    delete p;</span><br><span class="line">    delete p2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">full ticket!</span><br><span class="line">full ticket!</span><br></pre></td></tr></table></figure></p>
-<h3 id="重写的两个例外"><a href="#重写的两个例外" class="headerlink" title="重写的两个例外"></a>重写的两个例外</h3><p>&emsp;&emsp;重写中要求派生类虚函数必须和基类虚函数函数名参数返回值都完全相同才能构成重写，但是也有例外，而且是两个。</p>
-<h4 id="协变"><a href="#协变" class="headerlink" title="协变"></a>协变</h4><p>&emsp;&emsp;第一个例外是<strong>协变</strong>，它可以让返回值不同的两个虚函数也构成重写，但是要求<strong>基类虚函数必须返回基类对象的指针或者引用，派生类虚函数必须返回派生类对象的指针或者引用</strong>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    virtual Person* BuyTicket()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;full ticket!&quot; &lt;&lt; endl;</span><br><span class="line">        return new Person;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">class Student: public Person</span><br><span class="line">&#123;</span><br><span class="line">    //参数不同无法构成重写</span><br><span class="line">    virtual Student* BuyTicket()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;student ticket!&quot; &lt;&lt; endl;</span><br><span class="line">        return new Student;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    //这里肯定会造成内存泄露，这里为了演示暂时不考虑内存泄露的问题</span><br><span class="line">    Person* p = new Person();</span><br><span class="line">    p-&gt;BuyTicket();</span><br><span class="line">    Person* p2 = new Student();//切割，将子类对象指针赋值给父类指针</span><br><span class="line">    p2-&gt;BuyTicket();</span><br><span class="line">    delete p;</span><br><span class="line">    delete p2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">full ticket!</span><br><span class="line">student ticket!</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;协变的原理也是跟切割有关系，因为切割才使得派生类对象、指针、引用可以隐式转换为基类对象、指针、和引用。</p>
-<h4 id="析构函数的重写"><a href="#析构函数的重写" class="headerlink" title="析构函数的重写"></a>析构函数的重写</h4><p>&emsp;&emsp;如果我们用基类指针去指向一个派生类对象，当我们要释放这个对象的内存空间，势必会调用析构函数，但是如果调用的是基类的析构函数那么必然会导致派生类中一些成员变量无法释放空间，所以最好一个派生类的析构函数是可以和基类构成多态的，这样才能使基类指针可以根据对象的不同调用对应的析构函数不会导致内存泄露。但是派生类析构函数名和基类的析构函数名不同啊，如果构成重写呢？在这里编译器做了一些处理，只要基类的析构函数是虚函数，派生类的析构函数无论是否有<code>virtual</code>修饰都会成为析构函数。从表面上看函数名不同违背了重写的规则，但是在底层实现上编译器会将析构函数名统一处理为<code>destructor</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    virtual void BuyTicket()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;full ticket!&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    virtual ~Person()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;~Person()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;;</span><br><span class="line">class Student: public Person</span><br><span class="line">&#123;</span><br><span class="line">    //参数不同无法构成重写</span><br><span class="line">    virtual void BuyTicket()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;student ticket!&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    virtual ~Student()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;~Student()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Person* p = new Person();</span><br><span class="line">    p-&gt;BuyTicket();</span><br><span class="line">    Person* p2 = new Student();//切割，将子类对象指针赋值给父类指针</span><br><span class="line">    p2-&gt;BuyTicket();</span><br><span class="line">    delete p;//调用Person析构函数</span><br><span class="line">    delete p2;//调用Student析构函数，由于Student继承于Person所以还会再调用基类析构函数</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">full ticket!</span><br><span class="line">student ticket!</span><br><span class="line">~Person()</span><br><span class="line">~Student()</span><br><span class="line">~Person()</span><br></pre></td></tr></table></figure></p>
-<h3 id="override和final"><a href="#override和final" class="headerlink" title="override和final"></a>override和final</h3><p>&emsp;&emsp;这两个关键字在Cpp11中出现，他们用于帮助我们判断我们的虚函数是否还需要重写或者虚函数必须完成重写，可以帮助我们检查错误，规范代码。</p>
-<h4 id="override"><a href="#override" class="headerlink" title="override"></a>override</h4><p>&emsp;&emsp;凡是被<code>override</code>修饰的虚函数表示其必然重写了基类的某个虚函数，如果没有重写则报错，因此<code>override</code>是用在派生类的虚函数中的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    virtual void BuyTicket()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;full ticket!&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    virtual ~Person()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;~Person()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">class Student: public Person</span><br><span class="line">&#123;</span><br><span class="line">    //参数不同无法构成重写</span><br><span class="line">    virtual void BuyTicket()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;student ticket!&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    virtual ~Student()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;~Student()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    virtual void BuySomething() override</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;buy something&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Person* p = new Person();</span><br><span class="line">    p-&gt;BuyTicket();</span><br><span class="line">    Person* p2 = new Student();//切割，将子类对象指针赋值给父类指针</span><br><span class="line">    p2-&gt;BuyTicket();</span><br><span class="line">    delete p;//调用Person析构函数</span><br><span class="line">    delete p2;//调用Student析构函数，由于Student继承于Person所以还会再调用基类析构函数</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.\mian.cpp:27:18: error: &apos;virtual void Student::BuySomething()&apos; marked &apos;override&apos;, but does not override</span><br><span class="line">     virtual void BuySomething() override</span><br></pre></td></tr></table></figure></p>
-<h4 id="final"><a href="#final" class="headerlink" title="final"></a>final</h4><p>&emsp;&emsp;被<code>final</code>关键字修饰的函数表示其不能再被重写，如果派生类重写则报错，所以这个关键字用在基类虚函数中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    virtual void BuyTicket()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;full ticket!&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    virtual ~Person()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;~Person()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    virtual void Buysomething() final</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;buy something&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">class Student: public Person</span><br><span class="line">&#123;</span><br><span class="line">    virtual void BuyTicket()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;student ticket!&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    virtual ~Student()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;~Student()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    virtual void Buysomething()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;buy something too&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Person* p = new Person();</span><br><span class="line">    p-&gt;BuyTicket();</span><br><span class="line">    Person* p2 = new Student();//切割，将子类对象指针赋值给父类指针</span><br><span class="line">    p2-&gt;BuyTicket();</span><br><span class="line">    delete p;//调用Person析构函数</span><br><span class="line">    delete p2;//调用Student析构函数，由于Student继承于Person所以还会再调用基类析构函数</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.\mian.cpp:30:18: error: virtual function &apos;virtual void Student::Buysomething()&apos;</span><br><span class="line">     virtual void Buysomething()</span><br><span class="line">                  ^~~~~~~~~~~~</span><br><span class="line">.\mian.cpp:14:18: error: overriding final function &apos;virtual void Person::Buysomething()&apos;</span><br><span class="line">     virtual void Buysomething() final</span><br></pre></td></tr></table></figure></p>
-<h3 id="重写、重载、重定义的对比"><a href="#重写、重载、重定义的对比" class="headerlink" title="重写、重载、重定义的对比"></a>重写、重载、重定义的对比</h3><p>&emsp;&emsp;重载是同一作用域内，多个同名函数通过参数列表的不同编译器经过底层命名规则的处理来构成重载。重定义是派生类与基类两个作用域内，派生类成员与基类成员重名构成重定义（隐藏）。重写是派生类与基类两个作用域内，两个虚函数函数名、参数、返回值完全相同才构成重写（覆盖）。因此我们可以总结如下。<br>&emsp;&emsp;<strong>重载：同一作用域内，函数名相同，参数不同</strong>。<br>&emsp;&emsp;<strong>重写：在派生类和基类两个作用域内，函数为虚函数，且函数名参数返回值都完全相同</strong>。<br>&emsp;&emsp;<strong>重定义：在派生类和基类两个作用域内，函数名相同，只要不构成重写的同名函数即构成重定义</strong>。</p>
-<h2 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h2><p>&emsp;&emsp;在一个虚函数的声明后面加上<code>=0</code>这个虚函数就会变成<strong>纯虚函数</strong>，带有纯虚函数的类被称为<strong>抽象类</strong>，抽象类也叫接口类，这个类不能实例化出对象，只有继承它的子类将其类内所有的纯虚函数全部重写后，其子类才可以实例化对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">//抽象类</span><br><span class="line">class Abstract</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    virtual void BuyTicket() = 0;</span><br><span class="line">    virtual void Ticket()</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">class Person : public Abstract</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    //重写纯虚函数</span><br><span class="line">    virtual void BuyTicket()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;full ticket!&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    virtual ~Person()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;~Person()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">class Student: public Abstract</span><br><span class="line">&#123;</span><br><span class="line">    virtual void BuyTicket()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;student ticket!&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    virtual ~Student()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;~Student()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    //Abstract* pt = new Abstract();//报错，抽象类不能实例化对象</span><br><span class="line">    //之后所有的继承自抽象类的派生类就可以使用抽象类作为统一接口</span><br><span class="line">    Abstract* p = new Person();</span><br><span class="line">    p-&gt;BuyTicket();</span><br><span class="line">    Abstract* p2 = new Student();//切割，将子类对象指针赋值给父类指针</span><br><span class="line">    p2-&gt;BuyTicket();</span><br><span class="line">    delete p;//调用Person析构函数</span><br><span class="line">    delete p2;//调用Student析构函数，由于Student继承于Person所以还会再调用基类析构函数</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;使用抽象要注意派生类要重写抽象类中的所有纯虚函数，否则会报错，抽象类中的非纯虚函数，不会强制重写。</p>
-<h2 id="多态的原理"><a href="#多态的原理" class="headerlink" title="多态的原理"></a>多态的原理</h2><p>&emsp;&emsp;如今大多数Cpp的书中关于多态也仅仅局限在如何使用上，但是这是肯定不够的，于是通过一些资料和实验在这里总结出Cpp实现多态的原理，这对于多态的使用有极强的帮助。</p>
-<h3 id="虚函数表"><a href="#虚函数表" class="headerlink" title="虚函数表"></a>虚函数表</h3><p>&emsp;&emsp;我们首先看一个小例子，体会一下在存在虚函数的类中所存在的一个神秘的成员。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Base</span><br><span class="line">&#123;</span><br><span class="line">    virtual void Func()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Func1&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    int _a;    </span><br><span class="line">&#125;;</span><br><span class="line">class Deliver: public Base</span><br><span class="line">&#123;</span><br><span class="line">    virtual void Func()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Func1&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    int _b;    </span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; sizeof(Base) &lt;&lt; endl;;</span><br><span class="line">    cout &lt;&lt; sizeof(Deliver) &lt;&lt; endl;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">8</span><br><span class="line">12</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这里可能就会产生疑惑，在基类中命名只有一个成员<code>_a</code>应该只有四个字节啊哪里来的八个字节空间，难道虚函数也占空间么？派生类中继承了从基类来的成员<code>_a</code>自己还有一个成员<code>_b</code>应该只有八个字节哪里来的12，为什么他们都多出来了四个字节的空间？<br>&emsp;&emsp;接下来我们继续对其进行改进，多新增几个虚函数和普通函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Base</span><br><span class="line">&#123;</span><br><span class="line">    virtual void Func()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Func1&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    virtual void Func2()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Func2&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    void Func3()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Func3&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    int _a;    </span><br><span class="line">&#125;;</span><br><span class="line">class Deliver: public Base</span><br><span class="line">&#123;</span><br><span class="line">    virtual void Func()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Func1&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    void Fun3()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Func3&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    int _b;    </span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; sizeof(Base) &lt;&lt; endl;;</span><br><span class="line">    cout &lt;&lt; sizeof(Deliver) &lt;&lt; endl;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">8</span><br><span class="line">12</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;我们发现我们增加了虚函数后类的大小并没有改变，永远只是增加了四个字节。这又是为什么呢？<br>&emsp;&emsp;通过一些高级ide对内存的查看及反复实验得出结论，在每一个有虚函数的类中会多生成一个成员<strong>虚函数表指针</strong>，这个指针指向一张表称其为<strong>虚函数表</strong>也叫<strong>虚表</strong>，虚表可以看作是一个数组，它的元素类型为虚函数指针，也就是说这个数组是一个虚函数指针数组，其中的每一个元素指向一个类内的虚函数，最后一个元素为<code>nullptr</code>作为结尾的标记。<br>&emsp;&emsp;那么为什么编译器要生成这么一个虚函数表，它又是怎么生成的呢？<br>&emsp;&emsp;每个含有虚函数的类都会自动生成一个虚函数表，如果是没有发生继承的类，则虚函数表中所存储的都是自己类中的所有虚函数的指针，并且类内会自动生成一个成员虚函数表指针去指向这个虚函数表。如果一个派生类类继承了一个拥有虚函数的类，则相当于自己本身这个类也拥有虚函数，因此也会生成一个虚函数表，但是在最开始生产时<strong>会将基类的虚函数表一模一样拷贝一份</strong>作为自己的虚函数表，然后类内生成虚函数表指针指向这个虚函数表，此时它的虚函数表中的每个指针都指向了在基类中定义的虚函数，一旦这个派生类<strong>重写</strong>了基类中的某个虚函数，则会用重写后的虚函数的指针去<strong>覆盖</strong>对应的虚函数表中父类虚函数的指针，并且派生类中新添加的虚函数会放在虚函数表的最后，非虚函数不会放入虚函数表，以此完成虚表的构建，<strong>虚表是Cpp中完成多态的关键</strong>。<br>&emsp;&emsp;关于虚表可能会疑惑它存存放在哪里，虚函数又存放在哪里，虚表中存放的是虚函数么？<br>&emsp;&emsp;<strong>注意</strong>：类中所存放的不过是虚表指针，所以32位操作系统只有4个字节，用于找到虚表位置。虚表中存放的只是虚函数的指针，虚函数和普通函数一样是存放在代码段的，只是它的指针存放在虚表中方便我们找到他。而虚表在vs环境下是存放在代码段的，根据编译器的不同处理方式也有所不同。</p>
-<h3 id="多态的原理-1"><a href="#多态的原理-1" class="headerlink" title="多态的原理"></a>多态的原理</h3><p>&emsp;&emsp;知道了虚表的存在后就要明白为什么要有虚表，它又是如何在多态的实现中起到重要作用的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    virtual void BuyTicket()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Full ticket&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">class Student : public Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    //发生重写/覆盖</span><br><span class="line">    virtual void BuyTicket()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Student ticket&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Person* person = new Person();</span><br><span class="line">    Person* student = new Student();</span><br><span class="line">    person-&gt;BuyTicket();</span><br><span class="line">    student-&gt;BuyTicket();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Full ticket</span><br><span class="line">Student ticket</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;以上这个例子是一个再普通不过了的多态的例子，我们结合虚表解析一下编译器实现多态的过程。<br><br><img src="/2019/09/23/【Cpp】第十二章-多态/1.png" alt="多态原理"><br><br>&emsp;&emsp;<code>student</code>和<code>person</code>虽然都是<code>Person</code>类型的指针，但是却指向了类型不同的对象，而不同类型的对象在初始化时虚表指针也会根据自己的类型随之生成因此虽然<code>student</code>类型为<code>Person</code>但是其指向的<code>Student</code>类型对象中的虚表指针是指向<code>Student</code>类的虚表。而编译器在调用虚函数前都会通过对象中的虚表指针去虚表中寻找对应函数的地址，<code>Student</code>类对函数进行了重写，重写后的函数地址覆盖了原来的函数地址，因此<code>student</code>对象在调用函数时虚表中找到的就是<code>Student::BuyTicket()</code>，同理<code>person</code>对象也会根据虚表找到自己应该调用的<code>Person::BuyTicket()</code>，这样即可完成多态。<br>&emsp;&emsp;类中的非虚函数并不会写入虚函数表，因此无法完成重写更别说多态，所以实现多态的前提重写中就以要求两个函数必须是虚函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Person</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    virtual void BuyTicket()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Full ticket&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    void fun()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;fun1&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">class Student : public Person</span><br><span class="line">&#123;</span><br><span class="line">    //发生重写/覆盖</span><br><span class="line">public:</span><br><span class="line">    virtual void BuyTicket()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Student ticket&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    void fun()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;fun2&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Person* person = new Person();</span><br><span class="line">    Person* student = new Student();</span><br><span class="line">    person-&gt;BuyTicket();</span><br><span class="line">    student-&gt;BuyTicket();</span><br><span class="line">    person-&gt;fun();</span><br><span class="line">    student-&gt;fun();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Full ticket</span><br><span class="line">Student ticket</span><br><span class="line">fun1</span><br><span class="line">fun1</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;以上的<code>fun</code>因为不是虚函数并不会被写入虚表，更无法完成重写，所以构不成多态，这解释了为什么说虚表才是实现多态的关键。</p>
-<h3 id="静态绑定和动态绑定"><a href="#静态绑定和动态绑定" class="headerlink" title="静态绑定和动态绑定"></a>静态绑定和动态绑定</h3><p>&emsp;&emsp;在程序编译期间就已经确定了程序的行为的方式称为<strong>静态多态</strong>，函数的重载也是一种多态，但是函数重载的多态是利用了命名规则，我们调用不同参数的函数等于调用了不同函数的函数，与调用普通函数没有差别，其调用规则在程序编译期间就已经决定，这种绑定方式也称为<strong>早绑定</strong>。<br>&emsp;&emsp;在程序运行期间根据具体类型动态决定程序执行行为的方式称为<strong>动态绑定</strong>，例如利用虚函数重写的方式达成的多态，就是在程序执行期间根据类型去不同的虚表中调用不同的函数，以此达成多态功能，这种绑定方式也成为<strong>晚绑定</strong>。</p>
-<h3 id="为什么必须是指针或引用"><a href="#为什么必须是指针或引用" class="headerlink" title="为什么必须是指针或引用"></a>为什么必须是指针或引用</h3><p>&emsp;&emsp;在我们知道了多态的原理后已经明白了为什么要构成重写才能完成多态，那么对于第一条规则，为什么必须通过基类的指针或者引用才可以使用多态？<br>&emsp;&emsp;首先为什么是基类我觉得不用多说了，因为切割的存在派生类类对象、指针和引用可以赋值给基类的对象、指针和引用从而根据指针和引用指向不同的对象类型调用不同的函数。那么不用指针和引用，<strong>对象能不能完成多态呢</strong>?毕竟派生类类对象也是可以给基类对象赋值的。<br>&emsp;&emsp;答案是肯定<strong>不行</strong>的。在原理的介绍中有提到过虚表指针是在对象初始化时根据<strong>对象类型</strong>创建的，建立什么类型对象就有指向什么类虚表的虚表指针。而指针和引用所完成的切割与对象完成的切割有所不同，基类指针指向派生类对象是可以完成的，但是此时在内存中派生类对象依然是派生类对象，独属于派生类的成员依然存在着，只是无法通过基类指针对其访问（引用同理，引用底层实现也是利用指针）。当通过指向派生类的基类指针访问派生类对象的虚函数时，所利用的虚表指针也是在派生类对象初始化时创建的指向派生类虚表的指针，因此才可以找到派生类的虚表从而访问我们想要的函数。这一切都得益于指针之间的赋值不过是<strong>对同一块内存的不同理解罢了</strong>，并没有改变内存中的数据，才能找到属于派生类的虚函数表。而对象之间的赋值必然会通过<strong>赋值运算符重载或者拷贝构造</strong>，这其中不过是把派生类成员变量的值拷贝给了基类中存在的成员变量，并<strong>没有完成虚表指针的拷贝</strong>，虚表指针在对象初始化时已经根据自身类型确定死了，因此通过对象的赋值基类对象无法获得派生类对象的虚表指针，无法访问到派生类虚表也就无法调用我们动态绑定的函数，也就无法完成多态。</p>
-<h2 id="单继承与多继承中的虚函数表"><a href="#单继承与多继承中的虚函数表" class="headerlink" title="单继承与多继承中的虚函数表"></a>单继承与多继承中的虚函数表</h2><h3 id="单继承"><a href="#单继承" class="headerlink" title="单继承"></a>单继承</h3><p>&emsp;&emsp;单继承是我们之前之前一直讨论的模型，派生类的虚函数表如果是未发生重写状态则会完全复制一份基类的虚函数表，并将其指针作为成员放在类中，并且会放在开头，我们以以下这个类作为例子分别画出派生类内成员继承的模型和基类与派生类虚函数表内的数据。<br>&emsp;&emsp;我们首先用一种非常规的方式打印基类和派生类中虚函数表的内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Base1</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    virtual void func1()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Base1::func1()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    virtual void func2()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Base1::func2()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    int _b1;</span><br><span class="line">&#125;;</span><br><span class="line">class Derive : public Base1</span><br><span class="line">&#123;</span><br><span class="line">    //发生重写/覆盖</span><br><span class="line">public:</span><br><span class="line">    virtual void func1()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Derive::func1()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    virtual void func3()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Derive::func3()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    virtual void func4()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Derive::func4()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    int _d;</span><br><span class="line">&#125;;</span><br><span class="line">typedef void (*VFPtr)();//虚函数指针</span><br><span class="line">//打印虚函数表内容</span><br><span class="line">void PrintVTable(VFPtr vTable[])//虚表本质上是一个虚函数指针数据</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; &quot;vTable address:&quot; &lt;&lt; vTable &lt;&lt; endl;</span><br><span class="line">    for(int i = 0; vTable[i] != nullptr; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;%dst vfptr of the vTable:0X%x -&gt; &quot;, i, vTable[i]);</span><br><span class="line">        VFPtr func = vTable[i];</span><br><span class="line">        func();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    //取出虚函数表指针</span><br><span class="line">    //对于单继承虚函数表指针就是对象的前4个字节，取出前四个字节再强转为VFPtr*类型即可</span><br><span class="line">    Base1 b;</span><br><span class="line">    Derive d;</span><br><span class="line">    VFPtr* vTable1 = (VFPtr*)(*(int*)&amp;b);</span><br><span class="line">    PrintVTable(vTable1);</span><br><span class="line">    VFPtr* vTable2 = (VFPtr*)(*(int*)&amp;d);</span><br><span class="line">    PrintVTable(vTable2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">vTable address:0x4051e4</span><br><span class="line">0st vfptr of the vTable:0X403cf0 -&gt; Base1::func1()</span><br><span class="line">1st vfptr of the vTable:0X403d24 -&gt; Base1::func2()</span><br><span class="line">vTable address:0x4051f4</span><br><span class="line">0st vfptr of the vTable:0X403d88 -&gt; Derive::func1()</span><br><span class="line">1st vfptr of the vTable:0X403d24 -&gt; Base1::func2()</span><br><span class="line">2st vfptr of the vTable:0X403dbc -&gt; Derive::func3()</span><br><span class="line">3st vfptr of the vTable:0X403df0 -&gt; Derive::func4()</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;打印的第一个虚表是基类的虚函数表，我们对<code>Func1</code>进行了重写因此可以看到派生类虚表中函数地址与基类的不一样，而<code>Func2</code>我们并没有重写因此还是拷贝的基类的呢一份并没有变，<code>Func3</code>和<code>Func4</code>是派生类新加上去的，因此放在派生类虚表的最后。<br>&emsp;&emsp;我们将派生类中成员与虚表的对应关系表示出来。<br><br><img src="/2019/09/23/【Cpp】第十二章-多态/2.png" alt="多态原理"><br></p>
-<h3 id="多继承"><a href="#多继承" class="headerlink" title="多继承"></a>多继承</h3><p>&emsp;&emsp;对于多继承来说，派生类每继承一个基类都会从基类中拷贝一份虚表，因此一个派生类在多继承中可以拥有多个虚表，也就拥有多个虚表指针。我们将以上的例子稍微变更一下，再打印基类与派生类中虚表的内容。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Base1</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    virtual void func1()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Base1::func1()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    virtual void func2()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Base1::func2()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    int _b1;</span><br><span class="line">&#125;;</span><br><span class="line">class Base2</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    virtual void func1()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Base2::func1()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    virtual void func2()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Base2::func2()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    int _b2;</span><br><span class="line">&#125;;</span><br><span class="line">class Derive : public Base1, public Base2</span><br><span class="line">&#123;</span><br><span class="line">    //发生重写/覆盖</span><br><span class="line">public:</span><br><span class="line">    virtual void func1()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Derive::func1()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    virtual void func3()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Derive::func3()&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    int _d;</span><br><span class="line">&#125;;</span><br><span class="line">typedef void (*VFPtr)();//虚函数指针</span><br><span class="line">//打印虚函数表内容</span><br><span class="line">void PrintVTable(VFPtr vTable[])//虚表本质上是一个虚函数指针数据</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; &quot;vTable address:&quot; &lt;&lt; vTable &lt;&lt; endl;</span><br><span class="line">    for(int i = 0; vTable[i] != nullptr; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        printf(&quot;%dst vfptr of the vTable:0X%x -&gt; &quot;, i, vTable[i]);</span><br><span class="line">        VFPtr func = vTable[i];</span><br><span class="line">        func();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    //取出虚函数表指针</span><br><span class="line">    //对于单继承虚函数表指针就是对象的前4个字节，取出前四个字节再强转为VFPtr*类型即可</span><br><span class="line">    Base1 b1;</span><br><span class="line">    Base2 b2;</span><br><span class="line">    Derive d;</span><br><span class="line">    VFPtr* vTable1 = (VFPtr*)(*(int*)&amp;b1);</span><br><span class="line">    PrintVTable(vTable1);</span><br><span class="line">    VFPtr* vTable2 = (VFPtr*)(*(int*)&amp;b2);</span><br><span class="line">    PrintVTable(vTable2);</span><br><span class="line">    VFPtr* vTable3 = (VFPtr*)(*(int*)&amp;d);</span><br><span class="line">    PrintVTable(vTable3);</span><br><span class="line">    //这里的多继承的派生类中的第二个虚表指针紧跟在第一个派生类成员之后</span><br><span class="line">    VFPtr* vTable4 = (VFPtr*)(*(int*)((char*)&amp;d + sizeof(Base1)));</span><br><span class="line">    PrintVTable(vTable4);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">vTable address:0x405218</span><br><span class="line">0st vfptr of the vTable:0X403d30 -&gt; Base1::func1()</span><br><span class="line">1st vfptr of the vTable:0X403d64 -&gt; Base1::func2()</span><br><span class="line">vTable address:0x405228</span><br><span class="line">0st vfptr of the vTable:0X403dc8 -&gt; Base2::func1()</span><br><span class="line">1st vfptr of the vTable:0X403dfc -&gt; Base2::func2()</span><br><span class="line">vTable address:0x405238</span><br><span class="line">0st vfptr of the vTable:0X403e60 -&gt; Derive::func1()</span><br><span class="line">1st vfptr of the vTable:0X403d64 -&gt; Base1::func2()</span><br><span class="line">2st vfptr of the vTable:0X403e94 -&gt; Derive::func3()</span><br><span class="line">vTable address:0x40524c</span><br><span class="line">0st vfptr of the vTable:0X403f00 -&gt; Derive::func1()</span><br><span class="line">1st vfptr of the vTable:0X403dfc -&gt; Base2::func2()</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这里打印了两个基类的虚表和派生类中的两个虚表，可见派生类如果多继承确实是会有多个虚表存在的，并且如果重写则会对类内所有的虚表中的对应函数都会进行重写，并且会将自己新增的虚函数放进<strong>第一个</strong>虚表中，也就是最先继承的类所的来的那个虚表。<br><img src="/2019/09/23/【Cpp】第十二章-多态/3.png" alt="多态原理"><br></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2067,7 +2040,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">74</span>
+                  <span class="site-state-item-count">75</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2089,7 +2062,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2186,7 +2159,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共212.3k字</span>
+  <span class="post-count">博客全站共212.8k字</span>
 </div>
 
         ﻿
