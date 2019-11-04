@@ -1,0 +1,877 @@
+﻿<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Cpp,关联式容器,哈希," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="unordered系列关联式容器什么是unordered系列&amp;emsp;&amp;emsp;unordered系列的关联式容器有unordered-map/unordered-set/unordered-multimap/unordered-multiset，这些版本的关联式容器和普通版本的又有什么区别呢？我们简单使用下和普通版本的做一个对比。1234567891011121314151617181920">
+<meta name="keywords" content="Cpp,关联式容器,哈希">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Cpp】第十七章-unordered版本关联式容器">
+<meta property="og:url" content="http://yoursite.com/2019/11/03/【Cpp】第十七章-unordered版本关联式容器/index.html">
+<meta property="og:site_name" content="Misaki`s blog">
+<meta property="og:description" content="unordered系列关联式容器什么是unordered系列&amp;emsp;&amp;emsp;unordered系列的关联式容器有unordered-map/unordered-set/unordered-multimap/unordered-multiset，这些版本的关联式容器和普通版本的又有什么区别呢？我们简单使用下和普通版本的做一个对比。1234567891011121314151617181920">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/11/03/【Cpp】第十七章-unordered版本关联式容器/1.png">
+<meta property="og:updated_time" content="2019-11-04T13:54:54.774Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【Cpp】第十七章-unordered版本关联式容器">
+<meta name="twitter:description" content="unordered系列关联式容器什么是unordered系列&amp;emsp;&amp;emsp;unordered系列的关联式容器有unordered-map/unordered-set/unordered-multimap/unordered-multiset，这些版本的关联式容器和普通版本的又有什么区别呢？我们简单使用下和普通版本的做一个对比。1234567891011121314151617181920">
+<meta name="twitter:image" content="http://yoursite.com/2019/11/03/【Cpp】第十七章-unordered版本关联式容器/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/03/【Cpp】第十七章-unordered版本关联式容器/"/>
+
+
+
+
+
+  <title>【Cpp】第十七章-unordered版本关联式容器 | Misaki`s blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+<a href="https://github.com/MisakiFx" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Misaki`s blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习是一种态度</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/03/【Cpp】第十七章-unordered版本关联式容器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【Cpp】第十七章-unordered版本关联式容器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-03T15:25:26+08:00">
+                2019-11-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index">
+                    <span itemprop="name">Cpp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  6.5k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="unordered系列关联式容器"><a href="#unordered系列关联式容器" class="headerlink" title="unordered系列关联式容器"></a>unordered系列关联式容器</h1><h2 id="什么是unordered系列"><a href="#什么是unordered系列" class="headerlink" title="什么是unordered系列"></a>什么是unordered系列</h2><p>&emsp;&emsp;<code>unordered</code>系列的关联式容器有<code>unordered-map/unordered-set/unordered-multimap/unordered-multiset</code>，这些版本的关联式容器和普通版本的又有什么区别呢？我们简单使用下和普通版本的做一个对比。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;map&gt;</span><br><span class="line">#include &lt;unordered_map&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    std::map&lt;int, int&gt; m;</span><br><span class="line">    m.insert(std::make_pair(1, 1));</span><br><span class="line">    m.insert(std::make_pair(4, 4));</span><br><span class="line">    m.insert(std::make_pair(2, 2));</span><br><span class="line">    m.insert(std::make_pair(4, 4));</span><br><span class="line">    m.insert(std::make_pair(6, 6));</span><br><span class="line">    std::cout &lt;&lt; &quot;map:&quot; &lt;&lt; std::endl;</span><br><span class="line">    for(auto e : m)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; e.first &lt;&lt; &quot; &quot; &lt;&lt; e.second &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    std::unordered_map&lt;int, int&gt; um;</span><br><span class="line">    um.insert(std::make_pair(1, 1));</span><br><span class="line">    um.insert(std::make_pair(4, 4));</span><br><span class="line">    um.insert(std::make_pair(2, 2));</span><br><span class="line">    um.insert(std::make_pair(4, 4));</span><br><span class="line">    um.insert(std::make_pair(6, 6));</span><br><span class="line">    std::cout &lt;&lt; &quot;unordered-map:&quot; &lt;&lt; std::endl;</span><br><span class="line">    for(auto e : um)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; e.first &lt;&lt; &quot; &quot; &lt;&lt; e.second &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">map:</span><br><span class="line">1 1</span><br><span class="line">2 2</span><br><span class="line">4 4</span><br><span class="line">6 6</span><br><span class="line">unordered-map:</span><br><span class="line">6 6</span><br><span class="line">2 2</span><br><span class="line">1 1</span><br><span class="line">4 4</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;对比结果很明显，我们发现<code>map</code>往往会将插入的键值对按照<code>key</code>的大小比较排序，因此打印出来的数据是有序的，因为其底层是一棵红黑树，因此这样的结果也是理所应当的，但是<code>unordered-map</code>就如它的名字一样遍历出来的数据是无序的，但是依然能完成键值对的查找功能，<code>unordered-map</code>与<code>map</code>最为显著的差距就在这里，看上去<code>unordered-map</code>并不如<code>map</code>强大，那为什么还要存在<code>unordered</code>系列呢？因为其查找索引能够达到<code>O1</code>的时间复杂度，比红黑树更快，因为其底层数据结构是一个哈希桶，关于底层实现我们之后再讨论，我们解析来首先介绍一下<code>unordered</code>系列的使用。</p>
+<h2 id="unordered系列的使用"><a href="#unordered系列的使用" class="headerlink" title="unordered系列的使用"></a>unordered系列的使用</h2><p>&emsp;&emsp;<code>unordered</code>系列共有四种关联式容器，与普通版本的互相对应，除了数据在内部存储及遍历结果无序外，其他的使用方法与普通版本的几乎没有区别，因此这里不再详细讨论接口的使用，我们这里主要要关心的是为什么<code>unordered</code>系列可以在舍弃有序的情况下变得更快，其底层的数据结构又是怎么样的。</p>
+<h2 id="底层结构"><a href="#底层结构" class="headerlink" title="底层结构"></a>底层结构</h2><p>&emsp;&emsp;虽然看上去<code>unordered</code>系列关联式容器的使用方法与普通版本的关联式容器使用没有太大区别，但他们两个的底层实现却完全不一样，这也是导致为什么<code>unordered</code>可以更快，并且不能有序的原因。</p>
+<h3 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h3><h4 id="什么是哈希表"><a href="#什么是哈希表" class="headerlink" title="什么是哈希表"></a>什么是哈希表</h4><p>&emsp;&emsp;哈希表是一种根据映射来存储数据的结构，我们可以自定义一个哈希函数，通过<code>key</code>和哈希函数算出各个<code>value</code>实际在空间中存储的位置，然后进行<code>value</code>的存储，我们想要查找某个数据的时候也只需要通过同样的方法找到对应位置就可以拿到<code>value</code>。<br>&emsp;&emsp;举个例子，我们现在有个数组，我们约定数组对应下标就存储对应<code>key</code>的数据<code>value</code>。如<code>arr[1] = value1, arr[2] = value2, ... , arr[n] = valuen</code>。由此一来我们想要根据<code>key</code>查找某个<code>value</code>就直接访问数组中对应下标的元素<code>arr[key]</code>即可。例如我们要找<code>key == 1</code>时<code>value</code>的值，我们直接访问<code>arr[1]</code>就可以直接拿到<code>value1</code>，这就是通过哈希建立映射的方法，并且这里的查找速度只需要<code>O1</code>，这就是典型的以空间换时间的做法，因为这里可能会出现空间的大量浪费。如果发生这么一种情况，<code>key</code>的上限过大，几千万或者几亿，但是中间的数据可能十分零散，此时我们为了继续建立映射不得不创建一个长度为几千万甚至几忆的数组，并且由于数据十分零散，会导致中间可能会有很多空间根本没有映射来存<code>value</code>，例如现在要存储两个映射<code>key == 1, key == 10000000</code>，我们发现这两个映射之间在没有其他映射了，那么这一个长度为<code>10000000</code>的数组中就只存了两个值，由此就算我们节省了时间却浪费了过多的空间，这也是哈希所要解决的一个问题。总之哈希表就是这么一种通过哈希函数建立<code>key</code>和<code>value</code>之间映射的结构。</p>
+<h4 id="哈希函数"><a href="#哈希函数" class="headerlink" title="哈希函数"></a>哈希函数</h4><p>&emsp;&emsp;正如刚才所说，我们的<code>value</code>得通过哈希函数和<code>key</code>来确定数据存放位置并且也能找到对应数据，因此哈希函数的确定十分重要，向我们刚刚所举的例子中我们采用的哈希函数就是直接导致我们造成大量空间浪费的原因，因此在适当的时机选取何时的哈希函数也是十分重要的，接下来简单介绍几种哈希函数。</p>
+<h5 id="直接定址法"><a href="#直接定址法" class="headerlink" title="直接定址法"></a>直接定址法</h5><p>&emsp;&emsp;取关键字的某个线性函数为散列地址：<code>Hash(key) = A * key + b</code>。这种哈希函数的优点也很明显，十分简单，均匀，但是它只适用于<code>key</code>的范围确定，且值较小还比较连续的情景，一但<code>key</code>过大，或者不连续就会出现大量空间被浪费的情况。</p>
+<h5 id="除留余数法"><a href="#除留余数法" class="headerlink" title="除留余数法"></a>除留余数法</h5><p>&emsp;&emsp;这种方法是最为常用的哈希函数。假设我们散列表中允许的最大地址为<code>m</code>，我们可以取一个小于等于<code>m</code>的质数<code>p</code>作为除数，然后执行哈希函数<code>Hash(key) = key % p(p &lt;= m)</code>，将余数作为地址进行定址。一般来说我们为了使得哈希表可以增容都会将除数设置为随着哈希表总长度而改变的变量，并且在不考虑其他因素的情况下，<code>除数==容量</code>的情况可以最大程度的利用空间。</p>
+<h5 id="平方取中法"><a href="#平方取中法" class="headerlink" title="平方取中法"></a>平方取中法</h5><p>&emsp;&emsp;假设关键字为1234，对它平方就是1522756，抽取中间的3位227作为哈希地址； 再比如关键字为 4321，对它平方就是18671041，抽取中间的3位671(或710)作为哈希地址 平方取中法比较适合：不知 道关键字的分布，而位数又不是很大的情况。</p>
+<h5 id="折叠法"><a href="#折叠法" class="headerlink" title="折叠法"></a>折叠法</h5><p>&emsp;&emsp;折叠法是将关键字从左到右分割成位数相等的几部分(最后一部分位数可以短些)，然后将这几部分叠加 求和，并按散列表表长，取后几位作为散列地址。 折叠法适合事先不需要知道关键字的分布，适合关键字位数比较多的情况。<br>&emsp;&emsp;初次之外还有很多哈希方法，但是除了<strong>直接定址法</strong>和<strong>除留余数法</strong>外其他都不常用，所以可以仅作了解。</p>
+<h4 id="哈希冲突"><a href="#哈希冲突" class="headerlink" title="哈希冲突"></a>哈希冲突</h4><p>&emsp;&emsp;我们在利用哈希函数进行寻址的时候，很容易发生一种情况，就是两个数同时可能会寻到同一块地址，例如我们使用除留余数法进行寻址，除数为11，现在有<code>key</code>为11和22，余数都为0，我们都要存在地址为0的位置上，此时该怎么办呢，我们一个位置又不能存储两个数啊，于是这里就牵扯到了如何解决哈希冲突。哈希冲突的解决可以分为两大类，<strong>闭散列</strong>和<strong>开散列</strong>。</p>
+<h4 id="负载因子"><a href="#负载因子" class="headerlink" title="负载因子"></a>负载因子</h4><p>&emsp;&emsp;在具体讨论哈希冲突解决方法前我们还要关心一个概念即<strong>负载因子</strong>，一会我们就会知道无论是采用哪种哈希函数使用闭散列解决哈希冲突还是开散列解决哈希冲突，哈希表总会有被存满的时候，尤其是采用闭散列的时候，如果存放数据越多，就会发生越来越多的冲突，我们在解决起来可能就要遍历整张表，使得哈希表的性能下降，因此我们要尽可能避免一张哈希表被存满，不过这种情况虽然对于开散列来说可能还好，但是一段哈希表为了维持性能也一定是有它的负载上限的，这里就要对哈希表进行扩容，那么什么时候扩容怎么扩容就成了问题。我们先说如何解决什么时候扩容的难题。<br>&emsp;&emsp;假设我们现在使用除留余数法在一段长为<code>c</code>的线性空间上进行散列，此时为了充分利用空间和使得可以增容，我们的除数不定，与容量保持一致也为<code>c</code>，于是此时的哈希函数为<code>Hash(key) = key % c</code>；我们所采用的冲突解决方法为线性探测法。为了避免大面积冲突降低性能，我们引入负载因子的概念，<code>负载因子 = _size / c,(_size为哈希表中有效结点的个数)</code>。这个公式可知负载因子是不可能大于1的，等于1时则哈希表已满，那么我们必须选取一个合适的值，当哈希表还没满，性能降低还不太明显的时候就进行增容，当然增容也不能太过频繁，因为哈希表的增容也会付出很大代价，一般来说对于闭散列我们的负载因子要求其大于等于0.8就可以开始增容了。<br>&emsp;&emsp;说完什么时候增容，再说怎么增容。假如增容一次容量扩大一倍，可以知道的是，增容一次除数就会改变一次，那么原本算好地址的元素在新的哈希表中的地址也许就会改变，我们不得不遍历所有元素重新计算他们的地址然后再放到新的哈希表中，这也是为什么不能过于频繁的增容会有极大消耗的原因。</p>
+<h4 id="闭散列"><a href="#闭散列" class="headerlink" title="闭散列"></a>闭散列</h4><p>&emsp;&emsp;闭散列：也叫开放定址法，当发生哈希冲突时，如果哈希表未被装满，说明在哈希表中必然还有空位置，那 么可以把key存放到冲突位置中的“下一个” 空位置中去，于是问题就变成了如何找到一个合适的空位置让我们存储当前数据，还能保证我们在查找时能够再次准确的找到当前位置。</p>
+<h5 id="线性探测再散列"><a href="#线性探测再散列" class="headerlink" title="线性探测再散列"></a>线性探测再散列</h5><p>&emsp;&emsp;线性探测：从发生冲突的位置开始，依次向后探测，直到寻找到下一个空位置为止。 例如除留余数法除数为11，<code>key</code>为11和22，当11先散列要存储在地址为0的位置时，22再进行散列的时候发现地址为0的位置已经存储过11的数据了，则它就继续向后线性探索，直到找到第一个空位置就将22的数据存储进去。</p>
+<h5 id="二次探测再散列"><a href="#二次探测再散列" class="headerlink" title="二次探测再散列"></a>二次探测再散列</h5><p>&emsp;&emsp;线性探测的缺陷是产生冲突的数据堆积在一块，这与其找下一个空位置有关系，因为找空位置的方式就 是挨着往后逐个去找，因此二次探测为了避免该问题，找下一个空位置的方法为： <code>Hi= (H0 + i ^ 2) % m</code>, 或者：<code>H0 = (Hi - i ^ 2) % m</code>。其中： <code>i = 1,2,3…</code>  ， <code>H0</code>是通过散列函数Hash(x)对元素的关键码<code>key</code>进行计算得到的位置，<code>m</code>是表的大小。 </p>
+<h5 id="基于闭散列实现哈希表"><a href="#基于闭散列实现哈希表" class="headerlink" title="基于闭散列实现哈希表"></a>基于闭散列实现哈希表</h5><p>&emsp;&emsp;这里使用除留余数法+线性探测法实现哈希表。在实现时要注意为了标记散列表一个位置当前是否已经存在元素，我们要给每个结点都附加一个状态值，<strong>空/存在/删除</strong>三种状态，空和存在状态很好理解，删除状态的定义是为了方便再哈希表中删除结点所定义的状态，因为如果我们直接删除一个结点的话可能会影响其他结点的查找，因此我们一般删除都是采用该表状态为删除状态的这种伪删除法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line">hash.hpp:</span><br><span class="line">#pragma once</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &lt;utility&gt;</span><br><span class="line"></span><br><span class="line">//定义三种状态，DELETE状态是为了方便我们对结点进行删除</span><br><span class="line">enum STATE</span><br><span class="line">&#123;</span><br><span class="line">    EMPTY,</span><br><span class="line">    EXIST,</span><br><span class="line">    DELETE</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">template&lt;class K, class V&gt;</span><br><span class="line">struct HashNode</span><br><span class="line">&#123;</span><br><span class="line">    //为了更好的可以找到映射，哈希表往往存的是一个K-V结构</span><br><span class="line">    std::pair&lt;K, V&gt; _data;</span><br><span class="line">    //状态默认为空</span><br><span class="line">    STATE _state = EMPTY;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">template&lt;class K, class V&gt;</span><br><span class="line">class HashTable</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    typedef HashNode&lt;K, V&gt; Node;</span><br><span class="line">    HashTable(const size_t n = 10)</span><br><span class="line">        :_size(n)</span><br><span class="line">    &#123;</span><br><span class="line">        _ht.resize(n);</span><br><span class="line">    &#125;</span><br><span class="line">    bool Insert(const std::pair&lt;K, V&gt;&amp; data)</span><br><span class="line">    &#123;</span><br><span class="line">        //检查容量</span><br><span class="line">        checkCapacity();</span><br><span class="line">        //计算索引，进行散列</span><br><span class="line">        int index = data.first % _ht.size();</span><br><span class="line">        //1、判断当前地方是否有元素，没有直接插入</span><br><span class="line">        //元素可以放在EMPTY和DELETE</span><br><span class="line">        while(_ht[index]._state == EXIST)</span><br><span class="line">        &#123;</span><br><span class="line">            //2、如果有，判断当前位置的元素的key是否和插入的相同，如果相同则插入失败直接返回</span><br><span class="line">            if (_ht[index]._data.first == data.first)</span><br><span class="line">            &#123;</span><br><span class="line">                //插入失败</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">            //3、如果有，且key不同则利用哈希冲突解决方法解决哈希冲突</span><br><span class="line">            ++index;</span><br><span class="line">            if(index == _ht.size())</span><br><span class="line">            &#123;</span><br><span class="line">                index = 0;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //元素插入</span><br><span class="line">        _ht[index]._data = data;</span><br><span class="line">        _ht[index]._state = EXIST;</span><br><span class="line">        ++_size;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    //检查容量，负载因子超过阈值则扩容</span><br><span class="line">    void checkCapacity()</span><br><span class="line">    &#123;</span><br><span class="line">        //这里选取负载因子大于等于0.8扩容</span><br><span class="line">        if(_ht.size() == 0 || _size * 10 / _ht.size() &gt;= 8)</span><br><span class="line">        &#123;</span><br><span class="line">            //增容</span><br><span class="line">            int newC = _ht.size() == 0 ? 10 : 2 * _ht.size();</span><br><span class="line">            HashTable&lt;K, V&gt; newHt(newC);</span><br><span class="line">            //旧元素插入到新表</span><br><span class="line">            for(int i = 0; i &lt; _ht.size(); i++)</span><br><span class="line">            &#123;</span><br><span class="line">                if(_ht[i]._state == EXIST)</span><br><span class="line">                &#123;</span><br><span class="line">                    newHt.Insert(_ht[i]._data);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            //_ht = newHt._ht;深拷贝，太慢了，直接交换值比较快</span><br><span class="line">            std::swap(_ht, newHt._ht);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //搜索</span><br><span class="line">    Node* Find(const K&amp; key)</span><br><span class="line">    &#123;</span><br><span class="line">        int index = key % _ht.size();</span><br><span class="line">        while(_ht[index]._state != EMPTY)</span><br><span class="line">        &#123;</span><br><span class="line">            if(_ht[index]._state == EXIST)</span><br><span class="line">            &#123;</span><br><span class="line">                if(_ht[index]._data.first == key)</span><br><span class="line">                &#123;</span><br><span class="line">                    return &amp;_ht[index];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            index++;</span><br><span class="line">            if(index == _ht.size())</span><br><span class="line">            &#123;</span><br><span class="line">                index = 0;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return nullptr;</span><br><span class="line">    &#125;</span><br><span class="line">    //删除</span><br><span class="line">    bool Erase(const K&amp; key)</span><br><span class="line">    &#123;</span><br><span class="line">        Node* pos = find(key);</span><br><span class="line">        if(pos)</span><br><span class="line">        &#123;</span><br><span class="line">            pos-&gt;_state = DELETE;</span><br><span class="line">            --_size;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    //散列表</span><br><span class="line">    std::vector&lt;Node&gt; _ht;</span><br><span class="line">    size_t _size;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">test.cpp:</span><br><span class="line">#include &quot;hash.hpp&quot;</span><br><span class="line">void test()</span><br><span class="line">&#123;</span><br><span class="line">    HashTable&lt;int, int&gt; ht;</span><br><span class="line">    ht.Insert(std::make_pair(5, 5));</span><br><span class="line">    ht.Insert(std::make_pair(1, 1));</span><br><span class="line">    ht.Insert(std::make_pair(0, 0));</span><br><span class="line">    ht.Insert(std::make_pair(10, 10));</span><br><span class="line">    ht.Insert(std::make_pair(30, 30));</span><br><span class="line">    ht.Insert(std::make_pair(32, 32));</span><br><span class="line">    ht.Insert(std::make_pair(8, 8));</span><br><span class="line">    ht.Insert(std::make_pair(110, 110));</span><br><span class="line">    ht.Insert(std::make_pair(23, 23));</span><br><span class="line">    ht.Insert(std::make_pair(24, 23));</span><br><span class="line">    ht.Insert(std::make_pair(25, 23));</span><br><span class="line">    ht.Insert(std::make_pair(26, 23));</span><br><span class="line">    HashNode&lt;int, int&gt;* node =  ht.Find(32);</span><br><span class="line">    if(node != nullptr)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; (node-&gt;_data.first) &lt;&lt; &quot; &quot; &lt;&lt; node-&gt;_data.second;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;nullptr&quot; &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">    node =  ht.Find(110);</span><br><span class="line">    if(node != nullptr)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; (node-&gt;_data.first) &lt;&lt; &quot; &quot; &lt;&lt; node-&gt;_data.second;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;nullptr&quot; &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    test();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">32 32</span><br><span class="line">110 110</span><br></pre></td></tr></table></figure>
+<h4 id="开散列"><a href="#开散列" class="headerlink" title="开散列"></a>开散列</h4><p>&emsp;&emsp;开散列：也叫哈希桶或拉链法。开散列相比闭散列，可以更加有效的解决哈希冲突，因为其的结构是在哈希表的每一个节点上添加一个链表，所有经过哈希函数计算得出地址的结点直接添加到对应的链表上即可，这样一个地址上就不止可以存放一个元素，而是可以存放无限个，更好的处理了哈希冲突。其结构如下：<br><br><img src="/2019/11/03/【Cpp】第十七章-unordered版本关联式容器/1.png" alt="哈希桶"><br><br>&emsp;&emsp;要注意虽然哈希桶每个结点下面可以挂无数个结点，但是这里的单链表不易过长，否则每次查找结点都要遍历单链表，性能又会有很大程度的降低，于是我们还是需要利用负载因子进行扩容处理。<br>&emsp;&emsp;对于开散列来说我们还是不得不遍历所有结点然后重新计算地址，但是有一种可以减少消耗的方法。本来我们需要遍历完原哈希表所有结点，然后依次释放原哈希表上每个链表的空间，再在新的哈希表上开辟新空间插入结点，但是这样一释放一申请的举动无异于脱裤子放屁，我们可以直接将原哈希表上的结点连接到新哈希表上，省去释放空间再申请空间的步骤，毕竟链表结点与结点之间本来就不一定是连续的，所以这样的操作替我们节省了很多开销。<br>&emsp;&emsp;这里使用除留余数法实现哈希桶。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line">#pragma once</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;utility&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">template&lt;class K, class V&gt;</span><br><span class="line">//这里现在存的就是链表结点</span><br><span class="line">//这里我们使用单链表就行了</span><br><span class="line">struct HashNode</span><br><span class="line">&#123;</span><br><span class="line">    HashNode(const std::pair&lt;K, V&gt;&amp; data = std::pair&lt;K, V&gt;())</span><br><span class="line">        :_data(data)</span><br><span class="line">        ,_next(nullptr)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    std::pair&lt;K, V&gt; _data;</span><br><span class="line">    HashNode&lt;K, V&gt;* _next;</span><br><span class="line">&#125;;</span><br><span class="line">template&lt;class K, class V&gt;</span><br><span class="line">class HashTable</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    typedef HashNode&lt;K, V&gt; Node;</span><br><span class="line">    HashTable(size_t n = 10)</span><br><span class="line">        :_size(0)</span><br><span class="line">    &#123;</span><br><span class="line">        _ht.resize(n);</span><br><span class="line">    &#125;</span><br><span class="line">    //插入</span><br><span class="line">    bool Insert(const std::pair&lt;K, V&gt;&amp; data)</span><br><span class="line">    &#123;</span><br><span class="line">        //检查负载因子，超过阈值进行扩容</span><br><span class="line">        CheckCapacity();</span><br><span class="line">        //计算位置</span><br><span class="line">        int index = data.first % _ht.size();</span><br><span class="line">        //遍历单链表</span><br><span class="line">        Node* cur = _ht[index];</span><br><span class="line">        while(cur)</span><br><span class="line">        &#123;</span><br><span class="line">            if(cur-&gt;_data.first == data.first)</span><br><span class="line">            &#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">            cur = cur-&gt;_next;</span><br><span class="line">        &#125;</span><br><span class="line">        //插入，这里用头插其实比较方便，尾插也可以</span><br><span class="line">        cur = new Node(data);</span><br><span class="line">        cur-&gt;_next = _ht[index];</span><br><span class="line">        _ht[index] = cur;</span><br><span class="line">        ++_size;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    //查找</span><br><span class="line">    Node* Find(const K&amp; key)</span><br><span class="line">    &#123;</span><br><span class="line">        int index = key % _ht.size();</span><br><span class="line">        Node* cur = _ht[index];</span><br><span class="line">        while(cur)</span><br><span class="line">        &#123;</span><br><span class="line">            if(cur-&gt;_data.first == key)</span><br><span class="line">            &#123;</span><br><span class="line">                return cur;</span><br><span class="line">            &#125;</span><br><span class="line">            cur = cur-&gt;_next;</span><br><span class="line">        &#125;</span><br><span class="line">        return nullptr;</span><br><span class="line">    &#125;</span><br><span class="line">    //删除</span><br><span class="line">    bool Erase(const K&amp; key)</span><br><span class="line">    &#123;</span><br><span class="line">        int index = key % _ht.size();</span><br><span class="line">        Node* cur = _ht[index];</span><br><span class="line">        Node* parent = nullptr;</span><br><span class="line">        while(cur)</span><br><span class="line">        &#123;</span><br><span class="line">            if(cur-&gt;_data.first == key)</span><br><span class="line">            &#123;</span><br><span class="line">                //删除</span><br><span class="line">                if(parent == nullptr)</span><br><span class="line">                &#123;</span><br><span class="line">                    _ht[index] = cur-&gt;_next;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    parent-&gt;_next = cur-&gt;_next;</span><br><span class="line">                &#125;</span><br><span class="line">                delete cur;</span><br><span class="line">                --_size;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">            parent = cur;</span><br><span class="line">            cur = cur-&gt;_next;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    void CheckCapacity()</span><br><span class="line">    &#123;</span><br><span class="line">        //这里的阈值可以设置的稍微高一些，毕竟哈希桶的冲突不会像闭散列呢样严重</span><br><span class="line">        //这里我们设定为插入元素数 &gt;= 哈希表总长度时扩容</span><br><span class="line">        if(_size &gt;= _ht.size())</span><br><span class="line">        &#123;</span><br><span class="line">            //扩容</span><br><span class="line">            size_t newC = _ht.size() == 0 ? 10 : 2 * _ht.size();</span><br><span class="line">            std::vector&lt;Node*&gt; newHt;</span><br><span class="line">            newHt.resize(newC);</span><br><span class="line">            //搬运数据，将原哈希表中的结点连接到新哈希表上</span><br><span class="line">            for(int i = 0; i &lt; _ht.size(); i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Node* cur = _ht[i];</span><br><span class="line">                while(cur)</span><br><span class="line">                &#123;</span><br><span class="line">                    int index = cur-&gt;_data.first % newHt.size();</span><br><span class="line">                    Node* next = _ht[i]-&gt;_next;</span><br><span class="line">                    //头插进新表</span><br><span class="line">                    cur-&gt;_next = newHt[index];</span><br><span class="line">                    newHt[index] = cur;</span><br><span class="line">                    cur = next;</span><br><span class="line">                &#125;</span><br><span class="line">                _ht[i] = nullptr;</span><br><span class="line">            &#125;</span><br><span class="line">            //_ht = newHt;   //这里会进行深拷贝，消耗很大，为了防止深拷贝我们直接交换</span><br><span class="line">            std::swap(_ht, newHt);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">    //此时哈希表就相当于一个链表指针数组</span><br><span class="line">    std::vector&lt;Node*&gt; _ht;</span><br><span class="line">    size_t _size;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h3><p>&emsp;&emsp;最后我们再将我们写好的哈希桶封装为<code>unordered_map/unordered_set</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br></pre></td><td class="code"><pre><span class="line">hash_bucketMod.hpp:</span><br><span class="line">#pragma once</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;utility&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">//这里现在存的就是链表结点</span><br><span class="line">//这里我们使用单链表就行了</span><br><span class="line">//这里依然为了更好的封装对原有的哈希桶进行了修改</span><br><span class="line">template&lt;class V&gt;</span><br><span class="line">struct HashNode</span><br><span class="line">&#123;</span><br><span class="line">    HashNode(const V&amp; data = V())</span><br><span class="line">        :_data(data)</span><br><span class="line">        ,_next(nullptr)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    V _data;</span><br><span class="line">    HashNode&lt;V&gt;* _next;</span><br><span class="line">&#125;;</span><br><span class="line">template&lt;class K, class V, class KeyOfCalue&gt;</span><br><span class="line">class HashTable;</span><br><span class="line">template&lt;class K, class V, class KeyOfValue&gt;</span><br><span class="line">class _HashIterator</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    typedef HashNode&lt;V&gt; Node;</span><br><span class="line">    typedef _HashIterator&lt;K, V, KeyOfValue&gt; Self;</span><br><span class="line">    typedef HashTable&lt;K, V, KeyOfValue&gt; HTable;</span><br><span class="line">    _HashIterator(Node* node, HTable* pht)</span><br><span class="line">        :_node(node)</span><br><span class="line">        ,_pht(pht)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    V&amp; operator*()</span><br><span class="line">    &#123;</span><br><span class="line">        return _node-&gt;_data;</span><br><span class="line">    &#125;</span><br><span class="line">    V* operator-&gt;()</span><br><span class="line">    &#123;</span><br><span class="line">        return &amp;_node-&gt;_data;</span><br><span class="line">    &#125;</span><br><span class="line">    bool operator!=(const Self&amp; it)</span><br><span class="line">    &#123;</span><br><span class="line">        return _node != it._node;</span><br><span class="line">    &#125;</span><br><span class="line">    Self&amp; operator++()</span><br><span class="line">    &#123;</span><br><span class="line">        if(_node-&gt;_next)</span><br><span class="line">        &#123;</span><br><span class="line">            _node = _node-&gt;_next;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            KeyOfValue kov;</span><br><span class="line">            //找到下一个非空链表头</span><br><span class="line">            //1、首先确定当前迭代器在哈希表中的位置</span><br><span class="line">            int index = kov(_node-&gt;_data) % _pht-&gt;_ht.size();</span><br><span class="line">            ++index;</span><br><span class="line">            while(index &lt; _pht-&gt;_ht.size())</span><br><span class="line">            &#123;</span><br><span class="line">                if(_pht-&gt;_ht[index])</span><br><span class="line">                &#123;</span><br><span class="line">                    _node = _pht-&gt;_ht[index];</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                ++index;</span><br><span class="line">            &#125;</span><br><span class="line">            if(index == _pht-&gt;_ht.size())</span><br><span class="line">            &#123;</span><br><span class="line">                _node = nullptr;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return *this;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    Node* _node;</span><br><span class="line">    HTable* _pht;</span><br><span class="line">&#125;;</span><br><span class="line">template&lt;class K, class V, class KeyOfValue&gt;</span><br><span class="line">class HashTable</span><br><span class="line">&#123;</span><br><span class="line">    friend class _HashIterator&lt;K, V, KeyOfValue&gt;;</span><br><span class="line">public:</span><br><span class="line">    typedef HashNode&lt;V&gt; Node;</span><br><span class="line">    typedef _HashIterator&lt;K, V, KeyOfValue&gt; iterator;</span><br><span class="line">    //迭代器相关</span><br><span class="line">    iterator begin()</span><br><span class="line">    &#123;</span><br><span class="line">        for(int i = 0; i &lt; _ht.size(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            if(_ht[i] != nullptr)</span><br><span class="line">            &#123;</span><br><span class="line">                return iterator(_ht[i], this);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return iterator(nullptr, this);</span><br><span class="line">    &#125;</span><br><span class="line">    iterator end()</span><br><span class="line">    &#123;</span><br><span class="line">        return iterator(nullptr, this);</span><br><span class="line">    &#125;</span><br><span class="line">    HashTable(size_t n = 10)</span><br><span class="line">        :_size(0)</span><br><span class="line">    &#123;</span><br><span class="line">        _ht.resize(n, nullptr);</span><br><span class="line">    &#125;</span><br><span class="line">    //插入</span><br><span class="line">    std::pair&lt;iterator, bool&gt; Insert(const V&amp; data)</span><br><span class="line">    &#123;</span><br><span class="line">        //检查负载因子，超过阈值进行扩容</span><br><span class="line">        CheckCapacity();</span><br><span class="line">        //计算位置</span><br><span class="line">        KeyOfValue kov;</span><br><span class="line">        int index = kov(data) % _ht.size();</span><br><span class="line">        //遍历单链表</span><br><span class="line">        Node* cur = _ht[index];</span><br><span class="line">        while(cur)</span><br><span class="line">        &#123;</span><br><span class="line">            if(kov(cur-&gt;_data) == kov(data))</span><br><span class="line">            &#123;</span><br><span class="line">                return std::make_pair(iterator(cur, this), false);</span><br><span class="line">            &#125;</span><br><span class="line">            cur = cur-&gt;_next;</span><br><span class="line">        &#125;</span><br><span class="line">        //插入，这里用头插其实比较方便，尾插也可以</span><br><span class="line">        cur = new Node(data);</span><br><span class="line">        cur-&gt;_next = _ht[index];</span><br><span class="line">        _ht[index] = cur;</span><br><span class="line">        ++_size;</span><br><span class="line">        return std::make_pair(iterator(cur, this), true);</span><br><span class="line">    &#125;</span><br><span class="line">    //查找</span><br><span class="line">    Node* Find(const K&amp; key)</span><br><span class="line">    &#123;</span><br><span class="line">        KeyOfValue kov;</span><br><span class="line">        int index = key % _ht.size();</span><br><span class="line">        Node* cur = _ht[index];</span><br><span class="line">        while(cur)</span><br><span class="line">        &#123;</span><br><span class="line">            if(kov(cur-&gt;_data) == key)</span><br><span class="line">            &#123;</span><br><span class="line">                return cur;</span><br><span class="line">            &#125;</span><br><span class="line">            cur = cur-&gt;_next;</span><br><span class="line">        &#125;</span><br><span class="line">        return nullptr;</span><br><span class="line">    &#125;</span><br><span class="line">    //删除</span><br><span class="line">    bool Erase(const K&amp; key)</span><br><span class="line">    &#123;</span><br><span class="line">        int index = key % _ht.size();</span><br><span class="line">        Node* cur = _ht[index];</span><br><span class="line">        Node* parent = nullptr;</span><br><span class="line">        KeyOfValue kov;</span><br><span class="line">        while(cur)</span><br><span class="line">        &#123;</span><br><span class="line">            if(kov(cur-&gt;_data) == key)</span><br><span class="line">            &#123;</span><br><span class="line">                //删除</span><br><span class="line">                if(parent == nullptr)</span><br><span class="line">                &#123;</span><br><span class="line">                    _ht[index] = cur-&gt;_next;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    parent-&gt;_next = cur-&gt;_next;</span><br><span class="line">                &#125;</span><br><span class="line">                delete cur;</span><br><span class="line">                --_size;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">            parent = cur;</span><br><span class="line">            cur = cur-&gt;_next;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    void CheckCapacity()</span><br><span class="line">    &#123;</span><br><span class="line">        //这里的阈值可以设置的稍微高一些，毕竟哈希桶的冲突不会像闭散列呢样严重</span><br><span class="line">        //这里我们设定为插入元素数 &gt;= 哈希表总长度时扩容</span><br><span class="line">        if(_size &gt;= _ht.size())</span><br><span class="line">        &#123;</span><br><span class="line">            //扩容</span><br><span class="line">            size_t newC = _ht.size() == 0 ? 10 : 2 * _ht.size();</span><br><span class="line">            std::vector&lt;Node*&gt; newHt;</span><br><span class="line">            newHt.resize(newC);</span><br><span class="line">            KeyOfValue kov;</span><br><span class="line">            //搬运数据，将原哈希表中的结点连接到新哈希表上</span><br><span class="line">            for(int i = 0; i &lt; _ht.size(); i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Node* cur = _ht[i];</span><br><span class="line">                while(cur)</span><br><span class="line">                &#123;</span><br><span class="line">                    int index = kov(cur-&gt;_data) % newHt.size();</span><br><span class="line">                    Node* next = _ht[i]-&gt;_next;</span><br><span class="line">                    //头插进新表</span><br><span class="line">                    cur-&gt;_next = newHt[index];</span><br><span class="line">                    newHt[index] = cur;</span><br><span class="line">                    cur = next;</span><br><span class="line">                &#125;</span><br><span class="line">                _ht[i] = nullptr;</span><br><span class="line">            &#125;</span><br><span class="line">            //_ht = newHt;   //这里会进行深拷贝，消耗很大，为了防止深拷贝我们直接交换</span><br><span class="line">            std::swap(_ht, newHt);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">    //此时哈希表就相当于一个链表指针数组</span><br><span class="line">    std::vector&lt;Node*&gt; _ht;</span><br><span class="line">    size_t _size;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">unordered_map.hpp:</span><br><span class="line">#pragma once</span><br><span class="line">#include &quot;hash_bucketMod.hpp&quot;</span><br><span class="line">template&lt;class K, class V&gt;</span><br><span class="line">class Unordered_Map</span><br><span class="line">&#123;</span><br><span class="line">    struct MapKeyOfValue</span><br><span class="line">    &#123;</span><br><span class="line">        const K&amp; operator()(const std::pair&lt;K, V&gt;&amp; data)</span><br><span class="line">        &#123;</span><br><span class="line">            return data.first;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">public:</span><br><span class="line">    typedef typename HashTable&lt;K, std::pair&lt;K, V&gt;, MapKeyOfValue&gt;::iterator iterator;</span><br><span class="line">    iterator begin()</span><br><span class="line">    &#123;</span><br><span class="line">        return _ht.begin();</span><br><span class="line">    &#125;</span><br><span class="line">    iterator end()</span><br><span class="line">    &#123;</span><br><span class="line">        return _ht.end();</span><br><span class="line">    &#125;</span><br><span class="line">    std::pair&lt;iterator, bool&gt; Insert(const std::pair&lt;K, V&gt;&amp; data)</span><br><span class="line">    &#123;</span><br><span class="line">        return _ht.Insert(data);</span><br><span class="line">    &#125;</span><br><span class="line">    V&amp; operator[](const K&amp; key)</span><br><span class="line">    &#123;</span><br><span class="line">        return (_ht.Insert(std::make_pair(key, V())).first)-&gt;second;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    HashTable&lt;K, std::pair&lt;K, V&gt;, MapKeyOfValue&gt; _ht;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">unordered_set.hpp:</span><br><span class="line">#pragma once</span><br><span class="line">#include &quot;hash_bucketMod.hpp&quot;</span><br><span class="line">template&lt;class K&gt;</span><br><span class="line">class Unordered_set</span><br><span class="line">&#123;</span><br><span class="line">    struct SetKeyOfValue</span><br><span class="line">    &#123;</span><br><span class="line">        const K&amp; operator()(const K&amp; data)</span><br><span class="line">        &#123;</span><br><span class="line">            return data;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">public:</span><br><span class="line">    typedef typename HashTable&lt;K, K, SetKeyOfValue&gt;::iterator iterator;</span><br><span class="line">    iterator begin()</span><br><span class="line">    &#123;</span><br><span class="line">        return _ht.begin();</span><br><span class="line">    &#125;</span><br><span class="line">    iterator end()</span><br><span class="line">    &#123;</span><br><span class="line">        return _ht.end();</span><br><span class="line">    &#125;</span><br><span class="line">    std::pair&lt;iterator, bool&gt; Insert(const K&amp; data)</span><br><span class="line">    &#123;</span><br><span class="line">        return _ht.Insert(data);</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    HashTable&lt;K, K, SetKeyOfValue&gt; _ht;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">test.cpp:</span><br><span class="line">#include &quot;unordered_map.hpp&quot;</span><br><span class="line">#include &quot;unordered_set.hpp&quot;</span><br><span class="line">void test3()</span><br><span class="line">&#123;</span><br><span class="line">    Unordered_Map&lt;int, int&gt; umap;</span><br><span class="line">    umap.Insert(std::make_pair(1, 1));</span><br><span class="line">    umap.Insert(std::make_pair(5, 5));</span><br><span class="line">    umap.Insert(std::make_pair(6, 6));</span><br><span class="line">    umap.Insert(std::make_pair(9, 9));</span><br><span class="line">    for(auto e : umap)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; e.first &lt;&lt; &quot; &quot; &lt;&lt; e.second &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    umap[6] = 11;</span><br><span class="line">    umap[10] = 10;</span><br><span class="line">    umap[25] = 1;</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">    for (auto e : umap)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; e.first &lt;&lt; &quot; &quot; &lt;&lt; e.second &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    Unordered_set&lt;int&gt; uset;</span><br><span class="line">    uset.Insert(1);</span><br><span class="line">    uset.Insert(5);</span><br><span class="line">    uset.Insert(6);</span><br><span class="line">    uset.Insert(9);</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">    for (auto e : uset)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; e &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    test3();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1 1</span><br><span class="line">5 5</span><br><span class="line">6 6</span><br><span class="line">9 9</span><br><span class="line"></span><br><span class="line">10 10</span><br><span class="line">1 1</span><br><span class="line">25 1</span><br><span class="line">5 5</span><br><span class="line">6 11</span><br><span class="line">9 9</span><br><span class="line"></span><br><span class="line">1</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">9</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;从结果上来看我们的实现目前成功了。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>&emsp;&emsp;通过这两章对关联式容器两种底层原理的探索和实现我们可以总结出以下结论。<br>&emsp;&emsp;1、普通版本的<code>map/set</code>底层使用的红黑树可以将搜索、插入和删除的操作时间复杂度优化为<code>OlogN</code>。<br>&emsp;&emsp;2、要求<code>map/set</code>中的<code>key</code>必须是可以比较的，不然就无法达成二叉搜索树中需要比较大小的操作，那么就无法成立红黑树。<br>&emsp;&emsp;3、<code>unordered</code>系列的<code>map/set</code>底层结构是一个哈希桶，可以将搜索、插入和删除的操作优化为<code>O1</code>，但是在每次需要增容的时候则不得不需要执行一次<code>On</code>的遍历操作，代价极大。<br>&emsp;&emsp;4、<code>unordered</code>系列的<code>map/set</code>插入数据的<code>key</code>要求必须有合适的哈希函数能够对其进行哈希，否则将无法计算出合适的下标存储数据，例如我们实现的时候写死了哈希函数，因此其只能存储<code>key</code>可以取模的数据，而如果<code>key</code>是一个字符串我们将束手无策，不过也有字符串的哈希方法，会将字符串转为整数在进行哈希，这里不再深入讨论。<br>&emsp;&emsp;5、<code>map/set</code>可以对数据根据<code>key</code>进行排序，且每次操作的事件复杂度十分平均都为<code>OlogN</code>；<code>unordered_map/unordered_set</code>不会对数据进行排序，虽然大多数情况下的操作都是<code>O1</code>的，但是一旦在插入时遇到增容的情况，则会造成极大消耗从而变成<code>ON</code>的时间复杂度，同时<code>unordered</code>系列有可能会消耗更多的内存空间。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读!-------------</div>
+    
+    </div>
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>记录学习每一分，感谢您的赞助</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="MisakiFx 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="MisakiFx 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Cpp/" rel="tag"># Cpp</a>
+          
+            <a href="/tags/关联式容器/" rel="tag"># 关联式容器</a>
+          
+            <a href="/tags/哈希/" rel="tag"># 哈希</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/25/【DS】栈的压入、弹出序列/" rel="next" title="【DS】栈的压入、弹出序列">
+                <i class="fa fa-chevron-left"></i> 【DS】栈的压入、弹出序列
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="MisakiFx" />
+            
+              <p class="site-author-name" itemprop="name">MisakiFx</p>
+              <p class="site-description motion-element" itemprop="description">Hard working or giving up!!!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">76</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/MisakiFx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1761607418@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope-open"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://music.163.com/#/user/home?id=432551242" target="_blank" title="网易云音乐">
+                      
+                        <i class="fa fa-fw fa-music"></i>网易云音乐</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/qq_41669298" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-crosshairs"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#unordered系列关联式容器"><span class="nav-number">1.</span> <span class="nav-text">unordered系列关联式容器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是unordered系列"><span class="nav-number">1.1.</span> <span class="nav-text">什么是unordered系列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#unordered系列的使用"><span class="nav-number">1.2.</span> <span class="nav-text">unordered系列的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#底层结构"><span class="nav-number">1.3.</span> <span class="nav-text">底层结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#哈希表"><span class="nav-number">1.3.1.</span> <span class="nav-text">哈希表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是哈希表"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">什么是哈希表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#哈希函数"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">哈希函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#直接定址法"><span class="nav-number">1.3.1.2.1.</span> <span class="nav-text">直接定址法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#除留余数法"><span class="nav-number">1.3.1.2.2.</span> <span class="nav-text">除留余数法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#平方取中法"><span class="nav-number">1.3.1.2.3.</span> <span class="nav-text">平方取中法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#折叠法"><span class="nav-number">1.3.1.2.4.</span> <span class="nav-text">折叠法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#哈希冲突"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">哈希冲突</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#负载因子"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">负载因子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#闭散列"><span class="nav-number">1.3.1.5.</span> <span class="nav-text">闭散列</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#线性探测再散列"><span class="nav-number">1.3.1.5.1.</span> <span class="nav-text">线性探测再散列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二次探测再散列"><span class="nav-number">1.3.1.5.2.</span> <span class="nav-text">二次探测再散列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#基于闭散列实现哈希表"><span class="nav-number">1.3.1.5.3.</span> <span class="nav-text">基于闭散列实现哈希表</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开散列"><span class="nav-number">1.3.1.6.</span> <span class="nav-text">开散列</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#封装"><span class="nav-number">1.3.2.</span> <span class="nav-text">封装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        ﻿<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MisakiFx</span>
+
+  
+</div>
+
+
+<div class="powered-by">
+  <i class="fa fa-user-md"></i>
+  <span id="busuanzi_container_site_uv">
+    我的网站的访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+</div>
+
+
+
+<span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共231.8k字</span>
+</div>
+
+        ﻿
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+        <script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
