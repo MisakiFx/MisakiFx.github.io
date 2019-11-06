@@ -264,6 +264,176 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/06/【Cpp】哈希的应用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/06/【Cpp】哈希的应用/" itemprop="url">【Cpp】哈希的应用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-06T15:50:45+08:00">
+                2019-11-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index">
+                    <span itemprop="name">Cpp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.9k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="哈希的应用"><a href="#哈希的应用" class="headerlink" title="哈希的应用"></a>哈希的应用</h1><p>&emsp;&emsp;哈希思想在算法中的应用繁多其重要性是不言而喻的，这里简单介绍两种哈希在大数据中的应用。</p>
+<h2 id="位图"><a href="#位图" class="headerlink" title="位图"></a>位图</h2><h3 id="算法思路"><a href="#算法思路" class="headerlink" title="算法思路"></a>算法思路</h3><p>&emsp;&emsp;假如说有这么一种情景：给40亿个不重复的无符号整数，没排过序，判断一个无符号整数是否在这40亿个数中。<br>&emsp;&emsp;首先我们从时间考虑，假如说我们遍历40亿个数，事件复杂度是<code>On</code>的，如果我们先排序再用二分查找，排序要<code>ONlogN</code>二分查找要<code>OlogN</code>也还是不够快。不过这道题最重要的不是它的时间，而是空间，如果我们把40亿个整形全放到内存中需要<code>4G * 4 = 16G</code>内存，<code>40亿字节 == 4G</code>，不难发现我们根本存不下，那么怎么办呢？这里就需要用到<strong>位图</strong>。<br>&emsp;&emsp;我们标记一个数是否存在根本不需要存储完整整数，我们只需要用存在或者不存在两种状态对其进行标记即可，而两种状态的标记，只需要1位数据即可，由此我们可以用40亿比特位来标记40亿个数是否存在。并且无符号整形的上限差不多也就在42亿，我们就算标记完全部数字用到40亿位也只需要<code>4 G / 8 = 500M</code>内存，由此我们使用位图进行标记差不多相当于将空间压缩了32倍。<br>&emsp;&emsp;标记思路就是40多亿位分表标识40多亿无符号整型，一个数如果存在则它对应位标记为<code>1</code>，否则为<code>0</code>。假如说0存在，则第0位标记为<code>1</code>，32不存在则第32位标记为0，而无符号整形也是有上限的，40多亿位完全可以标记所有无符合整形。 </p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">class BitSet</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    //要保证每一个数据都能映射到一个唯一的位置，位图的大小与最大映射数据上限有关</span><br><span class="line">    //因此这里的range代表的是映射的最大数据</span><br><span class="line">    BitSet(size_t range)</span><br><span class="line">    &#123;</span><br><span class="line">        _bs.resize((range &gt;&gt; 5) + 1);</span><br><span class="line">    &#125;</span><br><span class="line">    //存储</span><br><span class="line">    void Set(int num)</span><br><span class="line">    &#123;</span><br><span class="line">        int index = num &gt;&gt; 5;</span><br><span class="line">        int bitIdx = num % 32;</span><br><span class="line">        _bs[index] |= (1 &lt;&lt; bitIdx);</span><br><span class="line">    &#125;</span><br><span class="line">    bool Find(int num)</span><br><span class="line">    &#123;</span><br><span class="line">        int index = num &gt;&gt; 5;</span><br><span class="line">        int bitIdx = num % 32;</span><br><span class="line">        return 1 &amp; (_bs[index] &gt;&gt; bitIdx);</span><br><span class="line">    &#125;</span><br><span class="line">    void ReSet(int num)</span><br><span class="line">    &#123;</span><br><span class="line">        int index = num &gt;&gt; 5;</span><br><span class="line">        int bitIdx = num % 32;</span><br><span class="line">        _bs[index] &amp;= (~(1 &lt;&lt; bitIdx));</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    std::vector&lt;int&gt; _bs;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    BitSet bs(64);</span><br><span class="line">    bs.Set(1);</span><br><span class="line">    bs.Set(64);</span><br><span class="line">    bs.Set(4);</span><br><span class="line">    std::cout &lt;&lt; bs.Find(1) &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; bs.Find(64) &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; bs.Find(4) &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; bs.Find(3) &lt;&lt; std::endl;</span><br><span class="line">    bs.ReSet(4);</span><br><span class="line">    std::cout &lt;&lt; bs.Find(4) &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1</span><br><span class="line">1</span><br><span class="line">1</span><br><span class="line">0</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;但是使用位图有一个缺陷，就是我们无法解决哈希冲突，如果我们想要判断字符串，当字符串转换为整数时就有可能会造成哈希冲突，因为算法的原因两个不同的字符串可能会最终会转换为相同的整数，所以在判断字符串等其他需要转换并且可能会造成哈希冲突的类型时不能直接使用位图，于是一种进化版的位图诞生了。</p>
+<h2 id="布隆过滤器"><a href="#布隆过滤器" class="headerlink" title="布隆过滤器"></a>布隆过滤器</h2><h3 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h3><p>&emsp;&emsp;布隆过滤器是专门为了解决为途中转换会造成哈希冲突的情况。例如我们现在要用位图标记字符串，我们两个不相同的字符串经过哈希函数转换后可能会出现最终一样的转换结果于是便出现了哈希冲突，例如<code>str1</code>哈希转换后为<code>24</code>于是我们将第24位置1表示<code>str1</code>存在，但是此时我们在判断<code>str2</code>是否存在的时候发现<code>str2</code>哈希后的值也为<code>24</code>，但是<code>str2</code>并不存在，于是这里就出现了哈希冲突，进行了误判。<br>&emsp;&emsp;为了解决它，布隆过滤器会选择利用多个不同的哈希函数对一个字符串进行哈希，并将所有哈希结果的对应位全部置1，这里与位图的思想无异。当我们查找一个字符串是否存在时再用同样的多个哈希函数对其进行哈希，然后依次查找每一位哈希结果，如果全为1则可大几率认定为这个字符串是存在的。例如<code>str1</code>存储利用三个哈希函数得到结果为<code>24, 26, 28</code>，于是我们将这3位置，我们在查找<code>str2</code>时利用同样三个哈希函数转换得到结果<code>24, 25, 27</code>，虽然<code>24</code>造成了冲突，但是由于<code>25, 26</code>并不为1，所以也并不会误判<code>str2</code>存在，只有<code>str1</code>三次哈希后结果在位图中全都为1时才会判断其存在，这样可以大概率解决冲突。<br>&emsp;&emsp;为什么说是大几率存在的呢？因为也有可能这个字符串的所有哈希结果都与其他字符串造成冲突，此时也会有误判，不过这种情况的几率很小，布隆过滤器可以保证绝大多数情况是正确的，但偶尔也难免会有特殊情况发生。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">#include &quot;BitSet.hpp&quot;</span><br><span class="line">struct HFun1</span><br><span class="line">&#123;</span><br><span class="line">    size_t operator()(const std::string&amp; str)</span><br><span class="line">    &#123;</span><br><span class="line">        size_t hash = 0;</span><br><span class="line">        for(auto&amp; ch : str)</span><br><span class="line">        &#123;</span><br><span class="line">            hash = hash * 131 + ch;</span><br><span class="line">        &#125;</span><br><span class="line">        return hash;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">struct HFun2</span><br><span class="line">&#123;</span><br><span class="line">    size_t operator()(const std::string&amp; str)</span><br><span class="line">    &#123;</span><br><span class="line">        size_t hash = 0;</span><br><span class="line">        for(auto&amp; ch : str)</span><br><span class="line">        &#123;</span><br><span class="line">            hash = hash * 65599 + ch;</span><br><span class="line">        &#125;</span><br><span class="line">        return hash;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">struct HFun3</span><br><span class="line">&#123;</span><br><span class="line">    size_t operator()(const std::string&amp; str)</span><br><span class="line">    &#123;</span><br><span class="line">        size_t hash = 0;</span><br><span class="line">        size_t magic = 63689;</span><br><span class="line">        for(auto&amp; ch : str)</span><br><span class="line">        &#123;</span><br><span class="line">            hash = hash * magic + ch;</span><br><span class="line">            magic *= 378551;</span><br><span class="line">        &#125;</span><br><span class="line">        return hash;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">//HFun为3个自定义的哈希函数</span><br><span class="line">template&lt;class T, class HFun1, class HFun2, class HFun3&gt;</span><br><span class="line">class BloomFilter</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    //k = (m / n) * ln2</span><br><span class="line">    //k:哈希函数数量</span><br><span class="line">    //m:位图大小</span><br><span class="line">    //n:元素个数</span><br><span class="line">    //m = k * n / ln2</span><br><span class="line">    //number表示元素个数，布隆这里不用元素最大上限作为位图的大小，因为可能会造成大量数据浪费</span><br><span class="line">    //这里利用二次哈希，节省空间</span><br><span class="line">    BloomFilter(size_t number)</span><br><span class="line">        :_bitCount(5 * number)</span><br><span class="line">        ,_bs(_bitCount)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    void Set(const T&amp; data)</span><br><span class="line">    &#123;</span><br><span class="line">        int index1 = HFun1()(data) % _bitCount;</span><br><span class="line">        int index2 = HFun2()(data) % _bitCount;</span><br><span class="line">        int index3 = HFun3()(data) % _bitCount;</span><br><span class="line">        _bs.Set(index1);</span><br><span class="line">        _bs.Set(index2);</span><br><span class="line">        _bs.Set(index3);</span><br><span class="line">    &#125;</span><br><span class="line">    bool Find(const T&amp; data)</span><br><span class="line">    &#123;</span><br><span class="line">        int index1 = HFun1()(data) % _bitCount;</span><br><span class="line">        int index2 = HFun2()(data) % _bitCount;</span><br><span class="line">        int index3 = HFun3()(data) % _bitCount;</span><br><span class="line">        if(!_bs.Find(index1) || !_bs.Find(index2) || !_bs.Find(index3))</span><br><span class="line">        &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;//可能会有误判</span><br><span class="line">    &#125;</span><br><span class="line">    //布隆为了防止误判不提供删除操作</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">    BitSet _bs;</span><br><span class="line">    size_t _bitCount;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    BloomFilter&lt;std::string, HFun1, HFun2, HFun3&gt; bf(1000);</span><br><span class="line">    std::string str1 = &quot;https://misakifx.github.io/&quot;;</span><br><span class="line">    std::string str2 = &quot;https://blog.csdn.net/qq_41669298&quot;;</span><br><span class="line">    std::string str3 = &quot;https://space.bilibili.com/14406161/#/fans/follow&quot;;</span><br><span class="line">    std::string str4 = &quot;https://space.bilibili.com/#/fans/follow&quot;;</span><br><span class="line">    std::string str5 = &quot;https://space.bilibili.com/4406161/#/fans/follow&quot;;</span><br><span class="line">    std::string str6 = &quot;https://space.bilibili.com/146161/#/fans/follow&quot;;</span><br><span class="line">    bf.Set(str1);</span><br><span class="line">    bf.Set(str2);</span><br><span class="line">    bf.Set(str3);</span><br><span class="line">    bool ret = bf.Find(str1);</span><br><span class="line">    std::cout &lt;&lt; ret &lt;&lt; std::endl;</span><br><span class="line">    ret = bf.Find(str2);</span><br><span class="line">    std::cout &lt;&lt; ret &lt;&lt; std::endl;</span><br><span class="line">    ret = bf.Find(str3);</span><br><span class="line">    std::cout &lt;&lt; ret &lt;&lt; std::endl;</span><br><span class="line">    ret = bf.Find(str4);</span><br><span class="line">    std::cout &lt;&lt; ret &lt;&lt; std::endl;</span><br><span class="line">    ret = bf.Find(str5);</span><br><span class="line">    std::cout &lt;&lt; ret &lt;&lt; std::endl;</span><br><span class="line">    ret = bf.Find(str6);</span><br><span class="line">    std::cout &lt;&lt; ret &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1</span><br><span class="line">1</span><br><span class="line">1</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;布隆过滤器一般来说不提供删除操作，但是其实是可以实现的，但是这里就需要借助引用计数，如果借用引用计数那么一个位肯定解决不了，就需要用多个位，那么就需要开辟更多空间，这里就需要根据需求来设计。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/03/【Cpp】第十七章-unordered版本关联式容器/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1886,187 +2056,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/29/【网络】第六章-链路层协议及其他协议/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/29/【网络】第六章-链路层协议及其他协议/" itemprop="url">【网络】第六章-链路层协议及其他协议</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-29T18:02:17+08:00">
-                2019-09-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网络/" itemprop="url" rel="index">
-                    <span itemprop="name">网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.1k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="链路层协议及其他协议"><a href="#链路层协议及其他协议" class="headerlink" title="链路层协议及其他协议"></a>链路层协议及其他协议</h1><h2 id="链路层功能"><a href="#链路层功能" class="headerlink" title="链路层功能"></a>链路层功能</h2><p>&emsp;&emsp;负责相邻设备之间的数据帧传输。<br>&emsp;&emsp;网络层负责主导数据传输方向，而链路层更加偏向底层，用来引导相邻主机间数据如何传输，之后由物理信号传输数据。</p>
-<h2 id="以太网协议"><a href="#以太网协议" class="headerlink" title="以太网协议"></a>以太网协议</h2><p>&emsp;&emsp;以太网协议用于在链路层组织数据，主导相邻主机之间的数据传输方向。<br>&emsp;&emsp;在以太网协议中有一个重要概念<strong>MAC地址</strong>：相邻设备定位的地址，也就是物理网卡的硬件地址，标识每一块网卡，在两块网卡之间的数据传输起到作用</p>
-<h3 id="协议构成"><a href="#协议构成" class="headerlink" title="协议构成"></a>协议构成</h3><p>&emsp;&emsp;6字节目的MAC地址：标志数据发向哪块网卡。<br>&emsp;&emsp;6字节源MAC地址：标志数据从那块网卡发来。<br>&emsp;&emsp;2字节上层协议类型：及ip协议等。<br>&emsp;&emsp;46-1500字节数据：传输的数据。<br>&emsp;&emsp;4字节以太帧尾：在其中包含校验和。</p>
-<h2 id="ARP协议"><a href="#ARP协议" class="headerlink" title="ARP协议"></a>ARP协议</h2><p>&emsp;&emsp;要想在链路层进行传输我们得知道目的MAC地址，那么我们如何获得MAC地址？这里就要用到ARP协议。</p>
-<h3 id="协议作用"><a href="#协议作用" class="headerlink" title="协议作用"></a>协议作用</h3><p>&emsp;&emsp;ARP协议是介于网络层与链路层之间的协议，通过IP地址获取MAC地址。</p>
-<h3 id="协议原理"><a href="#协议原理" class="headerlink" title="协议原理"></a>协议原理</h3><p>&emsp;&emsp;通过发送一个ARP请求数据包，要求指定ip地址的设备将自己的MAC地址做一个应答响应回来，并且<strong>对ip地址和MAC地址的关系进行映射缓存</strong>，但是缓存时间很短，通常只有30分钟。</p>
-<h2 id="MTU"><a href="#MTU" class="headerlink" title="MTU"></a>MTU</h2><p>&emsp;&emsp;之前在网络层有提到过MTU，最大传输单元，即以太头包裹的数据大小（不包括头大小），IP协议头及其包裹的UDP数据如果总大于MTU则会在网络层进行数据分片，然后再通过链路层进行传输，而组织和分片数据都是在网络层，这里要讲的是MTU对TCP和UDP协议分别的影响。</p>
-<h3 id="对TCP协议的影响"><a href="#对TCP协议的影响" class="headerlink" title="对TCP协议的影响"></a>对TCP协议的影响</h3><p>&emsp;&emsp;tcp在传输层进行传输的时候因为可靠传输会自动进行数据分段传输，之前的TCP协议中的滑动窗口机制介绍也有提到过，分段大小即称为<code>MSS</code>。通信双方在三次握手的时候计算自身<code>MSS = MTU - IP - TCP</code>，双方取较小的MSS作为最大数据段传输大小。因为TCP在传输层会进行自动数据分段，所以在网络层不会进行数据分片。</p>
-<h3 id="对UDP协议的影响"><a href="#对UDP协议的影响" class="headerlink" title="对UDP协议的影响"></a>对UDP协议的影响</h3><p>&emsp;&emsp;UDP数据报在网络层如果大小大于<code>MTU</code>但是小于IP最大传输大小即<code>64k</code>则需要在网络层进行数据分片，如果分片越多由于UDP的不可靠传输则丢包可能性越大，对端重组数据失败几率就越大，意思是说如果UDP分片越多则数据丢包可能性越大。一个UDP包中的数据最大默认情况下也就是<code>MTU(默认1500字节) - IP头(20字节) - UDP头(8字节) = 1472字节</code>。</p>
-<h1 id="其他协议"><a href="#其他协议" class="headerlink" title="其他协议"></a>其他协议</h1><h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><h3 id="DNS的诞生"><a href="#DNS的诞生" class="headerlink" title="DNS的诞生"></a>DNS的诞生</h3><p>&emsp;&emsp;DNS<code>Domain Name System</code>是域名系统。我们的服务器的IP地址往往是点分十进制的，十分难于记忆，于是便产生了域名，方便我们记忆查找服务器，例如<code>www.baidu.com</code>就是一个域名。当我们访问这个域名时，会首先将域名转换为对应的IP地址，那么要进行转换那就必须要有一个服务器存储映射关系帮助我们进行转换，这些服务器叫做<strong>域名服务器</strong>。<br>&emsp;&emsp;首先产生的是<strong>跟域名服务器</strong>，根域名服务器是最高级域名服务器，但是为了分摊访问压力进行容灾处理全世界一共有<strong>13台</strong>根域名服务器，分布在世界各地。</p>
-<h3 id="DNS服务器的层级划分"><a href="#DNS服务器的层级划分" class="headerlink" title="DNS服务器的层级划分"></a>DNS服务器的层级划分</h3><p>&emsp;&emsp;就算全世界有13台根域名服务器这也远远不够用，因此根域名服务器为了再次分摊压力它只向下授权，授权世界权威组织可以继续建立域名服务器，便于域名解析。<br>&emsp;&emsp;根域名服务器向下的一级授权是<strong>顶级域名服务器</strong>。例如<code>.com/.org/.gov/.edu/.cn/.jp/.us</code>。<br>&emsp;&emsp;顶级域名服务器还可以继续向下授权，授权出<strong>二级域名服务器</strong>。例如<code>.baidu.com/.qq.com</code>。以此类推还有<strong>三级域名服务器</strong><code>.baike.baidu.com</code>。</p>
-<h3 id="域名的解析流程"><a href="#域名的解析流程" class="headerlink" title="域名的解析流程"></a>域名的解析流程</h3><p>&emsp;&emsp;通过域名访问服务器需要进行域名解析，域名解析会经过以下步骤进行解析，会以此经过以下步骤查找映射。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">浏览器 -&gt; 浏览器缓存 -&gt; 查看本机host文件 -&gt; 本地域名服务器</span><br><span class="line">本地域名服务器查找不到对应域名则会按照以下顺序依次请求上级域名服务器查询域名：</span><br><span class="line">本地域名服务器 -&gt; 根域名服务器 </span><br><span class="line">本地域名服务器 -&gt; 顶级域名服务器</span><br><span class="line">本地域名服务器 -&gt; 二级域名服务器</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这种访问方式是<strong>迭代</strong>的请求方式，即当本地域名服务器查找不到对应域名则主动请求根域名服务器，如果根域名服务器找不到对应域名则返回顶级域名服务器地址让本地域名服务器自己去请求顶级域名服务器，同理顶级域名服务器找不到会返回二级域名服务器逐层往下。还有一种<strong>递归</strong>的请求方式，当本地域名服务器向根域名服务器发出请求时如果根域名服务器无法找到域名则会自己主动去访问顶级域名服务器查找，如果找不到就继续相下级查找，如果找到则返回。</p>
-<h3 id="当浏览器输入url回车后发生那些事情"><a href="#当浏览器输入url回车后发生那些事情" class="headerlink" title="当浏览器输入url回车后发生那些事情"></a>当浏览器输入url回车后发生那些事情</h3><p>&emsp;&emsp;1、域名解析流程进行域名解析得到服务器IP地址。<br>&emsp;&emsp;2、根据url组织http协议格式的请求数据。<br>&emsp;&emsp;3、基于Socket流程搭建tcp客户端，向得到的服务器地址发送http请求数据</p>
-<h2 id="ICMP协议"><a href="#ICMP协议" class="headerlink" title="ICMP协议"></a>ICMP协议</h2><p>&emsp;&emsp;网络层协议，主要实现网络探测功能。<code>ping</code>就利用到了ICMP协议，注意<code>ping</code>只是用了网络层协议因此不使用端口。</p>
-<h2 id="NAT技术"><a href="#NAT技术" class="headerlink" title="NAT技术"></a>NAT技术</h2><h3 id="NAT的作用"><a href="#NAT的作用" class="headerlink" title="NAT的作用"></a>NAT的作用</h3><p>&emsp;&emsp;网络地址转换服务。我们在向主机发送数据时举要通过网关设备，网关设备将数据发送给指定主机号还要求目标主机将返回数据依旧通过此网关返回，因此在网关中会替换IP投中的源IP地址为此网关地址，这样就能做到让数据<strong>怎么去，怎么回</strong>。但是一个网关设备上肯定有多条数据等待转发，又如何标记哪条数据属于哪个主机呢？这里利用了不同的端口向不同的目的主机发送数据，并且建立映射，不同的端口映射一个目的主机一个源主机，这样数据返回时根据端口也能找到要返回的主机。这种根据端口建立映射的技术也叫<code>NAPT</code>技术。<br>&emsp;&emsp;NAT一般部署在网关上。</p>
-<h3 id="代理服务器"><a href="#代理服务器" class="headerlink" title="代理服务器"></a>代理服务器</h3><p>&emsp;&emsp;乍一看NAT技术和代理服务器的功能十分相似，但实际上有着很多区别：<br>&emsp;&emsp;1、NAT是网络基础设备之一，用于解决IP地址不足的问题。代理服务器则偏向于应用。<br>&emsp;&emsp;2、NAT作用在网络层，直接替换IP地址，代理服务器作用在应用层。<br>&emsp;&emsp;3、NAT一般在局域网的出口部署，而代理服务器可以部署在局域网，也可以在广域网，也可以跨网。<br>&emsp;&emsp;4、NAT部署在防火墙，路由器等设备上，代理服务器是一个软件，部署在服务器上。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2121,7 +2110,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">76</span>
+                  <span class="site-state-item-count">77</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2143,7 +2132,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2240,7 +2229,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共231.8k字</span>
+  <span class="post-count">博客全站共233.8k字</span>
 </div>
 
         ﻿

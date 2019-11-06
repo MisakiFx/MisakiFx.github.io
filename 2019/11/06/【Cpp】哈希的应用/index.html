@@ -1,0 +1,857 @@
+﻿<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Cpp,哈希,海量数据处理," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="哈希的应用&amp;emsp;&amp;emsp;哈希思想在算法中的应用繁多其重要性是不言而喻的，这里简单介绍两种哈希在大数据中的应用。 位图算法思路&amp;emsp;&amp;emsp;假如说有这么一种情景：给40亿个不重复的无符号整数，没排过序，判断一个无符号整数是否在这40亿个数中。&amp;emsp;&amp;emsp;首先我们从时间考虑，假如说我们遍历40亿个数，事件复杂度是On的，如果我们先排序再用二分查找，排序要ONlogN二分">
+<meta name="keywords" content="Cpp,哈希,海量数据处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Cpp】哈希的应用">
+<meta property="og:url" content="http://yoursite.com/2019/11/06/【Cpp】哈希的应用/index.html">
+<meta property="og:site_name" content="Misaki`s blog">
+<meta property="og:description" content="哈希的应用&amp;emsp;&amp;emsp;哈希思想在算法中的应用繁多其重要性是不言而喻的，这里简单介绍两种哈希在大数据中的应用。 位图算法思路&amp;emsp;&amp;emsp;假如说有这么一种情景：给40亿个不重复的无符号整数，没排过序，判断一个无符号整数是否在这40亿个数中。&amp;emsp;&amp;emsp;首先我们从时间考虑，假如说我们遍历40亿个数，事件复杂度是On的，如果我们先排序再用二分查找，排序要ONlogN二分">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-11-06T07:52:18.832Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【Cpp】哈希的应用">
+<meta name="twitter:description" content="哈希的应用&amp;emsp;&amp;emsp;哈希思想在算法中的应用繁多其重要性是不言而喻的，这里简单介绍两种哈希在大数据中的应用。 位图算法思路&amp;emsp;&amp;emsp;假如说有这么一种情景：给40亿个不重复的无符号整数，没排过序，判断一个无符号整数是否在这40亿个数中。&amp;emsp;&amp;emsp;首先我们从时间考虑，假如说我们遍历40亿个数，事件复杂度是On的，如果我们先排序再用二分查找，排序要ONlogN二分">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/06/【Cpp】哈希的应用/"/>
+
+
+
+
+
+  <title>【Cpp】哈希的应用 | Misaki`s blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+<a href="https://github.com/MisakiFx" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Misaki`s blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习是一种态度</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/06/【Cpp】哈希的应用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【Cpp】哈希的应用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-06T15:50:45+08:00">
+                2019-11-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index">
+                    <span itemprop="name">Cpp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.9k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="哈希的应用"><a href="#哈希的应用" class="headerlink" title="哈希的应用"></a>哈希的应用</h1><p>&emsp;&emsp;哈希思想在算法中的应用繁多其重要性是不言而喻的，这里简单介绍两种哈希在大数据中的应用。</p>
+<h2 id="位图"><a href="#位图" class="headerlink" title="位图"></a>位图</h2><h3 id="算法思路"><a href="#算法思路" class="headerlink" title="算法思路"></a>算法思路</h3><p>&emsp;&emsp;假如说有这么一种情景：给40亿个不重复的无符号整数，没排过序，判断一个无符号整数是否在这40亿个数中。<br>&emsp;&emsp;首先我们从时间考虑，假如说我们遍历40亿个数，事件复杂度是<code>On</code>的，如果我们先排序再用二分查找，排序要<code>ONlogN</code>二分查找要<code>OlogN</code>也还是不够快。不过这道题最重要的不是它的时间，而是空间，如果我们把40亿个整形全放到内存中需要<code>4G * 4 = 16G</code>内存，<code>40亿字节 == 4G</code>，不难发现我们根本存不下，那么怎么办呢？这里就需要用到<strong>位图</strong>。<br>&emsp;&emsp;我们标记一个数是否存在根本不需要存储完整整数，我们只需要用存在或者不存在两种状态对其进行标记即可，而两种状态的标记，只需要1位数据即可，由此我们可以用40亿比特位来标记40亿个数是否存在。并且无符号整形的上限差不多也就在42亿，我们就算标记完全部数字用到40亿位也只需要<code>4 G / 8 = 500M</code>内存，由此我们使用位图进行标记差不多相当于将空间压缩了32倍。<br>&emsp;&emsp;标记思路就是40多亿位分表标识40多亿无符号整型，一个数如果存在则它对应位标记为<code>1</code>，否则为<code>0</code>。假如说0存在，则第0位标记为<code>1</code>，32不存在则第32位标记为0，而无符号整形也是有上限的，40多亿位完全可以标记所有无符合整形。 </p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">class BitSet</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    //要保证每一个数据都能映射到一个唯一的位置，位图的大小与最大映射数据上限有关</span><br><span class="line">    //因此这里的range代表的是映射的最大数据</span><br><span class="line">    BitSet(size_t range)</span><br><span class="line">    &#123;</span><br><span class="line">        _bs.resize((range &gt;&gt; 5) + 1);</span><br><span class="line">    &#125;</span><br><span class="line">    //存储</span><br><span class="line">    void Set(int num)</span><br><span class="line">    &#123;</span><br><span class="line">        int index = num &gt;&gt; 5;</span><br><span class="line">        int bitIdx = num % 32;</span><br><span class="line">        _bs[index] |= (1 &lt;&lt; bitIdx);</span><br><span class="line">    &#125;</span><br><span class="line">    bool Find(int num)</span><br><span class="line">    &#123;</span><br><span class="line">        int index = num &gt;&gt; 5;</span><br><span class="line">        int bitIdx = num % 32;</span><br><span class="line">        return 1 &amp; (_bs[index] &gt;&gt; bitIdx);</span><br><span class="line">    &#125;</span><br><span class="line">    void ReSet(int num)</span><br><span class="line">    &#123;</span><br><span class="line">        int index = num &gt;&gt; 5;</span><br><span class="line">        int bitIdx = num % 32;</span><br><span class="line">        _bs[index] &amp;= (~(1 &lt;&lt; bitIdx));</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    std::vector&lt;int&gt; _bs;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    BitSet bs(64);</span><br><span class="line">    bs.Set(1);</span><br><span class="line">    bs.Set(64);</span><br><span class="line">    bs.Set(4);</span><br><span class="line">    std::cout &lt;&lt; bs.Find(1) &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; bs.Find(64) &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; bs.Find(4) &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; bs.Find(3) &lt;&lt; std::endl;</span><br><span class="line">    bs.ReSet(4);</span><br><span class="line">    std::cout &lt;&lt; bs.Find(4) &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1</span><br><span class="line">1</span><br><span class="line">1</span><br><span class="line">0</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;但是使用位图有一个缺陷，就是我们无法解决哈希冲突，如果我们想要判断字符串，当字符串转换为整数时就有可能会造成哈希冲突，因为算法的原因两个不同的字符串可能会最终会转换为相同的整数，所以在判断字符串等其他需要转换并且可能会造成哈希冲突的类型时不能直接使用位图，于是一种进化版的位图诞生了。</p>
+<h2 id="布隆过滤器"><a href="#布隆过滤器" class="headerlink" title="布隆过滤器"></a>布隆过滤器</h2><h3 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h3><p>&emsp;&emsp;布隆过滤器是专门为了解决为途中转换会造成哈希冲突的情况。例如我们现在要用位图标记字符串，我们两个不相同的字符串经过哈希函数转换后可能会出现最终一样的转换结果于是便出现了哈希冲突，例如<code>str1</code>哈希转换后为<code>24</code>于是我们将第24位置1表示<code>str1</code>存在，但是此时我们在判断<code>str2</code>是否存在的时候发现<code>str2</code>哈希后的值也为<code>24</code>，但是<code>str2</code>并不存在，于是这里就出现了哈希冲突，进行了误判。<br>&emsp;&emsp;为了解决它，布隆过滤器会选择利用多个不同的哈希函数对一个字符串进行哈希，并将所有哈希结果的对应位全部置1，这里与位图的思想无异。当我们查找一个字符串是否存在时再用同样的多个哈希函数对其进行哈希，然后依次查找每一位哈希结果，如果全为1则可大几率认定为这个字符串是存在的。例如<code>str1</code>存储利用三个哈希函数得到结果为<code>24, 26, 28</code>，于是我们将这3位置，我们在查找<code>str2</code>时利用同样三个哈希函数转换得到结果<code>24, 25, 27</code>，虽然<code>24</code>造成了冲突，但是由于<code>25, 26</code>并不为1，所以也并不会误判<code>str2</code>存在，只有<code>str1</code>三次哈希后结果在位图中全都为1时才会判断其存在，这样可以大概率解决冲突。<br>&emsp;&emsp;为什么说是大几率存在的呢？因为也有可能这个字符串的所有哈希结果都与其他字符串造成冲突，此时也会有误判，不过这种情况的几率很小，布隆过滤器可以保证绝大多数情况是正确的，但偶尔也难免会有特殊情况发生。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">#include &quot;BitSet.hpp&quot;</span><br><span class="line">struct HFun1</span><br><span class="line">&#123;</span><br><span class="line">    size_t operator()(const std::string&amp; str)</span><br><span class="line">    &#123;</span><br><span class="line">        size_t hash = 0;</span><br><span class="line">        for(auto&amp; ch : str)</span><br><span class="line">        &#123;</span><br><span class="line">            hash = hash * 131 + ch;</span><br><span class="line">        &#125;</span><br><span class="line">        return hash;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">struct HFun2</span><br><span class="line">&#123;</span><br><span class="line">    size_t operator()(const std::string&amp; str)</span><br><span class="line">    &#123;</span><br><span class="line">        size_t hash = 0;</span><br><span class="line">        for(auto&amp; ch : str)</span><br><span class="line">        &#123;</span><br><span class="line">            hash = hash * 65599 + ch;</span><br><span class="line">        &#125;</span><br><span class="line">        return hash;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">struct HFun3</span><br><span class="line">&#123;</span><br><span class="line">    size_t operator()(const std::string&amp; str)</span><br><span class="line">    &#123;</span><br><span class="line">        size_t hash = 0;</span><br><span class="line">        size_t magic = 63689;</span><br><span class="line">        for(auto&amp; ch : str)</span><br><span class="line">        &#123;</span><br><span class="line">            hash = hash * magic + ch;</span><br><span class="line">            magic *= 378551;</span><br><span class="line">        &#125;</span><br><span class="line">        return hash;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">//HFun为3个自定义的哈希函数</span><br><span class="line">template&lt;class T, class HFun1, class HFun2, class HFun3&gt;</span><br><span class="line">class BloomFilter</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    //k = (m / n) * ln2</span><br><span class="line">    //k:哈希函数数量</span><br><span class="line">    //m:位图大小</span><br><span class="line">    //n:元素个数</span><br><span class="line">    //m = k * n / ln2</span><br><span class="line">    //number表示元素个数，布隆这里不用元素最大上限作为位图的大小，因为可能会造成大量数据浪费</span><br><span class="line">    //这里利用二次哈希，节省空间</span><br><span class="line">    BloomFilter(size_t number)</span><br><span class="line">        :_bitCount(5 * number)</span><br><span class="line">        ,_bs(_bitCount)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    void Set(const T&amp; data)</span><br><span class="line">    &#123;</span><br><span class="line">        int index1 = HFun1()(data) % _bitCount;</span><br><span class="line">        int index2 = HFun2()(data) % _bitCount;</span><br><span class="line">        int index3 = HFun3()(data) % _bitCount;</span><br><span class="line">        _bs.Set(index1);</span><br><span class="line">        _bs.Set(index2);</span><br><span class="line">        _bs.Set(index3);</span><br><span class="line">    &#125;</span><br><span class="line">    bool Find(const T&amp; data)</span><br><span class="line">    &#123;</span><br><span class="line">        int index1 = HFun1()(data) % _bitCount;</span><br><span class="line">        int index2 = HFun2()(data) % _bitCount;</span><br><span class="line">        int index3 = HFun3()(data) % _bitCount;</span><br><span class="line">        if(!_bs.Find(index1) || !_bs.Find(index2) || !_bs.Find(index3))</span><br><span class="line">        &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;//可能会有误判</span><br><span class="line">    &#125;</span><br><span class="line">    //布隆为了防止误判不提供删除操作</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">    BitSet _bs;</span><br><span class="line">    size_t _bitCount;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    BloomFilter&lt;std::string, HFun1, HFun2, HFun3&gt; bf(1000);</span><br><span class="line">    std::string str1 = &quot;https://misakifx.github.io/&quot;;</span><br><span class="line">    std::string str2 = &quot;https://blog.csdn.net/qq_41669298&quot;;</span><br><span class="line">    std::string str3 = &quot;https://space.bilibili.com/14406161/#/fans/follow&quot;;</span><br><span class="line">    std::string str4 = &quot;https://space.bilibili.com/#/fans/follow&quot;;</span><br><span class="line">    std::string str5 = &quot;https://space.bilibili.com/4406161/#/fans/follow&quot;;</span><br><span class="line">    std::string str6 = &quot;https://space.bilibili.com/146161/#/fans/follow&quot;;</span><br><span class="line">    bf.Set(str1);</span><br><span class="line">    bf.Set(str2);</span><br><span class="line">    bf.Set(str3);</span><br><span class="line">    bool ret = bf.Find(str1);</span><br><span class="line">    std::cout &lt;&lt; ret &lt;&lt; std::endl;</span><br><span class="line">    ret = bf.Find(str2);</span><br><span class="line">    std::cout &lt;&lt; ret &lt;&lt; std::endl;</span><br><span class="line">    ret = bf.Find(str3);</span><br><span class="line">    std::cout &lt;&lt; ret &lt;&lt; std::endl;</span><br><span class="line">    ret = bf.Find(str4);</span><br><span class="line">    std::cout &lt;&lt; ret &lt;&lt; std::endl;</span><br><span class="line">    ret = bf.Find(str5);</span><br><span class="line">    std::cout &lt;&lt; ret &lt;&lt; std::endl;</span><br><span class="line">    ret = bf.Find(str6);</span><br><span class="line">    std::cout &lt;&lt; ret &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1</span><br><span class="line">1</span><br><span class="line">1</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;布隆过滤器一般来说不提供删除操作，但是其实是可以实现的，但是这里就需要借助引用计数，如果借用引用计数那么一个位肯定解决不了，就需要用多个位，那么就需要开辟更多空间，这里就需要根据需求来设计。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读!-------------</div>
+    
+    </div>
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>记录学习每一分，感谢您的赞助</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="MisakiFx 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="MisakiFx 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Cpp/" rel="tag"># Cpp</a>
+          
+            <a href="/tags/哈希/" rel="tag"># 哈希</a>
+          
+            <a href="/tags/海量数据处理/" rel="tag"># 海量数据处理</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/03/【Cpp】第十七章-unordered版本关联式容器/" rel="next" title="【Cpp】第十七章-unordered版本关联式容器">
+                <i class="fa fa-chevron-left"></i> 【Cpp】第十七章-unordered版本关联式容器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="MisakiFx" />
+            
+              <p class="site-author-name" itemprop="name">MisakiFx</p>
+              <p class="site-description motion-element" itemprop="description">Hard working or giving up!!!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/MisakiFx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1761607418@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope-open"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://music.163.com/#/user/home?id=432551242" target="_blank" title="网易云音乐">
+                      
+                        <i class="fa fa-fw fa-music"></i>网易云音乐</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/qq_41669298" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-crosshairs"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#哈希的应用"><span class="nav-number">1.</span> <span class="nav-text">哈希的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#位图"><span class="nav-number">1.1.</span> <span class="nav-text">位图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法思路"><span class="nav-number">1.1.1.</span> <span class="nav-text">算法思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">1.1.2.</span> <span class="nav-text">实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#布隆过滤器"><span class="nav-number">1.2.</span> <span class="nav-text">布隆过滤器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思想"><span class="nav-number">1.2.1.</span> <span class="nav-text">思想</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        ﻿<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MisakiFx</span>
+
+  
+</div>
+
+
+<div class="powered-by">
+  <i class="fa fa-user-md"></i>
+  <span id="busuanzi_container_site_uv">
+    我的网站的访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+</div>
+
+
+
+<span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共233.8k字</span>
+</div>
+
+        ﻿
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+        <script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
