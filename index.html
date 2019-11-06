@@ -264,6 +264,175 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/06/【Cpp】第十八章-空间配置器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/06/【Cpp】第十八章-空间配置器/" itemprop="url">【Cpp】第十八章-空间配置器</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-06T20:41:05+08:00">
+                2019-11-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index">
+                    <span itemprop="name">Cpp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.5k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="空间配置器"><a href="#空间配置器" class="headerlink" title="空间配置器"></a>空间配置器</h1><h2 id="什么是空间配置器"><a href="#什么是空间配置器" class="headerlink" title="什么是空间配置器"></a>什么是空间配置器</h2><p>&emsp;&emsp;空间配置器是为各个容器高效管理空间的工具，负责空间的申请与回收，虽然一般情况下我们用不到它，但是研究空间配置器可以让我们对STL有更深的理解。</p>
+<h2 id="为什么需要空间配置器"><a href="#为什么需要空间配置器" class="headerlink" title="为什么需要空间配置器"></a>为什么需要空间配置器</h2><p>&emsp;&emsp;我们之前在实现各个容器的时候，需要申请空间大的地方都是通过<code>new</code>申请的，但是这样的申请方式有着很大的缺陷：<br>&emsp;&emsp;1、空间申请和释放需要自己管理，容易造成内存泄露。<br>&emsp;&emsp;2、频繁向系统申请小块内存，造成内存碎片。<br>&emsp;&emsp;3、频繁向系统申请内存，影响程序效率。<br>&emsp;&emsp;4、无法应对申请空间失败的情况。<br>&emsp;&emsp;5、代码复用度不高。<br>&emsp;&emsp;6、代码韧性较差。<br>&emsp;&emsp;7、没有考虑线程安全的问题。</p>
+<h2 id="空间配置器实现原理"><a href="#空间配置器实现原理" class="headerlink" title="空间配置器实现原理"></a>空间配置器实现原理</h2><p>&emsp;&emsp;以上所说的不足，主要原因就是<strong>程序频繁向操作系统申请小块内存</strong>导致的。在SGI-STL中以128字节作为小块内存和大块内存的分界线，同时也将空间配置器分为两级结构。一级空间配置器处理大块内存，二级空间配置器处理小块内存。</p>
+<h3 id="一级空间配置器"><a href="#一级空间配置器" class="headerlink" title="一级空间配置器"></a>一级空间配置器</h3><p>&emsp;&emsp;以及空间配置器的实现较为简单，它主要是对<code>malloc</code>和<code>free</code>进行了一层封装，和我们曾经说过的<code>new</code>和<code>delete</code>的实现类似，其封装具体添加的内容主要是用来处理异常的。并且向其中添加了一个回调函数<code>handler</code>，当空间申请失败时会执行其中的处理操作，我们可以选择抛异常，中断或是其他行为都可以自定义。</p>
+<h3 id="二级空间配置器"><a href="#二级空间配置器" class="headerlink" title="二级空间配置器"></a>二级空间配置器</h3><p>&emsp;&emsp;二级空间配置器所作的事情会更多一些，因为为了避免频繁向系统申请小内存空间，每次我们在释放小内存的时候空间配置器其实并不会将其让系统回收，而是自己进行了回收，等到用户重新想要申请小空间的时候，再从自己回收的内存中拿出一部分交给用户。<br>&emsp;&emsp;二级空间配置器在内部实现了一个内存池，空间配置器通过维护这个内存池来给用户分配空间。<br>&emsp;&emsp;当用户想要申请一小块内存的时候，空间配置器会先从内存池中拉出一份交给用户，当用户释放这块空间的时候，空间配置器并不会将这块内存还给内存池，而是当用户想要申请新的小空间时，优先使用这块已经从内存池中分配出来的空间。<br>&emsp;&emsp;当内存池中的所有空间都用完时，空间配置器才会重新去向操作系统申请一块大空间来补充内存池。<br>&emsp;&emsp;空间配置器中是通过哈希桶来向用户分配小块内存空间的，空间配置器将哈希桶分为一共16个桶，每个桶下面管理一部分小块字节的空间，此时的哈希函数为<code>申请空间大小 / 8</code>，例如我们要申请8字节空间，则会到一号桶下面拿到它下面的内存空间，因为对应桶会保证当前下面所挂内存空间至少为<code>桶号 * 8</code>的大小，例如1号桶下面的内存空间大小都是8字节，2号桶都是16字节的，以此类推，因此一共16个桶16号桶下面的空间都是128字节的，刚好以8字节为单位平分小内存空间。一开始所有内存都是在内存池中的，当有内存从内存池中分配出去，或者要回收回来时就会有新的空间挂到哈希桶对应的桶下面，方便下次我们继续分配。也正是因为这样的哈希关系，我们获取的内存空间一般都会向上取整为8的整数倍字节。<br>&emsp;&emsp;当拿到要分配的空间的大小<code>n</code>时（这里假设&lt;=128byte使用二级空间配置器）会进行以下操作：<br>&emsp;&emsp;1、向上对其为8字节的整数倍。<br>&emsp;&emsp;2、计算桶的位置，这里的哈希函数即为<code>n / 16</code>。<br>&emsp;&emsp;3、查看桶中是否有内存块，如果有内存块则取出一块内存，如果没有，则向内存池索要。此时会调用<code>chunk_alloc(size_t n, size_t&amp; nobj)</code>，<code>n为一块空间大小，nobj为一共申请多少块，默认nobj = 20</code>，共向内存池申请<code>total = n * nobj</code>的空间。<br>&emsp;&emsp;4、如果内存池剩余空间大于<code>total</code>，则直接分配，并且把一块交给用户，其他块交给哈希桶挂起；如果内存池剩余空间小于<code>total</code>，但是至少有一块的空间，则会重新计算<code>nobj</code>的大小，<code>nobj = 剩余空间 / n</code>，然后将能分配的空间交给用户，多余的挂到哈希桶上；如果内存池目前剩余空间已经不足一块要申请的空间，则会向系统申请大内存空间，并将剩余的一部分空间挂到对应的哈希桶上。<br>&emsp;&emsp;5、向系统申请新内存也会出现两种情况，如果申请成功，则放入内存池，递归<code>chunk_alloc</code>，如果申请失败则去搜索哈希桶，取出桶中尚未使用的内存放入内存池，再调用<code>chunk_alloc</code>。<br>&emsp;&emsp;6、如果连哈希桶中也没有多余空间，则会调用一级空间配置器，这里又出现两种情况，如果一级空间配置器申请内存成功则放入内存池，递归<code>chunk_alloc</code>，如果申请失败则会抛异常，处理异常。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/06/【Cpp】哈希的应用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1869,193 +2038,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/29/【网络】第七章-典型IO模型/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/29/【网络】第七章-典型IO模型/" itemprop="url">【网络】第七章-典型IO模型</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-29T19:28:45+08:00">
-                2019-09-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网络/" itemprop="url" rel="index">
-                    <span itemprop="name">网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  4.5k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="典型IO模型"><a href="#典型IO模型" class="headerlink" title="典型IO模型"></a>典型IO模型</h1><h2 id="IO的种类"><a href="#IO的种类" class="headerlink" title="IO的种类"></a>IO的种类</h2><p>&emsp;&emsp;IO模型根据特性可以分为以下几个种类：<strong>阻塞IO，非阻塞IO，信号驱动IO，异步IO，多路转接IO</strong>。</p>
-<h3 id="阻塞IO"><a href="#阻塞IO" class="headerlink" title="阻塞IO"></a>阻塞IO</h3><p>&emsp;&emsp;为了IO发起IO调用，若IO条件不满足则一直等待，直到条件具备。</p>
-<h3 id="非阻塞IO"><a href="#非阻塞IO" class="headerlink" title="非阻塞IO"></a>非阻塞IO</h3><p>&emsp;&emsp;为了IO发起IO调用，若条件不满足则直接报错返回，执行其他指令。之后再次发起IO调用，条件不满足则继续报错返回，条件满足则直接进行数据拷贝后调用返回。<br>&emsp;&emsp;阻塞与非阻塞的区别在与<strong>发起一个调用是否能够立即返回</strong>。</p>
-<h3 id="信号驱动IO"><a href="#信号驱动IO" class="headerlink" title="信号驱动IO"></a>信号驱动IO</h3><p>&emsp;&emsp;自定义IO信号，如果IO条件具备则发送IO信号，收到信号后则打断其他操作进行信号处理，执行IO操作进行数据拷贝，结束后调用返回。</p>
-<h3 id="异步IO"><a href="#异步IO" class="headerlink" title="异步IO"></a>异步IO</h3><p>&emsp;&emsp;自定义IO信号，发起IO调用，然后让操作系统进行等待条件满足，满足后操作系统进行数据拷贝，拷贝完后通知进程，进程收到后直接处理数据。<br>&emsp;&emsp;与之对应的是同步的操作同步与异步的区别在于<strong>功能的完成是否由自身完成</strong>。<br>&emsp;&emsp;那么是同步好还是异步好呢？答案是视使用场景而定。同步的流程控制更加简单，但是不管是否阻塞都会浪费CPU资源，因此对CPU的利用率不足。而异步对CPU的利用率更高，但是流程控制更加复杂，并且IO调用越多，同一时间占用的空间资源越多。<br>&emsp;&emsp;从以上IO种类来看，IO效率越来越高，但是流程控制越来越复杂，资源占用也越来越多。</p>
-<h2 id="多路转接IO"><a href="#多路转接IO" class="headerlink" title="多路转接IO"></a>多路转接IO</h2><p>&emsp;&emsp;多路转接IO对大量描述符进行事件监控，能够让用户只对<strong>事件就绪</strong>的描述符进行操作。在网络通信中，如果用户仅仅对就绪的描述符进行操作，则流程在一个执行流中就不会阻塞，可以实现在一个执行流中对多个描述符进行并发操作。多路转接IO的实现主要是通过几种多路转接模型实现：<strong>select/poll/epoll</strong>。</p>
-<h3 id="select模型"><a href="#select模型" class="headerlink" title="select模型"></a>select模型</h3><h4 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h4><p>&emsp;&emsp;select模型对大量描述符进行几种事件监控，让用户能够仅仅针对事件就绪的描述符进行操作，对就绪事件的判断主要有以下几个标准：<br>&emsp;&emsp;1、可读事件：接收缓冲区中数据大小大于等于低水位标记（默认一个字节）。<br>&emsp;&emsp;2、可写事件：发送缓冲区中空闲空间的大小大于等于低水位标记（默认一个字节）。<br>&emsp;&emsp;3、异常事件：描述符是否发生了某些异常。</p>
-<h4 id="实现流程"><a href="#实现流程" class="headerlink" title="实现流程"></a>实现流程</h4><p>&emsp;&emsp;1、用户首先定义事件集合，一共三种事件集合<strong>可读/可写/异常</strong>，每一个集合实际是一个位图，将某个事件集合中描述符对应的位置<code>1</code>用于标记用户关心该描述符的某些事件。<br>&emsp;&emsp;2、将集合拷贝到内核进行监控。对集合中所有描述符进行遍历判断，判断是否事件就绪。<br>&emsp;&emsp;3、若有某个描述符就绪了用户关心的事件，则该返回给用户结果了。返回的时候分别从各个事件集合中将没有就绪该事件的描述符对应的位置<code>0</code>，返回给用户三种表示就绪的描述符事件集合。<br>&emsp;&emsp;4、用户拿到就绪描述符事件集合后，通过分别遍历三种事件集合找到哪些描述符还在集合中，来判断哪些描述符已经就绪了指定事件，然后进行操作。</p>
-<h4 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">int select(int nfds, fd_set *readfds, fd_set *writefds,</span><br><span class="line">           fd_set *exceptfds, struct timeval *timeout);</span><br><span class="line">    //nfds:集合中最大的描述符+1</span><br><span class="line">    //readfds:可读事件集合</span><br><span class="line">    //writefds:可写事件集合</span><br><span class="line">    //exceptfds:异常事件集合</span><br><span class="line">    //timeout:NULL表示永久阻塞，timeout.tv_sec表示限时阻塞</span><br><span class="line">    //返回值:&gt;0表示就绪的描述符个数;==0表示没有描述符就绪;&lt;0监控出错</span><br><span class="line">void FD_CLR(int fd, fd_set *set);//将指定的fd描述符从set集合中删除</span><br><span class="line">int  FD_ISSET(int fd, fd_set *set);//判断某个fd描述符是否在set集合中</span><br><span class="line">void FD_SET(int fd, fd_set *set);//将指定的fd描述符添加到set集合中</span><br><span class="line">void FD_ZERO(fd_set *set);//清空set集合内容</span><br></pre></td></tr></table></figure>
-<h4 id="用select模型实现tcp服务器"><a href="#用select模型实现tcp服务器" class="headerlink" title="用select模型实现tcp服务器"></a>用select模型实现tcp服务器</h4><p>&emsp;&emsp;按照以下步骤实现：<br>&emsp;&emsp;1、搭建tcp服务器。<br>&emsp;&emsp;2、在accept之前创建select监控集合，并且将监听socket添加到可读事件集合中。<br>&emsp;&emsp;3、进行select监控，当select返回并且有就绪描述符。<br>&emsp;&emsp;4、若有事件就绪，判断就绪的描述符是否是监听socket，如果是则<code>accept</code>新的<code>socket</code>添加监控，否则<code>recv</code>数据。<br>&emsp;&emsp;每处理完一遍之后，都要再次对所有描述符进行监控，而每次系统都会将没有就绪的描述符剔除，因此每次监控前我们都得先重新添加一遍所有要监控的描述符。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line">//用select模型实现并发服务器                                                                     </span><br><span class="line">//对select进行封装</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;sys/select.h&gt;</span><br><span class="line">#include &quot;tcp_socket.hpp&quot;</span><br><span class="line">class Select</span><br><span class="line">&#123;</span><br><span class="line">  public:</span><br><span class="line">    Select():_maxfd(-1)</span><br><span class="line">    &#123;</span><br><span class="line">      FD_ZERO(&amp;_rfds);</span><br><span class="line">    &#125;</span><br><span class="line">    //添加要监听的套接字</span><br><span class="line">    bool Add(TcpSocket&amp; sock)</span><br><span class="line">    &#123;</span><br><span class="line">      int fd = sock.GetFd();</span><br><span class="line">      FD_SET(fd, &amp;_rfds);</span><br><span class="line">      _maxfd = _maxfd &gt; fd ? _maxfd : fd;</span><br><span class="line">      return true;</span><br><span class="line">    &#125;</span><br><span class="line">    //监听，list返回就绪的描述符，sec为默认等待时间</span><br><span class="line">    bool Wait(std::vector&lt;TcpSocket&gt;&amp; list, int sec = 3)</span><br><span class="line">    &#123;</span><br><span class="line">      struct timeval tv;</span><br><span class="line">      tv.tv_sec = sec;</span><br><span class="line">      tv.tv_usec = 0;</span><br><span class="line">      fd_set tmp_set = _rfds;//每次定义新的集合进行监控，为了避免原有的监控集合被修改</span><br><span class="line">      int count = select(_maxfd + 1, &amp;tmp_set, NULL, NULL, &amp;tv);</span><br><span class="line">      if(count &lt; 0)</span><br><span class="line">      &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;select error&quot; &lt;&lt; std::endl;</span><br><span class="line">        return false;</span><br><span class="line">      &#125;</span><br><span class="line">      else if(count == 0)</span><br><span class="line">      &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;wait timeout&quot; &lt;&lt; std::endl;</span><br><span class="line">        return false;</span><br><span class="line">      &#125;</span><br><span class="line">      for(int i = 0; i &lt;= _maxfd; i++)</span><br><span class="line">      &#123;</span><br><span class="line">        if(FD_ISSET(i, &amp;tmp_set))</span><br><span class="line">        &#123;</span><br><span class="line">          TcpSocket sock;</span><br><span class="line">          sock.SetFd(i);</span><br><span class="line">          list.push_back(sock);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      return true;</span><br><span class="line">    &#125;</span><br><span class="line">    //删除不用再监听的套接字</span><br><span class="line">    bool Del(TcpSocket&amp; sock)</span><br><span class="line">    &#123;</span><br><span class="line">      int fd = sock.GetFd();</span><br><span class="line">      FD_CLR(fd, &amp;_rfds);</span><br><span class="line">      for(int i = _maxfd; i &gt;= 0; i--)</span><br><span class="line">      &#123;</span><br><span class="line">        if(FD_ISSET(i, &amp;_rfds))</span><br><span class="line">        &#123;</span><br><span class="line">          _maxfd = i;</span><br><span class="line">          return true;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      _maxfd = -1;</span><br><span class="line">      return true;</span><br><span class="line">    &#125;</span><br><span class="line">  private:</span><br><span class="line">    fd_set _rfds;//读事件描述符集合</span><br><span class="line">    int _maxfd;//最大描述符</span><br><span class="line">&#125;;</span><br><span class="line">int main(int argc, char* argv[])</span><br><span class="line">&#123;</span><br><span class="line">  if(argc != 3)</span><br><span class="line">  &#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;./tcpselect ip port&quot; &lt;&lt; std::endl;</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  TcpSocket sock;</span><br><span class="line">  std::string srv_ip = argv[1];</span><br><span class="line">  uint16_t srv_port = atoi(argv[2]);                     </span><br><span class="line">  CHECK_RET(sock.Socket());</span><br><span class="line">  CHECK_RET(sock.Bind(srv_ip, srv_port));</span><br><span class="line">  CHECK_RET(sock.Listen());</span><br><span class="line">  Select s;</span><br><span class="line">  s.Add(sock);</span><br><span class="line">  while(1)</span><br><span class="line">  &#123;</span><br><span class="line">    std::vector&lt;TcpSocket&gt; list;</span><br><span class="line">    if(!s.Wait(list))</span><br><span class="line">    &#123;</span><br><span class="line">      sleep(1);</span><br><span class="line">      continue;</span><br><span class="line">    &#125;</span><br><span class="line">    for(auto clisock : list)</span><br><span class="line">    &#123;</span><br><span class="line">      if(clisock.GetFd() == sock.GetFd())//监听套接字</span><br><span class="line">      &#123;</span><br><span class="line">        TcpSocket socktmp;</span><br><span class="line">        if(sock.Accept(socktmp) == false)</span><br><span class="line">        &#123;</span><br><span class="line">          continue;</span><br><span class="line">        &#125;</span><br><span class="line">        s.Add(socktmp);</span><br><span class="line">      &#125;</span><br><span class="line">      else //通信套接字</span><br><span class="line">      &#123;</span><br><span class="line">        std::string buf;</span><br><span class="line">        if(clisock.Recv(buf) == false)</span><br><span class="line">        &#123;</span><br><span class="line">          s.Del(clisock);</span><br><span class="line">          clisock.Close();</span><br><span class="line">          continue;</span><br><span class="line">        &#125;</span><br><span class="line">        std::cout &lt;&lt; &quot;client say:&quot; &lt;&lt; buf &lt;&lt; std::endl;</span><br><span class="line">        buf.clear();</span><br><span class="line">        std::cin &gt;&gt; buf;</span><br><span class="line">        if(clisock.Send(buf) == false)</span><br><span class="line">        &#123;</span><br><span class="line">          s.Del(clisock);</span><br><span class="line">          clisock.Close();</span><br><span class="line">          continue;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  sock.Close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;以上的实现用到了我们之前实现的<code>tcp_socket.hpp</code>，并将其类中的析构函数自动关闭套接字去掉。之后再用之前实现的<code>tcp_cli.cpp</code>即tcp客户端进行连接测试。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">服务端：</span><br><span class="line">[misaki@localhost AdvancedIO]$ ./tcpselect 192.168.239.128 9000</span><br><span class="line">wait timeout</span><br><span class="line">wait timeout</span><br><span class="line">wait timeout</span><br><span class="line">wait timeout</span><br><span class="line">client say:nihao</span><br><span class="line">wohenhao</span><br><span class="line">wait timeout</span><br><span class="line">client say:heihei</span><br><span class="line">haha</span><br><span class="line">wait timeout</span><br><span class="line">wait timeout</span><br><span class="line">wait timeout</span><br><span class="line">peer shutdown</span><br><span class="line">wait timeout</span><br><span class="line"></span><br><span class="line">客户端：</span><br><span class="line">[misaki@localhost AdvancedIO]$ ./tcpclient 192.168.239.128 9000</span><br><span class="line">nihao    </span><br><span class="line">server say: wohenhao</span><br><span class="line">heihei</span><br><span class="line">server say: haha</span><br></pre></td></tr></table></figure></p>
-<h4 id="select优缺点分析"><a href="#select优缺点分析" class="headerlink" title="select优缺点分析"></a>select优缺点分析</h4><p>&emsp;&emsp;<strong>缺点</strong>：<br>&emsp;&emsp;1、select所能监控的描述符数量是有上线的，<code>FD_SETSIZE = 1024</code>。<br>&emsp;&emsp;2、每次监控都需要将监控集合拷贝到内核中。<br>&emsp;&emsp;3、在内核中进行轮询遍历查询，随着描述符的增多性能降低。<br>&emsp;&emsp;4、返回的是就绪集合，需要用户自己进行判断才能对描述符进行操作。<br>&emsp;&emsp;5、每次返回都会清空未就绪描述符，因此每次监控都需要重新添加到集合中。<br>&emsp;&emsp;<strong>优点</strong>：<br>&emsp;&emsp;1、<code>POSIX标准</code>，支持跨平台。</p>
-<h3 id="poll模型"><a href="#poll模型" class="headerlink" title="poll模型"></a>poll模型</h3><h4 id="工作原理-1"><a href="#工作原理-1" class="headerlink" title="工作原理"></a>工作原理</h4><p>&emsp;&emsp;<code>poll</code>采用事件结构的方式对描述符进行事件监控，只需要一个事件结构数组，将要响应的描述符提交到数组的每一个结构节点的fd中，以及将用户关心的事件添加到响应节点<code>events</code>中。即可进行监控。</p>
-<h4 id="接口-1"><a href="#接口-1" class="headerlink" title="接口"></a>接口</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">int poll(struct pollfd *fds, nfds_t nfds, int timeout);</span><br><span class="line">//以下这个结构体用于告诉系统需要监控哪些描述符以及所需监控的状态</span><br><span class="line">struct pollfd</span><br><span class="line">&#123;</span><br><span class="line">    int   fd;         /* file descriptor */</span><br><span class="line">    short events;     //事件，POLLIN-可读/POLLOUT-可写</span><br><span class="line">    short revents等    //这次监控返回之后这个描述符就绪的状态</span><br><span class="line">&#125;</span><br><span class="line">//fds：struct pollfd数组</span><br><span class="line">//nfds：数组的大小</span><br><span class="line">//timeout：超时时间，单位ms</span><br><span class="line">//返回值：小于0出错，等于0超时，大于零有描述符就绪</span><br></pre></td></tr></table></figure>
-<h4 id="使用流程"><a href="#使用流程" class="headerlink" title="使用流程"></a>使用流程</h4><p>&emsp;&emsp;1、用户定义一个事件结构数组，然后将关心的描述符以及事件添加到数组中。<br>&emsp;&emsp;2、将数组拷贝到内核进行监控。在内核中会轮询遍历监控。<br>&emsp;&emsp;3、当事件数组中有描述符事件就绪/等待超时则poll返回，poll返回时将每个描述符就虚的事件添加到相应节点<code>revents</code>中。<br>&emsp;&emsp;4、用户对数组中的每个节点的<code>revents</code>进行判断之后进行操作。</p>
-<h4 id="优缺点分析"><a href="#优缺点分析" class="headerlink" title="优缺点分析"></a>优缺点分析</h4><p>&emsp;&emsp;<strong>缺点</strong>：<br>&emsp;&emsp;1、无法跨平台。<br>&emsp;&emsp;2、依然需要将监控的描述符事件数组拷贝到内核中。<br>&emsp;&emsp;3、<br>在内核中同样是轮询遍历监控，性能会随着描述符的增多而下降。<br>&emsp;&emsp;4、只是将就绪的事件放到了结构的<code>revents</code>中，需要用户轮询查找就绪的描述符。<br>&emsp;&emsp;<strong>优点</strong>：<br>&emsp;&emsp;1、没有描述符监控的数量上限。<br>&emsp;&emsp;2、采用事件结构进行监控，简化了<code>select</code>三种事件集合的操作流程。<br>&emsp;&emsp;3、不需要每次重新向集合中添加事件数组。</p>
-<h3 id="epoll模型"><a href="#epoll模型" class="headerlink" title="epoll模型"></a>epoll模型</h3><p>&emsp;&emsp;<code>epoll</code>模型是为了处理大批量句柄而做了改进的<code>poll</code>，它几乎具备了所需的一切优点，是Linux下性能最好的多路I/O模型。</p>
-<h4 id="接口-2"><a href="#接口-2" class="headerlink" title="接口"></a>接口</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">int epoll_create(int size);</span><br><span class="line">//在内核中创建eventpoll结构，结构中主要信息：双向链表，红黑树，具体作用看下文。返回一个操作句柄描述符</span><br><span class="line">int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event);</span><br><span class="line">//向内核中的eventpoll结构中的红黑树添加用户关心的描述符事件结构</span><br><span class="line">//epfd:epoll操作句柄</span><br><span class="line">//op:工作模式，EPOLL_CTL_ADD/EPOLL_CTL_MOD/EPOLL_CTL_DEL</span><br><span class="line">//fd:用户关心的描述符</span><br><span class="line">//event:对于fd描述符所要监控的事件，结构体参考如下</span><br><span class="line">struct epoll_event &#123;</span><br><span class="line">    uint32_t     events; //要监听的事件EPOLLIN可读/EPOLLOUT可写</span><br><span class="line">    epoll_data_t data; //就绪的描述符，这个值通常与fd一致</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int epoll_wait(int epfd, struct epoll_event *events,</span><br><span class="line">               int maxevents, int timeout);</span><br><span class="line">//epfd:epoll操作句柄</span><br><span class="line">//events:就绪事件数组，返回就绪的描述符和对应的描述符</span><br><span class="line">//maxevents:最大节点数</span><br><span class="line">//timeout:超时事件，单位ms，-1阻塞，0非阻塞</span><br></pre></td></tr></table></figure>
-<h4 id="工作原理-2"><a href="#工作原理-2" class="headerlink" title="工作原理"></a>工作原理</h4><p>&emsp;&emsp;<code>epoll</code>监控是一个<strong>异步阻塞</strong>操作。对描述符的监控由操作系统完成，当描述符就绪之后，则将就绪的描述符对应的<code>epoll_event</code>结构添加到双向链表<code>list</code>中，而当前进程只是每隔一段时间判断以下<code>list</code>是否为空，即可知道是否有描述符就绪。<br>&emsp;&emsp;操作系统完成监控，对于每一个描述符所关心的事件都定义了一个事件回调，当描述符就绪事件的时候就会调用回调函数，这个回调函数负责将事件结构信息即<code>struct epoll_event</code>添加到双向链表中。<br>&emsp;&emsp;<code>epoll_wait</code>会自动检测<code>list</code>双向链表，检测到链表<code>list</code>不为空，表示有就绪事件，则将这个链表中这些<code>epoll_event</code>放到用户的<code>events</code>数组中返回出去。</p>
-<h4 id="用epoll模型实现tcp服务器"><a href="#用epoll模型实现tcp服务器" class="headerlink" title="用epoll模型实现tcp服务器"></a>用epoll模型实现tcp服务器</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;                                                      </span><br><span class="line">#include &lt;vector&gt;                            </span><br><span class="line">#include &lt;string&gt;              </span><br><span class="line">#include &lt;sys/epoll.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;   </span><br><span class="line">#include &quot;tcp_socket.hpp&quot;    </span><br><span class="line">#define MAX_EPOLL 1024</span><br><span class="line">class Epoll</span><br><span class="line">&#123;                               </span><br><span class="line">  public:                    </span><br><span class="line">    Epoll()</span><br><span class="line">      :_epfd(-1)</span><br><span class="line">    &#123;          </span><br><span class="line">     </span><br><span class="line">    &#125;                                      </span><br><span class="line">    ~Epoll()</span><br><span class="line">    &#123;             </span><br><span class="line">                                             </span><br><span class="line">    &#125;  </span><br><span class="line">    bool Init()            </span><br><span class="line">    &#123;                                         </span><br><span class="line">      _epfd = epoll_create(MAX_EPOLL);</span><br><span class="line">      if(_epfd &lt; 0)</span><br><span class="line">      &#123;  </span><br><span class="line">        std::cerr &lt;&lt; &quot;create epoll error&quot; &lt;&lt; std::endl;</span><br><span class="line">        return false;</span><br><span class="line">      &#125;   </span><br><span class="line">      return true;</span><br><span class="line">    &#125;                   </span><br><span class="line">    bool Add(TcpSocket&amp; sock)         </span><br><span class="line">    &#123;    </span><br><span class="line">      struct epoll_event ev;</span><br><span class="line">      int fd = sock.GetFd();</span><br><span class="line">      ev.events = EPOLLIN;</span><br><span class="line">      ev.data.fd = fd;                                 </span><br><span class="line">      int ret = epoll_ctl(_epfd, EPOLL_CTL_ADD, fd, &amp;ev);</span><br><span class="line">      if(ret &lt; 0)      </span><br><span class="line">      &#123;                               </span><br><span class="line">        std::cerr &lt;&lt; &quot;append monitor error&quot; &lt;&lt; std::endl;</span><br><span class="line">        return false;     </span><br><span class="line">      &#125;</span><br><span class="line">      return true;</span><br><span class="line">    &#125;  </span><br><span class="line">    bool Del(TcpSocket&amp; sock)</span><br><span class="line">    &#123;</span><br><span class="line">      int fd = sock.GetFd();</span><br><span class="line">      int ret = epoll_ctl(_epfd, EPOLL_CTL_DEL, fd, NULL);</span><br><span class="line">      if(ret &lt; 0)</span><br><span class="line">      &#123;</span><br><span class="line">        std::cerr &lt;&lt; &quot;remove monitor error&quot; &lt;&lt; std::endl;</span><br><span class="line">        return false;</span><br><span class="line">      &#125;</span><br><span class="line">      return true;</span><br><span class="line">    &#125;</span><br><span class="line">    bool Wait(std::vector&lt;TcpSocket&gt;&amp; list, int timeout = 3000)</span><br><span class="line">    &#123;</span><br><span class="line">      struct epoll_event evs[MAX_EPOLL];</span><br><span class="line">      int nfds = epoll_wait(_epfd, evs, MAX_EPOLL, timeout);</span><br><span class="line">      if(nfds &lt; 0)</span><br><span class="line">      &#123;</span><br><span class="line">        std::cerr &lt;&lt; &quot;epoll monitor error&quot; &lt;&lt; std::endl;</span><br><span class="line">        return false;</span><br><span class="line">      &#125;</span><br><span class="line">      else if(nfds == 0)</span><br><span class="line">      &#123;</span><br><span class="line">        std::cerr &lt;&lt; &quot;epoll monitor timeout&quot; &lt;&lt; std::endl;</span><br><span class="line">        return false;</span><br><span class="line">      &#125;</span><br><span class="line">      for(int i = 0; i &lt; nfds; i++)</span><br><span class="line">      &#123;</span><br><span class="line">        int fd = evs[i].data.fd;</span><br><span class="line">        TcpSocket sock;</span><br><span class="line">        sock.SetFd(fd);</span><br><span class="line">        list.push_back(sock);</span><br><span class="line">      &#125;</span><br><span class="line">      return true;</span><br><span class="line">    &#125;</span><br><span class="line">  private:</span><br><span class="line">    int _epfd;</span><br><span class="line">&#125;;</span><br><span class="line">int main(int argc, char* argv[])</span><br><span class="line">&#123;</span><br><span class="line">  if(argc != 3)</span><br><span class="line">  &#123;                                                                         </span><br><span class="line">    std::cout &lt;&lt; &quot;./tcp_epoll ip port&quot; &lt;&lt; std::endl;</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  std::string srv_ip = argv[1];</span><br><span class="line">  uint16_t srv_port = atoi(argv[2]);</span><br><span class="line">  TcpSocket lst_sock;</span><br><span class="line">  CHECK_RET(lst_sock.Socket());</span><br><span class="line">  CHECK_RET(lst_sock.Bind(srv_ip, srv_port));</span><br><span class="line">  CHECK_RET(lst_sock.Listen());</span><br><span class="line">  Epoll e;</span><br><span class="line">  CHECK_RET(e.Init());</span><br><span class="line">  CHECK_RET(e.Add(lst_sock));</span><br><span class="line">  while(1)</span><br><span class="line">  &#123;</span><br><span class="line">    std::vector&lt;TcpSocket&gt; list;</span><br><span class="line">    if(e.Wait(list) == false)</span><br><span class="line">    &#123;</span><br><span class="line">      sleep(1);</span><br><span class="line">      continue;</span><br><span class="line">    &#125;</span><br><span class="line">    for(size_t i = 0; i &lt; list.size(); i++)</span><br><span class="line">    &#123;</span><br><span class="line">      //监听套接字</span><br><span class="line">      if(list[i].GetFd() == lst_sock.GetFd())</span><br><span class="line">      &#123;</span><br><span class="line">        TcpSocket cli_sock;</span><br><span class="line">        if(lst_sock.Accept(cli_sock) == false)</span><br><span class="line">        &#123;</span><br><span class="line">          continue;</span><br><span class="line">        &#125;</span><br><span class="line">        CHECK_RET(e.Add(cli_sock));</span><br><span class="line">      &#125;</span><br><span class="line">      else </span><br><span class="line">      &#123;</span><br><span class="line">        std::string buf;</span><br><span class="line">        if(list[i].Recv(buf) == false)</span><br><span class="line">        &#123;</span><br><span class="line">          list[i].Close();</span><br><span class="line">          continue;</span><br><span class="line">        &#125;</span><br><span class="line">        std::cout &lt;&lt; &quot;Client Say:&quot; &lt;&lt; buf &lt;&lt; std::endl;</span><br><span class="line">        buf.clear();                                                       </span><br><span class="line">        std::cin&gt;&gt; buf;</span><br><span class="line">        if(list[i].Send(buf) == false)</span><br><span class="line">        &#123;</span><br><span class="line">          list[i].Close();</span><br><span class="line">          continue;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  lst_sock.Close();</span><br><span class="line">&#125;      </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//服务端</span><br><span class="line">[misaki@localhost AdvancedIO]$ ./tcpepoll 192.168.239.128 9000</span><br><span class="line">epoll monitor timeout</span><br><span class="line">epoll monitor timeout</span><br><span class="line">epoll monitor timeout</span><br><span class="line">Client Say:nihao</span><br><span class="line">heihei</span><br><span class="line">epoll monitor timeout</span><br><span class="line">Client Say:haha</span><br><span class="line">xixi</span><br><span class="line">peer shutdown</span><br><span class="line">epoll monitor timeout</span><br><span class="line"></span><br><span class="line">//客户端</span><br><span class="line">[misaki@localhost AdvancedIO]$ ./tcpclient 192.168.239.128 9000</span><br><span class="line">nihao</span><br><span class="line">server say: heihei</span><br><span class="line">haha</span><br><span class="line">server say: xixi</span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;在事件结构体中<code>events</code>字段还有另外几种事件触发模式<code>EPOLLLT</code>水平触发，<code>EPOLLET</code>边缘触发。<br>&emsp;&emsp;水平触发对于可读事件来说，只要接收缓冲区中的数据大小高于低水位标记就会触发事件。对于可写事件来说，只要发送缓冲区中剩余空间高于低水位标记时就会触发事件。总结来说就是只要缓冲区满足可读或可写要求就会触发事件。举个例子，如果你在读取缓冲区，一次没有读完，只要缓冲区中还有数据那么下一次<code>epoll</code>会继续触发事件告诉你有东西可读。<br>&emsp;&emsp;边缘触发对于可读和可写事件来说都是只有当缓冲区中内容改变即新数据接收到接收缓冲区或发送缓冲区数据被发送走时才会触发时间。同样举个例子，如果想要读取接收缓冲区的内容，一次没有读取完，虽然缓冲区中还有数据但是下一次<code>epoll</code>不会触发事件让你继续读取，知道有新的数据接收到接收缓冲区中，此时你可以连着上次的数据和新数据一起读取。<br>&emsp;&emsp;水平触发和边缘触发没有明确的性能差距，但是边缘触发一次读写只触发一次，确实比水平触发要触发的次数少，系统就不会触发一些你不关心的就绪文件描述符。因此有时使用边缘触发更好一些，但是为了一次触发就能把缓冲区中数据全部读完需要循环读取数据，知道读完位置，又为了不造成阻塞要将描述符设置为非阻塞，然后循环读取数据直到<code>EAGAIN</code>错误就表示一次读完了。其实实际使用中都是非阻塞循环进行数据读取，毕竟在不清楚数据到底有多少的情况下，要想一次读完就只能采用以上方法。</p>
-<h4 id="epoll优缺点分析"><a href="#epoll优缺点分析" class="headerlink" title="epoll优缺点分析"></a>epoll优缺点分析</h4><p>&emsp;&emsp;<strong>优点</strong>：<br>&emsp;&emsp;1、采用事件结构方式监控，简化多个监控集合的操作流程。<br>&emsp;&emsp;2、没有所能监控的描述符数量上限。<br>&emsp;&emsp;3、epoll监控的事件只需要向内核拷贝一次，不需要每次都拷贝。<br>&emsp;&emsp;4、监控采用异步阻塞，在内核中进行事件回调方式监控，因此性能不会随着描述符的增多而降低。<br>&emsp;&emsp;5、直接返回就绪事件结构，用户可以通过就绪事件结构中的描述符直接操作，不需要进行遍历判断。<br>&emsp;&emsp;<strong>缺点</strong>：<br>&emsp;&emsp;1、不支持跨平台。</p>
-<h3 id="多路转接IO适用场景"><a href="#多路转接IO适用场景" class="headerlink" title="多路转接IO适用场景"></a>多路转接IO适用场景</h3><p>&emsp;&emsp;多路转接模型适用于<strong>对大量描述符进行监控，但是同一时间只有少量活跃的场景</strong>。多线程/多进程的并发处理时比较高效且公平的。但是多路转接模型的并发是轮询处理的，一个处理完才会处理下一个，如果活跃描述符很多，则会导致后面的描述符等待时间过长。<br>&emsp;&emsp;因此使用<code>epoll</code>往往是用其进行活跃判断，当描述符活跃再将其放到线程池中进行公平处理。这样的搭配才是较为完美的。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2110,7 +2092,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-count">78</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2132,7 +2114,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2229,7 +2211,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共233.8k字</span>
+  <span class="post-count">博客全站共235.3k字</span>
 </div>
 
         ﻿

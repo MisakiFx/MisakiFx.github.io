@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Cpp,STL," />
+  <meta name="keywords" content="Cpp,空间配置器," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="deque类基础介绍&amp;emsp;&amp;emsp;deque是双端队列，它提供了和vector类似的接口但是底层的实现与vector完全不同，vector底层用三个指针指向数组的起点，尾部和总容量的尾部，并且所有元素都是连续的，但是在deque中所有元素并不一定都是在连续的内存空间上的。deque在底层实现上是将一个连续的空间分段进行管理，并将它们的首地址用一个指针数组进行管理，这样特殊的存储结构使得它">
-<meta name="keywords" content="Cpp,STL">
+<meta name="description" content="空间配置器什么是空间配置器&amp;emsp;&amp;emsp;空间配置器是为各个容器高效管理空间的工具，负责空间的申请与回收，虽然一般情况下我们用不到它，但是研究空间配置器可以让我们对STL有更深的理解。 为什么需要空间配置器&amp;emsp;&amp;emsp;我们之前在实现各个容器的时候，需要申请空间大的地方都是通过new申请的，但是这样的申请方式有着很大的缺陷：&amp;emsp;&amp;emsp;1、空间申请和释放需要自己管理，">
+<meta name="keywords" content="Cpp,空间配置器">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Cpp】第八章-STL_deque类">
-<meta property="og:url" content="http://yoursite.com/2019/07/30/【Cpp】第八章-STL-deque类/index.html">
+<meta property="og:title" content="【Cpp】第十八章-空间配置器">
+<meta property="og:url" content="http://yoursite.com/2019/11/06/【Cpp】第十八章-空间配置器/index.html">
 <meta property="og:site_name" content="Misaki`s blog">
-<meta property="og:description" content="deque类基础介绍&amp;emsp;&amp;emsp;deque是双端队列，它提供了和vector类似的接口但是底层的实现与vector完全不同，vector底层用三个指针指向数组的起点，尾部和总容量的尾部，并且所有元素都是连续的，但是在deque中所有元素并不一定都是在连续的内存空间上的。deque在底层实现上是将一个连续的空间分段进行管理，并将它们的首地址用一个指针数组进行管理，这样特殊的存储结构使得它">
+<meta property="og:description" content="空间配置器什么是空间配置器&amp;emsp;&amp;emsp;空间配置器是为各个容器高效管理空间的工具，负责空间的申请与回收，虽然一般情况下我们用不到它，但是研究空间配置器可以让我们对STL有更深的理解。 为什么需要空间配置器&amp;emsp;&amp;emsp;我们之前在实现各个容器的时候，需要申请空间大的地方都是通过new申请的，但是这样的申请方式有着很大的缺陷：&amp;emsp;&amp;emsp;1、空间申请和释放需要自己管理，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-30T08:40:32.000Z">
+<meta property="og:updated_time" content="2019-11-06T12:42:51.848Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【Cpp】第八章-STL_deque类">
-<meta name="twitter:description" content="deque类基础介绍&amp;emsp;&amp;emsp;deque是双端队列，它提供了和vector类似的接口但是底层的实现与vector完全不同，vector底层用三个指针指向数组的起点，尾部和总容量的尾部，并且所有元素都是连续的，但是在deque中所有元素并不一定都是在连续的内存空间上的。deque在底层实现上是将一个连续的空间分段进行管理，并将它们的首地址用一个指针数组进行管理，这样特殊的存储结构使得它">
+<meta name="twitter:title" content="【Cpp】第十八章-空间配置器">
+<meta name="twitter:description" content="空间配置器什么是空间配置器&amp;emsp;&amp;emsp;空间配置器是为各个容器高效管理空间的工具，负责空间的申请与回收，虽然一般情况下我们用不到它，但是研究空间配置器可以让我们对STL有更深的理解。 为什么需要空间配置器&amp;emsp;&amp;emsp;我们之前在实现各个容器的时候，需要申请空间大的地方都是通过new申请的，但是这样的申请方式有着很大的缺陷：&amp;emsp;&amp;emsp;1、空间申请和释放需要自己管理，">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/30/【Cpp】第八章-STL-deque类/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/11/06/【Cpp】第十八章-空间配置器/"/>
 
 
 
 
 
-  <title>【Cpp】第八章-STL_deque类 | Misaki`s blog</title>
+  <title>【Cpp】第十八章-空间配置器 | Misaki`s blog</title>
   
 
 
@@ -265,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/30/【Cpp】第八章-STL-deque类/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/06/【Cpp】第十八章-空间配置器/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MisakiFx">
@@ -282,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【Cpp】第八章-STL_deque类</h1>
+          <h1 class="post-title" itemprop="name headline">【Cpp】第十八章-空间配置器</h1>
         
 
         <div class="post-meta">
@@ -294,8 +294,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-30T16:39:49+08:00">
-                2019-07-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-06T20:41:05+08:00">
+                2019-11-06
               </time>
             
 
@@ -348,7 +348,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.4k
+                  1.5k
                 </span>
               
 
@@ -373,13 +373,11 @@
       
 
       
-        <h1 id="deque类"><a href="#deque类" class="headerlink" title="deque类"></a>deque类</h1><h2 id="基础介绍"><a href="#基础介绍" class="headerlink" title="基础介绍"></a>基础介绍</h2><p>&emsp;&emsp;<code>deque</code>是双端队列，它提供了和<code>vector</code>类似的接口但是底层的实现与<code>vector</code>完全不同，<code>vector</code>底层用三个指针指向数组的起点，尾部和总容量的尾部，并且所有元素都是连续的，但是在<code>deque</code>中所有元素并不一定都是在连续的内存空间上的。<code>deque</code>在底层实现上是将一个连续的空间分段进行管理，并将它们的首地址用一个指针数组进行管理，这样特殊的存储结构使得它在头部和尾部增加元素比<code>vector</code>更加高效，但是底层实现更为复杂，存储了很多额外信息。如果抛去在头部和尾部增加元素，在中间任意位置添加元素，它的效率比vector更高，但是比list要低。</p>
-<h2 id="常用接口"><a href="#常用接口" class="headerlink" title="常用接口"></a>常用接口</h2><h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deque();                                                  //构造空的双端队列</span><br><span class="line">deque(size_type n, const value_type &amp;val = value_type()); //用n个值为val的元素构造双端队列</span><br><span class="line">deque(InputIterator first, InputIterator last);           //用[first, last)的区间构造双端队列</span><br><span class="line">deque(const deque &amp;x);                                    //双端队列的拷贝构造函数</span><br></pre></td></tr></table></figure>
-<h3 id="迭代器相关"><a href="#迭代器相关" class="headerlink" title="迭代器相关"></a>迭代器相关</h3><p>&emsp;&emsp;由于<code>deque</code>在内存上并不完全是连续的因此想要保持deque的连续性，这个任务就落到了迭代器身上。在底层实现上，<code>deque</code>将一段一段连续的内存称为一个缓冲区(buffer)，并将这些缓冲区的首尾地址存储在一个map中用以映射，map中一个存储缓冲区的地址对应一个结点(node)信息用于标记这个键值对，这样就构建好了基础架构。在迭代器中存储了4个信息，分别是当前结点(cur)，当前缓冲区的头(first)，当前缓冲区的尾(last)以及在map中用以标记当前缓冲区的地址的结点(node)信息。并且在<code>deque</code>内部已经存储好了两个迭代器<code>start</code>和<code>finish</code>用于标记<code>deque</code>的头和尾元素。这样即可完成将一段一段连续的空间在逻辑结构上构成一段连续空间的目的。<br>&emsp;&emsp;当从头遍历<code>deque</code>时，<code>start</code>迭代器中<code>first</code>和<code>last</code>已经从map中找到了第一个结点的缓冲区首尾信息并进行了保存，于是<code>cur</code>就从<code>first</code>开始遍历这个缓冲区，当遍历到<code>last</code>时就重新到map中寻找写一个结点的缓冲区收尾地址并且替换掉原来<code>first</code>和<code>last</code>值，继续遍历，这样即可完成遍历直到最后一个结点也遍历完。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">iterator begin();                       //返回deque起始位置迭代器</span><br><span class="line">iterator end();                         //返回deque最后一个元素下一个位置的迭代器</span><br><span class="line">reverse_iterator rbegin();              //返回deque起始位置的反向迭代器(即end())</span><br><span class="line">reverse_iterator rend();                //返回deque最后一个元素下一个位置的反向迭代器(begin())</span><br><span class="line">const_iterator cbegin() const;          //返回deque起始位置的const迭代器</span><br><span class="line">const_iterator cend() const;            //返回deque最后一个元素下一个位置的const迭代器</span><br><span class="line">const_reverse_iterator crbegin() const; //返回deque起始位置的const反向迭代器(即crend())</span><br><span class="line">const_reverse_iterator crend() const;   //返回deque最后一个元素下一个位置的const反向迭代器(crbegin())</span><br></pre></td></tr></table></figure></p>
-<h3 id="容量相关"><a href="#容量相关" class="headerlink" title="容量相关"></a>容量相关</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">size_type size() const;               //返回deque中有效元素个数</span><br><span class="line">bool empty() const;                   //检测deque是否为空，是返回true，否则返回false</span><br><span class="line">void resize(size_type sz, T c = T()); //将deque中的元素改变到sz，多出的空间用c填充</span><br></pre></td></tr></table></figure>
-<h3 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">reference operator[](size_type n);                         //返回deque中n位置上元素的引用</span><br><span class="line">const_reference operator[](size_type n) const;             //返回deque中n位置上元素的const 引用</span><br><span class="line">reference front();                                         //返回deque中首元素的引用</span><br><span class="line">const_reference front() const;                             //返回deque中首元素的const引用</span><br><span class="line">reference back();                                          //返回deque中最后一个元素的引用</span><br><span class="line">const_reference back() const;                              //返回deque中最后一个元素的const引用</span><br><span class="line">void push_back(const value_type &amp;val);                     //deque尾部插入元素val</span><br><span class="line">void pop_back();                                           //删除deque尾部元素</span><br><span class="line">void push_front(const value_type &amp;val);                    //deque头部插入元素val</span><br><span class="line">void pop_front();                                          //删除deque头部元素</span><br><span class="line">iterator insert(iterator position, const value_type &amp;val); //在deque的position位置插入值为val的元素</span><br><span class="line">void insert(iterator position, size_type n,</span><br><span class="line">            const value_type &amp;val);                                      //在deque的position位置插入n个值为val的元素</span><br><span class="line">void insert(iterator position, InputIterator first, InputIterator last); //在deque的position位置插入[first, last)区间中的元素</span><br><span class="line">iterator erase(iterator position);                                       //删除deque中position位置的元素，并返回该位置的下一个位置</span><br><span class="line">iterator erase(iterator first, iterator last);                           //删除deque中[first, last)区间中的元素，并返回last位置</span><br><span class="line">void swap(deque &amp; x);                                                    //交换两个deque中的内容</span><br><span class="line">void clear();                                                            //将deque中的元素清空</span><br><span class="line">iterator emplace(const_iterator position, Args &amp;&amp; ... args);             //在deque的position位置构造元素，将元素所需内容通过参数类表传入</span><br><span class="line">void emplace_front(Args &amp;&amp; ... args);                                    //在deque的头部构造元素，元素的参数通过参数列表传入</span><br><span class="line">void emplace_back(Args &amp;&amp; ... args);                                     //在deque的尾部构造元素，元素的参数通过参数列表传入</span><br></pre></td></tr></table></figure>
-<h3 id="综合运用"><a href="#综合运用" class="headerlink" title="综合运用"></a>综合运用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;deque&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    deque&lt;int&gt; deq;</span><br><span class="line">    deq.push_front(1);</span><br><span class="line">    deq.push_back(2);</span><br><span class="line">    deque&lt;int&gt;::iterator it = deq.begin();</span><br><span class="line">    it = deq.insert(it, 0);</span><br><span class="line">    while(it != deq.end())</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; *it &lt;&lt; endl;</span><br><span class="line">        it++;</span><br><span class="line">    &#125;</span><br><span class="line">    it = deq.erase(--it);</span><br><span class="line">    it = deq.begin();</span><br><span class="line">    while(it != deq.end())</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; *it &lt;&lt; endl;</span><br><span class="line">        it++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>&emsp;&emsp;双端队列<code>deque</code>是一个设计并不算成功的容器，如果要随机访问单纯的查询多一点可以用<code>vector</code>而且更加方便，如果需要频繁插入那么<code>list</code>效率又会跟高，因此<code>deque</code>并不常用，其最常用的地方就是在作为适配器<code>stack</code>和<code>queue</code>的底层存储容器。</p>
+        <h1 id="空间配置器"><a href="#空间配置器" class="headerlink" title="空间配置器"></a>空间配置器</h1><h2 id="什么是空间配置器"><a href="#什么是空间配置器" class="headerlink" title="什么是空间配置器"></a>什么是空间配置器</h2><p>&emsp;&emsp;空间配置器是为各个容器高效管理空间的工具，负责空间的申请与回收，虽然一般情况下我们用不到它，但是研究空间配置器可以让我们对STL有更深的理解。</p>
+<h2 id="为什么需要空间配置器"><a href="#为什么需要空间配置器" class="headerlink" title="为什么需要空间配置器"></a>为什么需要空间配置器</h2><p>&emsp;&emsp;我们之前在实现各个容器的时候，需要申请空间大的地方都是通过<code>new</code>申请的，但是这样的申请方式有着很大的缺陷：<br>&emsp;&emsp;1、空间申请和释放需要自己管理，容易造成内存泄露。<br>&emsp;&emsp;2、频繁向系统申请小块内存，造成内存碎片。<br>&emsp;&emsp;3、频繁向系统申请内存，影响程序效率。<br>&emsp;&emsp;4、无法应对申请空间失败的情况。<br>&emsp;&emsp;5、代码复用度不高。<br>&emsp;&emsp;6、代码韧性较差。<br>&emsp;&emsp;7、没有考虑线程安全的问题。</p>
+<h2 id="空间配置器实现原理"><a href="#空间配置器实现原理" class="headerlink" title="空间配置器实现原理"></a>空间配置器实现原理</h2><p>&emsp;&emsp;以上所说的不足，主要原因就是<strong>程序频繁向操作系统申请小块内存</strong>导致的。在SGI-STL中以128字节作为小块内存和大块内存的分界线，同时也将空间配置器分为两级结构。一级空间配置器处理大块内存，二级空间配置器处理小块内存。</p>
+<h3 id="一级空间配置器"><a href="#一级空间配置器" class="headerlink" title="一级空间配置器"></a>一级空间配置器</h3><p>&emsp;&emsp;以及空间配置器的实现较为简单，它主要是对<code>malloc</code>和<code>free</code>进行了一层封装，和我们曾经说过的<code>new</code>和<code>delete</code>的实现类似，其封装具体添加的内容主要是用来处理异常的。并且向其中添加了一个回调函数<code>handler</code>，当空间申请失败时会执行其中的处理操作，我们可以选择抛异常，中断或是其他行为都可以自定义。</p>
+<h3 id="二级空间配置器"><a href="#二级空间配置器" class="headerlink" title="二级空间配置器"></a>二级空间配置器</h3><p>&emsp;&emsp;二级空间配置器所作的事情会更多一些，因为为了避免频繁向系统申请小内存空间，每次我们在释放小内存的时候空间配置器其实并不会将其让系统回收，而是自己进行了回收，等到用户重新想要申请小空间的时候，再从自己回收的内存中拿出一部分交给用户。<br>&emsp;&emsp;二级空间配置器在内部实现了一个内存池，空间配置器通过维护这个内存池来给用户分配空间。<br>&emsp;&emsp;当用户想要申请一小块内存的时候，空间配置器会先从内存池中拉出一份交给用户，当用户释放这块空间的时候，空间配置器并不会将这块内存还给内存池，而是当用户想要申请新的小空间时，优先使用这块已经从内存池中分配出来的空间。<br>&emsp;&emsp;当内存池中的所有空间都用完时，空间配置器才会重新去向操作系统申请一块大空间来补充内存池。<br>&emsp;&emsp;空间配置器中是通过哈希桶来向用户分配小块内存空间的，空间配置器将哈希桶分为一共16个桶，每个桶下面管理一部分小块字节的空间，此时的哈希函数为<code>申请空间大小 / 8</code>，例如我们要申请8字节空间，则会到一号桶下面拿到它下面的内存空间，因为对应桶会保证当前下面所挂内存空间至少为<code>桶号 * 8</code>的大小，例如1号桶下面的内存空间大小都是8字节，2号桶都是16字节的，以此类推，因此一共16个桶16号桶下面的空间都是128字节的，刚好以8字节为单位平分小内存空间。一开始所有内存都是在内存池中的，当有内存从内存池中分配出去，或者要回收回来时就会有新的空间挂到哈希桶对应的桶下面，方便下次我们继续分配。也正是因为这样的哈希关系，我们获取的内存空间一般都会向上取整为8的整数倍字节。<br>&emsp;&emsp;当拿到要分配的空间的大小<code>n</code>时（这里假设&lt;=128byte使用二级空间配置器）会进行以下操作：<br>&emsp;&emsp;1、向上对其为8字节的整数倍。<br>&emsp;&emsp;2、计算桶的位置，这里的哈希函数即为<code>n / 16</code>。<br>&emsp;&emsp;3、查看桶中是否有内存块，如果有内存块则取出一块内存，如果没有，则向内存池索要。此时会调用<code>chunk_alloc(size_t n, size_t&amp; nobj)</code>，<code>n为一块空间大小，nobj为一共申请多少块，默认nobj = 20</code>，共向内存池申请<code>total = n * nobj</code>的空间。<br>&emsp;&emsp;4、如果内存池剩余空间大于<code>total</code>，则直接分配，并且把一块交给用户，其他块交给哈希桶挂起；如果内存池剩余空间小于<code>total</code>，但是至少有一块的空间，则会重新计算<code>nobj</code>的大小，<code>nobj = 剩余空间 / n</code>，然后将能分配的空间交给用户，多余的挂到哈希桶上；如果内存池目前剩余空间已经不足一块要申请的空间，则会向系统申请大内存空间，并将剩余的一部分空间挂到对应的哈希桶上。<br>&emsp;&emsp;5、向系统申请新内存也会出现两种情况，如果申请成功，则放入内存池，递归<code>chunk_alloc</code>，如果申请失败则去搜索哈希桶，取出桶中尚未使用的内存放入内存池，再调用<code>chunk_alloc</code>。<br>&emsp;&emsp;6、如果连哈希桶中也没有多余空间，则会调用一级空间配置器，这里又出现两种情况，如果一级空间配置器申请内存成功则放入内存池，递归<code>chunk_alloc</code>，如果申请失败则会抛异常，处理异常。</p>
 
       
     </div>
@@ -434,7 +432,7 @@
           
             <a href="/tags/Cpp/" rel="tag"># Cpp</a>
           
-            <a href="/tags/STL/" rel="tag"># STL</a>
+            <a href="/tags/空间配置器/" rel="tag"># 空间配置器</a>
           
         </div>
       
@@ -447,8 +445,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/29/【Cpp】第七章-STL-list类/" rel="next" title="【Cpp】第七章-STL_list类">
-                <i class="fa fa-chevron-left"></i> 【Cpp】第七章-STL_list类
+              <a href="/2019/11/06/【Cpp】哈希的应用/" rel="next" title="【Cpp】哈希的应用">
+                <i class="fa fa-chevron-left"></i> 【Cpp】哈希的应用
               </a>
             
           </div>
@@ -456,10 +454,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/08/05/【Cpp】第九章-STL-stack类和queue类/" rel="prev" title="【Cpp】第九章-STL_stack类和queue类">
-                【Cpp】第九章-STL_stack类和queue类 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -623,7 +617,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#deque类"><span class="nav-number">1.</span> <span class="nav-text">deque类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础介绍"><span class="nav-number">1.1.</span> <span class="nav-text">基础介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用接口"><span class="nav-number">1.2.</span> <span class="nav-text">常用接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#构造函数"><span class="nav-number">1.2.1.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代器相关"><span class="nav-number">1.2.2.</span> <span class="nav-text">迭代器相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容量相关"><span class="nav-number">1.2.3.</span> <span class="nav-text">容量相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增删改查"><span class="nav-number">1.2.4.</span> <span class="nav-text">增删改查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#综合运用"><span class="nav-number">1.2.5.</span> <span class="nav-text">综合运用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#空间配置器"><span class="nav-number">1.</span> <span class="nav-text">空间配置器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是空间配置器"><span class="nav-number">1.1.</span> <span class="nav-text">什么是空间配置器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么需要空间配置器"><span class="nav-number">1.2.</span> <span class="nav-text">为什么需要空间配置器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空间配置器实现原理"><span class="nav-number">1.3.</span> <span class="nav-text">空间配置器实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一级空间配置器"><span class="nav-number">1.3.1.</span> <span class="nav-text">一级空间配置器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二级空间配置器"><span class="nav-number">1.3.2.</span> <span class="nav-text">二级空间配置器</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
