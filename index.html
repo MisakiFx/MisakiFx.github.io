@@ -264,6 +264,193 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/10/【Cpp】第十九章-Cpp11新特性/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/10/【Cpp】第十九章-Cpp11新特性/" itemprop="url">【Cpp】第十九章-Cpp11新特性</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-10T15:49:52+08:00">
+                2019-11-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index">
+                    <span itemprop="name">Cpp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.7k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Cpp11新特性"><a href="#Cpp11新特性" class="headerlink" title="Cpp11新特性"></a>Cpp11新特性</h1><p>&emsp;&emsp;Cpp11中新增了很多新的语法，很多之前我们都已经有介绍过</p>
+<h2 id="初始化列表"><a href="#初始化列表" class="headerlink" title="初始化列表"></a>初始化列表</h2><h3 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h3><p>&emsp;&emsp;在Cpp11中允许使用初始化列表初始化任何类型，不论是内置类型还是自定义类型都可以使用初始化列表进行初始化，而在Cpp98的版本中是不能初始化自定义类型的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    Test(int a, int b)</span><br><span class="line">        :_a(a)</span><br><span class="line">        ,_b(b)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; _a &lt;&lt; &quot; &quot; &lt;&lt; _b &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    int _a;</span><br><span class="line">    int _b;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    //内置类型的初始化列表初始化</span><br><span class="line">    int a = &#123;10&#125;;</span><br><span class="line">    int b = &#123;3 + 4&#125;;</span><br><span class="line">    std::cout &lt;&lt; a &lt;&lt; &quot; &quot; &lt;&lt; b &lt;&lt; std::endl;</span><br><span class="line">    int arr[] = &#123;1, 2, 3, 4&#125;;</span><br><span class="line">    for(int i = 0; i &lt; sizeof(arr) / sizeof(arr[0]); i++)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; arr[i] &lt;&lt; &quot; &quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">    //自定义类型初始化列表初始化</span><br><span class="line">    std::vector&lt;int&gt; arr2 = &#123;4, 3, 2, 1&#125;;</span><br><span class="line">    for(auto e : arr2)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; e &lt;&lt; &quot; &quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">    Test test = &#123;7, 8&#125;;</span><br><span class="line">    test.Print();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">10 7</span><br><span class="line">1 2 3 4</span><br><span class="line">4 3 2 1</span><br><span class="line">7 8</span><br></pre></td></tr></table></figure></p>
+<h3 id="initializer-list"><a href="#initializer-list" class="headerlink" title="initializer_list"></a>initializer_list</h3><p>&emsp;&emsp;但是自定义类型想要支持像<code>vector</code>这样的初始化列表并不是天然就支持的，而是在Cpp11中新增了一个容器叫<code>initializer_list</code>，初始化列表，借助这个容器我们可以实现<code>vector</code>这样的初始化。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    Test(int a, int b)</span><br><span class="line">        :_a(a)</span><br><span class="line">        ,_b(b)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; _a &lt;&lt; &quot; &quot; &lt;&lt; _b &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    int _a;</span><br><span class="line">    int _b;</span><br><span class="line">&#125;;</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">class Vector</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    Vector(size_t n = 0)</span><br><span class="line">        :_start(new T[n])</span><br><span class="line">        ,_finish(_start + n)</span><br><span class="line">        ,_endOfStorge(_start + n)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    //我们想要使用初始化列表初始化vector多亏下面这样的构造函数</span><br><span class="line">    Vector(const std::initializer_list&lt;T&gt;&amp; list)//初始化列表容器</span><br><span class="line">        :_start(new T[list.size()])</span><br><span class="line">        ,_finish(_start + list.size())</span><br><span class="line">        ,_endOfStorge(_start + list.size())</span><br><span class="line">    &#123;</span><br><span class="line">        //std::initializer_list容器有三个公有接口，start(), end()提供遍历，size()提供大小</span><br><span class="line">        int index = 0;</span><br><span class="line">        for(auto e : list)</span><br><span class="line">        &#123;</span><br><span class="line">            _start[index] = e;</span><br><span class="line">            index++;</span><br><span class="line">        &#125;   </span><br><span class="line">    &#125;</span><br><span class="line">    void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        T* start = _start;</span><br><span class="line">        while(start != _finish)</span><br><span class="line">        &#123;</span><br><span class="line">            std::cout &lt;&lt; *start &lt;&lt; &quot; &quot;;</span><br><span class="line">            start++;</span><br><span class="line">        &#125;</span><br><span class="line">        std::cout &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    T* _start;</span><br><span class="line">    T* _finish;</span><br><span class="line">    T* _endOfStorge;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Vector&lt;int&gt; vec = &#123;1, 2, 3, 4, 5&#125;;</span><br><span class="line">    vec.Print();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1 2 3 4 5</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;因此如果我们在自己今后写自定义类型时，想要在初始化时利用初始化列表进行不定长参数的初始化时，就可以借助<code>initializer_list</code>来实现。<br>&emsp;&emsp;如果我们想让一个自定义类型不再支持初始化列表进行初始化我们也可以通过加<code>explicit</code>关键字来禁用。</p>
+<h2 id="变量类型推导"><a href="#变量类型推导" class="headerlink" title="变量类型推导"></a>变量类型推导</h2><p>&emsp;&emsp;变量类型推导其中的典型代表就是我们一直在使用的<code>auto</code>关键字，它可以帮助我们简化代码书写，一些很复杂的类型一个<code>auto</code>即可代替，但是<code>auto</code>是编译时类型识别，除此之外还有一个关键字这里要提一下，即<code>decltype</code>，这个关键字我们之前并没有使用过，不过这个关键字是<code>RTTI</code>的，它可以在运行时进行类型识别。<br>&emsp;&emsp;<code>auto</code>和<code>decltype</code>之间最显著的差别就是，<code>auto</code>在编译时就将变量类型确定下来，因此如果我们声明一个变量而不去定义它那么编译器此时就无法识别它的变量类型，因此这是不合法的书写方式，但是<code>decltype</code>却有办法去识别类型。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">int fun()</span><br><span class="line">&#123;</span><br><span class="line">    return 10;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    //auto a;//这是不合法的，因为编译器此时无法判断它的类型</span><br><span class="line">    decltype(3 + 1) b;//decltype可以通过推导括号中表达式的类型来定义变量</span><br><span class="line">    std::cout &lt;&lt; typeid(b).name() &lt;&lt; std::endl;//typeid可以识别变量类型，它也以RTTI的思想来实现的</span><br><span class="line">    decltype(fun()) c;</span><br><span class="line">    std::cout &lt;&lt; typeid(c).name() &lt;&lt; std::endl;//typeid可以识别变量类型，它也以RTTI的思想来实现的</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">i</span><br><span class="line">i</span><br></pre></td></tr></table></figure></p>
+<h2 id="委派构造函数"><a href="#委派构造函数" class="headerlink" title="委派构造函数"></a>委派构造函数</h2><p>&emsp;&emsp;委派构造函数即在一个类的构造函数中可以调用这个类的其它构造函数。Cpp11之前是不允许这样的语法的，但是在Cpp11中加入了这样的新特性，但是却也带来了问题，就像是下面这样的情况。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">class A</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    A()</span><br><span class="line">        :A(10, 20)//无参构造中调用带参构造</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    A(int a, int b)</span><br><span class="line">        :A()//带参构造中调用无参构造</span><br><span class="line">    &#123;</span><br><span class="line">        _a = a;</span><br><span class="line">        _b = b;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    int _a;</span><br><span class="line">    int _b;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    A a;</span><br><span class="line">    std::cout &lt;&lt; &quot;finish&quot; &lt;&lt; std::endl;//这里调用就会出现死递归调用，从而崩掉</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">崩溃</span><br></pre></td></tr></table></figure></p>
+<h2 id="默认函数控制"><a href="#默认函数控制" class="headerlink" title="默认函数控制"></a>默认函数控制</h2><p>&emsp;&emsp;默认函数控制可以帮助我们很好的管理一个类中的默认成员函数，控制其是否应该自动生成。我们之前想要禁用拷贝构造，赋值运算符重载往往是将他们的声明放在<code>private</code>中，但是在Cpp11中我们可以这样写。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">class A</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    A(int a)</span><br><span class="line">        :_a(a)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    A(const A&amp; a) = delete;</span><br><span class="line">    A&amp; operator=(const A&amp; a) = delete;</span><br><span class="line">private:</span><br><span class="line">    int _a;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    A a(1);</span><br><span class="line">    //A b(a);//禁用拷贝</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;同时我们也可也让编译器自动帮我们生成默认构造函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">class A</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    A(int a)</span><br><span class="line">        :_a(a)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    A() = default;//生成默认构造</span><br><span class="line">    A(const A&amp; a) = delete;</span><br><span class="line">    A&amp; operator=(const A&amp; a) = delete;</span><br><span class="line">private:</span><br><span class="line">    int _a;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    A a(1);</span><br><span class="line">    A b;//合法</span><br><span class="line">    //A b(a);//禁用拷贝</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h2><h3 id="左值和右值"><a href="#左值和右值" class="headerlink" title="左值和右值"></a>左值和右值</h3><p>&emsp;&emsp;什么是右值呢？在C语言中就有左值和右值的概念，这里简单总结下可以理解为：<br>&emsp;&emsp;1、左值就是可以出现在复制运算符左右两边的值，左值往往是可以取地址的。<br>&emsp;&emsp;2、右值就是只可以出现在赋值运算符右边的值，右值往往不可以取地址。<br>&emsp;&emsp;常见的右值有常量，临时变量和将亡值（即将销毁的值）。</p>
+<h3 id="左值引用和右值引用"><a href="#左值引用和右值引用" class="headerlink" title="左值引用和右值引用"></a>左值引用和右值引用</h3><p>&emsp;&emsp;我们之前所使用的引用都是左值引用，左值引用既可以引用左值，也可也引用右值，因为我们可以使用指向常量的引用去引用常量，例如<code>const int&amp; ra = 10;</code>这条语句是合法的。<br>&emsp;&emsp;而右值引用只可以引用右值。例如<code>int&amp;&amp; rra = 10;</code>，此时不需要加<code>const</code>就可以直接引用右值，这就是一条典型的右值引用。，当然右值引用也可也引用临时变量和将亡值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">int fun(int a)</span><br><span class="line">&#123;</span><br><span class="line">    return a;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int a = 10;</span><br><span class="line">    fun(a);</span><br><span class="line">    const int &amp; ra = fun(a);//这里fun(a)返回的是一个临时变量，我们不可以直接使用引用指向它，但是左值引用加上const就可以指向右值</span><br><span class="line">    int&amp;&amp; rra = fun(a);//但是我们如果使用右值引用就可以直接引用临时变量</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="移动语义"><a href="#移动语义" class="headerlink" title="移动语义"></a>移动语义</h3><p>&emsp;&emsp;如果我想要右值引用去引用左值可以么？在Cpp中<strong>移动语义</strong>可以帮助我们完成将一个左值变为右值，从而可以让右值引用去引用它。我们可以通过调用<code>std::move()</code>完成移动语义。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int a = 10;</span><br><span class="line">    int &amp;&amp; ra = std::move(a);//移动语义，将左值改为右值</span><br><span class="line">    const int&amp; rra = std::move(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="移动构造"><a href="#移动构造" class="headerlink" title="移动构造"></a>移动构造</h3><p>&emsp;&emsp;既然左值引用既可以引用左值也可也引用右值，那还要右值引用有什么用呢？我们先看一下这个例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">//实现一个简单的string类</span><br><span class="line">class String</span><br><span class="line">&#123;</span><br><span class="line">	friend std::ostream&amp; operator&lt;&lt;(std::ostream&amp; out, const String&amp; str);</span><br><span class="line">public:</span><br><span class="line">	String(const char* str = &quot;&quot;)</span><br><span class="line">		:_str(new char[strlen(str) + 1])</span><br><span class="line">	&#123;</span><br><span class="line">		strcpy(_str, str);</span><br><span class="line">		std::cout &lt;&lt; &quot;String(char* str = )&quot; &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line">	String(const String&amp; s)</span><br><span class="line">		:_str(new char[strlen(s._str) + 1])</span><br><span class="line">	&#123;</span><br><span class="line">		strcpy(_str, s._str);</span><br><span class="line">		std::cout &lt;&lt; &quot;String(const String&amp; s)&quot; &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line">	String&amp; operator=(const String&amp; s)</span><br><span class="line">	&#123;</span><br><span class="line">		if (this != &amp;s)</span><br><span class="line">		&#123;</span><br><span class="line">			char* temp = _str;</span><br><span class="line">			_str = new char[strlen(s._str) + 1];</span><br><span class="line">			strcpy(_str, s._str);</span><br><span class="line">			delete[] temp;</span><br><span class="line">		&#125;</span><br><span class="line">		return *this;</span><br><span class="line">	&#125;</span><br><span class="line">	~String()</span><br><span class="line">	&#123;</span><br><span class="line">		delete[] _str;</span><br><span class="line">	&#125;</span><br><span class="line">private:</span><br><span class="line">	char* _str;</span><br><span class="line">&#125;;</span><br><span class="line">std::ostream&amp; operator&lt;&lt;(std::ostream&amp; out, const String&amp; str)</span><br><span class="line">&#123;</span><br><span class="line">	out &lt;&lt; str._str;</span><br><span class="line">	return out;</span><br><span class="line">&#125;</span><br><span class="line">String getString(const char* str)</span><br><span class="line">&#123;</span><br><span class="line">	String temp(str);</span><br><span class="line">	return temp;</span><br><span class="line">&#125;</span><br><span class="line">void test()</span><br><span class="line">&#123;</span><br><span class="line">	String str = getString(&quot;Misaki&quot;);</span><br><span class="line">	std::cout &lt;&lt; str &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	test();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">String(char* str = )</span><br><span class="line">String(const String&amp; s)</span><br><span class="line">Misaki</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这个例子中细心的同学会发现，在这个例子中其实会生成三个对象。首先有参构造一个，然后由于我们的函数返回值返回对象，于是拷贝构造临时对象，然后再用临时对象拷贝构造最终我们需要的<code>str</code>对象，于是会发生依次构造，两次拷贝构造，但是由于编译器的优化会帮我们减少为一次构造一次拷贝构造（如果是更厉害的编译器会直接优化成一次构造，比如<code>MinGW</code>，为此为了演示我换上了<code>vs</code>），但是仍然有多余的损耗，因为我们为了构造<code>str</code>而构造了<code>temp</code>，<code>temp</code>构造后是一个将亡值，随后很快会进行释放，紧接着我们用它构造<code>str</code>又开辟了新的空间，为了构造<code>str</code>我们先释放了<code>temp</code>的空间又重新为<code>str</code>开辟了空间，尽管他们空间中的内容应该是一样的。所以这是多次一举的行为，十分低效。<br>&emsp;&emsp;那么有没有一种办法可以让我们的<code>str</code>直接利用<code>temp</code>开辟好的空间，而不再多此一举自己重新开辟空间呢？这样的做法明显是更加高效的，答案是有的。在Cpp11中由于右值引用的出现，于是出现了<strong>移动构造</strong>，即利用右值引用进行构造。这里右值引用的多是一个将亡值，即即将释放资源的值，既然他们的资源即将要释放，而我们构造新对象所需要的资源刚好和他们要释放的资源一样，那不如直接把他们的资源拿来用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">//实现一个简单的string类</span><br><span class="line">class String</span><br><span class="line">&#123;</span><br><span class="line">	friend std::ostream&amp; operator&lt;&lt;(std::ostream&amp; out, const String&amp; str);</span><br><span class="line">public:</span><br><span class="line">	String(const char* str = &quot;&quot;)</span><br><span class="line">		:_str(new char[strlen(str) + 1])</span><br><span class="line">	&#123;</span><br><span class="line">		strcpy(_str, str);</span><br><span class="line">		std::cout &lt;&lt; &quot;String(char* str = )&quot; &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line">	String(const String&amp; s)</span><br><span class="line">		:_str(new char[strlen(s._str) + 1])</span><br><span class="line">	&#123;</span><br><span class="line">		strcpy(_str, s._str);</span><br><span class="line">		std::cout &lt;&lt; &quot;String(const String&amp; s)&quot; &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line">	//移动构造</span><br><span class="line">	String(String&amp;&amp; s)</span><br><span class="line">		:_str(s._str)</span><br><span class="line">	&#123;</span><br><span class="line">		s._str = nullptr;//这里一定要记着将将亡值的原本指针置空，否则会把我们拿来用的资源释放了</span><br><span class="line">		std::cout &lt;&lt; &quot;String(String&amp;&amp; s)&quot; &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line">	String&amp; operator=(const String&amp; s)</span><br><span class="line">	&#123;</span><br><span class="line">		if (this != &amp;s)</span><br><span class="line">		&#123;</span><br><span class="line">			char* temp = _str;</span><br><span class="line">			_str = new char[strlen(s._str) + 1];</span><br><span class="line">			strcpy(_str, s._str);</span><br><span class="line">			delete[] temp;</span><br><span class="line">		&#125;</span><br><span class="line">		return *this;</span><br><span class="line">	&#125;</span><br><span class="line">	~String()</span><br><span class="line">	&#123;</span><br><span class="line">		delete[] _str;</span><br><span class="line">	&#125;</span><br><span class="line">private:</span><br><span class="line">	char* _str;</span><br><span class="line">&#125;;</span><br><span class="line">std::ostream&amp; operator&lt;&lt;(std::ostream&amp; out, const String&amp; str)</span><br><span class="line">&#123;</span><br><span class="line">	out &lt;&lt; str._str;</span><br><span class="line">	return out;</span><br><span class="line">&#125;</span><br><span class="line">String getString(const char* str)</span><br><span class="line">&#123;</span><br><span class="line">	String temp(str);</span><br><span class="line">	return temp;</span><br><span class="line">&#125;</span><br><span class="line">void test()</span><br><span class="line">&#123;</span><br><span class="line">	String str = getString(&quot;Misaki&quot;);</span><br><span class="line">	std::cout &lt;&lt; str &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	test();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">String(char* str = )</span><br><span class="line">String(String&amp;&amp; s)</span><br><span class="line">Misaki</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这里编译器判断<code>temp</code>是一个右值，自动调用了移动构造，移动构造中所做的事情就是将即将释放的资源直接拿来给新创建的对象使用，于是省掉了一次先释放空间再申请空间的过程。移动构造可以提升代码效率，减少拷贝。</p>
+<h3 id="移动赋值"><a href="#移动赋值" class="headerlink" title="移动赋值"></a>移动赋值</h3><p>&emsp;&emsp;有移动构造就有移动赋值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">//实现一个简单的string类</span><br><span class="line">class String</span><br><span class="line">&#123;</span><br><span class="line">	friend std::ostream&amp; operator&lt;&lt;(std::ostream&amp; out, const String&amp; str);</span><br><span class="line">public:</span><br><span class="line">	String(const char* str = &quot;&quot;)</span><br><span class="line">		:_str(new char[strlen(str) + 1])</span><br><span class="line">	&#123;</span><br><span class="line">		strcpy(_str, str);</span><br><span class="line">		std::cout &lt;&lt; &quot;String(char* str = )&quot; &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line">	String(const String&amp; s)</span><br><span class="line">		:_str(new char[strlen(s._str) + 1])</span><br><span class="line">	&#123;</span><br><span class="line">		strcpy(_str, s._str);</span><br><span class="line">		std::cout &lt;&lt; &quot;String(const String&amp; s)&quot; &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line">	//移动构造</span><br><span class="line">	String(String&amp;&amp; s)</span><br><span class="line">		:_str(s._str)</span><br><span class="line">	&#123;</span><br><span class="line">		s._str = nullptr;//这里一定要记着将将亡值的原本指针置空，否则会把我们拿来用的资源释放了</span><br><span class="line">		std::cout &lt;&lt; &quot;String(String&amp;&amp; s)&quot; &lt;&lt; std::endl;</span><br><span class="line">	&#125;</span><br><span class="line">	String&amp; operator=(const String&amp; s)</span><br><span class="line">	&#123;</span><br><span class="line">		if (this != &amp;s)</span><br><span class="line">		&#123;</span><br><span class="line">			char* temp = _str;</span><br><span class="line">			_str = new char[strlen(s._str) + 1];</span><br><span class="line">			strcpy(_str, s._str);</span><br><span class="line">			delete[] temp;</span><br><span class="line">		&#125;</span><br><span class="line">		return *this;</span><br><span class="line">	&#125;</span><br><span class="line">	//移动赋值</span><br><span class="line">	String&amp; operator=(String&amp;&amp; s)</span><br><span class="line">	&#123;</span><br><span class="line">		if (this != &amp;s)</span><br><span class="line">		&#123;</span><br><span class="line">			char* temp = _str;</span><br><span class="line">			_str = s._str;</span><br><span class="line">			s._str = temp;</span><br><span class="line">			std::cout &lt;&lt; &quot;String&amp; operator=(String&amp;&amp;)&quot; &lt;&lt; std::endl;</span><br><span class="line">		&#125;</span><br><span class="line">		return *this;</span><br><span class="line">	&#125;</span><br><span class="line">	~String()</span><br><span class="line">	&#123;</span><br><span class="line">		delete[] _str;</span><br><span class="line">	&#125;</span><br><span class="line">private:</span><br><span class="line">	char* _str;</span><br><span class="line">&#125;;</span><br><span class="line">std::ostream&amp; operator&lt;&lt;(std::ostream&amp; out, const String&amp; str)</span><br><span class="line">&#123;</span><br><span class="line">	out &lt;&lt; str._str;</span><br><span class="line">	return out;</span><br><span class="line">&#125;</span><br><span class="line">String getString(const char* str)</span><br><span class="line">&#123;</span><br><span class="line">	String temp(str);</span><br><span class="line">	return temp;</span><br><span class="line">&#125;</span><br><span class="line">void test()</span><br><span class="line">&#123;</span><br><span class="line">	String str = getString(&quot;Misaki&quot;);</span><br><span class="line">	str = String(&quot;misaki&quot;);</span><br><span class="line">	std::cout &lt;&lt; str &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	test();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">String(char* str = )</span><br><span class="line">String(String&amp;&amp; s)</span><br><span class="line">String(char* str = )</span><br><span class="line">String&amp; operator=(String&amp;&amp;)</span><br><span class="line">misaki</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;我们在写移动构造和移动赋值的时候要注意如果一个类中有自定义类型成员，我们也应该让他们进行移动构造或移动赋值，可以通过移动语义将内部成员从左值转换为右值从而调用他们的移动构造或移动赋值。</p>
+<h3 id="完美转发"><a href="#完美转发" class="headerlink" title="完美转发"></a>完美转发</h3><p>&emsp;&emsp;我们看下面一段代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">void Fun(int&amp; x)</span><br><span class="line">&#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;lvalue ref&quot; &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line">void Fun(const int&amp; x)</span><br><span class="line">&#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;const lvalue ref&quot; &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line">void Fun(int&amp;&amp; x)</span><br><span class="line">&#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;rvalue ref&quot; &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line">void Fun(const int&amp;&amp; x)</span><br><span class="line">&#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;const rvalue ref&quot; &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">void PerfectForward(T t)</span><br><span class="line">&#123;</span><br><span class="line">    Fun(t);</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    PerfectForward(10);//rvalue ref</span><br><span class="line">    int a = 10;</span><br><span class="line">    PerfectForward(a);//lvalue refj</span><br><span class="line">    PerfectForward(std::move(a));//rvalue ref</span><br><span class="line">    const int b = 8;</span><br><span class="line">    PerfectForward(b);//const lvalue ref</span><br><span class="line">    PerfectForward(std::move(b));//const rvalue ref</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">lvalue ref</span><br><span class="line">lvalue ref</span><br><span class="line">lvalue ref</span><br><span class="line">lvalue ref</span><br><span class="line">lvalue ref</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;我们明明传入了不同的类型进入函数模板，本应该产生不同的结果，为什么进到函数模板中就全部变成了左值引用呢？<br>&emsp;&emsp;这里就是在我们把值传递进函数模板时编译器会将所有值的属性全部更改为左值。那么有没有办法让值在传递过程中属性不发生改变呢？这里就要用到<strong>完美转发</strong>，来让值的属性不变。在使用完美转发之前我们还要直到一点，在模板中，自定义类型加<code>&amp;&amp;</code>表示未定义类型，表示传入模板的是什么类型参数，此时就使用什么类型的参数，例如下面这样。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">void Fun(int&amp; x)</span><br><span class="line">&#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;lvalue ref&quot; &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line">void Fun(const int&amp; x)</span><br><span class="line">&#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;const lvalue ref&quot; &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line">void Fun(int&amp;&amp; x)</span><br><span class="line">&#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;rvalue ref&quot; &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line">void Fun(const int&amp;&amp; x)</span><br><span class="line">&#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;const rvalue ref&quot; &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">void PerfectForward(T&amp;&amp; t)//在模板中这里不是右值引用，代表未定义类型</span><br><span class="line">&#123;</span><br><span class="line">    Fun(t);</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    PerfectForward(10);//rvalue ref</span><br><span class="line">    int a = 10;</span><br><span class="line">    PerfectForward(a);//lvalue refj</span><br><span class="line">    PerfectForward(std::move(a));//rvalue ref</span><br><span class="line">    const int b = 8;</span><br><span class="line">    PerfectForward(b);//const lvalue ref</span><br><span class="line">    PerfectForward(std::move(b));//const rvalue ref</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">lvalue ref</span><br><span class="line">lvalue ref</span><br><span class="line">lvalue ref</span><br><span class="line">const lvalue ref</span><br><span class="line">const lvalue ref</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;但是至此结果还是不对，于是我们再加上完美转发。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">void Fun(int&amp; x)</span><br><span class="line">&#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;lvalue ref&quot; &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line">void Fun(const int&amp; x)</span><br><span class="line">&#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;const lvalue ref&quot; &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line">void Fun(int&amp;&amp; x)</span><br><span class="line">&#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;rvalue ref&quot; &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line">void Fun(const int&amp;&amp; x)</span><br><span class="line">&#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;const rvalue ref&quot; &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">void PerfectForward(T&amp;&amp; t)//在模板中这里不是右值引用，代表未定义类型</span><br><span class="line">&#123;</span><br><span class="line">    Fun(std::forward&lt;T&gt;(t));</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    PerfectForward(10);//rvalue ref</span><br><span class="line">    int a = 10;</span><br><span class="line">    PerfectForward(a);//lvalue refj</span><br><span class="line">    PerfectForward(std::move(a));//rvalue ref</span><br><span class="line">    const int b = 8;</span><br><span class="line">    PerfectForward(b);//const lvalue ref</span><br><span class="line">    PerfectForward(std::move(b));//const rvalue ref</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">rvalue ref</span><br><span class="line">lvalue ref</span><br><span class="line">rvalue ref</span><br><span class="line">const lvalue ref</span><br><span class="line">const rvalue ref</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;至此结果就正确了，完美转发可以帮助我们保证值在参数传递过程中属性不会改变。</p>
+<h2 id="lambda表达式"><a href="#lambda表达式" class="headerlink" title="lambda表达式"></a>lambda表达式</h2><p>&emsp;&emsp;<code>lambda表达式</code>是为了方便我们传入回调函数的语法。之前我们在传入回调函数时往往是利用仿函数，传入一个对象，随后在方法内通过调用对象的<code>operator()</code>来回调函数，但是在Cpp11中为了更加方便我们书写回调函数，加入了<code>lambda</code>表达式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    std::vector&lt;int&gt; arr = &#123;1, 10, 3, 4, 5, 2, 5, 7&#125;;</span><br><span class="line">    std::sort(arr.begin(), arr.end(), std::less&lt;int&gt;());//通过仿函数的方式传入，从小到大排序</span><br><span class="line">    for(auto e : arr)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; e &lt;&lt; &quot; &quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">    std::sort(arr.begin(), arr.end(), //lambda表达式传入</span><br><span class="line">        [](int a, int b)-&gt;bool</span><br><span class="line">        &#123;</span><br><span class="line">            return a &gt; b;</span><br><span class="line">        &#125;</span><br><span class="line">    );</span><br><span class="line">    for(auto e : arr)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; e &lt;&lt; &quot; &quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1 2 3 4 5 5 7 10</span><br><span class="line">10 7 5 5 4 3 2 1</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;<code>lambda表达式</code>就是一个匿名函数，可以分为以下几个部分：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[]:捕捉列表</span><br><span class="line">():参数列表</span><br><span class="line">-&gt;:返回值</span><br><span class="line">&#123;&#125;:函数体</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;捕捉列表或许是比较特殊的一个部分，我们可以通过它来捕捉外层作用域内的变量。<code>[=]</code>表示以值得形式捕捉外部作用域内所有变量；<code>[a, b]</code>表示以值的形式捕捉<code>a,b</code>变量；<code>[&amp;]</code>表示以引用的形式获取外部所有变量；<code>[this]</code>表示获取成员变量的<code>this</code>指针，只能在成员函数内部使用。捕捉到的变量可以直接在函数内部使用。<br>&emsp;&emsp;我们默认从外部捕捉的变量都是<code>const</code>的，不可修改，要想修改外部捕获进来的值，需要在参数列表后面加<code>mutable</code>关键字。<br>&emsp;&emsp;<code>lambda表达式</code>的返回值和参数部分都可以省略掉，因此<code>[]{}</code>也可以看作是一个<code>lambda表达式</code>。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/06/【Cpp】第十八章-空间配置器/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1864,180 +2051,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/14/【项目】快备/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/10/14/【项目】快备/" itemprop="url">【项目】快备</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-14T21:06:35+08:00">
-                2019-10-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/项目/" itemprop="url" rel="index">
-                    <span itemprop="name">项目</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.7k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="快备"><a href="#快备" class="headerlink" title="快备"></a>快备</h1><h2 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h2><p>&emsp;&emsp;本项目开发完全在Centos7.2版本下使用C/Cpp进行开发，gcc版本5.3.1，用到的库有httplib，boost及zlib，工具有gcc,gdb,makefile,git。</p>
-<h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><h3 id="功能介绍"><a href="#功能介绍" class="headerlink" title="功能介绍"></a>功能介绍</h3><p>&emsp;&emsp;“快备”可以让Windows用户安全可靠的将文件上传到云端进行备份，并且可以随时下载下来。“快备”通过在用户本地创建一个共享文件夹，只要用户将需要备份的文件放入文件夹内，启动程序快备即可自动完成备份，并且如果共享文件夹中文件有了修改则会再次自动备份文件。在云端，文件会存储在指定目录下，如果一个文件长期未被下载则会被自动标记为低热度文件，“快备”会将其自动打包压缩存储起来以节省空间，如果用户下载此文件则会自动将其解压，恢复为高热度文件。用户想要下载文件只需要打开浏览器访问服务器即可得到文件列表，点击对应文件即可下载。</p>
-<h3 id="功能模块"><a href="#功能模块" class="headerlink" title="功能模块"></a>功能模块</h3><h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h4><p>&emsp;&emsp;客户端主要负责文件信息的监控来判断需要备份的文件和将文件传输到服务端，具有以下功能：<br>&emsp;&emsp;1、文件监控功能。这个功能主要时为了辨别共享文件夹中有哪些文件需要备份。客户端会实时对共享文件夹进行循环监控，监控时会在内存中临时生成一个映射，用于存储文件名及其对应的文件信息，文件信息由最后修改时间和文件大小组成，而每轮监控都会遍历目录获取每个文件的文件信息与存储在内存中的文件信息进行对比，如果内存中没有此文件信息或文件信息不符则说明文件是新增的或者是修改过的需要进行备份。在每轮遍历结束时会将所有文件信息写入一个<code>.list</code>文件进行存储，用于下次启动程序时获取相应的文件信息。<br>&emsp;&emsp;2、文件上传功能。当检测出有文件需要备份时则会组织<code>HTTP</code>协议将文件传输到服务器上。传输过程中，考虑到传输的速度我选择利用多线程分块并行对文件进行传输，以提高传输速度。分块传输是利用多线程分别读取文件的不同部分来实现的，同时将分块信息通过<code>HTTP</code>协议中的<code>range</code>发送给服务端方便服务端进行接收。</p>
-<h4 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h4><p>&emsp;&emsp;服务端主要负责文件的接收存储，低热度文件压缩及文件在浏览器显示下载。其具有以下功能：<br>&emsp;&emsp;1、文件接收功能。当客户端发送<code>HTTP</code>请求要求服务端接收文件数据时，由于是分块对文件进行传输，因此服务端也需要对文件分块进行接收，只需要结合客户端发送的<code>range</code>信息将数据写入文件即可。<br>&emsp;&emsp;2、低热度文件压缩存储功能。对文件热度检测需要对文件进行监控，为了文件接收下载与文件监控两不误我采用多线程的方式对文件进行监控。监控中遍历存储文件的文件夹，获取文件夹中每个文件的最后修改时间用于判断是否是地热度文件，如果是低热度文件则需要进行压缩存储。文件压缩存储在另一个文件夹中，为了能够通过原文件找到压缩后的文件于是建立映射，并将映射存储在一个<code>.list</code>文件中。映射的添加在接收文件成功后就会添加映射，而非压缩文件后才会添加映射。<br>&emsp;&emsp;3、文件列表获取功能。文件列表获取是为了方便用户在浏览器上查看所有可下载文件。文件列表只需要遍历存储文件映射的<code>.list</code>文件即可获取压缩后的及未压缩的所有文件名，通过<code>HTTP</code>协议返回给浏览器即可。<br>&emsp;&emsp;4、文件数据获取功能。如果要获取的是一个未压缩的高热度文件则读取所有文件信息返回给浏览器即可，如果是低热度且已经是压缩文件则需要通过原文件名和映射信息找到压缩文件并且解压缩回原文件再读取文件信息返回给浏览器进行下载。</p>
-<h2 id="项目中遇到的问题"><a href="#项目中遇到的问题" class="headerlink" title="项目中遇到的问题"></a>项目中遇到的问题</h2><h3 id="在客户端如何检测文件是否需要备份"><a href="#在客户端如何检测文件是否需要备份" class="headerlink" title="在客户端如何检测文件是否需要备份"></a>在客户端如何检测文件是否需要备份</h3><p>&emsp;&emsp;客户端要分辨出哪些文件需要备份哪些不需要备份，这是必然要有的功能。这里我采用存储大小和最后修改时间的方式进行解决这个问题，并且为了下次启动这个程序依然可以读取到上次备份的文件信息我将文件信息写入一个文件中。</p>
-<h3 id="在服务端如何检测低热度文件并且进行压缩"><a href="#在服务端如何检测低热度文件并且进行压缩" class="headerlink" title="在服务端如何检测低热度文件并且进行压缩"></a>在服务端如何检测低热度文件并且进行压缩</h3><p>&emsp;&emsp;为了完成低热度文件压缩必须能够检测出哪些是地热度文件，在这里我通过开启多线程获取文件信息对文件是否是低热度文件进行判断，并且利用<code>zlib</code>库对文件进行压缩存储，然后将原文件与压缩文件建立映射来保证可以通过原文件找到压缩文件来解决这个问题。</p>
-<h3 id="多线程的线程安全问题"><a href="#多线程的线程安全问题" class="headerlink" title="多线程的线程安全问题"></a>多线程的线程安全问题</h3><p>&emsp;&emsp;由于用了多线程，就有可能出现同时读写临界资源的情况发生。为了解决这个问题我用读写锁来控制程序中临界资源多读少写的问题。用文件锁来防止多个一个文件同时被读写的问题。</p>
-<h2 id="项目效果预览"><a href="#项目效果预览" class="headerlink" title="项目效果预览"></a>项目效果预览</h2><p>&emsp;&emsp;客户端上传文件。<br><br><img src="/2019/10/14/【项目】快备/1.png" alt="客户端"><br><br>&emsp;&emsp;服务端对低热度文件进行压缩存储。<br><img src="/2019/10/14/【项目】快备/2.png" alt="客户端"><br><br>&emsp;&emsp;用户下载文件。<br><br><img src="/2019/10/14/【项目】快备/3.png" alt="客户端"><br><br>&emsp;&emsp;下载后文件解压缩恢复为原文件。<br><br><img src="/2019/10/14/【项目】快备/4.png" alt="客户端"><br></p>
-<h2 id="项目扩展方向"><a href="#项目扩展方向" class="headerlink" title="项目扩展方向"></a>项目扩展方向</h2><p>&emsp;&emsp;可以进一步实现用户登录功能，不同用户拥有不同的用户空间，每个用户只能下载自己上传的文件。<br>&emsp;&emsp;目前文件上传大小是有限的，主要是因为内存不足无法将数据全部到内存中，但是可以采用并行和串行结合的方式对文件进行分块上传。</p>
-<h2 id="项目发布"><a href="#项目发布" class="headerlink" title="项目发布"></a>项目发布</h2><p>&emsp;&emsp;GitHub:<a href="https://github.com/MisakiFx/Cloud-Backup" target="_blank" rel="noopener">https://github.com/MisakiFx/Cloud-Backup</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2092,7 +2105,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">79</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2114,7 +2127,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2211,7 +2224,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共235.3k字</span>
+  <span class="post-count">博客全站共240k字</span>
 </div>
 
         ﻿

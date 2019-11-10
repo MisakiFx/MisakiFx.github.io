@@ -264,6 +264,181 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/18/【C语言】第四章-数组/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/18/【C语言】第四章-数组/" itemprop="url">【C语言】第四章-数组</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-18T22:53:47+08:00">
+                2018-11-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C语言初阶/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言初阶</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.5k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第四章-数组"><a href="#第四章-数组" class="headerlink" title="第四章 数组"></a>第四章 数组</h1><p>&emsp;&emsp;数组能帮助我们批量定义一些变量，省去我们在需要大量使用变量需要一个个定义变量的麻烦。而且利用数组所定义的变量又一个最大的特点就是这些变量在内存空间上都是连续的。这一章我们将详细介绍数组及其应用。</p>
+<h2 id="第1节"><a href="#第1节" class="headerlink" title="第1节"></a>第1节</h2><h3 id="一维数组"><a href="#一维数组" class="headerlink" title="一维数组"></a>一维数组</h3><h4 id="数组的创建及初始化"><a href="#数组的创建及初始化" class="headerlink" title="数组的创建及初始化"></a>数组的创建及初始化</h4><p>&emsp;&emsp;数组是一组同类型元素的集合。数组的定义方式：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>type_t arr_name[const_n]</code><br><br>&emsp;&emsp;数组的创建及初始化示例。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int arr1[10];//创建一个10个元素大小的整形数组</span><br><span class="line">	int arr2[10] = &#123; 1,2,3 &#125;;//创建一个10个元素大小的整形数组，并将前3个元素赋值，未赋值元素默认为0</span><br><span class="line">	int arr3[] = &#123; 1,2,3 &#125;;//创建一个3个元素大小的整形数组，并且赋值</span><br><span class="line">	char arr4[] = &quot;abcdef&quot;;//创建一个字符数组用来存储字符串&quot;abcdef&quot;</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;在数组创建后我依旧建议立刻进行赋值，就像变量创建后也应该立刻进行赋值一样。如果数组不立刻使用我们应该将他们全部初始化为0。我们可以这么写。<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>int arr[10] = { 0 };</code><br></p>
+<h4 id="一维数组的使用"><a href="#一维数组的使用" class="headerlink" title="一维数组的使用"></a>一维数组的使用</h4><p>&emsp;&emsp;我们可以通过<code>数组名[下标]</code>的方式来取到数组中的某一个元素，不过值得说明的是，<strong>数组中的下标是从0开始的</strong>，也就是说，<strong>下标的最大值 == 数组元素总个数 - 1。</strong>下面是数组使用的例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int arr[10] = &#123; 0 &#125;;//数组的创建及初始化</span><br><span class="line">	//计算数组元素的个数</span><br><span class="line">	int sz = sizeof(arr) / sizeof(arr[0]);</span><br><span class="line">	//让数组中每个元素的值等于在数组中的下标</span><br><span class="line">	for (int i = 0; i &lt; sz; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		arr[i] = i;</span><br><span class="line">	&#125;</span><br><span class="line">	//打印数组的内容</span><br><span class="line">	for (int i = 0; i &lt; sz; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;%d\t&quot;, arr[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	printf(&quot;\n&quot;);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="一维数组在内存中的存储"><a href="#一维数组在内存中的存储" class="headerlink" title="一维数组在内存中的存储"></a>一维数组在内存中的存储</h4><p>&emsp;&emsp;<strong>数组在内存中的存储是连续的，</strong> 不间断的，也正因此我们才可以通过下标来逐个访问到数组的每一个元素。同时<strong>数组名就是数组元素的首地址。</strong><br><br>&emsp;&emsp;数组在内存中的存储时连续的我们可以通过以下这个程序来进行验证。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int arr[10] = &#123; 0 &#125;;</span><br><span class="line">	for (int i = 0; i &lt; sizeof(arr) / sizeof(arr[0]); i++)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;&amp;arr[%d] = %p\n&quot;, i, &amp;arr[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;从程序执行结果大家就可以看出，整形数组中每个元素的地址之间刚好间隔4个字节，也就是一个整形的空间大小，因此可以得出结论，<strong>数组中元素在内存中都是连续排列的。</strong></p>
+<h3 id="二维数组"><a href="#二维数组" class="headerlink" title="二维数组"></a>二维数组</h3><h4 id="二维数组的定义及初始化"><a href="#二维数组的定义及初始化" class="headerlink" title="二维数组的定义及初始化"></a>二维数组的定义及初始化</h4><p>&emsp;&emsp;我们可以使用以下的语法进行对一个二维数组的定义：<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>int arr[3][4];</code><br><br>&emsp;&emsp;在这个例子中我定义了一个三行四列的二维数组。在定义之后我们即可对它进行初始化，而二维数组的初始化和一维数组极为相似。<br><br>&emsp;&emsp;二维数组定义及初始化示例。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int arr1[3][4] = &#123;</span><br><span class="line">		&#123;1, 2, 3, 4&#125;,</span><br><span class="line">		&#123;2, 2, 3, 4&#125;,</span><br><span class="line">		&#123;3, 2, 3, 4&#125;,</span><br><span class="line">	&#125;;</span><br><span class="line">	//定义的数组是这样的</span><br><span class="line">	//	1 2 3 4</span><br><span class="line">	//	2 2 3 4</span><br><span class="line">	//	3 2 3 4</span><br><span class="line">	int arr[3][4] = &#123; 1, 2, 3, 4 &#125;;</span><br><span class="line">	//定义的数组是这样的</span><br><span class="line">	//	1 2 3 4</span><br><span class="line">	//	0 0 0 0</span><br><span class="line">	//	0 0 0 0</span><br><span class="line">	int arr[3][4] = &#123;</span><br><span class="line">		&#123;1, 2&#125;,</span><br><span class="line">		&#123;3, 4&#125;,</span><br><span class="line">	&#125;;</span><br><span class="line">	//定义的数组是这样的</span><br><span class="line">	//	1 2 0 0</span><br><span class="line">	//	3 4 0 0</span><br><span class="line">	//	0 0 0 0</span><br><span class="line">	int arr[][4] = &#123;</span><br><span class="line">		&#123;2, 3&#125;,</span><br><span class="line">		&#123;4, 5&#125;,</span><br><span class="line">	&#125;;</span><br><span class="line">	//定义的数组是这样的</span><br><span class="line">	//	2 3 0 0</span><br><span class="line">	//	4 5 0 0</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这这段示例中可以看出二维数组与一维数组定义十分相似，但是不同的是二维数组的列下标在定义时不能省略，而行下标是可以省略的。</p>
+<h4 id="二维数组的使用"><a href="#二维数组的使用" class="headerlink" title="二维数组的使用"></a>二维数组的使用</h4><p>&emsp;&emsp;二维数组的使用也和一维数组类似，不过我们这时候要是想要取得元素中的某个下标我们需要用两个下标来进行表示，两个下标也都是从0开始计数的。因此我们要想遍历一个二维数组至少需要使用两重循环。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int arr[3][4] = &#123; 0 &#125;;</span><br><span class="line">	for (int i = 0; i &lt; 3; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		for (int j = 0; j &lt; 4; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			arr[i][j] = 4 * i + j;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	for (int i = 0; i &lt; 3; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		for (int j = 0; j &lt; 4; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;%d\t&quot;, arr[i][j]);</span><br><span class="line">		&#125;</span><br><span class="line">		printf(&quot;\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="二维数组的存储"><a href="#二维数组的存储" class="headerlink" title="二维数组的存储"></a>二维数组的存储</h4><p>&emsp;&emsp;二维数组与一维数组一样在内存中存储元素都是相连着的，在这里我们不再细致讨论。</p>
+<h3 id="数组作为函数参数"><a href="#数组作为函数参数" class="headerlink" title="数组作为函数参数"></a>数组作为函数参数</h3><p>&emsp;&emsp;数组传入函数时，会将数组隐式转换为指针。因此在数组传入函数时并不会记录原数组的长度大小等信息，需要我们传值进去。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//一定要设置一个参数用来传入函数的大小</span><br><span class="line">void bubble_sort(int arr[], int sz)</span><br><span class="line">&#123;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/17/【C语言】项目-三子棋/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1703,7 +1878,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">79</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1725,7 +1900,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1822,7 +1997,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共235.3k字</span>
+  <span class="post-count">博客全站共240k字</span>
 </div>
 
         ﻿
