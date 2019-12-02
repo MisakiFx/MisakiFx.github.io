@@ -264,6 +264,189 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/02/【项目】文章相似度检索工具/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/02/【项目】文章相似度检索工具/" itemprop="url">【项目】文章相似度检索工具</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-02T16:43:42+08:00">
+                2019-12-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/项目/" itemprop="url" rel="index">
+                    <span itemprop="name">项目</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.2k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="文章相似度检索工具"><a href="#文章相似度检索工具" class="headerlink" title="文章相似度检索工具"></a>文章相似度检索工具</h1><h2 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h2><p>&emsp;&emsp;基于Windows操作系统，使用vs进行开发。</p>
+<h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><h3 id="功能介绍"><a href="#功能介绍" class="headerlink" title="功能介绍"></a>功能介绍</h3><p>&emsp;&emsp;本项目实现的是一个根据词频获取两篇文章相似度的工具。文本相似度检索经常使用在文本聚类，文本分类，文本挖掘，信息检索上，像是常见的论文查重工具也都是基于文本相似度进行检索分析的。<br>&emsp;&emsp;本项目分别利用相对词频，tf-idf计算两篇文章的相似度，计算结果较为可靠。</p>
+<h3 id="检索原理"><a href="#检索原理" class="headerlink" title="检索原理"></a>检索原理</h3><p>&emsp;&emsp;基于词频进行文本相似度的检索需要统计词频，构建词频特征向量，利用特征向量夹角余弦来表示文本相似度。步骤可以概括为：<strong>分词-&gt;统计词频-&gt;词频向量-&gt;相似度计算</strong>。<br>&emsp;&emsp;分词是中文检索要加上的特殊的环节，中文不像英文词之间有空格作为间隔，中文是连贯的，为了词频统计我们需要将其按照语义进行分词。<br>&emsp;&emsp;分词的原理也较为复杂，这里给出一篇讲解分词原理的博客。<br><a href="https://www.cnblogs.com/BaiYiShaoNian/p/5071802.html" target="_blank" rel="noopener">https://www.cnblogs.com/BaiYiShaoNian/p/5071802.html</a><br>&emsp;&emsp;接下来统计词频。但在统计次品的时候要注意不计算<strong>停用词</strong>的词频。停用词是指<strong>没有什么实际含义的词</strong>，例如：数字，标点，代词，语气助词，副词，介词，连接词等。我们要先去除文章中的停用词，再统计词频。词频即为单词在文章中出现的次数，词频越大一般可认为该词越重要。<br>&emsp;&emsp;构建词频向量需要对词进行编码，确定统计出来的向量的每一维都该表示相同的词的词频，这样构建出来的向量才有意义。把两个文本中的所有有效词全部编码，对于长文本可以按词频从大到小排序，取前n个关键词，再按照编码构建词频向量。<br>&emsp;&emsp;最后计算向量相似度。这里可以使用欧几里得距离，余弦相似度，曼哈顿距离等来计算。我这里通过余弦相似度来进行计算。公式为：<code>cos(θ) = (A * B) / (||A|| * ||B||)</code>。<br>&emsp;&emsp;计算文本相似度过程举例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">文本1：今天有事，没办法去学校上课了。</span><br><span class="line">文本2：真想去学校上课，但是今天有事，去不了学校了。</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;分词后：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">文本1：今天/有事/，/没办法/去/学校/上课/了。</span><br><span class="line">文本2：真想/去/学校/上课/，/但是/今天/有事/，/去不了/学校/了。</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;去掉停用词后统计有效词的词频：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">文本1：有事：1，没办法：1，去：1，学校：1，上课：1</span><br><span class="line">文本2：真想：1，去：1，学校：2，上课：1，有事：1，去不了：1</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;提取所有有效词：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">学校，去，真想，上课，有事，去不了，没办法</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;对有效词进行编码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">学校：0，去：1，真想：2，上课：3，有事：4，去不了：5，没办法：6</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;根据编码构建两个文本的词频向量：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">文档1的词频：&#123;[0 : 1], [1 : 1], [2, 0], [3 : 1], [4 : 1], [5 : 0], [6 : 1]&#125;</span><br><span class="line">文档2的词频：&#123;[0 : 2], [1 : 1], [2 : 1], [3 : 1], [4 : 1], [5 : 1], [6 : 0]&#125;</span><br><span class="line">文档1词频向量：&#123;1, 1, 0, 1, 1, 0, 1&#125;</span><br><span class="line">文档2词频向量：&#123;2, 1, 1, 1, 1, 1, 0&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;最后计算向量相似度即可。</p>
+<h3 id="功能模块"><a href="#功能模块" class="headerlink" title="功能模块"></a>功能模块</h3><h4 id="分词模块"><a href="#分词模块" class="headerlink" title="分词模块"></a>分词模块</h4><p>&emsp;&emsp;分词模块主要利用github上的开源工具<code>结巴分词</code>完成分词工作，其可以将文本内容按照词义分成词组放到<code>vector</code>中。但是要注意<code>结巴分词</code>只支持UTF8编码，而Windows上默认使用GBK编码因此中间我们要想对读取到的文本进行一次转码操作。</p>
+<h4 id="词频获取模块"><a href="#词频获取模块" class="headerlink" title="词频获取模块"></a>词频获取模块</h4><p>&emsp;&emsp;词频获取即遍历分词后的<code>vector</code>统计词语出现次数即可，注意这里还要过滤掉没有用的停用词。但是这样统计出的词频知识绝对词频，在两篇长度差距较大的文章中可信度角度，因此在这个模块中我将<code>绝对词频 / 总词数 = 相对词频</code>得出相对词频，相对词频可以提高词频可靠性。同时为了进一步提高可靠度我利用<code>tf-idf</code>算法二次统计词频。<code>tf-idf = tf * idf</code>，其中<code>idf</code>为逆文档率，它表示每一个词重要性的权重，一个词越少见它的值越大，反之越小。这样的词频统计方法是经过大数据分析后的产物，因此可靠程度更高。</p>
+<h4 id="排序编码模块"><a href="#排序编码模块" class="headerlink" title="排序编码模块"></a>排序编码模块</h4><p>&emsp;&emsp;要获取词频向量要先对其进行编码，但是我们不能将文章中所有此都作为编码构建向量，因为那样的向量太长了且没有针对性，因此我选择对两篇文章中出现频率最高的前n个词进行提取，最后根据去重后的n个词进行编码再构建词频向量。<br>&emsp;&emsp;这里需要先对每篇文章中统计好的词频根据词频大小进行排序，得出前n个出现频率最高的词，再将其放到一个容器中进行去重，去重我们可以选择使用<code>set</code>容器，去重后<code>set</code>中词就是我们需要构建词频向量的码值。</p>
+<h4 id="构建词频向量及计算相似度模块"><a href="#构建词频向量及计算相似度模块" class="headerlink" title="构建词频向量及计算相似度模块"></a>构建词频向量及计算相似度模块</h4><p>&emsp;&emsp;对两种的两种词频分别构建好码值后，对两篇文章依次利用码值和统计好的词频构建词频向量，构建好词频向量后分别计算两种词频向量的余弦相似度，得出结果。</p>
+<h4 id="文件配置模块"><a href="#文件配置模块" class="headerlink" title="文件配置模块"></a>文件配置模块</h4><p>&emsp;&emsp;检索工具有两种使用模式，我们可以在命令行通过参数直接给入字典位置，两个文章路径直接使用，也可以通过编写配置文件的方式进行使用，配置文件的路径需要在参数中提交。<br>&emsp;&emsp;配置文件中可以配置两篇文章获取码值的大小，字典路径，文件路径等。</p>
+<h2 id="项目效果预览"><a href="#项目效果预览" class="headerlink" title="项目效果预览"></a>项目效果预览</h2><p>&emsp;&emsp;文章相似度检索。<br><br><img src="/2019/12/02/【项目】文章相似度检索工具/1.png" alt="相似度检索"><br><br><img src="/2019/12/02/【项目】文章相似度检索工具/2.png" alt="相似度检索"><br><br><img src="/2019/12/02/【项目】文章相似度检索工具/3.png" alt="相似度检索"><br></p>
+<h2 id="项目中遇到的问题"><a href="#项目中遇到的问题" class="headerlink" title="项目中遇到的问题"></a>项目中遇到的问题</h2><h3 id="编码转换"><a href="#编码转换" class="headerlink" title="编码转换"></a>编码转换</h3><p>&emsp;&emsp;在使用分词工具时发现分词工具无法达到满意的效果，无法将词合理的提取，在网上看了官方说明后发现其仅支持UTF8编码，而Windows默认GBK编码，因此其之间必须进行转码才能协同工作。而转码工作需要用的系统函数，并不能直接从GBK转换至UTF8，需要用宽字符也就是UTF16作为桥梁才能进行转换。转码的编写让我了解了Windows下转码的接口以及宽字符和多字节编码转换的应用。</p>
+<h3 id="相对词频"><a href="#相对词频" class="headerlink" title="相对词频"></a>相对词频</h3><p>&emsp;&emsp;一开始项目利用绝对词频作为词频统计，但是发现如果两篇文章长度有极大差别的情况下，相似度的计算并不准确，于是我考虑计算出相对词频作为依据再进行统计。<br>&emsp;&emsp;为了进一步提高准确率我又在网上学习了<code>idf</code>逆文档率的作用，从而通过相对词频和<code>tf-idf</code>两种依据计算文章相似度，提高准确率。</p>
+<h2 id="项目扩展方向"><a href="#项目扩展方向" class="headerlink" title="项目扩展方向"></a>项目扩展方向</h2><h3 id="文章查重"><a href="#文章查重" class="headerlink" title="文章查重"></a>文章查重</h3><p>&emsp;&emsp;目前工具仅可以比较两篇文章之间的相似度，而在实际应用中我们往往要比较多篇文章之间的相似度，例如在文章查重的使用上。接下来项目可以进一步扩展为可以查取多篇文章之间的重复度，并且反馈给用户，为了查取效率我们可以开启多线程进行并行查取。在查重后我们还可以显示相似度较高的几组文章，对用户进行提醒，也可以筛选出相似度最高的两篇文章。</p>
+<h3 id="文章归纳"><a href="#文章归纳" class="headerlink" title="文章归纳"></a>文章归纳</h3><p>&emsp;&emsp;对所给文章依次比较得出相似度，相似度较高的文章可以归纳为一类文章，同时我们还可以通过<code>idf</code>得出文章的关键字，以此为依据对文章进行归纳整理，从而可以将其扩展为一个文章归纳工具。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/10/【Cpp】第十九章-Cpp11新特性/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1862,195 +2045,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/17/【Cpp】第十四章-智能指针/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/10/17/【Cpp】第十四章-智能指针/" itemprop="url">【Cpp】第十四章-智能指针</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-17T17:25:54+08:00">
-                2019-10-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/" itemprop="url" rel="index">
-                    <span itemprop="name">Cpp</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  5.7k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h1><h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><h3 id="为什么要有智能指针"><a href="#为什么要有智能指针" class="headerlink" title="为什么要有智能指针"></a>为什么要有智能指针</h3><p>&emsp;&emsp;首先先看一段程序，看看这段程序可能会出现什么问题。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">void Func()</span><br><span class="line">&#123;</span><br><span class="line">    int* ptr = new int[10];</span><br><span class="line">    //...假设这其中有很多代码</span><br><span class="line">    throw &quot;error!&quot;;</span><br><span class="line">    // delete[] ptr;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        Func();</span><br><span class="line">    &#125;</span><br><span class="line">    catch(const char* str)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; str;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;首先这个代码中我们由于可能<strong>因为代码过于复杂而忘记释放空间</strong>，导致内存泄露，其次如果我们在这段代码中<strong>抛出异常，导致函数终止</strong>也会导致无法释空间，内存泄露，这种问题也被称为异常安全问题。作为Cpp程序猿，我们最烦也是最应该提防的一个问题就是内存泄露。那么针对这种情况我们象让我们动态分配的内存空间可以在生命周期结束后自动释放该怎么办呢？</p>
-<h3 id="什么是智能指针"><a href="#什么是智能指针" class="headerlink" title="什么是智能指针"></a>什么是智能指针</h3><p>&emsp;&emsp;智能指针是一个用于管理和存储指针的类，它利用对象出了作用域自动调用析构函数的特性帮助我们释放空间。接下来模拟实现一个简单的智能指针类。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">#include &lt;memory&gt;</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">class SmartPtr</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    SmartPtr(T* ptr)</span><br><span class="line">        :_ptr(ptr)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;construct smartptr&quot; &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    ~SmartPtr()</span><br><span class="line">    &#123;</span><br><span class="line">        if(_ptr)</span><br><span class="line">        &#123;</span><br><span class="line">            delete _ptr;    </span><br><span class="line">        &#125;</span><br><span class="line">        std::cout &lt;&lt; &quot;destory smartptr&quot; &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    T* _ptr;</span><br><span class="line">&#125;;</span><br><span class="line">void Func()</span><br><span class="line">&#123;</span><br><span class="line">    std::string* ptr = new std::string;</span><br><span class="line">    SmartPtr&lt;std::string&gt; smartPtr(ptr);</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Func();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">construct smartptr</span><br><span class="line">destory smartptr</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;以上这个智能指针类就已经基本实现了帮助我们在指针声明周期结束后自动释放内存空间的功能，这种与之类似的功能实现在Cpp中称之为<code>RAII(Resource Acquisition Is Initialization)，资源获取即初始化</code>，是Cpp中常用的用于管理资源的方法，由这套方法产生了智能指针，当然还有智能锁，几乎所有我们在使用完必须释放资源的类型都可以使用这套方法进行资源管理。这套资源管理的方法使得我们<strong>不需要显示的释放资源</strong>，并且使<strong>资源在其生命周期内长期有效</strong>，出了作用域后自动帮助我们释放资源防止出现内存泄露的问题。<br>&emsp;&emsp;我们之前实现的只能发指针类并没有实现完全，因为作为智能指针我们必须要求它能够像指针一样进行使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">#include &lt;memory&gt;</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">class SmartPtr</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    //资源管理</span><br><span class="line">    SmartPtr(T* ptr)</span><br><span class="line">        :_ptr(ptr)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;construct smartptr&quot; &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    ~SmartPtr()</span><br><span class="line">    &#123;</span><br><span class="line">        if(_ptr)</span><br><span class="line">        &#123;</span><br><span class="line">            delete _ptr;    </span><br><span class="line">        &#125;</span><br><span class="line">        std::cout &lt;&lt; &quot;destory smartptr&quot; &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    //使其可以像指针一样使用</span><br><span class="line">    T&amp; operator*()</span><br><span class="line">    &#123;</span><br><span class="line">        return *_ptr;</span><br><span class="line">    &#125;</span><br><span class="line">    T* operator-&gt;()</span><br><span class="line">    &#123;</span><br><span class="line">        return _ptr;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    T* _ptr;</span><br><span class="line">&#125;;</span><br><span class="line">void Func()</span><br><span class="line">&#123;</span><br><span class="line">    std::string* ptr = new std::string(&quot;Hello&quot;);</span><br><span class="line">    SmartPtr&lt;std::string&gt; smartPtr(ptr);</span><br><span class="line">    std::cout &lt;&lt; *smartPtr &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; smartPtr-&gt;size() &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Func();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">construct smartptr</span><br><span class="line">Hello</span><br><span class="line">5</span><br><span class="line">destory smartptr</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这样就可以称为一个较为完整的智能指针了，但是单单这样还不够，因为这个类中最重要的也是最难处理的两个默认函数还没有书写，即<strong>拷贝构造函数</strong>和<strong>赋值运算符重载函数</strong>，这两个函数的处理也苦恼了Cpp标准库中的多种智能指针，接下来我们就要着重讨论标准库中对这两个函数的处理。</p>
-<h2 id="库中的智能指针"><a href="#库中的智能指针" class="headerlink" title="库中的智能指针"></a>库中的智能指针</h2><p>&emsp;&emsp;早在<code>C++98</code>的版本中就已经出现了智能指针，它叫<code>auto_ptr</code>，但是由于十分不好用于是后面在<code>C++11</code>中出现了<code>unique_ptr</code>和<code>shared_ptr</code>。不同的智能指针除了拷贝构造和赋值运算符重载函数的实现外其他都是大同小异，我们这里着重讨论他们在拷贝构造函数和赋值运算符重载函数上的不同。<br>&emsp;&emsp;为什么不同的智能指针在这两个默认成员函数上实现区别会很大呢？我们稍微思索即可发现，指针的拷贝和赋值往往和资源何时释放而挂钩。如果一个智能指针A拷贝了另一个智能指针B，而当B出了声明周期此时要不要释放资源呢？如果释放资源那么我们再次使用指针A就会有未定义行为的发生。但如果不是放那么何时又该释放资源呢？这些问题的处理上使得智能指针有了差别。</p>
-<h3 id="auto-ptr"><a href="#auto-ptr" class="headerlink" title="auto_ptr"></a>auto_ptr</h3><p>&emsp;&emsp;<code>auto_ptr</code>诞生在<code>C++98</code>的标准库中，但是这也是问题最多的智能指针，他对拷贝构造即赋值运算符重载的处理我们可以用一句话总结，即<strong>管理权限转移</strong>，我们以下作个简单的例子。注意：<code>auto_ptr</code>在<code>C++11</code>中已经被删除，因此我们可以依照文档自己实现一个进行试验。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">#include &lt;memory&gt;</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">class auto_ptr</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    //资源管理</span><br><span class="line">    auto_ptr(T* ptr)</span><br><span class="line">        :_ptr(ptr)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;construct smartptr&quot; &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    ~auto_ptr()</span><br><span class="line">    &#123;</span><br><span class="line">        if(_ptr)</span><br><span class="line">        &#123;</span><br><span class="line">            delete _ptr;    </span><br><span class="line">        &#125;</span><br><span class="line">        std::cout &lt;&lt; &quot;destory smartptr&quot; &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    //使其可以像指针一样使用</span><br><span class="line">    T&amp; operator*()</span><br><span class="line">    &#123;</span><br><span class="line">        return *_ptr;</span><br><span class="line">    &#125;</span><br><span class="line">    T* operator-&gt;()</span><br><span class="line">    &#123;</span><br><span class="line">        return _ptr;</span><br><span class="line">    &#125;</span><br><span class="line">    //拷贝构造和赋值运算符重载</span><br><span class="line">    auto_ptr(auto_ptr&amp; ptr)</span><br><span class="line">    &#123;</span><br><span class="line">        _ptr = ptr._ptr;</span><br><span class="line">        ptr._ptr = nullptr;</span><br><span class="line">        std::cout &lt;&lt; &quot;copy construct&quot; &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    auto_ptr&amp; operator=(auto_ptr&amp; ptr)</span><br><span class="line">    &#123;</span><br><span class="line">        if(this != &amp;ptr)</span><br><span class="line">        &#123;</span><br><span class="line">            if(_ptr)</span><br><span class="line">            &#123;</span><br><span class="line">                delete _ptr;</span><br><span class="line">            &#125;</span><br><span class="line">            _ptr = ptr._ptr;</span><br><span class="line">            ptr._ptr = nullptr;</span><br><span class="line">        &#125;</span><br><span class="line">        std::cout &lt;&lt; &quot;operator=()&quot; &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    T* _ptr;</span><br><span class="line">&#125;;</span><br><span class="line">void Func()</span><br><span class="line">&#123;</span><br><span class="line">    std::string* ptr = new std::string(&quot;Hello&quot;);</span><br><span class="line">    auto_ptr&lt;std::string&gt; autoptr(ptr);</span><br><span class="line">    auto_ptr&lt;std::string&gt; copy(autoptr);</span><br><span class="line">    std::cout &lt;&lt; *copy &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; copy-&gt;size() &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; *autoptr &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; autoptr-&gt;size() &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Func();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">construct smartptr</span><br><span class="line">copy construct</span><br><span class="line">Hello</span><br><span class="line">5</span><br><span class="line">崩溃...</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;在这个模拟实验中可以看出<code>auto_ptr</code>管理权限转移的意义，它会在赋值或者拷贝后将原本的智能指针中所管理指针置空，如果我们再去访问原来的智能指针，结果就是未定义行为，程序崩溃，<del>这指针真的太恶劣了</del>。因此强烈不建议使用<code>auto_ptr</code>，不过好在库中已经删除了他，想用也没的用了，皆大欢喜。</p>
-<h3 id="unique-ptr"><a href="#unique-ptr" class="headerlink" title="unique_ptr"></a>unique_ptr</h3><p>&emsp;&emsp;<code>unique_ptr</code>是<code>C++11</code>中智能指针的改进版本，它解决了<code>auto_ptr</code>可能会导致程序崩溃的问题，但是他解决的方法略为粗暴，即<strong>禁用拷贝构造和赋值</strong>。不让拷贝不就不会出现问题了，简单粗暴。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;memory&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    std::string* ptr = new std::string(&quot;Hello&quot;);</span><br><span class="line">    std::unique_ptr&lt;std::string&gt; uniqueptr(ptr);</span><br><span class="line">    std::cout &lt;&lt; *uniqueptr &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; uniqueptr-&gt;size() &lt;&lt; std::endl;</span><br><span class="line">    //拷贝构造和赋值被禁用，防拷贝</span><br><span class="line">    std::unique_ptr&lt;std::string&gt; copy(uniqueptr);//编译不通过</span><br><span class="line">    std::unique_ptr&lt;std::string&gt; copy2 = uniqueptr;//编译不通过</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;防拷贝很好的解决了<code>auto_ptr</code>的残留问题，我们也模拟实现一个<code>unique_ptr</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;memory&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">class Unique_Ptr</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    Unique_Ptr(T* ptr)</span><br><span class="line">        :_ptr(ptr)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;construct Unique_ptr&quot; &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    ~Unique_Ptr()</span><br><span class="line">    &#123;</span><br><span class="line">        if(_ptr)</span><br><span class="line">        &#123;</span><br><span class="line">            delete _ptr;</span><br><span class="line">        &#125;</span><br><span class="line">        std::cout &lt;&lt; &quot;destroy Unique_ptr&quot; &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    //使其可以像指针一样使用</span><br><span class="line">    T* operator-&gt;()</span><br><span class="line">    &#123;</span><br><span class="line">        return _ptr;</span><br><span class="line">    &#125;</span><br><span class="line">    T&amp; operator*()</span><br><span class="line">    &#123;</span><br><span class="line">        if(_ptr)</span><br><span class="line">        &#123;</span><br><span class="line">            return *_ptr;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    //禁用拷贝构造和赋值运算符重载</span><br><span class="line">    Unique_Ptr(Unique_Ptr&amp; ptr);</span><br><span class="line">    Unique_Ptr&amp; operator=(Unique_Ptr&amp; ptr);</span><br><span class="line">    T* _ptr;</span><br><span class="line">&#125;;</span><br><span class="line">void Func()</span><br><span class="line">&#123;</span><br><span class="line">    std::string* ptr = new std::string(&quot;Hello&quot;);</span><br><span class="line">    Unique_Ptr&lt;std::string&gt; uniqueptr(ptr);</span><br><span class="line">    std::cout &lt;&lt; *uniqueptr &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; uniqueptr-&gt;size() &lt;&lt; std::endl;</span><br><span class="line">    //Unique_Ptr&lt;std::string&gt; copy(uniqueptr);//编译不通过</span><br><span class="line">    //Unique_Ptr&lt;std::string&gt; copy2 = uniqueptr;//编译不通过</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Func();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">construct Unique_ptr</span><br><span class="line">Hello</span><br><span class="line">5</span><br><span class="line">destroy Unique_ptr</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这个版本的智能指针十分好用，因为简单方便因此很少出问题，而且我们本来就不建议让智能指针出现拷贝，因为可能会引发一系列问题，所以这个版本的智能指针也是最为推荐使用的版本，如果要求必须可以进行拷贝那么还得考虑接下来的版本。</p>
-<h3 id="shared-ptr"><a href="#shared-ptr" class="headerlink" title="shared_ptr"></a>shared_ptr</h3><p>&emsp;&emsp;<code>shared_ptr</code>是标准库中的支持拷贝和赋值的智能指针。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;memory&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    std::string* ptr = new std::string(&quot;Hello&quot;);</span><br><span class="line">    std::string* ptr2 = new std::string(&quot;World&quot;);</span><br><span class="line">    std::shared_ptr&lt;std::string&gt; sharedptr(ptr);</span><br><span class="line">    //拷贝构造</span><br><span class="line">    std::shared_ptr&lt;std::string&gt; copy(sharedptr);</span><br><span class="line">    std::shared_ptr&lt;std::string&gt; copy2(ptr2);</span><br><span class="line">    std::cout &lt;&lt; *copy2 &lt;&lt; std::endl;</span><br><span class="line">    //赋值</span><br><span class="line">    copy2 = copy;</span><br><span class="line">    std::cout &lt;&lt; *sharedptr &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; copy-&gt;size() &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; *copy2 &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">World</span><br><span class="line">Hello</span><br><span class="line">5</span><br><span class="line">Hello</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;以上例子可以看出三个通过通过不同方式得来的智能指针都可以正常使用，虽然他们都指向相同的资源但是也可以很好的进行资源管理。<code>shared_ptr</code>之所以可以支持拷贝和赋值，是因为它对智能指针拷贝的处理是通过一个<strong>引用计数</strong>，引用计数用来保存当前资源被几个智能指针共享。<br>&emsp;&emsp;当新增一个智能指针指向某个资源时则引用计数+1，一个智能指针不再指向某个资源则引用计数-1，当引用计数为0时则说明已经没有智能指针指向这个资源则释放资源，否则不释放资源。<br>&emsp;&emsp;但是由于可能会有好几个智能指针共同维护同一份引用计数的情况，于是如果在多线程中引用计数可能会同时被多个线程进行操作，称为临界资源，于是就要考虑线程安全问题，为了解决这些问题就需要在适当的地方加锁，或者让其成为原子操作。<br>&emsp;&emsp;同样的这里模拟实现一份<code>shared_ptr</code>了解原理。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;memory&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">#include &lt;thread&gt;</span><br><span class="line">#include &lt;mutex&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">class Shared_ptr</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    //构造函数，应该初始化引用计数为1，并且初始化互斥锁</span><br><span class="line">    Shared_ptr(T* ptr)</span><br><span class="line">        :_ptr(ptr)</span><br><span class="line">        ,_refCount(new int(1))</span><br><span class="line">        ,_mtx(new std::mutex)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;construct&quot; &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    //拷贝构造</span><br><span class="line">    Shared_ptr(const Shared_ptr&lt;T&gt;&amp; temp)</span><br><span class="line">        :_ptr(temp._ptr)</span><br><span class="line">        ,_refCount(temp._refCount)</span><br><span class="line">        ,_mtx(temp._mtx)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;copy construct&quot; &lt;&lt; std::endl;</span><br><span class="line">        AddRefCount();</span><br><span class="line">    &#125;</span><br><span class="line">    //赋值运算符重载</span><br><span class="line">    Shared_ptr&amp; operator=(const Shared_ptr&lt;T&gt;&amp; temp)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;operator=&quot; &lt;&lt; std::endl;</span><br><span class="line">        if(&amp;temp != this)</span><br><span class="line">        &#123;</span><br><span class="line">            Release();</span><br><span class="line">            _ptr = temp._ptr;</span><br><span class="line">            _refCount = temp._refCount;</span><br><span class="line">            _mtx = temp._mtx;</span><br><span class="line">            AddRefCount();</span><br><span class="line">        &#125;</span><br><span class="line">        return *this;</span><br><span class="line">    &#125;</span><br><span class="line">    //析构函数</span><br><span class="line">    ~Shared_ptr()</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;destroy&quot; &lt;&lt; std::endl;</span><br><span class="line">        Release();</span><br><span class="line">    &#125;</span><br><span class="line">    //返回当前引用计数</span><br><span class="line">    int RefCount()</span><br><span class="line">    &#123;</span><br><span class="line">        return *_refCount;</span><br><span class="line">    &#125;</span><br><span class="line">    //像指针一样使用</span><br><span class="line">    T&amp; operator*()</span><br><span class="line">    &#123;</span><br><span class="line">        return *_ptr;</span><br><span class="line">    &#125;</span><br><span class="line">    T* operator-&gt;()</span><br><span class="line">    &#123;</span><br><span class="line">        return _ptr;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    //指针不再指向当前资源</span><br><span class="line">    void Release()</span><br><span class="line">    &#123;</span><br><span class="line">        //操作临界资源，加锁</span><br><span class="line">        bool isRelease = false;</span><br><span class="line">        _mtx-&gt;lock();</span><br><span class="line">        //已经没有指针在控制当前资源</span><br><span class="line">        if(--(*_refCount) &lt;= 0)</span><br><span class="line">        &#123;</span><br><span class="line">            //释放资源以及引用计数</span><br><span class="line">            std::cout &lt;&lt; &quot;free resouce&quot; &lt;&lt; std::endl;</span><br><span class="line">            delete _ptr;</span><br><span class="line">            delete _refCount;</span><br><span class="line">            isRelease = true;</span><br><span class="line">        &#125;</span><br><span class="line">        _mtx-&gt;unlock();</span><br><span class="line">        //锁不能在加锁中释放，因此要在锁中判断是否需要释放</span><br><span class="line">        //最后在锁外释放锁的资源</span><br><span class="line">        if(isRelease == true)</span><br><span class="line">        &#123;</span><br><span class="line">            delete _mtx;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //有新的智能指针指向当前资源，增加引用计数</span><br><span class="line">    void AddRefCount()</span><br><span class="line">    &#123;</span><br><span class="line">        //同样操作临界资源加锁</span><br><span class="line">        _mtx-&gt;lock();</span><br><span class="line">        ++(*_refCount);</span><br><span class="line">        _mtx-&gt;unlock();</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    T* _ptr;</span><br><span class="line">    int* _refCount;</span><br><span class="line">    std::mutex* _mtx;//互斥锁</span><br><span class="line">&#125;;</span><br><span class="line">void Test1()</span><br><span class="line">&#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;Test1:&quot; &lt;&lt; std::endl;</span><br><span class="line">    std::string* str = new std::string(&quot;Hello&quot;);</span><br><span class="line">    std::string* str2 = new std::string(&quot;World&quot;);</span><br><span class="line">    Shared_ptr&lt;std::string&gt; sharedPtr(str);</span><br><span class="line">    Shared_ptr&lt;std::string&gt; sharedPtr2(sharedPtr);</span><br><span class="line">    sharedPtr2 = Shared_ptr&lt;std::string&gt;(str2);</span><br><span class="line">    std::cout &lt;&lt; *sharedPtr &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; *sharedPtr2 &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void thr_start()</span><br><span class="line">&#123;</span><br><span class="line">    std::string* str = new std::string(&quot;Hello&quot;);</span><br><span class="line">    std::vector&lt;Shared_ptr&lt;std::string&gt;&gt; sharedPtr(10, str);</span><br><span class="line">    std::cout &lt;&lt; sharedPtr[0].RefCount() &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line">void Test2()</span><br><span class="line">&#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;Test2:&quot; &lt;&lt; std::endl;</span><br><span class="line">    std::thread thr1(thr_start);</span><br><span class="line">    std::thread thr2(thr_start);</span><br><span class="line">    thr1.join();</span><br><span class="line">    thr2.join();</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Test1();</span><br><span class="line">    Test2();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Test1:        </span><br><span class="line">construct     </span><br><span class="line">copy construct</span><br><span class="line">construct     </span><br><span class="line">operator=     </span><br><span class="line">destroy</span><br><span class="line">Hello</span><br><span class="line">World</span><br><span class="line">destroy</span><br><span class="line">free resouce</span><br><span class="line">destroy</span><br><span class="line">free resouce</span><br><span class="line">Test2:</span><br><span class="line">construct</span><br><span class="line">copy construct</span><br><span class="line">copy construct</span><br><span class="line">copy construct</span><br><span class="line">copy construct</span><br><span class="line">copy construct</span><br><span class="line">copy construct</span><br><span class="line">copy construct</span><br><span class="line">copy construct</span><br><span class="line">copy construct</span><br><span class="line">copy construct</span><br><span class="line">destroy</span><br><span class="line">construct</span><br><span class="line">copy construct</span><br><span class="line">copy construct</span><br><span class="line">copy construct</span><br><span class="line">copy construct</span><br><span class="line">copy construct</span><br><span class="line">copy construct</span><br><span class="line">copy construct</span><br><span class="line">copy construct</span><br><span class="line">copy construct</span><br><span class="line">copy construct</span><br><span class="line">destroy</span><br><span class="line">10</span><br><span class="line">destroy</span><br><span class="line">destroy</span><br><span class="line">destroy</span><br><span class="line">destroy</span><br><span class="line">destroy</span><br><span class="line">destroy</span><br><span class="line">destroy</span><br><span class="line">destroy</span><br><span class="line">destroy</span><br><span class="line">destroy</span><br><span class="line">free resouce</span><br><span class="line">10</span><br><span class="line">destroy</span><br><span class="line">destroy</span><br><span class="line">destroy</span><br><span class="line">destroy</span><br><span class="line">destroy</span><br><span class="line">destroy</span><br><span class="line">destroy</span><br><span class="line">destroy</span><br><span class="line">destroy</span><br><span class="line">destroy</span><br><span class="line">free resouce</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;<code>shared_ptr</code>在何种情况下乃至多线程的情况下都可以很好的管理和释放资源。</p>
-<h4 id="shared-ptr的线程安全问题"><a href="#shared-ptr的线程安全问题" class="headerlink" title="shared_ptr的线程安全问题"></a>shared_ptr的线程安全问题</h4><p>&emsp;&emsp;<code>shared_ptr</code>的线程安全要从两方面说起。<br>&emsp;&emsp;1、<code>shared_ptr</code>自身的线程安全。这里的线程安全指的是指针内部的引用计数这个临界资源的访问的安全问题，为了让指针知道何时该释放资源我们不得不在其中开辟一块供多个<code>shared_ptr</code>访问的引用计数，但如果在多线程中，就会发生线程安全问题。我们可以试着把上面模拟实现的代码中的增加和减少引用计数部分的锁删除掉，然后利用多线程多创建几个<code>shared_ptr</code>指向同一块资源，就会发现如果引用计数的改变不是原子操作，就会发生多个线程同时更改引用计数但由于资源不同步导致部分更改丢失从而使得智能指针管理的资源要么没有释放，要么提前释放，不过这点我们已经通过给临界资源的访问加锁从而得以解决，因此我们可以说 <strong><code>shared_ptr</code>自身是线程安全的</strong>。<br>&emsp;&emsp;2、<code>shared_ptr</code>管理的资源的线程安全问题。不得不说如果智能指针所管理的资源本身就是临界资源的话，那么所有的智能指针在对这块资源的访问上都是线程不安全的，就像我们使用普通的指针访问临界资源一样，并不会因为我们使用了智能指针而使得原本临界资源的访问就受到了保护。这里的解决方法只能是从外部或者所管理的资源上添加访问保护才能解决，这与智能指针本身无关。但也不得不提 <strong><code>shared_ptr</code>所管理的资源是有线程安全问题存在的</strong>。</p>
-<h4 id="shared-ptr的循环引用问题"><a href="#shared-ptr的循环引用问题" class="headerlink" title="shared_ptr的循环引用问题"></a>shared_ptr的循环引用问题</h4><p>&emsp;&emsp;<code>shared_ptr</code>的循环引用问题是一类非常经典的问题，它通常会出现在<code>shared_ptr</code>的使用中，导致资源无法正确被释放，看以下这个例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;memory&gt;</span><br><span class="line">//链表节点</span><br><span class="line">struct ListNode</span><br><span class="line">&#123;</span><br><span class="line">    //ListNode* _next;</span><br><span class="line">    //ListNode* _prev;</span><br><span class="line">    //统一交给智能指针管理，也方便后面链表节点之间互相连接</span><br><span class="line">    std::shared_ptr&lt;ListNode&gt; _next;</span><br><span class="line">    std::shared_ptr&lt;ListNode&gt; _prev;</span><br><span class="line">    int _data;</span><br><span class="line">    ~ListNode()</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;destroy&quot; &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    //ListNode* node1 = new ListNode;</span><br><span class="line">    //ListNode* node2 = new ListNode;</span><br><span class="line">    //为了防止抛异常无法释放空间，将其交给智能指针管理</span><br><span class="line">    std::shared_ptr&lt;ListNode&gt; node1(new ListNode);</span><br><span class="line">    std::shared_ptr&lt;ListNode&gt; node2(new ListNode);</span><br><span class="line">    node1-&gt;_next = node2;</span><br><span class="line">    node2-&gt;_prev = node1;</span><br><span class="line">    //异常抛出操作</span><br><span class="line">    //...</span><br><span class="line">    //delete node1;</span><br><span class="line">    //delete node2;</span><br><span class="line">    std::cout &lt;&lt; &quot;program will over&quot; &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">program will over</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;程序运行结束我们发现资源并没有被释放，为什么呢。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;memory&gt;</span><br><span class="line">//链表节点</span><br><span class="line">struct ListNode</span><br><span class="line">&#123;</span><br><span class="line">    //ListNode* _next;</span><br><span class="line">    //ListNode* _prev;</span><br><span class="line">    //统一交给智能指针管理，也方便后面链表节点之间互相连接</span><br><span class="line">    std::shared_ptr&lt;ListNode&gt; _next;</span><br><span class="line">    std::shared_ptr&lt;ListNode&gt; _prev;</span><br><span class="line">    int _data;</span><br><span class="line">    ~ListNode()</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;destroy&quot; &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    //ListNode* node1 = new ListNode;</span><br><span class="line">    //ListNode* node2 = new ListNode;</span><br><span class="line">    //为了防止抛异常无法释放空间，将其交给智能指针管理</span><br><span class="line">    std::shared_ptr&lt;ListNode&gt; node1(new ListNode);</span><br><span class="line">    std::shared_ptr&lt;ListNode&gt; node2(new ListNode);</span><br><span class="line">    //node1-&gt;_next = node2;</span><br><span class="line">    //node2-&gt;_prev = node1;</span><br><span class="line">    //异常抛出操作</span><br><span class="line">    //...</span><br><span class="line">    //delete node1;</span><br><span class="line">    //delete node2;</span><br><span class="line">    std::cout &lt;&lt; &quot;program will over&quot; &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">program will over</span><br><span class="line">destroy</span><br><span class="line">destroy</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;以上我们屏蔽掉了两行互相指向，也就是链表节点连接起来的代码，发现又可以正常释放资源了，为什么呢？以上这种现象就是<strong>循环引用</strong>，接下来图解以上过程说明为什么资源无法释放以及如何造成了循环引用。<br><br><img src="/2019/10/17/【Cpp】第十四章-智能指针/1.png" alt="循环引用"><br><br>&emsp;&emsp;循环引用的典型场景就是一个<code>shared_ptr</code>指向一块内存空间A，空间A中还有一个<code>shared_ptr</code>指向另一块空间B，而空间B也由一个<code>shared_ptr</code>管理并且其中又有一个<code>shared_ptr</code>指向空间A，这样在释放时就会发生循环引用的问题，导致空间无法释放。那么如何避免循环引用呢？<br>&emsp;&emsp;造成循环引用的根结问题就是一个两个使用<code>shared_ptr</code>互相指向的空间使得对方空间的引用计数多加了一次，才造成了循环引用，只要我们让由<code>shared_ptr</code>管理的空间中的<code>shared_ptr</code>指向另一块由<code>shared_ptr</code>管理的空间时另一块空间的引用计数不增加就好了，简单来说就是避免一次引用计数的增加，就可以避免卡死。但是<code>shared_ptr</code>指向一块空间时此空间的引用计数必然会+1，这该怎么办呢？<br>&emsp;&emsp;在标准库中未我们提供了另一个智能指针<code>weak_ptr</code>，这个指针是专门提供给我们解决循环引用问题的，我们将代码修改一下先看效果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;memory&gt;</span><br><span class="line">//链表节点</span><br><span class="line">struct ListNode</span><br><span class="line">&#123;</span><br><span class="line">    //ListNode* _next;</span><br><span class="line">    //ListNode* _prev;</span><br><span class="line">    //统一交给智能指针管理，也方便后面链表节点之间互相连接</span><br><span class="line">    //std::shared_ptr&lt;ListNode&gt; _next;</span><br><span class="line">    //std::shared_ptr&lt;ListNode&gt; _prev;</span><br><span class="line">    std::weak_ptr&lt;ListNode&gt; _next;</span><br><span class="line">    std::weak_ptr&lt;ListNode&gt; _prev;</span><br><span class="line">    int _data;</span><br><span class="line">    ~ListNode()</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;destroy&quot; &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    //ListNode* node1 = new ListNode;</span><br><span class="line">    //ListNode* node2 = new ListNode;</span><br><span class="line">    //为了防止抛异常无法释放空间，将其交给智能指针管理</span><br><span class="line">    std::shared_ptr&lt;ListNode&gt; node1(new ListNode);</span><br><span class="line">    std::shared_ptr&lt;ListNode&gt; node2(new ListNode);</span><br><span class="line">    node1-&gt;_next = node2;</span><br><span class="line">    node2-&gt;_prev = node1;</span><br><span class="line">    //异常抛出操作</span><br><span class="line">    //...</span><br><span class="line">    //delete node1;</span><br><span class="line">    //delete node2;</span><br><span class="line">    std::cout &lt;&lt; &quot;program will over&quot; &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">program will over</span><br><span class="line">destroy</span><br><span class="line">destroy</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;资源完美的释放了。那么是如何解决的呢？<br>&emsp;&emsp;首先可以将<code>shared_ptr</code>赋值给<code>weak_ptr</code>，因为<code>weak_ptr</code>就是专门为解决<code>shared_ptr</code>的问题产生的，并且<code>weak_ptr</code>指向某一<code>shared_ptr</code>管理的资源时它并不会增加该资源的引用计数，这完全符合我们解决循环引用的要求，避免了多增加的一次引用计数，于是问题解决了。</p>
-<h3 id="智能指针自定制deleter"><a href="#智能指针自定制deleter" class="headerlink" title="智能指针自定制deleter"></a>智能指针自定制deleter</h3><p>&emsp;&emsp;之前我们的智能指针都是在单一的管理一块<code>new</code>出来的对象，那么如下产生的空间智能指针是否能进行管理呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;memory&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    std::shared_ptr&lt;std::string&gt; sp1(new std::string[10]);</span><br><span class="line">    std::shared_ptr&lt;std::string&gt; sp2((std::string*)malloc(sizeof(std::string)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;智能指针无关版本默认释放资源都会去<code>delete</code>资源，然而我们<code>new[]</code>和<code>malloc</code>的资源必须通过<code>delete[]</code>和<code>free</code>才能完全释放或者不造成程序崩溃（<code>malloc</code>没有对对象初始化，如果对象内含有指针，使用<code>delete</code>释放资源调用析构函数可能会造成程序崩溃），因此我们想要正确释放资源就需要正确的<code>deleter</code>，也就是释放资源的方法，这样的方法被称为<strong>*删除器</strong>，当然智能指针也为我们留下了这样的接口，<br>&emsp;&emsp;我们可以通过传递一个仿函数去更改默认的<code>delete</code>方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;memory&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">//自定义删除器</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">class FreeDeleter</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    void operator()(T* ptr)</span><br><span class="line">    &#123;</span><br><span class="line">        free(ptr);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">class ArrayDeleter</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    void operator()(T* ptr)</span><br><span class="line">    &#123;</span><br><span class="line">        delete[] ptr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    //ArrayDeleter&lt;std::string&gt; ad;</span><br><span class="line">    std::shared_ptr&lt;std::string&gt; sp1(new std::string[10], ArrayDeleter&lt;std::string&gt;());</span><br><span class="line">    //FreeDeleter&lt;std::string&gt; fd;</span><br><span class="line">    std::shared_ptr&lt;std::string&gt; sp2((std::string*)malloc(sizeof(std::string)), FreeDeleter&lt;std::string&gt;());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这样就可以完成删除器的自定义。那么删除器是如何作用于智能指针内的资源的呢？在在智能指针准备释放资源时，他会调用仿函数删除器来释放资源，因此删除器也是一个回调函数，通过对删除器的自定义即可完成自定义释放资源。</p>
-<h2 id="RAII的扩展"><a href="#RAII的扩展" class="headerlink" title="RAII的扩展"></a>RAII的扩展</h2><p>&emsp;&emsp;RAII技术不光能使用在指针的资源管理上，一切需要我们手动释放的资源都可以使用RAII管理，比如锁。在库中有一套量身设计的用RAII来管理锁的类，叫做<strong>锁守卫</strong>，它可以帮助我们在锁超出作用域的时候自动解锁，防止我们中间抛出异常却没有解锁导致临界资源再也无法访问。<br>&emsp;&emsp;模拟实现一个锁守卫。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;mutex&gt;</span><br><span class="line">#include &lt;thread&gt;</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">class LockGuard</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    LockGuard(T&amp; lock)</span><br><span class="line">        :_lock(lock)</span><br><span class="line">    &#123;</span><br><span class="line">        //std::cout &lt;&lt; &quot;lock&quot; &lt;&lt; std::endl;</span><br><span class="line">        _lock.lock();</span><br><span class="line">    &#125;</span><br><span class="line">    ~LockGuard()</span><br><span class="line">    &#123;</span><br><span class="line">        //std::cout &lt;&lt; &quot;unlock&quot; &lt;&lt; std::endl;</span><br><span class="line">        _lock.unlock();</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    //禁用拷贝构造和赋值运算符重载</span><br><span class="line">    LockGuard(const LockGuard&amp; lck);</span><br><span class="line">    LockGuard&lt;T&gt;&amp; operator=(const LockGuard&amp; lck);</span><br><span class="line">    //这里的锁必须是引用形式的，因为要所在同一个锁上，不能拷贝</span><br><span class="line">    T&amp; _lock;</span><br><span class="line">&#125;;</span><br><span class="line">std::mutex mtx;</span><br><span class="line">int num = 0;</span><br><span class="line">void thr_start()</span><br><span class="line">&#123;</span><br><span class="line">    //互斥锁力度越大越好，消耗会小很多</span><br><span class="line">    LockGuard&lt;std::mutex&gt; lck(mtx); //使用守卫锁</span><br><span class="line">    for(int i = 0; i &lt; 1000000; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        ++num;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    //开启两个线程分别加num一百万次</span><br><span class="line">    std::thread thr1(thr_start);</span><br><span class="line">    std::thread thr2(thr_start);</span><br><span class="line">    thr1.join();</span><br><span class="line">    thr2.join();</span><br><span class="line">    std::cout &lt;&lt; &quot;num:&quot; &lt;&lt; num &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">num:2000000</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;库中的锁守卫。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;mutex&gt;</span><br><span class="line">#include &lt;thread&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    //std::mutex mtx;</span><br><span class="line">    //mtx.lock();</span><br><span class="line">    ////...抛异常</span><br><span class="line">    //mtx.unlock();</span><br><span class="line">    //交给守卫锁</span><br><span class="line">    std::mutex mtx;</span><br><span class="line">    std::lock_guard&lt;std::mutex&gt; guard(mtx);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;库中还有另一个锁守卫<code>unique_lock</code>，用法和<code>lock_guard</code>一致，那么两者有什么区别呢？<br>&emsp;&emsp;<code>lock_guard</code>只实现了RAII，因此加锁和解锁都由<code>lock_guard</code>控制，而<code>unique_lock</code>实现了更多的功能，它可以允许我们自己手动加锁，也可以手动解锁，也可以不阻塞地加锁。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2105,7 +2099,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">79</span>
+                  <span class="site-state-item-count">80</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2127,7 +2121,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2224,7 +2218,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共240k字</span>
+  <span class="post-count">博客全站共242.2k字</span>
 </div>
 
         ﻿
