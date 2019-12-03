@@ -395,6 +395,7 @@
 <h3 id="相对词频"><a href="#相对词频" class="headerlink" title="相对词频"></a>相对词频</h3><p>&emsp;&emsp;一开始项目利用绝对词频作为词频统计，但是发现如果两篇文章长度有极大差别的情况下，相似度的计算并不准确，于是我考虑计算出相对词频作为依据再进行统计。<br>&emsp;&emsp;为了进一步提高准确率我又在网上学习了<code>idf</code>逆文档率的作用，从而通过相对词频和<code>tf-idf</code>两种依据计算文章相似度，提高准确率。</p>
 <h2 id="项目扩展方向"><a href="#项目扩展方向" class="headerlink" title="项目扩展方向"></a>项目扩展方向</h2><h3 id="文章查重"><a href="#文章查重" class="headerlink" title="文章查重"></a>文章查重</h3><p>&emsp;&emsp;目前工具仅可以比较两篇文章之间的相似度，而在实际应用中我们往往要比较多篇文章之间的相似度，例如在文章查重的使用上。接下来项目可以进一步扩展为可以查取多篇文章之间的重复度，并且反馈给用户，为了查取效率我们可以开启多线程进行并行查取。在查重后我们还可以显示相似度较高的几组文章，对用户进行提醒，也可以筛选出相似度最高的两篇文章。</p>
 <h3 id="文章归纳"><a href="#文章归纳" class="headerlink" title="文章归纳"></a>文章归纳</h3><p>&emsp;&emsp;对所给文章依次比较得出相似度，相似度较高的文章可以归纳为一类文章，同时我们还可以通过<code>idf</code>得出文章的关键字，以此为依据对文章进行归纳整理，从而可以将其扩展为一个文章归纳工具。</p>
+<h2 id="项目发布"><a href="#项目发布" class="headerlink" title="项目发布"></a>项目发布</h2><p>&emsp;&emsp;GitHub:<a href="https://github.com/MisakiFx/ASS-Tool" target="_blank" rel="noopener">https://github.com/MisakiFx/ASS-Tool</a></p>
 
           
         
