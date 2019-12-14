@@ -264,6 +264,180 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/14/【DS】第三章-栈和队列/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/14/【DS】第三章-栈和队列/" itemprop="url">【DS】第三章-栈和队列</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-14T20:20:28+08:00">
+                2019-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DS/" itemprop="url" rel="index">
+                    <span itemprop="name">DS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.7k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第三章-栈和队列"><a href="#第三章-栈和队列" class="headerlink" title="第三章 栈和队列"></a>第三章 栈和队列</h1><h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><h3 id="栈的特性"><a href="#栈的特性" class="headerlink" title="栈的特性"></a>栈的特性</h3><p>&emsp;&emsp;栈是一种线性结构，这种特殊的线性结构有着最大的特点——<strong>后进先出(Last In First Out)</strong>。最后压入栈的元素会最先被弹出。<br>&emsp;&emsp;由于栈只用在同一端进行插入和删除，因此我们优先选择使用顺序表，因为在顺序表的末尾插入和删除的时间复杂度都是O(1)，并且操作简单<br></p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>&emsp;&emsp;栈的实现可以基于顺序表、链表和双端队列，这里使用最简单方法基于顺序表来实现栈。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;assert.h&gt;</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">class Stack</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    //构造函数</span><br><span class="line">    Stack()</span><br><span class="line">        :_stack(nullptr)  </span><br><span class="line">        ,_size(0)</span><br><span class="line">        ,_capacity(0)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    //析构函数</span><br><span class="line">    ~Stack()</span><br><span class="line">    &#123;</span><br><span class="line">        if(_stack != nullptr)</span><br><span class="line">        &#123;</span><br><span class="line">            delete[] _stack;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //入栈</span><br><span class="line">    void Push(const T&amp; temp)</span><br><span class="line">    &#123;</span><br><span class="line">        //尾插</span><br><span class="line">        //容量检查</span><br><span class="line">        if(_size == _capacity)//满了</span><br><span class="line">        &#123;</span><br><span class="line">            size_t newCapacity = (_capacity == 0 ? 5 : 2 * _capacity);</span><br><span class="line">            T* stackTemp = new T[newCapacity];</span><br><span class="line">            for(int i = 0; i &lt; _size; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                stackTemp[i] = _stack[i];</span><br><span class="line">            &#125;</span><br><span class="line">            //delete空指针是完全安全的</span><br><span class="line">            delete[] _stack;</span><br><span class="line">            _stack = stackTemp;</span><br><span class="line">            _capacity = newCapacity;</span><br><span class="line">            std::cout &lt;&lt; &quot;Expend new capacity:&quot; &lt;&lt; _capacity &lt;&lt; std::endl;</span><br><span class="line">        &#125;</span><br><span class="line">        _stack[_size] = temp;</span><br><span class="line">        _size++;</span><br><span class="line">    &#125;</span><br><span class="line">    //出栈</span><br><span class="line">    void Pop()</span><br><span class="line">    &#123;</span><br><span class="line">        if(_size &lt;= 0)</span><br><span class="line">        &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        _size--;</span><br><span class="line">    &#125;</span><br><span class="line">    //栈顶元素</span><br><span class="line">    const T&amp; Top()</span><br><span class="line">    &#123;</span><br><span class="line">        assert(_size &gt; 0);</span><br><span class="line">        return _stack[_size - 1];</span><br><span class="line">    &#125;</span><br><span class="line">    //元素个数</span><br><span class="line">    size_t Size()</span><br><span class="line">    &#123;</span><br><span class="line">        return _size;</span><br><span class="line">    &#125;</span><br><span class="line">    //是否为空</span><br><span class="line">    bool IsEmpty()</span><br><span class="line">    &#123;</span><br><span class="line">        return (_size &lt;= 0 ? true : false);</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    T* _stack;//顺序表</span><br><span class="line">    size_t _size;//长度</span><br><span class="line">    size_t _capacity;//容量</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="如何判断一个序列是否为出栈序列"><a href="#如何判断一个序列是否为出栈序列" class="headerlink" title="如何判断一个序列是否为出栈序列"></a>如何判断一个序列是否为出栈序列</h3><p>&emsp;&emsp;一个入栈序列有很多种出栈顺序，例如入栈<code>1 2 3 4 5</code>，他的出栈序列可以是<code>5 4 3 2 1</code>也可也是<code>3 2 1 4 5</code>，那么如何判断一个序列是否是一个入栈序列的出栈序列呢？<br>&emsp;&emsp;这道题的思路很简单，我们需要利用一个栈和两个分别指向入栈序列和出栈序列的指针。当栈为空或栈顶元素不等于当前出栈序列指针所指元素时，将入栈序列指针所指元素压入栈，并且入栈序列指针后移；如果相同则将栈顶元素弹出并将出栈序列指针后移。如果在演算过程中还需要向栈中压入元素而入栈序列已经被全部遍历指针指向队尾则可以怕判断当前序列不是入栈序列的出栈序列；如果可以同时遍历完入栈序列和出栈序列并且栈为空则当前序列时一个入栈序列的出栈序列。<br><br><a href="https://misakifx.github.io/2019/10/25/%E3%80%90DS%E3%80%91%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E3%80%81%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/" target="_blank" rel="noopener">https://misakifx.github.io/2019/10/25/%E3%80%90DS%E3%80%91%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E3%80%81%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/</a><br><br>&emsp;&emsp;</p>
+<h3 id="栈的应用"><a href="#栈的应用" class="headerlink" title="栈的应用"></a>栈的应用</h3><p>&emsp;&emsp;栈有以下几种应用：判断括号匹配，后缀表达式，迷宫的暴力破解法等。</p>
+<h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><h3 id="队列的特点"><a href="#队列的特点" class="headerlink" title="队列的特点"></a>队列的特点</h3><p>&emsp;&emsp;队列也是一种线性结构，这种线性结构的特点为<strong>先进先出(First in First out)</strong>。由于队列需要在队列两端进行插入或删除，因此我们优先选择链表来进行实现。当然使用数组实现也可以，只是数组在头部插入和删除元素需要<code>ON</code>的时间复杂度，因此选择链表更优。<br></p>
+<h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;assert.h&gt;</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">struct QueueNode</span><br><span class="line">&#123;</span><br><span class="line">    QueueNode()</span><br><span class="line">        :_data(T())</span><br><span class="line">        ,_next(nullptr)</span><br><span class="line">    &#123;&#125;</span><br><span class="line">    QueueNode(const T&amp; data, QueueNode* next)</span><br><span class="line">        :_data(data)</span><br><span class="line">        ,_next(next)</span><br><span class="line">    &#123;&#125;</span><br><span class="line">    T _data;</span><br><span class="line">    QueueNode* _next;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">//用单向带头不循环链表实现队列</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">class Queue</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    Queue()</span><br><span class="line">        :_head(nullptr)</span><br><span class="line">        ,_rear(nullptr)</span><br><span class="line">        ,_size(0)</span><br><span class="line">    &#123;</span><br><span class="line">        _head = new QueueNode&lt;T&gt;;</span><br><span class="line">        _rear = _head;</span><br><span class="line">    &#125;</span><br><span class="line">    ~Queue()</span><br><span class="line">    &#123;</span><br><span class="line">        while(!Empty())</span><br><span class="line">        &#123;</span><br><span class="line">            Pop();</span><br><span class="line">        &#125;</span><br><span class="line">        delete _head;</span><br><span class="line">        _head = nullptr;</span><br><span class="line">        _rear = nullptr;</span><br><span class="line">    &#125;</span><br><span class="line">    void Push(const T&amp; data)</span><br><span class="line">    &#123;</span><br><span class="line">        QueueNode&lt;T&gt;* newNode = new QueueNode&lt;T&gt;(data, nullptr);</span><br><span class="line">        _rear-&gt;_next = newNode;</span><br><span class="line">        _rear = newNode;</span><br><span class="line">        _size++;</span><br><span class="line">    &#125;</span><br><span class="line">    bool Empty()</span><br><span class="line">    &#123;</span><br><span class="line">        return _rear == _head;</span><br><span class="line">    &#125;</span><br><span class="line">    void Pop()</span><br><span class="line">    &#123;</span><br><span class="line">        QueueNode&lt;T&gt;* temp = _head-&gt;_next;</span><br><span class="line">        _head-&gt;_next = _head-&gt;_next-&gt;_next;</span><br><span class="line">        //队列中只有一个元素</span><br><span class="line">        if(temp == _rear)</span><br><span class="line">        &#123;</span><br><span class="line">            _rear = _head;</span><br><span class="line">        &#125;</span><br><span class="line">        delete temp;</span><br><span class="line">        temp = nullptr;</span><br><span class="line">        _size--;</span><br><span class="line">    &#125;</span><br><span class="line">    const T&amp; Front()</span><br><span class="line">    &#123;</span><br><span class="line">        assert(_head-&gt;_next != nullptr);</span><br><span class="line">        return _head-&gt;_next-&gt;_data;</span><br><span class="line">    &#125;</span><br><span class="line">    const T&amp; Back()</span><br><span class="line">    &#123;</span><br><span class="line">        assert(_rear != _head);</span><br><span class="line">        return _rear-&gt;_data;</span><br><span class="line">    &#125;</span><br><span class="line">    size_t Size()</span><br><span class="line">    &#123;</span><br><span class="line">        return _size;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    QueueNode&lt;T&gt;* _head;    //指向头部结点</span><br><span class="line">    QueueNode&lt;T&gt;* _rear;    //指向最后一个元素</span><br><span class="line">    size_t _size;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Queue&lt;int&gt; que;</span><br><span class="line">    que.Push(1);</span><br><span class="line">    que.Push(2);</span><br><span class="line">    que.Push(3);</span><br><span class="line">    que.Push(4);</span><br><span class="line">    while(!que.Empty())</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;size = &quot; &lt;&lt; que.Size() &lt;&lt; std::endl;</span><br><span class="line">        std::cout &lt;&lt; que.Front() &lt;&lt; std::endl;</span><br><span class="line">        que.Pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">size = 4</span><br><span class="line">1</span><br><span class="line">size = 3</span><br><span class="line">2</span><br><span class="line">size = 2</span><br><span class="line">3</span><br><span class="line">size = 1</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;以上代码完成了队列的基本功能。</p>
+<h3 id="环形队列"><a href="#环形队列" class="headerlink" title="环形队列"></a>环形队列</h3><h4 id="环形队列实现思路"><a href="#环形队列实现思路" class="headerlink" title="环形队列实现思路"></a>环形队列实现思路</h4><p>&emsp;&emsp;环形队列是一种特殊的队列，队列依然保证先进先出的特点，但是在逻辑结构上队列呈一个环状，可以保证在给定的<strong>有限空间</strong>内利用数组实现操作达到<code>O1</code>的队列。其需要用到两个指针，一个指针<code>head</code>指向向队头，一个指针<code>rear</code>指向队尾的后一个位置用来标记当前队列空间的使用情况，如果队满则禁止继续插入。<br>&emsp;&emsp;当插入元素时，将元素插入到队尾指针指向的位置，然后将<code>rear</code>指针后移；当弹出元素时只需将<code>head</code>指针后移即可。但是要注意由于是环形队列，因此当两个指针走到数组末尾时需要做特殊处理让他们重新指回到数组头部。<br>&emsp;&emsp;但是环形队列两个指针的位置都是不固定的，我们又该如何判断队满和队空以及计算数组元素呢？<br><br><img src="/2019/12/14/【DS】第三章-栈和队列/1.png" alt="环形队列"><br></p>
+<h4 id="实现-2"><a href="#实现-2" class="headerlink" title="实现"></a>实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;assert.h&gt;</span><br><span class="line"></span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">class CircleQueue</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    CircleQueue(size_t capacity)</span><br><span class="line">        :_arr(nullptr)</span><br><span class="line">        ,_head(0)</span><br><span class="line">        ,_rear(0)</span><br><span class="line">        ,_capacity(capacity)</span><br><span class="line">    &#123;</span><br><span class="line">        assert(capacity &gt;= 2);</span><br><span class="line">        _arr = new T[_capacity];</span><br><span class="line">    &#125;</span><br><span class="line">    ~CircleQueue()</span><br><span class="line">    &#123;</span><br><span class="line">        delete _arr;</span><br><span class="line">        _arr = nullptr;</span><br><span class="line">    &#125;</span><br><span class="line">    //判断满</span><br><span class="line">    bool IsFull()</span><br><span class="line">    &#123;</span><br><span class="line">        if((_rear + 1) % _capacity == _head)</span><br><span class="line">        &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    ///判断空</span><br><span class="line">    bool IsEmpty()</span><br><span class="line">    &#123;</span><br><span class="line">        if(_head == _rear)</span><br><span class="line">        &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    bool Push(const T&amp; data)</span><br><span class="line">    &#123;</span><br><span class="line">        if(IsFull())</span><br><span class="line">        &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        _arr[_rear] = data;</span><br><span class="line">        _rear = (_rear + 1) % _capacity; </span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    bool Pop()</span><br><span class="line">    &#123;</span><br><span class="line">        if(IsEmpty())</span><br><span class="line">        &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        _head = (_head + 1) % _capacity;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    const T&amp; Front()</span><br><span class="line">    &#123;</span><br><span class="line">        assert(!IsEmpty());</span><br><span class="line">        return _arr[_head];</span><br><span class="line">    &#125;</span><br><span class="line">    const T&amp; Back()</span><br><span class="line">    &#123;</span><br><span class="line">        assert(!IsEmpty());</span><br><span class="line">        size_t temp = (_rear + _capacity - 1) % _capacity;</span><br><span class="line">        return _arr[temp];</span><br><span class="line">    &#125;</span><br><span class="line">    size_t Capacity()</span><br><span class="line">    &#123;</span><br><span class="line">        return _capacity;</span><br><span class="line">    &#125;</span><br><span class="line">    size_t Size()</span><br><span class="line">    &#123;</span><br><span class="line">        return (_rear + _capacity - _head) % _capacity;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    T* _arr;            //存储环形队列的数组</span><br><span class="line">    size_t _head;       //指向队头</span><br><span class="line">    size_t _rear;       //指向队尾</span><br><span class="line">    size_t _capacity;   //环形队列的总容量，一旦确定不可再改变</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    CircleQueue&lt;int&gt; circleQueue(5);</span><br><span class="line">    circleQueue.Push(1);</span><br><span class="line">    circleQueue.Push(2);</span><br><span class="line">    circleQueue.Push(3);</span><br><span class="line">    circleQueue.Push(4);</span><br><span class="line">    circleQueue.Push(5);</span><br><span class="line">    while(!circleQueue.IsEmpty())</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;size = &quot; &lt;&lt; circleQueue.Size() &lt;&lt; std::endl;</span><br><span class="line">        std::cout &lt;&lt; circleQueue.Front() &lt;&lt; std::endl;</span><br><span class="line">        circleQueue.Pop();</span><br><span class="line">    &#125;</span><br><span class="line">    //std::cout &lt;&lt; circleQueue.Front() &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">size = 4</span><br><span class="line">1</span><br><span class="line">size = 3</span><br><span class="line">2</span><br><span class="line">size = 2</span><br><span class="line">3</span><br><span class="line">size = 1</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;以上实现了环形队列的基本功能。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/02/【项目】文章相似度检索工具/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1871,186 +2045,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/18/【Cpp】第十五章-类型转换/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/10/18/【Cpp】第十五章-类型转换/" itemprop="url">【Cpp】第十五章-类型转换</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-18T17:20:29+08:00">
-                2019-10-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/" itemprop="url" rel="index">
-                    <span itemprop="name">Cpp</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.3k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h1><h2 id="C中的类型转换"><a href="#C中的类型转换" class="headerlink" title="C中的类型转换"></a>C中的类型转换</h2><p>&emsp;&emsp;C语言中的类型转换分为<strong>隐式类型转换</strong>和<strong>强制类型转换两种</strong>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    //隐式类型转换</span><br><span class="line">    int i = 10;</span><br><span class="line">    double d = i;</span><br><span class="line">    printf(&quot;%d, %.2lf\n&quot;, i, d);</span><br><span class="line">    //强制类型转换</span><br><span class="line">    i = (int)d;</span><br><span class="line">    printf(&quot;%d, %.2lf\n&quot;, i, d);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这种从C中继承而来的类型转换方式十分不直观，可视性较差，不便于我们在发生错误时查找错误。<br>&emsp;&emsp;为了解决这种问题，于是Cpp中新诞生了四种更加直观更加安全的类型转换操作。</p>
-<h2 id="Cpp中的类型转换"><a href="#Cpp中的类型转换" class="headerlink" title="Cpp中的类型转换"></a>Cpp中的类型转换</h2><h3 id="static-cast"><a href="#static-cast" class="headerlink" title="static_cast"></a>static_cast</h3><p>&emsp;&emsp;<code>static_cast</code>用于非多态类型的转换（静态转换），编译器隐式执行的任何类型转换都可用<code>static_cast</code>，但它不能用于两个不相关的类型进行转换。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    double d = 10.2;</span><br><span class="line">    int i = static_cast&lt;int&gt;(d);</span><br><span class="line">    std::cout &lt;&lt; &quot;d:&quot; &lt;&lt; d &lt;&lt; &quot; i:&quot; &lt;&lt; i &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">d:10.2 i:10</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;<code>static_cast</code>是一个模板函数，如上使用就可以完成类型的转换，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    //double d = 10.2;</span><br><span class="line">    //int i = static_cast&lt;int&gt;(d);</span><br><span class="line">    //std::cout &lt;&lt; &quot;d:&quot; &lt;&lt; d &lt;&lt; &quot; i:&quot; &lt;&lt; i &lt;&lt; std::endl;</span><br><span class="line">    int i = 10;</span><br><span class="line">    int *p = &amp;i;</span><br><span class="line">    int address = static_cast&lt;int&gt;(p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">invalid static_cast from type &apos;int*&apos; to type &apos;int&apos;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;但是如上的类型转换就报错了，说明<code>static_cast</code>是无法将<code>int*</code>转为<code>int</code>的，如果两个类型毫无关系则无法进行转换。</p>
-<h3 id="reinterpret-cast"><a href="#reinterpret-cast" class="headerlink" title="reinterpret_cast"></a>reinterpret_cast</h3><p>&emsp;&emsp;<code>reinterpret_cast</code>是一种十分危险的类型转换，它用于指针，引用以及可以容纳指针的整数类型之间的转换，之所以说它危险是你甚至可以将一个类型指针任意转换为其他类型的指针，比如将<code>int*</code>转换为<code>string*</code>，于是这个指针的命运由此就彻底改变了，使用不当就内存访问越界程序崩溃。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int i = 10;</span><br><span class="line">    double d;</span><br><span class="line">    int* p = &amp;i;</span><br><span class="line">    //将指针强转为整形</span><br><span class="line">    long long address = reinterpret_cast&lt;long long&gt;(p);</span><br><span class="line">    std::cout &lt;&lt; p &lt;&lt; &quot; &quot; &lt;&lt; address;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">0x61fe0c 6422028</span><br></pre></td></tr></table></figure></p>
-<h3 id="const-cast"><a href="#const-cast" class="headerlink" title="const_cast"></a>const_cast</h3><p>&emsp;&emsp;<code>const_cast</code>可以完成从<code>const</code>对象到<code>non-const</code>对象的转换.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    const int i = 10;</span><br><span class="line">    std::cout &lt;&lt; i &lt;&lt; std::endl;</span><br><span class="line">    int&amp; r = const_cast&lt;int&amp;&gt;(i); </span><br><span class="line">    r = 11;</span><br><span class="line">    std::cout &lt;&lt; i &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; r &lt;&lt; std::endl;</span><br><span class="line">    const int a = 2;</span><br><span class="line">    int *p = const_cast&lt;int*&gt;(&amp;a);</span><br><span class="line">    *p = 3;</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; *p &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;经过类型强转后我们发现确实可以更改指向常量的引用或指针了，但是通过输出对比我们发现，引用和指针指向的数据被改变了但是原数据并没有被改变，这是因为编译器的优化导致的，导致编译器并没有实际从内存中去取这块内存，而是重新分配了一块内存，我们可以使用<code>volatile</code>关键字来防止编译器的优化。</p>
-<h3 id="dynamic-cast"><a href="#dynamic-cast" class="headerlink" title="dynamic_cast"></a>dynamic_cast</h3><p>&emsp;&emsp;<code>dynamic_cast</code>可以完成从父类到子类的指针或者引用的强制类型转换。从子类到父类的转换我们有切割帮我们进行隐式类型转换，但是从父类到子类是不能自动转换的，我们只能通过<code>dynamic_cast</code>来强制转换引用和指针，并且<strong>只能在有虚函数</strong>的类中进行转换。<code>dynamic_cast</code>在转换前会先进行转换实验，如果能转换成功则转换，转换不成功则返回0。<br>&emsp;&emsp;Cpp之所以可以完成类型的转换，多亏与Cpp的<strong>RTTI</strong>机制，即<strong>运行时类型识别</strong>。虽然源文件中存储着类型以及之间的继承关系，但是其只用于编译，在程序运行时是无法拿到这些信息，于是Cpp为了可以在运行时获取数据对象的类信息以及继承关系便诞生了<code>RTTI</code>，<code>dynamic_cast</code>和<code>typeid</code>是<code>RTTI</code>的典型应用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">class Parent</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    virtual void Func()</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    int s = 10;</span><br><span class="line">&#125;;</span><br><span class="line">class Son : public Parent</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    int s = 11;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Parent* p = new Parent;</span><br><span class="line">    std::cout &lt;&lt; p-&gt;s &lt;&lt; std::endl;</span><br><span class="line">    Son* s = dynamic_cast&lt;Son*&gt;(p);</span><br><span class="line">    if(s == nullptr)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;change error&quot; &lt;&lt; std::endl;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    std::cout &lt;&lt; s-&gt;s &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">11</span><br><span class="line">change error</span><br></pre></td></tr></table></figure></p>
-<h2 id="explicit"><a href="#explicit" class="headerlink" title="explicit"></a>explicit</h2><p>&emsp;&emsp;这个参数之前已经在类和对象中讲解过了，这个参数加在类的构造函数前用于禁用构造函数函数参数的隐式转换。<br>&emsp;&emsp;未禁用:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    Test(int test)</span><br><span class="line">        :_test(test)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;construct&quot; &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    int _test;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Test test = 10;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">construct</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;禁用:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">class Test</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    explicit Test(int test)</span><br><span class="line">        :_test(test)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;construct&quot; &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    int _test;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    Test test = 10;//编译不过</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2100,7 +2099,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">80</span>
+                  <span class="site-state-item-count">81</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2111,7 +2110,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2122,7 +2121,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2219,7 +2218,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共243k字</span>
+  <span class="post-count">博客全站共244.7k字</span>
 </div>
 
         ﻿
