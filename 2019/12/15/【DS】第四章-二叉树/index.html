@@ -1,0 +1,877 @@
+﻿<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="DS,二叉树," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="树的概念及结构什么是树&amp;emsp;&amp;emsp;树是一种非线性的数据结构，它是由n（n&amp;gt;=0）个有限结点组成一个具有层次关系的集合。把它叫做树是因 为它看起来像一棵倒挂的树，也就是说它是根朝上，而叶朝下的。它具有以下的特点：每个结点有零个或多 个子结点；没有父结点的结点称为根结点；每一个非根结点有且只有一个父结点；除了根结点外，每个子结 点可以分为多个不相交的子树。&amp;emsp;&amp;emsp;下图">
+<meta name="keywords" content="DS,二叉树">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【DS】第四章-二叉树">
+<meta property="og:url" content="http://yoursite.com/2019/12/15/【DS】第四章-二叉树/index.html">
+<meta property="og:site_name" content="Misaki`s blog">
+<meta property="og:description" content="树的概念及结构什么是树&amp;emsp;&amp;emsp;树是一种非线性的数据结构，它是由n（n&amp;gt;=0）个有限结点组成一个具有层次关系的集合。把它叫做树是因 为它看起来像一棵倒挂的树，也就是说它是根朝上，而叶朝下的。它具有以下的特点：每个结点有零个或多 个子结点；没有父结点的结点称为根结点；每一个非根结点有且只有一个父结点；除了根结点外，每个子结 点可以分为多个不相交的子树。&amp;emsp;&amp;emsp;下图">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/12/15/【DS】第四章-二叉树/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/15/【DS】第四章-二叉树/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/15/【DS】第四章-二叉树/3.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/15/【DS】第四章-二叉树/4.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/15/【DS】第四章-二叉树/5.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/15/【DS】第四章-二叉树/6.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/15/【DS】第四章-二叉树/7.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/15/【DS】第四章-二叉树/8.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/15/【DS】第四章-二叉树/9.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/15/【DS】第四章-二叉树/10.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/15/【DS】第四章-二叉树/11.png">
+<meta property="og:updated_time" content="2020-01-06T09:37:41.523Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【DS】第四章-二叉树">
+<meta name="twitter:description" content="树的概念及结构什么是树&amp;emsp;&amp;emsp;树是一种非线性的数据结构，它是由n（n&amp;gt;=0）个有限结点组成一个具有层次关系的集合。把它叫做树是因 为它看起来像一棵倒挂的树，也就是说它是根朝上，而叶朝下的。它具有以下的特点：每个结点有零个或多 个子结点；没有父结点的结点称为根结点；每一个非根结点有且只有一个父结点；除了根结点外，每个子结 点可以分为多个不相交的子树。&amp;emsp;&amp;emsp;下图">
+<meta name="twitter:image" content="http://yoursite.com/2019/12/15/【DS】第四章-二叉树/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/12/15/【DS】第四章-二叉树/"/>
+
+
+
+
+
+  <title>【DS】第四章-二叉树 | Misaki`s blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+<a href="https://github.com/MisakiFx" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Misaki`s blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习是一种态度</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/15/【DS】第四章-二叉树/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【DS】第四章-二叉树</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-15T14:39:45+08:00">
+                2019-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.1k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="树的概念及结构"><a href="#树的概念及结构" class="headerlink" title="树的概念及结构"></a>树的概念及结构</h1><h2 id="什么是树"><a href="#什么是树" class="headerlink" title="什么是树"></a>什么是树</h2><p>&emsp;&emsp;树是一种非线性的数据结构，它是由n（n&gt;=0）个有限结点组成一个具有层次关系的集合。把它叫做树是因 为它看起来像一棵倒挂的树，也就是说它是根朝上，而叶朝下的。它具有以下的特点：每个结点有零个或多 个子结点；没有父结点的结点称为根结点；每一个非根结点有且只有一个父结点；除了根结点外，每个子结 点可以分为多个不相交的子树。<br>&emsp;&emsp;下图就是一棵常见的树。<br><br><img src="/2019/12/15/【DS】第四章-二叉树/1.png" alt="树"><br></p>
+<h2 id="树的常用名词"><a href="#树的常用名词" class="headerlink" title="树的常用名词"></a>树的常用名词</h2><p>&emsp;&emsp;节点的度：一个节点含有的子树的个数称为该节点的度；<br>&emsp;&emsp;叶节点或终端节点：度为0的节点称为叶节点；<br>&emsp;&emsp;非终端节点或分支节点：度不为0的节点； &emsp;&emsp;如上图：D、E、F、G…等节点为分支节点 双亲节点或父节点：若一个节点含有子节点，则这个节点称为其子节点的父节点； &emsp;&emsp;孩子节点或子节点：一个节点含有的子树的根节点称为该节点的子节点；<br>&emsp;&emsp;兄弟节点：具有相同父节点的节点互称为兄弟节点；<br>&emsp;&emsp;树的度：一棵树中，最大的节点的度称为树的度；<br>&emsp;&emsp;节点的层次：从根开始定义起，根为第1层，根的子节点为第2层，以此类推； &emsp;&emsp;树的高度或深度：树中节点的最大层次； &emsp;&emsp;堂兄弟节点：双亲在同一层的节点互为堂兄弟；<br>&emsp;&emsp;节点的祖先：从根到该节点所经分支上的所有节点；<br>&emsp;&emsp;子孙：以某节点为根的子树中任一节点都称为该节点的子孙； &emsp;&emsp;森林：由m（m&gt;=0）棵互不相交的树的集合称为森林；</p>
+<h2 id="树的表示"><a href="#树的表示" class="headerlink" title="树的表示"></a>树的表示</h2><p>&emsp;&emsp;树的表示相比线性结构就要复杂一些，因为其是层次结构的，其的下一个结点可能有多个，也可能只有一个，因此十分难以在逻辑结构上进行表示。于是伟大的人类提出了一种方法可以很简单的表示任意一棵二叉树，这种表示方法称之为<strong>孩子兄弟表示法</strong>。<br><img src="/2019/12/15/【DS】第四章-二叉树/2.png" alt="孩子兄弟表示法"><br><br>&emsp;&emsp;所谓孩子兄弟表示法就是让任何一个结点仅指向它的第一个孩子结点和右边相邻的兄弟结点（如果没有孩子或兄弟指向空），由此任意一棵树上的任何一个节点都可以变成一个度最大仅为2结点，由此我们可以将任何一棵树都变成一棵<strong>二叉树</strong>。</p>
+<h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><h2 id="什么是二叉树"><a href="#什么是二叉树" class="headerlink" title="什么是二叉树"></a>什么是二叉树</h2><p>&emsp;&emsp;二叉树是一棵所有节点的度最大为2的树。任何一棵树都可以通过<strong>孩子兄弟表示法</strong>转换为二叉树，因此我们接下来的所有研究都是围绕二叉树进行的。下图就是一棵二叉树。<br><br><img src="/2019/12/15/【DS】第四章-二叉树/3.png" alt="孩子兄弟表示法"><br></p>
+<h2 id="二叉树的特点"><a href="#二叉树的特点" class="headerlink" title="二叉树的特点"></a>二叉树的特点</h2><p>&emsp;&emsp;1. 每个结点最多有两棵子树，即二叉树不存在度大于2的结点。<br>&emsp;&emsp;2. 二叉树的子树有左右之分，其子树的次序不能颠倒。<br>&emsp;&emsp;3.若二叉树的层次从0开始，则在二叉树的第i层至多有2^i个结点(i&gt;=0)。<br>&emsp;&emsp;4.高度为k的二叉树最多有2^(k+1) - 1个结点(k&gt;=-1)。 (空树的高度为-1)<br>&emsp;&emsp;5.对任何一棵二叉树，如果其叶子结点(度为0)数为m, 度为2的结点数为n, 则m = n + 1。</p>
+<h2 id="特殊的二叉树"><a href="#特殊的二叉树" class="headerlink" title="特殊的二叉树"></a>特殊的二叉树</h2><h3 id="完美二叉树（满二叉树）"><a href="#完美二叉树（满二叉树）" class="headerlink" title="完美二叉树（满二叉树）"></a>完美二叉树（满二叉树）</h3><p>&emsp;&emsp;一个深度为k(&gt;=-1)且有2^(k+1) - 1个结点的二叉树称为完美二叉树。意思是说这棵深度为k的二叉树任意一行的结点都已经是满的了。<br><br><img src="/2019/12/15/【DS】第四章-二叉树/4.png" alt="完美二叉树法"><br></p>
+<h3 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h3><p>&emsp;&emsp;完全二叉树从根结点到倒数第二层满足完美二叉树，最后一层可以不完全填充，其叶子结点都靠左对齐。<br><br><img src="/2019/12/15/【DS】第四章-二叉树/5.png" alt="完全二叉树法"><br></p>
+<h3 id="完满二叉树"><a href="#完满二叉树" class="headerlink" title="完满二叉树"></a>完满二叉树</h3><p>&emsp;&emsp;所有非叶子结点的度都是2<br>换句话说就是只要你有孩子，你就必然是有两个孩子。<br><br><img src="/2019/12/15/【DS】第四章-二叉树/6.png" alt="完满二叉树法"><br></p>
+<h2 id="二叉树的存储"><a href="#二叉树的存储" class="headerlink" title="二叉树的存储"></a>二叉树的存储</h2><h3 id="顺序存储"><a href="#顺序存储" class="headerlink" title="顺序存储"></a>顺序存储</h3><p>&emsp;&emsp;顺序存储指的是利用链表在连续的地址空间上进行存储。但是顺序存储只适用于完全二叉树，因为这样才不会有空间的浪费，所以顺序的存储方式一般用来存储堆。<br><br><img src="/2019/12/15/【DS】第四章-二叉树/7.png" alt="顺序存储"><br></p>
+<h3 id="链式存储"><a href="#链式存储" class="headerlink" title="链式存储"></a>链式存储</h3><p>&emsp;&emsp;链式的二叉树存储方式是最为常用的二叉树存储形式，用一个二叉链（或三叉链）的形式来构成二叉树。</p>
+<h4 id="二叉链"><a href="#二叉链" class="headerlink" title="二叉链"></a>二叉链</h4><p>&emsp;&emsp;如下是一个二叉链的存储形式。<br><br><img src="/2019/12/15/【DS】第四章-二叉树/8.png" alt="二叉链"><br><br>&emsp;&emsp;二叉链结构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct BinaryTreeNode</span><br><span class="line">&#123;</span><br><span class="line">    T _data;</span><br><span class="line">    BinaryTreeNode&lt;T&gt;* _left;</span><br><span class="line">    BinartTreeNode&lt;T&gt;* _right;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h4 id="三叉链"><a href="#三叉链" class="headerlink" title="三叉链"></a>三叉链</h4><p>&emsp;&emsp;如下是一个三叉链的存储形式。<br><br><img src="/2019/12/15/【DS】第四章-二叉树/9.png" alt="三叉链"><br><br>&emsp;&emsp;二叉链解雇：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">template&lt;class T&gt;</span><br><span class="line">struct BinaryTreeNode</span><br><span class="line">&#123;</span><br><span class="line">    T _data;</span><br><span class="line">    BinaryTreeNode&lt;T&gt;* _left;</span><br><span class="line">    BinartTreeNode&lt;T&gt;* _right;</span><br><span class="line">    BinartTreeNode&lt;T&gt;* _parent;//多了一个指向父亲的指针</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h1 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h1><h2 id="堆的概念"><a href="#堆的概念" class="headerlink" title="堆的概念"></a>堆的概念</h2><p>&emsp;&emsp;堆是典型的通过使用顺序方式存储二叉树来实现的数据结构，因为堆可以保证其必然是一棵完全二叉树。<br>&emsp;&emsp;如果有一个关键码的集合K = {k0，k1， k2，…，kn-1}，把它的所有元素按完全二叉树的顺序存储方式存储 在一个一维数组中，并满足：Ki &lt;= K2i+1 且 Ki&lt;= K2i+2 (Ki &gt;= K2i+1 且 Ki &gt;= K2i+2) i = 0，1，2…，则称为 小堆(或大堆)。将根节点最大的堆叫做最大堆或大根堆，根节点最小的堆叫做最小堆或小根堆。<br>&emsp;&emsp;堆有两点性质：<br>&emsp;&emsp;1、其保证其一定是一棵完全二叉树。<br>&emsp;&emsp;2、堆中任意一个孩子结点必不大于（大根堆）或者不小于（小根堆）其父结点。<br>&emsp;&emsp;下图是一个小根堆：<br><br><img src="/2019/12/15/【DS】第四章-二叉树/10.png" alt="小根堆"><br><br>&emsp;&emsp;下图是一个大根堆：<br><br><img src="/2019/12/15/【DS】第四章-二叉树/11.png" alt="大根堆"><br></p>
+<h2 id="堆的实现"><a href="#堆的实现" class="headerlink" title="堆的实现"></a>堆的实现</h2><p>&emsp;&emsp;堆的实现中有三个基础操作，向上调整，向下调整以及建堆，他们三个共同构成了堆的所有基础操作。STL中的<strong>优先级队列</strong>底层就是一个堆，所以平时要使用堆的时候我们不必自己写一个，可以借助优先级队列来实现。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#include &lt;assert.h&gt;</span><br><span class="line">//T为数据类型，Compare为比较方法，less创建大根堆，greater创建大根堆</span><br><span class="line">template&lt;class T, class Compare&gt;</span><br><span class="line">class Heap</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    Heap()</span><br><span class="line">        :_arr()</span><br><span class="line">        ,_size(0)</span><br><span class="line">    &#123;&#125;</span><br><span class="line">    Heap(const std::vector&lt;T&gt;&amp; arr)</span><br><span class="line">        :_arr(arr)</span><br><span class="line">        ,_size(arr.size())</span><br><span class="line">    &#123;</span><br><span class="line">        //根据已有数组建堆</span><br><span class="line">        //建堆思路即从最后一个开始进行向下调整，一直向下调整到根</span><br><span class="line">        for(int i = (_size - 2) / 2; i &gt;= 0; i--)</span><br><span class="line">        &#123;</span><br><span class="line">            AdjustDown(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    void Pop()</span><br><span class="line">    &#123;</span><br><span class="line">        //弹出根节点</span><br><span class="line">        //思路是将根与最后一个元素交换，然后向下调整，之后弹出最后一个结点    </span><br><span class="line">        std::swap(_arr[0], _arr[_size - 1]);</span><br><span class="line">        _arr.pop_back();</span><br><span class="line">        _size--;</span><br><span class="line">        AdjustDown(0);</span><br><span class="line">    &#125;</span><br><span class="line">    void Push(const T&amp; data)</span><br><span class="line">    &#123;</span><br><span class="line">        _arr.push_back(data);</span><br><span class="line">        //新插入元素要向上调整保证依然是一个堆</span><br><span class="line">        _size++;</span><br><span class="line">        AdjustUp(_size - 1);</span><br><span class="line">    &#125;</span><br><span class="line">    void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        for(const auto&amp; e : _arr)</span><br><span class="line">        &#123;</span><br><span class="line">            std::cout &lt;&lt; e &lt;&lt; &quot; &quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        std::cout &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    const T&amp; Top()</span><br><span class="line">    &#123;</span><br><span class="line">        assert(_size &gt; 0);</span><br><span class="line">        return _arr[0];</span><br><span class="line">    &#125;</span><br><span class="line">    bool Empty()</span><br><span class="line">    &#123;</span><br><span class="line">        assert(_size &gt; 0);</span><br><span class="line">        return _size == 0;</span><br><span class="line">    &#125;</span><br><span class="line">    size_t Size()</span><br><span class="line">    &#123;</span><br><span class="line">        return _size;</span><br><span class="line">    &#125;</span><br><span class="line">    void HeapSort(std::vector&lt;int&gt;&amp; arr)</span><br><span class="line">    &#123;</span><br><span class="line">        //堆排序的思想即建堆将根持续弹出放到尾部</span><br><span class="line">        //升序建大根堆</span><br><span class="line">        //降序建小根堆</span><br><span class="line">        Heap&lt;T, Compare&gt; tempHeap(_arr);</span><br><span class="line">        int tempSize = tempHeap.Size();</span><br><span class="line">        arr.resize(tempSize);</span><br><span class="line">        while(!tempHeap.Empty())</span><br><span class="line">        &#123;</span><br><span class="line">            T top = tempHeap.Top();</span><br><span class="line">            arr[tempSize - 1] = top;</span><br><span class="line">            tempSize--;</span><br><span class="line">            tempHeap.Pop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    //向下调整</span><br><span class="line">    //向下调整是堆操作中十分常用的基础操作</span><br><span class="line">    //即我们从一个指定结点开始向下调整直到不需要调整为止，</span><br><span class="line">    //保证调整过的路径满足堆的要求</span><br><span class="line">    void AdjustDown(size_t pos)</span><br><span class="line">    &#123;</span><br><span class="line">        Compare cmp;</span><br><span class="line">        //孩子节点下标为 根节点下标 * 2 + 1 和 根结点下标 * 2 + 2</span><br><span class="line">        size_t child = pos * 2 + 1;</span><br><span class="line">        while(child &lt; _size)</span><br><span class="line">        &#123;</span><br><span class="line">            if((child + 1) &lt; _size &amp;&amp; cmp(_arr[child], _arr[child + 1]))</span><br><span class="line">            &#123;</span><br><span class="line">                child += 1;</span><br><span class="line">            &#125;</span><br><span class="line">            //如果调整了还需要继续向下调整</span><br><span class="line">            if(cmp(_arr[pos], _arr[child]))</span><br><span class="line">            &#123;</span><br><span class="line">                std::swap(_arr[pos], _arr[child]);</span><br><span class="line">            &#125;</span><br><span class="line">            else </span><br><span class="line">            &#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            pos = child;</span><br><span class="line">            child = pos * 2 + 1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //向上调整与向下调整类似</span><br><span class="line">    void AdjustUp(size_t pos)</span><br><span class="line">    &#123;</span><br><span class="line">        Compare cmp;</span><br><span class="line">        //父结点下标为 (孩子结点下表 - 1) / 2</span><br><span class="line">        size_t parent = (pos - 1) / 2;</span><br><span class="line">        while(pos &gt; 0)</span><br><span class="line">        &#123;</span><br><span class="line">            //如果调整了需要继续向上迭代调整</span><br><span class="line">            if(cmp(_arr[parent], _arr[pos]))</span><br><span class="line">            &#123;</span><br><span class="line">                std::swap(_arr[parent], _arr[pos]);</span><br><span class="line">            &#125;</span><br><span class="line">            else </span><br><span class="line">            &#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            pos = parent;</span><br><span class="line">            parent = (pos - 1) / 2;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    std::vector&lt;T&gt; _arr;</span><br><span class="line">    size_t _size;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    std::vector&lt;int&gt; arr = &#123;1, 2, 3, 4, 5, 6, 7&#125;;</span><br><span class="line">    Heap&lt;int, std::less&lt;int&gt;&gt; heap(arr);</span><br><span class="line">    heap.Print();</span><br><span class="line">    heap.Pop();</span><br><span class="line">    heap.Print();</span><br><span class="line">    std::vector&lt;int&gt; arr2;</span><br><span class="line">    heap.HeapSort(arr2);</span><br><span class="line">    for(const auto&amp; e : arr2)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; e &lt;&lt; &quot; &quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; heap.Size() &lt;&lt; std::endl;</span><br><span class="line">    heap.Push(7);</span><br><span class="line">    heap.Print();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">7 5 6 4 2 1 3</span><br><span class="line">6 5 3 4 2 1</span><br><span class="line">1 2 3 4 5 6</span><br><span class="line">6</span><br><span class="line">7 5 6 4 2 1 3</span><br></pre></td></tr></table></figure></p>
+<h1 id="二叉链实现二叉树"><a href="#二叉链实现二叉树" class="headerlink" title="二叉链实现二叉树"></a>二叉链实现二叉树</h1><p>&emsp;&emsp;二叉树的顺序存储代表为堆，那么链式存储典型就是使用二叉链实现二叉树。<br>&emsp;&emsp;二叉链没什么基础知识了，这里要重点关注的是我们如何在二叉链存储结构下前序，中序，后序以及层序遍历二叉树，这里简单的方法要用到递归。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>&emsp;&emsp;直接上代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;queue&gt;</span><br><span class="line"></span><br><span class="line">//二叉链结构</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">struct BinaryTreeNode</span><br><span class="line">&#123;</span><br><span class="line">    BinaryTreeNode(const T&amp; data = T())</span><br><span class="line">        :_data(data)</span><br><span class="line">        ,_left(nullptr)</span><br><span class="line">        ,_right(nullptr)</span><br><span class="line">    &#123;&#125;</span><br><span class="line">    T _data;</span><br><span class="line">    BinaryTreeNode&lt;T&gt;* _left;</span><br><span class="line">    BinaryTreeNode&lt;T&gt;* _right;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">class BinaryTree</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    BinaryTree()</span><br><span class="line">        :_head(nullptr)</span><br><span class="line">        ,_size(0)</span><br><span class="line">    &#123;&#125;</span><br><span class="line">    BinaryTree(const std::string&amp; preOrder)</span><br><span class="line">    &#123;</span><br><span class="line">        int i = 0;</span><br><span class="line">        _head = CreateByPreOrder(preOrder, i);</span><br><span class="line">    &#125;</span><br><span class="line">    //前序遍历</span><br><span class="line">    void PreOrder()</span><br><span class="line">    &#123;</span><br><span class="line">        PreOrderCore(_head);</span><br><span class="line">    &#125;</span><br><span class="line">    //中序遍历</span><br><span class="line">    void InOrder()</span><br><span class="line">    &#123;</span><br><span class="line">        InOrderCore(_head);</span><br><span class="line">    &#125;</span><br><span class="line">    //后序遍历</span><br><span class="line">    void PostOrder()</span><br><span class="line">    &#123;</span><br><span class="line">        PostOrderCore(_head);</span><br><span class="line">    &#125;</span><br><span class="line">    //层序遍历</span><br><span class="line">    void LevelOrder()</span><br><span class="line">    &#123;</span><br><span class="line">        std::queue&lt;BinaryTreeNode&lt;T&gt;*&gt; que;</span><br><span class="line">        que.push(_head);</span><br><span class="line">        while(!que.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            BinaryTreeNode&lt;T&gt;*temp = que.front();</span><br><span class="line">            que.pop();</span><br><span class="line">            if(temp == nullptr)</span><br><span class="line">            &#123;</span><br><span class="line">                std::cout &lt;&lt; &quot;#&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">            else </span><br><span class="line">            &#123;</span><br><span class="line">                std::cout &lt;&lt; (char)(temp-&gt;_data + &apos;A&apos;);</span><br><span class="line">                que.push(temp-&gt;_left);</span><br><span class="line">                que.push(temp-&gt;_right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //判断是不是一棵完全二叉树</span><br><span class="line">    //层序遍历二叉树，遍历到第一个nullptr结点，</span><br><span class="line">    //就遍历整个队列，如果全为空则是完全二叉树</span><br><span class="line">    //否则就不是</span><br><span class="line">    bool IsComplateTree()</span><br><span class="line">    &#123;</span><br><span class="line">        std::queue&lt;BinaryTreeNode&lt;T&gt;*&gt; que;</span><br><span class="line">        que.push(_head);</span><br><span class="line">        while(!que.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            BinaryTreeNode&lt;T&gt;* temp = que.front();</span><br><span class="line">            que.pop();</span><br><span class="line">            if(temp == nullptr)</span><br><span class="line">            &#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                que.push(temp-&gt;_left);</span><br><span class="line">                que.push(temp-&gt;_right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        while(!que.empty())</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            BinaryTreeNode&lt;T&gt;* temp = que.front();</span><br><span class="line">            que.pop();</span><br><span class="line">            if(temp != nullptr)</span><br><span class="line">            &#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    void InOrderCore(BinaryTreeNode&lt;T&gt;* root)</span><br><span class="line">    &#123;</span><br><span class="line">        if(root == nullptr)</span><br><span class="line">        &#123;</span><br><span class="line">            std::cout &lt;&lt; &quot;#&quot;;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        InOrderCore(root-&gt;_left);</span><br><span class="line">        std::cout &lt;&lt; (char)(root-&gt;_data + &apos;A&apos;);</span><br><span class="line">        InOrderCore(root-&gt;_right);</span><br><span class="line">    &#125;</span><br><span class="line">    void PreOrderCore(BinaryTreeNode&lt;T&gt;* root)</span><br><span class="line">    &#123;</span><br><span class="line">        if(root == nullptr)</span><br><span class="line">        &#123;</span><br><span class="line">            std::cout &lt;&lt; &quot;#&quot;;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        std::cout &lt;&lt; (char)(&apos;A&apos; + root-&gt;_data);</span><br><span class="line">        PreOrderCore(root-&gt;_left);</span><br><span class="line">        PreOrderCore(root-&gt;_right);</span><br><span class="line">    &#125;</span><br><span class="line">    void PostOrderCore(BinaryTreeNode&lt;T&gt;* root)</span><br><span class="line">    &#123;</span><br><span class="line">        if(root == nullptr)</span><br><span class="line">        &#123;</span><br><span class="line">            std::cout &lt;&lt; &quot;#&quot;;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        PostOrderCore(root-&gt;_left);</span><br><span class="line">        PostOrderCore(root-&gt;_right);</span><br><span class="line">        std::cout &lt;&lt; (char)(&apos;A&apos; + root-&gt;_data);</span><br><span class="line">    &#125;</span><br><span class="line">    BinaryTreeNode&lt;T&gt;* CreateByPreOrder(const std::string&amp; preOrder, int&amp; i)</span><br><span class="line">    &#123;</span><br><span class="line">        if(preOrder[i] != &apos;#&apos;)</span><br><span class="line">        &#123;</span><br><span class="line">            BinaryTreeNode&lt;T&gt;* root = new BinaryTreeNode&lt;T&gt;(preOrder[i] - &apos;A&apos;);</span><br><span class="line">            root-&gt;_left = CreateByPreOrder(preOrder, ++i);</span><br><span class="line">            root-&gt;_right = CreateByPreOrder(preOrder, ++i);</span><br><span class="line">            return root;</span><br><span class="line">        &#125;</span><br><span class="line">        else </span><br><span class="line">        &#123;</span><br><span class="line">            return nullptr;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    BinaryTreeNode&lt;T&gt;* _head;           //与链表一样存储一个头结点即可</span><br><span class="line">    size_t _size;                   //节点个数</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    BinaryTree&lt;int&gt; tree(&quot;ABD##E##CF##G##&quot;);</span><br><span class="line">    tree.PreOrder();</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">    tree.InOrder();</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">    tree.PostOrder();</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">    tree.LevelOrder();</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; &quot;Is Complate Tree: &quot; &lt;&lt; tree.IsComplateTree() &lt;&lt; std::endl;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读!-------------</div>
+    
+    </div>
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>记录学习每一分，感谢您的赞助</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="MisakiFx 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="MisakiFx 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DS/" rel="tag"># DS</a>
+          
+            <a href="/tags/二叉树/" rel="tag"># 二叉树</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/14/【DS】第三章-栈和队列/" rel="next" title="【DS】第三章-栈和队列">
+                <i class="fa fa-chevron-left"></i> 【DS】第三章-栈和队列
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="MisakiFx" />
+            
+              <p class="site-author-name" itemprop="name">MisakiFx</p>
+              <p class="site-description motion-element" itemprop="description">Hard working or giving up!!!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/MisakiFx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1761607418@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope-open"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://music.163.com/#/user/home?id=432551242" target="_blank" title="网易云音乐">
+                      
+                        <i class="fa fa-fw fa-music"></i>网易云音乐</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/qq_41669298" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-crosshairs"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#树的概念及结构"><span class="nav-number">1.</span> <span class="nav-text">树的概念及结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是树"><span class="nav-number">1.1.</span> <span class="nav-text">什么是树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#树的常用名词"><span class="nav-number">1.2.</span> <span class="nav-text">树的常用名词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#树的表示"><span class="nav-number">1.3.</span> <span class="nav-text">树的表示</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉树"><span class="nav-number">2.</span> <span class="nav-text">二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是二叉树"><span class="nav-number">2.1.</span> <span class="nav-text">什么是二叉树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树的特点"><span class="nav-number">2.2.</span> <span class="nav-text">二叉树的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊的二叉树"><span class="nav-number">2.3.</span> <span class="nav-text">特殊的二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#完美二叉树（满二叉树）"><span class="nav-number">2.3.1.</span> <span class="nav-text">完美二叉树（满二叉树）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完全二叉树"><span class="nav-number">2.3.2.</span> <span class="nav-text">完全二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完满二叉树"><span class="nav-number">2.3.3.</span> <span class="nav-text">完满二叉树</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树的存储"><span class="nav-number">2.4.</span> <span class="nav-text">二叉树的存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序存储"><span class="nav-number">2.4.1.</span> <span class="nav-text">顺序存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链式存储"><span class="nav-number">2.4.2.</span> <span class="nav-text">链式存储</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#二叉链"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">二叉链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三叉链"><span class="nav-number">2.4.2.2.</span> <span class="nav-text">三叉链</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#堆"><span class="nav-number">3.</span> <span class="nav-text">堆</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#堆的概念"><span class="nav-number">3.1.</span> <span class="nav-text">堆的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆的实现"><span class="nav-number">3.2.</span> <span class="nav-text">堆的实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉链实现二叉树"><span class="nav-number">4.</span> <span class="nav-text">二叉链实现二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">4.1.</span> <span class="nav-text">实现</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        ﻿<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MisakiFx</span>
+
+  
+</div>
+
+
+<div class="powered-by">
+  <i class="fa fa-user-md"></i>
+  <span id="busuanzi_container_site_uv">
+    我的网站的访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+</div>
+
+
+
+<span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共247.8k字</span>
+</div>
+
+        ﻿
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+        <script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

@@ -264,6 +264,186 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/26/【C语言】第六章-指针/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/26/【C语言】第六章-指针/" itemprop="url">【C语言】第六章-指针</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-26T23:32:40+08:00">
+                2018-11-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C语言初阶/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言初阶</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.3k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第六章-指针"><a href="#第六章-指针" class="headerlink" title="第六章 指针"></a>第六章 指针</h1><h2 id="第1节"><a href="#第1节" class="headerlink" title="第1节"></a>第1节</h2><h3 id="什么是指针"><a href="#什么是指针" class="headerlink" title="什么是指针"></a>什么是指针</h3><p>&emsp;&emsp;在计算机科学中，指针时编程语言中的一个对象，利用地址，它的值直接指向存在在电脑存储器当中的另一个地方的值。简而言之，指针是一个存储变量地址的变量。<strong>在32位系统上，地址是32个0或1组成的序列，所以要求用4个字节来存储，所以指针在32位机器上是4个字节的大小。</strong> 因此推而广之，在64位机器上，指针是8个字节大小的。</p>
+<h3 id="指针和指针类型"><a href="#指针和指针类型" class="headerlink" title="指针和指针类型"></a>指针和指针类型</h3><h4 id="指针的基本使用"><a href="#指针的基本使用" class="headerlink" title="指针的基本使用"></a>指针的基本使用</h4><p>&emsp;&emsp;我们可以使用<code>int* num;</code>的语句来定义一个指针类型的变量，并直接在其后进行赋值，但是要注意我们要赋给指针变量的一定是一个变量的地址，此时我们就需要用到<code>&amp;</code>取地址符。<br><br>&emsp;&emsp;而如果我们我们想要取到指针中的值时则需要用到<code>*</code>解引用操作符。以下的例子展示了指针的基本使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int num = 10;</span><br><span class="line">	int*p = &amp;num;//创建指针变量并让其指向num变量</span><br><span class="line">	printf(&quot;%d\n&quot;, p);//打印指针p所指向的内存地址</span><br><span class="line">	printf(&quot;%d\n&quot;, *p);//打印p所指向变量的值</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;但是我们不能将非法的内存地址赋给指针变量。那么什么是非法的内存地址呢？所谓非法的内存地址即我们并未向系统申请过的内存地址。我们每定义一个变量系统都会分给我们一块内存空间以便我们存放数据，而如果我们对指针直接进行赋值，那么我们就无法保证赋给指针的变量是合法的，此时如果再访问指针则是<strong>未定义行为</strong>（在C标准中并未明确说明的操作行为），这是十分危险的。比如说我们使用这样的语句<code>int* p = 0x100;</code>则是十分不安全的写法。<strong>因此对于指针我们不要对其进行乱赋值，防止其指向非法的内存</strong><br><br>&emsp;&emsp;为了防止防止指针指向不合法的内存，对于我们定义了但暂时不用的指针变量，出于安全起见，我们可以将其暂时赋值为<code>NULL</code>。如<code>int* p = NULL</code>。</p>
+<h4 id="指针常见注意事项"><a href="#指针常见注意事项" class="headerlink" title="指针常见注意事项"></a>指针常见注意事项</h4><p>&emsp;&emsp;1、不可将字面值常量的地址赋给指针。如<code>int* p = &amp;10</code>这样的写法就是错的。<br><br>&emsp;&emsp;2、不可给指针直接复制内存地址，以免造成访问非法内存的错误。<br><br>&emsp;&emsp;3、对于暂时不使用的指针将其值赋为<code>NULL</code>防止造成野指针，发生意想不到的麻烦。<br><br>&emsp;&emsp;4、在32位机器下指针的大小为32位，4个字节，指针具体大小视系统而变。</p>
+<h3 id="指针和数组名"><a href="#指针和数组名" class="headerlink" title="指针和数组名"></a>指针和数组名</h3><p>&emsp;&emsp;之前数组讲解时有提到过数组名就是元素的首地址，那么我们是否可以理解为数组名就是一个指向首元素的指针呢？其实这么理解实在欠妥，虽然数组和指针十分相似，有着千丝万缕的联系，但数组可千万不能和指针一概而论。<br>&emsp;&emsp;在C语言中，数组和指针可以进行转换，这为我们很多操作行了方便，但数组和指针永远属于两个不同的数据类型。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int arr[] = &#123; 1,2,3,4 &#125;;</span><br><span class="line">	int* p = arr;</span><br><span class="line">	printf(&quot;%d\n&quot;,sizeof(arr));//数组的大小</span><br><span class="line">	printf(&quot;%d\n&quot;, sizeof(arr + 0));//数组隐式转换为指针，参与运算</span><br><span class="line">	printf(&quot;%d\n&quot;, sizeof(p));//一个和数组指向相同元素的指针</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;在这个例子中我们很明显就能看出指针和数组的区别，当我们取数组的大小时，会进行计算得出数组所有元素大小之和，而我们取指针的大小时，永远都只会是4，尤其是我们在打印<code>arr + 0</code>的大小的时候由于数组名不能参与运算，于是数组名隐式转换为指针后才参与运算，从结果是4也能看得出来此时的<code>arr + 0</code>已经是一个指针了，哪怕它所指向的内存地址并没有发生改变。<br><br>&emsp;&emsp;初次之外我们可以利用数组名和指针可以相互转换的特点和指针可以参与运算的特点利用指针来访问数组中的元素。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int arr[] = &#123; 1,2,3,4 &#125;;</span><br><span class="line">	printf(&quot;%d\n&quot;, *(arr + 1));</span><br><span class="line">	printf(&quot;%d\n&quot;, arr[1]);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;在这个例子中我们可以看到两种取数组中元素的方式都可得到数组中的第二个元素，因此我们不难得出结论<code>*(arr + 1) &lt;=&gt; arr[1]</code>，即这两种方式是等价的。因此我们很多情况下可以利用指针灵活使用数组。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int arr[] = &#123; 1,2,3,4 &#125;;</span><br><span class="line">	int* p = arr + 1;</span><br><span class="line">	printf(&quot;%d\n&quot;, p[-1]);//等价于*(p - 1);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;尤其是对于一个指针，下标的方式依然使用，并且不同于数组，在指针的下表中甚至可以使用负数作为下标。</p>
+<h3 id="指针运算"><a href="#指针运算" class="headerlink" title="指针运算"></a>指针运算</h3><h4 id="指针-整数"><a href="#指针-整数" class="headerlink" title="指针 +- 整数"></a>指针 +- 整数</h4><p>&emsp;&emsp;指针加减一个整数等同于跳过了几个元素，而绝对不是内存地址加减整数，这点我们之前的例子中已经深有体会了，这里不再详细说明了。</p>
+<h4 id="指针-指针"><a href="#指针-指针" class="headerlink" title="指针 - 指针"></a>指针 - 指针</h4><p>&emsp;&emsp;指针虽然不能相加，但是可以相减，指针相减计算的是两个指针间所偏移的元素个数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int arr[] = &#123; 1,2,3,4 &#125;;</span><br><span class="line">	int* p1 = arr + 1;</span><br><span class="line">	int* p2 = arr + 2;</span><br><span class="line">	printf(&quot;%d\n&quot;, p2 - p1);//得出p2与p1间相偏移了一个元素</span><br><span class="line">	printf(&quot;%d\n&quot;, p1 - p2);//向左偏移则为负数</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="指针的关系运算"><a href="#指针的关系运算" class="headerlink" title="指针的关系运算"></a>指针的关系运算</h4><p>&emsp;&emsp;指针间也可也进行普通的关系比较，比如指针相等，指针大小等等，其中指针大小比较时，指针相比于另一个指针向右便宜则为大，向左则为小。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int arr[] = &#123; 1,2,3,4 &#125;;</span><br><span class="line">	int* p1 = arr + 1;</span><br><span class="line">	int* p2 = arr + 1;</span><br><span class="line">	int* p3 = arr + 2;</span><br><span class="line">	printf(&quot;%d\n&quot;, p1 == p2);//得出p2与p1间相偏移了一个元素</span><br><span class="line">	printf(&quot;%d\n&quot;, p3 &gt; p2 ? 1 : -1);//向左偏移则为负数</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;不过在此值得说明的是：<strong>只有在连续的一段内存上指针的相减以及指针的关系运算才有意义，否则都是无意义的</strong>。</p>
+<h3 id="指针微进阶"><a href="#指针微进阶" class="headerlink" title="指针微进阶"></a>指针微进阶</h3><p>&emsp;&emsp;C语言指针博大精深，有着很多的门路，在此我们挑其中最好理解的两点进行讲解。</p>
+<h4 id="数组指针"><a href="#数组指针" class="headerlink" title="数组指针"></a>数组指针</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int arr[] = &#123; 1,2,3,4 &#125;;</span><br><span class="line">	printf(&quot;%p\n&quot;, arr);</span><br><span class="line">	printf(&quot;%p\n&quot;, &amp;arr + 1);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;从运行结果大家不难发现，<code>&amp;arr + 1</code>别<code>arr</code>的结果要多了16个字节，也就正好是整个数组的长度。也就是说<code>&amp;arr</code>我们取到了整个数组的指针，在我们对这个指针进行<code>+1</code>时，指针跳过了整个数组，于是我们称指向整个数组的指针为数组指针。</p>
+<h4 id="常量指针和指向常量的指针"><a href="#常量指针和指向常量的指针" class="headerlink" title="常量指针和指向常量的指针"></a>常量指针和指向常量的指针</h4><p>&emsp;&emsp;常量我相信大家都不陌生，也就是在初始化后无法再进行改变的量，但是在指针中常量也分为常量指针和指向常量的指针两种。<br><br>&emsp;&emsp;指向常量的指针：对指针所指向的变量无法进行更改的指针。<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>const int* p = &amp;num</code><br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>int const* p = &amp;num(等价)</code><br><br>&emsp;&emsp;这样的指针在我们不想让指针修改一个值却又方便传入的时候经常使用。<br><br>&emsp;&emsp;常量指针：指针一旦指向某个内存地址无法再更改其指向。<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<code>int* const p = &amp;num</code><br>&emsp;&emsp;这样的指针与数组名十分类似，自身的值都无法进行改变，但是在强调一遍数组和指针是两种数据类型，不可搞混。<br><br>&emsp;&emsp;剩下指针更为高阶的知识和用法将在<strong><em>C语言进阶</em></strong>篇进行讲解。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/【C语言】项目-扫雷/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1823,182 +2003,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/29/【C语言】第一章-初识C语言-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/29/【C语言】第一章-初识C语言-2/" itemprop="url">【C语言】第一章-初识C语言-2</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-29T21:08:04+08:00">
-                2018-10-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C语言初阶/" itemprop="url" rel="index">
-                    <span itemprop="name">C语言初阶</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  3.9k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第一章-初识C语言"><a href="#第一章-初识C语言" class="headerlink" title="第一章 初识C语言"></a>第一章 初识C语言</h1><h2 id="第2节"><a href="#第2节" class="headerlink" title="第2节"></a>第2节</h2><h3 id="字符串-转义字符-注释"><a href="#字符串-转义字符-注释" class="headerlink" title="字符串+转义字符+注释"></a>字符串+转义字符+注释</h3><p>&emsp;&emsp;1、字符串：<br><br>&emsp;&emsp;<code>&quot;hello Misaki.\n&quot;;</code><br><br>&emsp;&emsp;诸如这样由<strong>双引号</strong>引起来的一串字符称为字符串字面值，或者简称<strong>字符串</strong>。<br><br>&emsp;&emsp;值得一提的是，由于C语言过于古老，所以在C语言中是没有字符串类型的，不过好在CPP中有了字符串类型。在C语言中字符串是由一个<strong>字符数组</strong>构成的，但与字符数组不同的是，字符串会在数组的结尾添加上一个<strong>空字符</strong>‘\0’作为结尾的标识符，这是为了更加方便的确定字符串的结束，方便输出等操作。关于字符串的具体知识我们会在后期详细讲解。<br><br>&emsp;&emsp;2、转义字符：<br><br>&emsp;&emsp;如果我们要在屏幕上打印一个目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	printf(&quot;C:\code\test.c\n&quot;);</span><br><span class="line">	ststem(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;我们能顺利打印出这个目录么？大家可以主动尝试一下。<br>&emsp;&emsp;经过尝试之后我们会发现这是不可能做到的，会发生一些很有意思的事情，其中的某些字符消失了反倒多出了很多的类似于空格的东西。我在这里我们就不得不提一下转义字符了。<br><br>&emsp;&emsp;在C语言中为了显示一些特殊的文本效果，例如换行，制表符（Tab），’ \ ‘等等的包括某些特殊的会与代码产生歧义的字符，于是出现了一种较为特殊的字符，这种字符就是<strong>转义字符</strong>。因为这种字符并不是可以直接输出往往需要使用特殊的代码进行代替。以下举几个常用的转义字符以供参考。<br><br>&emsp;&emsp;<code>\&#39;            表示字符常量&#39;</code><br><br>&emsp;&emsp;<code>\&quot;            表示字符常量&quot;</code><br><br>&emsp;&emsp;<code>\\            表示一个反斜杠</code><br><br>&emsp;&emsp;<code>\n            换行符</code><br><br>&emsp;&emsp;<code>\t            制表符tab</code><br><br>&emsp;&emsp;在转义字符的帮助下我相信我们就可以很好的输出上面的呢个目录了。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	printf(&quot;C:\\code\\test.c\n&quot;);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;3、注释：<br><br>&emsp;&emsp;在用任何一门语言进行程序的编写时，注释都是必不可少的，因为我们的程序不光是需要给我们自己写完算结束，我们还需要让别人能一模了然，全部看懂，更需要让几个月后的我们自己也可以依然能够看懂，如果你写完一个程序几个月后你自己都不想再看第二遍或者是看不懂第二遍，那么这个程序的书写就是失败的，<strong><em>因此除了我们需要有整齐良好的代码书写风格还需要在适当的位置加上合适的注释。</em></strong><br><br>&emsp;&emsp;在C语言中有两种风格的注释，一种是单行注释（CPP风格注释）：这种注释用<strong>双斜线</strong>‘//‘标注，本行双斜线后的内容编译器会默认按照注释进行处理。<br><br>&emsp;&emsp;<code>// 我要好好学习C语言！</code><br><br>&emsp;&emsp;而另一种则是多行注释（C语言风格注释），这种注释用’/<em>‘和’</em>/‘进行标注，在编译器中默认从’/<em>‘往后的所有内容全部按照注释处理，知道遇到下一个’</em>/‘为止。<br><br>&emsp;&emsp;<code>/* 我要好好学习C语言 */</code><br><br>&emsp;&emsp;再次强调，好的注释和代码风格是一个程序员必备的基础素养，只有做好这点才能在团队中更好的进行合作与沟通。</p>
-<h3 id="选择语句"><a href="#选择语句" class="headerlink" title="选择语句"></a>选择语句</h3><p>&emsp;&emsp;选择语句（分支语句）是C语言重要的语法之一，因为在程序中我们往往要面临多种选择，根据用户的行为选择程序的走向，此时就需要选择语句派上用场了。<br><br>&emsp;&emsp;在C语言中有多种选择语句，而每种选择语句的使用灵活多变，在此我选用<strong>if选择语句</strong>作为例子，为大家简单介绍选择语句的用法与用途。剩下的我们之后会详细讲解。<br><br>&emsp;&emsp;例：如果我们要表达以下这样一个逻辑：如果你会好好敲代码，那么你就会在大学毕业时拿到一个好offer，否则就只能回家种田。那么这么一个逻辑我们怎么使用代码表示呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int coding = 0;</span><br><span class="line">	printf(&quot;你会每天好好敲代码么？（1 or 0）&quot;);</span><br><span class="line">	scanf_s(&quot;%d&quot;, &amp;coding);</span><br><span class="line">	if (coding == 1)//进行判断如果coding为1</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;加油，你会成功！\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	else//其他情况</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;你完了，回家种田！\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;大家可以试着在自己的编译器上写这么一个小的程序，多运行几次，输出不同的选项，查看结果。不过值得一提的是，或许有的同学会有疑问，为什么if语句中的括号里用了一个’==’符号？而不是’=’?因为在C语言中对等于号进行了区分，分为了用于判断的双等号和用于赋值的单等号，在进行判断时我们只能使用双等号进行判断，如果改为单等号编译器虽然不会报错但有可能会使程序出现逻辑错误。</p>
-<h3 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h3><p>&emsp;&emsp; 循环语句和选择语句一样，在C语言中有着举足轻重的地位，因为计算机最擅长做的事情就是不断的循环，因此在编写程序中，我们可以利用循环进行在日常生活中我们执行起来很麻烦或是繁琐的事情。<br><br>&emsp;&emsp;C语言中循环语句依然有着很多的形式，很多的语法，在此我使用最简单的循环语句<strong>while循环语句</strong>作为示范。<br><br>&emsp;&emsp;比如说我们要完成这样一件事，我们要不断不断的敲代码，直到代码行数从0加到2000为止，每循环一次我们就为我们的代码行数加上1，直到行数到达或者多于2000为止。（<del>希望大家可以不要这样自己欺骗自己，这里只是举个例子- _ -</del>）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int line = 0;</span><br><span class="line">	printf(&quot;今天要开始敲代码了！目前行数为%d\n&quot;, line);</span><br><span class="line">	while (line &lt; 2000)//循环开始，满足条件循环继续</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;目前代码行数%d,我要继续努力敲代码!\n&quot;, line);</span><br><span class="line">		line = line + 1;</span><br><span class="line">	&#125;</span><br><span class="line">	printf(&quot;代码行数总算到%d啦！我成功啦！\n&quot;, line);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;瞬间计算机就将循环执行了2000次，运行后大家就可以看到自己的代码行数一下从0飙到了2000，但是在现实中敲代码还是一行一行脚踏实地连起，就像唐僧取经每一步都要脚踏实地，是没有任何捷径可以走的。</p>
-<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>&emsp;&emsp;说到函数，这就是C语言中相当重要的概念之一了，因为程序就是由一个个函数构成的，当我们开始写C语言代码时我们首先要写的就是一个入口函数——<strong>main()</strong> 函数，而除了main函数外，C语言允许我们可以自己定义很多很多自己的函数并且可以适当的时候进行调用，可以说是函数给我们的代码编写带来了很多的便利。<br><br>&emsp;&emsp;比如说我要将连个数进行相加，这个程序很简单，但是如果我们在程序中需要经常将两个数进行相加的话，每次相加我们都再单独写一遍代码或许显得程序略显复杂，而且缺失可读性，因此<strong>使用自定义函数取而代之就显得格外重要。</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int add(int a, int b)//自定义相加函数，两个int型参数，返回值也为int型</span><br><span class="line">&#123;</span><br><span class="line">	return a + b;</span><br><span class="line">&#125;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int num1 = 0;</span><br><span class="line">	int num2 = 0;</span><br><span class="line">	printf(&quot;请输入两个操作数：&quot;);</span><br><span class="line">	scanf_s(&quot;%d%d&quot;, &amp;num1, &amp;num2);</span><br><span class="line">	printf(&quot;相加结果为：%d\n&quot;, add(num1, num2));//调用写好的add函数</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;从这个例子大家就可以看出来函数的好处最明显的就是可以简化代码，简化书写，使代码看上去一目了然，尤其在之后我们写更为复杂的程序时程序的函数化就显得格外重要了。</p>
-<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>&emsp;&emsp;在介绍数组之前首先引入一个问题，如果我们要定义连续的成批的同种变量，我们应该怎么定义？用普通定义变量的方式一个一个定义么？如果数目少一些我们或许还可以使用这种方式，但如果数目很多要定义1000个甚至10000个呢？那这种普通的定义方式或许究竟行不通了。因此我们需要引入一种特殊的数据类型——数组。<br><br>&emsp;&emsp;所谓数组在内存上的表示不过是一段连续的内存空间，我们用这段连续的内存空间存储类型相同的不同元素，而借用数组的下标的方式来进行数组内每一元素的调用。而在后面的深入学习中大家会了解到，所谓数组不过是一个指针，被分配了一串连续的内存空间，而我们在调用每一个变量时也不过是在用指针解引的方式在使用指针所指向内存空间的值。<br><br>&emsp;&emsp;1、数组定义：<br><br>&emsp;&emsp;<code>int arr[10] = {0,1,2,3,4,5,6,7,8,9};</code><br><br>&emsp;&emsp;我们可以使用诸如以上这一行代码的方式定义一个任何类型的数组，我们也可以在定义后不直接对数组进行初始化，不过数组内部元素的值会和普通变量被定义后不进行初始化一样，是随机的，因此<strong>在定义数组后也同样建议立刻初始化</strong>，即使不立刻使用，我们也应将他们的值初始化为0；<br><br>&emsp;&emsp;2、数组的使用：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;//添加头文件</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">int main()//主函数，函数入口</span><br><span class="line">&#123;</span><br><span class="line">	int i = 0;</span><br><span class="line">	int arr[10] = &#123; 0,1,2,3,4,5,6,7,8,9 &#125;;//定义数组并初始化</span><br><span class="line">	for (i = 0; i &lt; 10; i++)//打印数组</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;%d\t&quot;, arr[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	printf(&quot;\n&quot;);</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;以上这段代码的意思是定义一个有十个整数空间大小的数组并在定义的同时进行初始化，随后利用for循环将他们打印出来，抛开for循环的语法不管，大家利用看到数组的操作可以说是是和循环都密切相关的。关于数组每一个元素的使用的方式有很多种，在这里首先介绍最简单的一种：即<strong>通过数组名+下标的方式进行引用，arr[i]，其中中括号中括号中的整形变量就是我们成为下标的东西。</strong> 值得一提的是，大家从循环也能看的出来， <strong>数组的下标使用是从0开始的，即数组中的第一个元素我们要想表示的话得写成：arr[0]。</strong> 因此在C语言的学习中我们要学会从0开始进行标号，因为<strong>数组中每个元素的下标都是数组中当前元素个数-1</strong>，第一个元素的下标为0，诸如此类。<br><br>&emsp;&emsp;关于数组的使用和技巧我们还大有可讲，我们先保持兴趣，之后的内容放到日后再详细讲述。</p>
-<h3 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h3><p>&emsp;&emsp;C语言的操作符有很多种，也分为不同的种类，在日后的学习中我们都会逐一接触到，这里我先逐一列出，简单讲述其功能。<br><br>&emsp;&emsp;<strong>1、算术操作符：</strong>&emsp;&emsp;<code>+ - * / %</code>&emsp;&emsp;加、减、乘、除、模<br><br>&emsp;&emsp;这里是最常用的基本操作符，其中需要讲解的是’%’这个操作符，这个操作符或许大家会比较陌生，但是它的功能十分简单，简单来说就是前一个操作数 / 后一个操作数，取他们的余数，例如：<code>5 % 4 = 1</code>，但是’%’操作符两边的操作数必须要求是整型，否则会编译失败。<br><br>&emsp;&emsp;<strong>2、移位操作符：</strong>&emsp;&emsp;<code>&lt;&lt; &gt;&gt;</code>&emsp;&emsp;左移、右移<br><br>&emsp;&emsp;移位操作符的具体用途就是将操作数转换为二进制形式，然后将整体位数左移或右移，比如说左移就是在末尾加一个0，右移则是减少一位。因此在此有一个技巧，<strong>左移操作符对于原操作数每左移一位操作数变为原来的两倍，右移则变为原来的二分之一。</strong> 例如：<code>2 &lt;&lt; 1 = 4</code>、<code>2 &gt;&gt; 1 = 1</code>。<br><br>&emsp;&emsp;<strong>3、位操作符：</strong>&emsp;&emsp;<code>&amp; ^ | ~</code>&emsp;&emsp;按位与、按位异或、按位或、按位取反<br><br>&emsp;&emsp;这几个操作符都是针对操作数的二进制进行操作，具体运算较为复杂，我们之后进行详细讲解。其中’&amp;’操作符大家或许会比较懵，因为大家也许都知道我们在输入一个值想要将一个值赋给一个变量时我们往往需要’&amp;’操作符进行取地址，没错这个操作符也是取地址操作符，但是它也是位操作符，这里就牵扯到了运算符重载的知识，在CPP中会有详细讲述。<br><br>&emsp;&emsp;<strong>4、赋值操作符：</strong>&emsp;&emsp;<code>= += -= *= /= &amp;= ^= |= &gt;&gt;= &lt;&lt;=</code><br><br>&emsp;&emsp;这些赋值操作符虽然看起来多但是大都大同小异，第一个是最为简单的复赋值操作符。之后的我们以<code>+=</code>为例进行简单说明。<br><br>&emsp;&emsp;<code>a += b</code> 和 <code>a = a + b</code>是完全等价的，这么一说大家或许就都明白了，后面的操作符也都是类似的效果。<br><br>&emsp;&emsp;<strong>5、关系操作符</strong>&emsp;&emsp;<code>== &gt;= &lt;= &gt; &lt; !=</code><br><br>&emsp;&emsp;对于关系操作符，我们常常用于分支语句的判断中，其中<code>&gt;=</code>就是大于等于，<code>&lt;=</code>就是小于等于，而<code>==</code>我们之前已经讲过就是用于判断的恒等号。<br><br>&emsp;&emsp;<strong>6、逻辑操作符：</strong>&emsp;&emsp;<code>&amp;&amp; || !</code>&emsp;&emsp;与、或、非<br>&emsp;&emsp;这都是最为简单的判断操作符，在逻辑的表达上十分常用，我们之后会详细讲解。<br><br>&emsp;&emsp;除去以上这些操作符外，我们还有一些操作符，例如<code>[]</code>下标引用操作符，<code>()</code>函数调用操作符，<code>-&gt;</code>结构成员操作符，<code>? :</code>三目操作符，<code>,</code>操作符等等。我们之后都会详细讲解。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2053,7 +2057,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2075,7 +2079,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2142,7 +2146,7 @@
       <div class="footer-inner">
         ﻿<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -2172,7 +2176,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共244.7k字</span>
+  <span class="post-count">博客全站共247.8k字</span>
 </div>
 
         ﻿

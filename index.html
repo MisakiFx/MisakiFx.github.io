@@ -264,6 +264,186 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/15/【DS】第四章-二叉树/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/15/【DS】第四章-二叉树/" itemprop="url">【DS】第四章-二叉树</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-15T14:39:45+08:00">
+                2019-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.1k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="树的概念及结构"><a href="#树的概念及结构" class="headerlink" title="树的概念及结构"></a>树的概念及结构</h1><h2 id="什么是树"><a href="#什么是树" class="headerlink" title="什么是树"></a>什么是树</h2><p>&emsp;&emsp;树是一种非线性的数据结构，它是由n（n&gt;=0）个有限结点组成一个具有层次关系的集合。把它叫做树是因 为它看起来像一棵倒挂的树，也就是说它是根朝上，而叶朝下的。它具有以下的特点：每个结点有零个或多 个子结点；没有父结点的结点称为根结点；每一个非根结点有且只有一个父结点；除了根结点外，每个子结 点可以分为多个不相交的子树。<br>&emsp;&emsp;下图就是一棵常见的树。<br><br><img src="/2019/12/15/【DS】第四章-二叉树/1.png" alt="树"><br></p>
+<h2 id="树的常用名词"><a href="#树的常用名词" class="headerlink" title="树的常用名词"></a>树的常用名词</h2><p>&emsp;&emsp;节点的度：一个节点含有的子树的个数称为该节点的度；<br>&emsp;&emsp;叶节点或终端节点：度为0的节点称为叶节点；<br>&emsp;&emsp;非终端节点或分支节点：度不为0的节点； &emsp;&emsp;如上图：D、E、F、G…等节点为分支节点 双亲节点或父节点：若一个节点含有子节点，则这个节点称为其子节点的父节点； &emsp;&emsp;孩子节点或子节点：一个节点含有的子树的根节点称为该节点的子节点；<br>&emsp;&emsp;兄弟节点：具有相同父节点的节点互称为兄弟节点；<br>&emsp;&emsp;树的度：一棵树中，最大的节点的度称为树的度；<br>&emsp;&emsp;节点的层次：从根开始定义起，根为第1层，根的子节点为第2层，以此类推； &emsp;&emsp;树的高度或深度：树中节点的最大层次； &emsp;&emsp;堂兄弟节点：双亲在同一层的节点互为堂兄弟；<br>&emsp;&emsp;节点的祖先：从根到该节点所经分支上的所有节点；<br>&emsp;&emsp;子孙：以某节点为根的子树中任一节点都称为该节点的子孙； &emsp;&emsp;森林：由m（m&gt;=0）棵互不相交的树的集合称为森林；</p>
+<h2 id="树的表示"><a href="#树的表示" class="headerlink" title="树的表示"></a>树的表示</h2><p>&emsp;&emsp;树的表示相比线性结构就要复杂一些，因为其是层次结构的，其的下一个结点可能有多个，也可能只有一个，因此十分难以在逻辑结构上进行表示。于是伟大的人类提出了一种方法可以很简单的表示任意一棵二叉树，这种表示方法称之为<strong>孩子兄弟表示法</strong>。<br><img src="/2019/12/15/【DS】第四章-二叉树/2.png" alt="孩子兄弟表示法"><br><br>&emsp;&emsp;所谓孩子兄弟表示法就是让任何一个结点仅指向它的第一个孩子结点和右边相邻的兄弟结点（如果没有孩子或兄弟指向空），由此任意一棵树上的任何一个节点都可以变成一个度最大仅为2结点，由此我们可以将任何一棵树都变成一棵<strong>二叉树</strong>。</p>
+<h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><h2 id="什么是二叉树"><a href="#什么是二叉树" class="headerlink" title="什么是二叉树"></a>什么是二叉树</h2><p>&emsp;&emsp;二叉树是一棵所有节点的度最大为2的树。任何一棵树都可以通过<strong>孩子兄弟表示法</strong>转换为二叉树，因此我们接下来的所有研究都是围绕二叉树进行的。下图就是一棵二叉树。<br><br><img src="/2019/12/15/【DS】第四章-二叉树/3.png" alt="孩子兄弟表示法"><br></p>
+<h2 id="二叉树的特点"><a href="#二叉树的特点" class="headerlink" title="二叉树的特点"></a>二叉树的特点</h2><p>&emsp;&emsp;1. 每个结点最多有两棵子树，即二叉树不存在度大于2的结点。<br>&emsp;&emsp;2. 二叉树的子树有左右之分，其子树的次序不能颠倒。<br>&emsp;&emsp;3.若二叉树的层次从0开始，则在二叉树的第i层至多有2^i个结点(i&gt;=0)。<br>&emsp;&emsp;4.高度为k的二叉树最多有2^(k+1) - 1个结点(k&gt;=-1)。 (空树的高度为-1)<br>&emsp;&emsp;5.对任何一棵二叉树，如果其叶子结点(度为0)数为m, 度为2的结点数为n, 则m = n + 1。</p>
+<h2 id="特殊的二叉树"><a href="#特殊的二叉树" class="headerlink" title="特殊的二叉树"></a>特殊的二叉树</h2><h3 id="完美二叉树（满二叉树）"><a href="#完美二叉树（满二叉树）" class="headerlink" title="完美二叉树（满二叉树）"></a>完美二叉树（满二叉树）</h3><p>&emsp;&emsp;一个深度为k(&gt;=-1)且有2^(k+1) - 1个结点的二叉树称为完美二叉树。意思是说这棵深度为k的二叉树任意一行的结点都已经是满的了。<br><br><img src="/2019/12/15/【DS】第四章-二叉树/4.png" alt="完美二叉树法"><br></p>
+<h3 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h3><p>&emsp;&emsp;完全二叉树从根结点到倒数第二层满足完美二叉树，最后一层可以不完全填充，其叶子结点都靠左对齐。<br><br><img src="/2019/12/15/【DS】第四章-二叉树/5.png" alt="完全二叉树法"><br></p>
+<h3 id="完满二叉树"><a href="#完满二叉树" class="headerlink" title="完满二叉树"></a>完满二叉树</h3><p>&emsp;&emsp;所有非叶子结点的度都是2<br>换句话说就是只要你有孩子，你就必然是有两个孩子。<br><br><img src="/2019/12/15/【DS】第四章-二叉树/6.png" alt="完满二叉树法"><br></p>
+<h2 id="二叉树的存储"><a href="#二叉树的存储" class="headerlink" title="二叉树的存储"></a>二叉树的存储</h2><h3 id="顺序存储"><a href="#顺序存储" class="headerlink" title="顺序存储"></a>顺序存储</h3><p>&emsp;&emsp;顺序存储指的是利用链表在连续的地址空间上进行存储。但是顺序存储只适用于完全二叉树，因为这样才不会有空间的浪费，所以顺序的存储方式一般用来存储堆。<br><br><img src="/2019/12/15/【DS】第四章-二叉树/7.png" alt="顺序存储"><br></p>
+<h3 id="链式存储"><a href="#链式存储" class="headerlink" title="链式存储"></a>链式存储</h3><p>&emsp;&emsp;链式的二叉树存储方式是最为常用的二叉树存储形式，用一个二叉链（或三叉链）的形式来构成二叉树。</p>
+<h4 id="二叉链"><a href="#二叉链" class="headerlink" title="二叉链"></a>二叉链</h4><p>&emsp;&emsp;如下是一个二叉链的存储形式。<br><br><img src="/2019/12/15/【DS】第四章-二叉树/8.png" alt="二叉链"><br><br>&emsp;&emsp;二叉链结构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct BinaryTreeNode</span><br><span class="line">&#123;</span><br><span class="line">    T _data;</span><br><span class="line">    BinaryTreeNode&lt;T&gt;* _left;</span><br><span class="line">    BinartTreeNode&lt;T&gt;* _right;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h4 id="三叉链"><a href="#三叉链" class="headerlink" title="三叉链"></a>三叉链</h4><p>&emsp;&emsp;如下是一个三叉链的存储形式。<br><br><img src="/2019/12/15/【DS】第四章-二叉树/9.png" alt="三叉链"><br><br>&emsp;&emsp;二叉链解雇：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">template&lt;class T&gt;</span><br><span class="line">struct BinaryTreeNode</span><br><span class="line">&#123;</span><br><span class="line">    T _data;</span><br><span class="line">    BinaryTreeNode&lt;T&gt;* _left;</span><br><span class="line">    BinartTreeNode&lt;T&gt;* _right;</span><br><span class="line">    BinartTreeNode&lt;T&gt;* _parent;//多了一个指向父亲的指针</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h1 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h1><h2 id="堆的概念"><a href="#堆的概念" class="headerlink" title="堆的概念"></a>堆的概念</h2><p>&emsp;&emsp;堆是典型的通过使用顺序方式存储二叉树来实现的数据结构，因为堆可以保证其必然是一棵完全二叉树。<br>&emsp;&emsp;如果有一个关键码的集合K = {k0，k1， k2，…，kn-1}，把它的所有元素按完全二叉树的顺序存储方式存储 在一个一维数组中，并满足：Ki &lt;= K2i+1 且 Ki&lt;= K2i+2 (Ki &gt;= K2i+1 且 Ki &gt;= K2i+2) i = 0，1，2…，则称为 小堆(或大堆)。将根节点最大的堆叫做最大堆或大根堆，根节点最小的堆叫做最小堆或小根堆。<br>&emsp;&emsp;堆有两点性质：<br>&emsp;&emsp;1、其保证其一定是一棵完全二叉树。<br>&emsp;&emsp;2、堆中任意一个孩子结点必不大于（大根堆）或者不小于（小根堆）其父结点。<br>&emsp;&emsp;下图是一个小根堆：<br><br><img src="/2019/12/15/【DS】第四章-二叉树/10.png" alt="小根堆"><br><br>&emsp;&emsp;下图是一个大根堆：<br><br><img src="/2019/12/15/【DS】第四章-二叉树/11.png" alt="大根堆"><br></p>
+<h2 id="堆的实现"><a href="#堆的实现" class="headerlink" title="堆的实现"></a>堆的实现</h2><p>&emsp;&emsp;堆的实现中有三个基础操作，向上调整，向下调整以及建堆，他们三个共同构成了堆的所有基础操作。STL中的<strong>优先级队列</strong>底层就是一个堆，所以平时要使用堆的时候我们不必自己写一个，可以借助优先级队列来实现。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#include &lt;assert.h&gt;</span><br><span class="line">//T为数据类型，Compare为比较方法，less创建大根堆，greater创建大根堆</span><br><span class="line">template&lt;class T, class Compare&gt;</span><br><span class="line">class Heap</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    Heap()</span><br><span class="line">        :_arr()</span><br><span class="line">        ,_size(0)</span><br><span class="line">    &#123;&#125;</span><br><span class="line">    Heap(const std::vector&lt;T&gt;&amp; arr)</span><br><span class="line">        :_arr(arr)</span><br><span class="line">        ,_size(arr.size())</span><br><span class="line">    &#123;</span><br><span class="line">        //根据已有数组建堆</span><br><span class="line">        //建堆思路即从最后一个开始进行向下调整，一直向下调整到根</span><br><span class="line">        for(int i = (_size - 2) / 2; i &gt;= 0; i--)</span><br><span class="line">        &#123;</span><br><span class="line">            AdjustDown(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    void Pop()</span><br><span class="line">    &#123;</span><br><span class="line">        //弹出根节点</span><br><span class="line">        //思路是将根与最后一个元素交换，然后向下调整，之后弹出最后一个结点    </span><br><span class="line">        std::swap(_arr[0], _arr[_size - 1]);</span><br><span class="line">        _arr.pop_back();</span><br><span class="line">        _size--;</span><br><span class="line">        AdjustDown(0);</span><br><span class="line">    &#125;</span><br><span class="line">    void Push(const T&amp; data)</span><br><span class="line">    &#123;</span><br><span class="line">        _arr.push_back(data);</span><br><span class="line">        //新插入元素要向上调整保证依然是一个堆</span><br><span class="line">        _size++;</span><br><span class="line">        AdjustUp(_size - 1);</span><br><span class="line">    &#125;</span><br><span class="line">    void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        for(const auto&amp; e : _arr)</span><br><span class="line">        &#123;</span><br><span class="line">            std::cout &lt;&lt; e &lt;&lt; &quot; &quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        std::cout &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    const T&amp; Top()</span><br><span class="line">    &#123;</span><br><span class="line">        assert(_size &gt; 0);</span><br><span class="line">        return _arr[0];</span><br><span class="line">    &#125;</span><br><span class="line">    bool Empty()</span><br><span class="line">    &#123;</span><br><span class="line">        assert(_size &gt; 0);</span><br><span class="line">        return _size == 0;</span><br><span class="line">    &#125;</span><br><span class="line">    size_t Size()</span><br><span class="line">    &#123;</span><br><span class="line">        return _size;</span><br><span class="line">    &#125;</span><br><span class="line">    void HeapSort(std::vector&lt;int&gt;&amp; arr)</span><br><span class="line">    &#123;</span><br><span class="line">        //堆排序的思想即建堆将根持续弹出放到尾部</span><br><span class="line">        //升序建大根堆</span><br><span class="line">        //降序建小根堆</span><br><span class="line">        Heap&lt;T, Compare&gt; tempHeap(_arr);</span><br><span class="line">        int tempSize = tempHeap.Size();</span><br><span class="line">        arr.resize(tempSize);</span><br><span class="line">        while(!tempHeap.Empty())</span><br><span class="line">        &#123;</span><br><span class="line">            T top = tempHeap.Top();</span><br><span class="line">            arr[tempSize - 1] = top;</span><br><span class="line">            tempSize--;</span><br><span class="line">            tempHeap.Pop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    //向下调整</span><br><span class="line">    //向下调整是堆操作中十分常用的基础操作</span><br><span class="line">    //即我们从一个指定结点开始向下调整直到不需要调整为止，</span><br><span class="line">    //保证调整过的路径满足堆的要求</span><br><span class="line">    void AdjustDown(size_t pos)</span><br><span class="line">    &#123;</span><br><span class="line">        Compare cmp;</span><br><span class="line">        //孩子节点下标为 根节点下标 * 2 + 1 和 根结点下标 * 2 + 2</span><br><span class="line">        size_t child = pos * 2 + 1;</span><br><span class="line">        while(child &lt; _size)</span><br><span class="line">        &#123;</span><br><span class="line">            if((child + 1) &lt; _size &amp;&amp; cmp(_arr[child], _arr[child + 1]))</span><br><span class="line">            &#123;</span><br><span class="line">                child += 1;</span><br><span class="line">            &#125;</span><br><span class="line">            //如果调整了还需要继续向下调整</span><br><span class="line">            if(cmp(_arr[pos], _arr[child]))</span><br><span class="line">            &#123;</span><br><span class="line">                std::swap(_arr[pos], _arr[child]);</span><br><span class="line">            &#125;</span><br><span class="line">            else </span><br><span class="line">            &#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            pos = child;</span><br><span class="line">            child = pos * 2 + 1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //向上调整与向下调整类似</span><br><span class="line">    void AdjustUp(size_t pos)</span><br><span class="line">    &#123;</span><br><span class="line">        Compare cmp;</span><br><span class="line">        //父结点下标为 (孩子结点下表 - 1) / 2</span><br><span class="line">        size_t parent = (pos - 1) / 2;</span><br><span class="line">        while(pos &gt; 0)</span><br><span class="line">        &#123;</span><br><span class="line">            //如果调整了需要继续向上迭代调整</span><br><span class="line">            if(cmp(_arr[parent], _arr[pos]))</span><br><span class="line">            &#123;</span><br><span class="line">                std::swap(_arr[parent], _arr[pos]);</span><br><span class="line">            &#125;</span><br><span class="line">            else </span><br><span class="line">            &#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            pos = parent;</span><br><span class="line">            parent = (pos - 1) / 2;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    std::vector&lt;T&gt; _arr;</span><br><span class="line">    size_t _size;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    std::vector&lt;int&gt; arr = &#123;1, 2, 3, 4, 5, 6, 7&#125;;</span><br><span class="line">    Heap&lt;int, std::less&lt;int&gt;&gt; heap(arr);</span><br><span class="line">    heap.Print();</span><br><span class="line">    heap.Pop();</span><br><span class="line">    heap.Print();</span><br><span class="line">    std::vector&lt;int&gt; arr2;</span><br><span class="line">    heap.HeapSort(arr2);</span><br><span class="line">    for(const auto&amp; e : arr2)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; e &lt;&lt; &quot; &quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; heap.Size() &lt;&lt; std::endl;</span><br><span class="line">    heap.Push(7);</span><br><span class="line">    heap.Print();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">7 5 6 4 2 1 3</span><br><span class="line">6 5 3 4 2 1</span><br><span class="line">1 2 3 4 5 6</span><br><span class="line">6</span><br><span class="line">7 5 6 4 2 1 3</span><br></pre></td></tr></table></figure></p>
+<h1 id="二叉链实现二叉树"><a href="#二叉链实现二叉树" class="headerlink" title="二叉链实现二叉树"></a>二叉链实现二叉树</h1><p>&emsp;&emsp;二叉树的顺序存储代表为堆，那么链式存储典型就是使用二叉链实现二叉树。<br>&emsp;&emsp;二叉链没什么基础知识了，这里要重点关注的是我们如何在二叉链存储结构下前序，中序，后序以及层序遍历二叉树，这里简单的方法要用到递归。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>&emsp;&emsp;直接上代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;queue&gt;</span><br><span class="line"></span><br><span class="line">//二叉链结构</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">struct BinaryTreeNode</span><br><span class="line">&#123;</span><br><span class="line">    BinaryTreeNode(const T&amp; data = T())</span><br><span class="line">        :_data(data)</span><br><span class="line">        ,_left(nullptr)</span><br><span class="line">        ,_right(nullptr)</span><br><span class="line">    &#123;&#125;</span><br><span class="line">    T _data;</span><br><span class="line">    BinaryTreeNode&lt;T&gt;* _left;</span><br><span class="line">    BinaryTreeNode&lt;T&gt;* _right;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">class BinaryTree</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    BinaryTree()</span><br><span class="line">        :_head(nullptr)</span><br><span class="line">        ,_size(0)</span><br><span class="line">    &#123;&#125;</span><br><span class="line">    BinaryTree(const std::string&amp; preOrder)</span><br><span class="line">    &#123;</span><br><span class="line">        int i = 0;</span><br><span class="line">        _head = CreateByPreOrder(preOrder, i);</span><br><span class="line">    &#125;</span><br><span class="line">    //前序遍历</span><br><span class="line">    void PreOrder()</span><br><span class="line">    &#123;</span><br><span class="line">        PreOrderCore(_head);</span><br><span class="line">    &#125;</span><br><span class="line">    //中序遍历</span><br><span class="line">    void InOrder()</span><br><span class="line">    &#123;</span><br><span class="line">        InOrderCore(_head);</span><br><span class="line">    &#125;</span><br><span class="line">    //后序遍历</span><br><span class="line">    void PostOrder()</span><br><span class="line">    &#123;</span><br><span class="line">        PostOrderCore(_head);</span><br><span class="line">    &#125;</span><br><span class="line">    //层序遍历</span><br><span class="line">    void LevelOrder()</span><br><span class="line">    &#123;</span><br><span class="line">        std::queue&lt;BinaryTreeNode&lt;T&gt;*&gt; que;</span><br><span class="line">        que.push(_head);</span><br><span class="line">        while(!que.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            BinaryTreeNode&lt;T&gt;*temp = que.front();</span><br><span class="line">            que.pop();</span><br><span class="line">            if(temp == nullptr)</span><br><span class="line">            &#123;</span><br><span class="line">                std::cout &lt;&lt; &quot;#&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">            else </span><br><span class="line">            &#123;</span><br><span class="line">                std::cout &lt;&lt; (char)(temp-&gt;_data + &apos;A&apos;);</span><br><span class="line">                que.push(temp-&gt;_left);</span><br><span class="line">                que.push(temp-&gt;_right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //判断是不是一棵完全二叉树</span><br><span class="line">    //层序遍历二叉树，遍历到第一个nullptr结点，</span><br><span class="line">    //就遍历整个队列，如果全为空则是完全二叉树</span><br><span class="line">    //否则就不是</span><br><span class="line">    bool IsComplateTree()</span><br><span class="line">    &#123;</span><br><span class="line">        std::queue&lt;BinaryTreeNode&lt;T&gt;*&gt; que;</span><br><span class="line">        que.push(_head);</span><br><span class="line">        while(!que.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            BinaryTreeNode&lt;T&gt;* temp = que.front();</span><br><span class="line">            que.pop();</span><br><span class="line">            if(temp == nullptr)</span><br><span class="line">            &#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                que.push(temp-&gt;_left);</span><br><span class="line">                que.push(temp-&gt;_right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        while(!que.empty())</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            BinaryTreeNode&lt;T&gt;* temp = que.front();</span><br><span class="line">            que.pop();</span><br><span class="line">            if(temp != nullptr)</span><br><span class="line">            &#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    void InOrderCore(BinaryTreeNode&lt;T&gt;* root)</span><br><span class="line">    &#123;</span><br><span class="line">        if(root == nullptr)</span><br><span class="line">        &#123;</span><br><span class="line">            std::cout &lt;&lt; &quot;#&quot;;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        InOrderCore(root-&gt;_left);</span><br><span class="line">        std::cout &lt;&lt; (char)(root-&gt;_data + &apos;A&apos;);</span><br><span class="line">        InOrderCore(root-&gt;_right);</span><br><span class="line">    &#125;</span><br><span class="line">    void PreOrderCore(BinaryTreeNode&lt;T&gt;* root)</span><br><span class="line">    &#123;</span><br><span class="line">        if(root == nullptr)</span><br><span class="line">        &#123;</span><br><span class="line">            std::cout &lt;&lt; &quot;#&quot;;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        std::cout &lt;&lt; (char)(&apos;A&apos; + root-&gt;_data);</span><br><span class="line">        PreOrderCore(root-&gt;_left);</span><br><span class="line">        PreOrderCore(root-&gt;_right);</span><br><span class="line">    &#125;</span><br><span class="line">    void PostOrderCore(BinaryTreeNode&lt;T&gt;* root)</span><br><span class="line">    &#123;</span><br><span class="line">        if(root == nullptr)</span><br><span class="line">        &#123;</span><br><span class="line">            std::cout &lt;&lt; &quot;#&quot;;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        PostOrderCore(root-&gt;_left);</span><br><span class="line">        PostOrderCore(root-&gt;_right);</span><br><span class="line">        std::cout &lt;&lt; (char)(&apos;A&apos; + root-&gt;_data);</span><br><span class="line">    &#125;</span><br><span class="line">    BinaryTreeNode&lt;T&gt;* CreateByPreOrder(const std::string&amp; preOrder, int&amp; i)</span><br><span class="line">    &#123;</span><br><span class="line">        if(preOrder[i] != &apos;#&apos;)</span><br><span class="line">        &#123;</span><br><span class="line">            BinaryTreeNode&lt;T&gt;* root = new BinaryTreeNode&lt;T&gt;(preOrder[i] - &apos;A&apos;);</span><br><span class="line">            root-&gt;_left = CreateByPreOrder(preOrder, ++i);</span><br><span class="line">            root-&gt;_right = CreateByPreOrder(preOrder, ++i);</span><br><span class="line">            return root;</span><br><span class="line">        &#125;</span><br><span class="line">        else </span><br><span class="line">        &#123;</span><br><span class="line">            return nullptr;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    BinaryTreeNode&lt;T&gt;* _head;           //与链表一样存储一个头结点即可</span><br><span class="line">    size_t _size;                   //节点个数</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    BinaryTree&lt;int&gt; tree(&quot;ABD##E##CF##G##&quot;);</span><br><span class="line">    tree.PreOrder();</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">    tree.InOrder();</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">    tree.PostOrder();</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">    tree.LevelOrder();</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; &quot;Is Complate Tree: &quot; &lt;&lt; tree.IsComplateTree() &lt;&lt; std::endl;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/14/【DS】第三章-栈和队列/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -318,8 +498,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/DS/" itemprop="url" rel="index">
-                    <span itemprop="name">DS</span>
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
                   </a>
                 </span>
 
@@ -1872,179 +2052,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/20/【DS】第二章-顺序表和链表/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/10/20/【DS】第二章-顺序表和链表/" itemprop="url">【DS】第二章-顺序表和链表</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-20T18:52:32+08:00">
-                2019-10-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.4k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第二章-顺序表和链表"><a href="#第二章-顺序表和链表" class="headerlink" title="第二章 顺序表和链表"></a>第二章 顺序表和链表</h1><h2 id="顺序表"><a href="#顺序表" class="headerlink" title="顺序表"></a>顺序表</h2><h3 id="什么是顺序表"><a href="#什么是顺序表" class="headerlink" title="什么是顺序表"></a>什么是顺序表</h3><p>&emsp;&emsp;顺序表是物理地址全部连续的存储数据的方式。顺序表分为动态顺序表以及动态的顺序表，静态的顺序表一般很少使用，因为其大小一旦固定不能再进行改变。<br><br>&emsp;&emsp;顺序表在开发中十分经常使用，因为其方便简单，并且易于操作。数组就是顺序表的一种，因为其在逻辑结构上是线性的，在物理结构上是连续的。由于十分常用在Cpp的STL库中封装了以顺序表为数据结构的<code>vector</code>容器供我们使用。</p>
-<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>&emsp;&emsp;顺序表的实现十分类似于<code>vector</code>类的实现。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;assert.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;Windows.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">#define N 100</span><br><span class="line">//顺序表的实现</span><br><span class="line">//十分类似于我们实现过的vector类，毕竟vector就是顺序表</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">class SeqList</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    //构造函数</span><br><span class="line">    SeqList()</span><br><span class="line">    :_array(nullptr)</span><br><span class="line">    ,_size(0)</span><br><span class="line">    ,_capacity(0)</span><br><span class="line">    &#123;&#125;</span><br><span class="line">    //析构函数</span><br><span class="line">    ~SeqList()</span><br><span class="line">    &#123;</span><br><span class="line">        if(_array != nullptr)</span><br><span class="line">        &#123;</span><br><span class="line">            delete _array;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //pos前插入</span><br><span class="line">    void Insert(size_t pos, const T&amp; value)</span><br><span class="line">    &#123;</span><br><span class="line">        //判断pos是否合法</span><br><span class="line">        if(pos &gt; _size || pos &lt; 0)</span><br><span class="line">        &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        //扩容</span><br><span class="line">        Expend();</span><br><span class="line">        for(size_t i = _size; i &gt; pos; i--)</span><br><span class="line">        &#123;</span><br><span class="line">            _array[i] = _array[i - 1];</span><br><span class="line">        &#125;</span><br><span class="line">        _array[pos] = value;</span><br><span class="line">        _size++;</span><br><span class="line">    &#125;</span><br><span class="line">    //尾插</span><br><span class="line">    void Push_back(const T&amp; value)</span><br><span class="line">    &#123;</span><br><span class="line">        //扩容</span><br><span class="line">        Expend();</span><br><span class="line">        _array[_size] = value;</span><br><span class="line">        _size++;</span><br><span class="line">    &#125;</span><br><span class="line">    //头插</span><br><span class="line">    void Push_front(const T&amp; value)</span><br><span class="line">    &#123;</span><br><span class="line">        //扩容</span><br><span class="line">        Expend();</span><br><span class="line">        //所有元素向后挪一个位置</span><br><span class="line">        for(size_t i = _size; i &gt; 0; i--)</span><br><span class="line">        &#123;</span><br><span class="line">            _array[i] = _array[i - 1];</span><br><span class="line">        &#125;</span><br><span class="line">        _array[0] = value;</span><br><span class="line">        _size++;</span><br><span class="line">    &#125;</span><br><span class="line">    //尾删</span><br><span class="line">    void Pop_back()</span><br><span class="line">    &#123;</span><br><span class="line">        //删除前要先判断，有元素才能删</span><br><span class="line">        if(_size &gt; 0)</span><br><span class="line">        &#123;</span><br><span class="line">            _size--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //头删</span><br><span class="line">    void Pop_front()</span><br><span class="line">    &#123;</span><br><span class="line">        //有元素才能删</span><br><span class="line">        if(_size &gt; 0)</span><br><span class="line">        &#123;</span><br><span class="line">            for (size_t i = 1; i &lt; _size; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                _array[i - 1] = _array[i];</span><br><span class="line">            &#125;</span><br><span class="line">            _size--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //删除pos当前位置数据</span><br><span class="line">    void Erase(size_t pos)</span><br><span class="line">    &#123;</span><br><span class="line">        //pos不合法</span><br><span class="line">        if(pos &gt;= _size || pos &lt; 0)</span><br><span class="line">        &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        for(size_t i = pos; i &lt; _size - 1; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            _array[pos] = _array[pos + 1];</span><br><span class="line">        &#125;</span><br><span class="line">        _size--;</span><br><span class="line">    &#125;</span><br><span class="line">    //查找</span><br><span class="line">    size_t Find(const T&amp; value)</span><br><span class="line">    &#123;</span><br><span class="line">        for(size_t i = 0; i &lt; _size; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            if(_array[i] == value)</span><br><span class="line">            &#123;</span><br><span class="line">                return i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    //二分查找</span><br><span class="line">    size_t BinaryFind(const T&amp; value)</span><br><span class="line">    &#123;</span><br><span class="line">        //左闭右开区间</span><br><span class="line">        size_t high = _size, low = 0;</span><br><span class="line">        while(high &gt; low)</span><br><span class="line">        &#123;</span><br><span class="line">            size_t mid = (high + low) / 2;</span><br><span class="line">            if(_array[mid] == value)</span><br><span class="line">            &#123;</span><br><span class="line">                return mid;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(_array[mid] &gt; value)</span><br><span class="line">            &#123;</span><br><span class="line">                high = mid;    </span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                low = mid + 1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //修改</span><br><span class="line">    void Modify(size_t pos, const T&amp; value)</span><br><span class="line">    &#123;</span><br><span class="line">        if(pos &lt; 0 || pos &gt;= _size)</span><br><span class="line">        &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        _array[pos] = value;</span><br><span class="line">    &#125;</span><br><span class="line">    //打印</span><br><span class="line">    void Print()</span><br><span class="line">    &#123;</span><br><span class="line">        for(size_t i = 0; i &lt; _size; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; _array[i] &lt;&lt; &quot; &quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">        //cout &lt;&lt; _size &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    //当前元素个数</span><br><span class="line">    size_t Size()</span><br><span class="line">    &#123;</span><br><span class="line">        return _size;</span><br><span class="line">    &#125;</span><br><span class="line">    //某个位置的值</span><br><span class="line">    T&amp; operator[](size_t pos)</span><br><span class="line">    &#123;</span><br><span class="line">        assert(pos &gt;=0 &amp;&amp; pos &lt; _size);</span><br><span class="line">        return _array[pos];</span><br><span class="line">    &#125;</span><br><span class="line">    //冒泡排序</span><br><span class="line">    void BubbleSort()</span><br><span class="line">    &#123;</span><br><span class="line">        for(int i = 0; i &lt; _size - 1; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            bool flag = false;</span><br><span class="line">            for(int j = 0; j &lt; _size - i - 1; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                if(_array[j] &gt; _array[j + 1])</span><br><span class="line">                &#123;</span><br><span class="line">                    swap(_array[j], _array[j + 1]);</span><br><span class="line">                    flag = true;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            if(flag == false)</span><br><span class="line">            &#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    void RemoveAll()</span><br><span class="line">    &#123;</span><br><span class="line">        _size = 0;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    //T _array[N];//静态顺序表，利用数组，不可变，十分不灵活</span><br><span class="line">    T* _array;//动态顺序表，利用指针动态开辟</span><br><span class="line">    size_t _size;//长度</span><br><span class="line">    size_t _capacity;//容量</span><br><span class="line">    //扩容</span><br><span class="line">    void Expend()</span><br><span class="line">    &#123;</span><br><span class="line">        if(_size == _capacity)//满了</span><br><span class="line">        &#123;</span><br><span class="line">            size_t newCapacity = (_capacity == 0 ? 5 : 2 * _capacity);</span><br><span class="line">            //创建更大空间，拷贝，释放原有空间</span><br><span class="line">            _array = (T*)realloc(_array, newCapacity * sizeof(T));</span><br><span class="line">            //申请失败</span><br><span class="line">            assert(_array);</span><br><span class="line">            //更新容量</span><br><span class="line">            _capacity = newCapacity;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h3 id="顺序表的优缺点"><a href="#顺序表的优缺点" class="headerlink" title="顺序表的优缺点"></a>顺序表的优缺点</h3><p>&emsp;&emsp;<strong>顺序表优点</strong>：<br>&emsp;&emsp;1、根据下标随机访问时间复杂度O(1)。<br>&emsp;&emsp;2、不会产生内存碎片。<br>&emsp;&emsp;3、代码简单。<br>&emsp;&emsp;4、在尾插时事件复杂度为<code>O1</code>。<br>&emsp;&emsp;顺序表缺点：<br>&emsp;&emsp;1、在中间插入时时间复杂度为<code>On</code>，最坏情况下要移动整个顺序表完成头插。<br>&emsp;&emsp;2、增容申请新空间进行数据拷贝再释放旧空间，有这不小消耗。<br>&emsp;&emsp;3、增容一次空间为原有空间两倍，可能会造成空间大量浪费。</p>
-<h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><h3 id="什么是链表"><a href="#什么是链表" class="headerlink" title="什么是链表"></a>什么是链表</h3><p>&emsp;&emsp;顺序表是物理地址连续的数据存储方式，而链表与之相反，链表存储数据的物理地址不一定连续，因此它不能像顺序表那样通过直接寻址的方式访问到数据，它通过<strong>指针</strong>来连接和组织数据，因此也使得它和顺序表有着截然不同的特征，并且相比顺序表来说或许更难理解一些。<br><br><img src="/2019/10/20/【DS】第二章-顺序表和链表/1.png" alt="链表"><br><br>&emsp;&emsp;链表有着以下几种种类：<br>&emsp;&emsp;1、带头链表，不带头链表。<br>&emsp;&emsp;2、单向链表，双向链表。<br>&emsp;&emsp;3、循环链表，不循环链表。<br>&emsp;&emsp;他们组合搭配起来一共有8种组合，<br>&emsp;&emsp;由于链表的特性它可以很好地结局一些顺序表的缺点，比如他不需要扩容，并且更方便插入等等，但是在一些方面上它也有着不如顺序表的地方，关于优缺点我们放在最后再进行分析，接下来实现一个简单的<strong>带头单向不循环链表</strong>。</p>
-<h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><p>&emsp;&emsp;在Cpp的STL中有一个<code>list</code>容器，其中实现了一个带头双向循环链表，这里我们简化进行实现带头单向不循环链表，思路更加简单（带头双向循环链表在Cpp章节中在模拟实现<code>list</code>时也有实现）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using std::cout;</span><br><span class="line">using std::endl;</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">struct ListNode</span><br><span class="line">&#123;</span><br><span class="line">    //构造函数</span><br><span class="line">    ListNode(const T&amp; value = T())</span><br><span class="line">        :data(value)</span><br><span class="line">        ,next(nullptr)</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    T data;//数据域</span><br><span class="line">    ListNode* next;//指针域，指向下一个节点</span><br><span class="line">&#125;;</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">class List</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    //构造函数</span><br><span class="line">    List()</span><br><span class="line">        :_head(new ListNode&lt;T&gt;)</span><br><span class="line">        ,_size(0)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    ~List()</span><br><span class="line">    &#123;</span><br><span class="line">        //依次删除所有节点以释放所有空间</span><br><span class="line">        while(_size &gt; 0)</span><br><span class="line">        &#123;</span><br><span class="line">            Pop_Front();</span><br><span class="line">        &#125;</span><br><span class="line">        delete _head;</span><br><span class="line">    &#125;</span><br><span class="line">    //头插</span><br><span class="line">    void Push_Front(const T&amp; value)</span><br><span class="line">    &#123;</span><br><span class="line">        InsertPos(0, value);</span><br><span class="line">    &#125;</span><br><span class="line">    //尾插</span><br><span class="line">    void Push_Back(const T&amp; value)</span><br><span class="line">    &#123;</span><br><span class="line">        InsertPos(_size, value);</span><br><span class="line">    &#125;</span><br><span class="line">    //打印所有数据</span><br><span class="line">    void PrintAll()</span><br><span class="line">    &#123;</span><br><span class="line">        ListNode&lt;T&gt;* temp = _head-&gt;next;</span><br><span class="line">        while(temp != nullptr)</span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; temp-&gt;data &lt;&lt; &quot; &quot;;</span><br><span class="line">            temp = temp-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    //在下标为pos的元素前进行插入</span><br><span class="line">    void InsertPos(size_t pos, const T&amp; value)</span><br><span class="line">    &#123;</span><br><span class="line">        if(pos &lt; 0 || pos &gt; _size)</span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; &quot;InsertPos: pos error&quot; &lt;&lt; endl;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        //这里的插入时间复杂度本应是O1，但是由于链表不便于寻址因此又需要线性的时间进行寻址</span><br><span class="line">        ListNode&lt;T&gt;* node = FindForPos(pos);</span><br><span class="line">        if(node == nullptr)</span><br><span class="line">        &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode&lt;T&gt;* newNode = new ListNode&lt;T&gt;(value);</span><br><span class="line">        newNode-&gt;next = node-&gt;next;</span><br><span class="line">        node-&gt;next = newNode;</span><br><span class="line">        _size++;</span><br><span class="line">    &#125;</span><br><span class="line">    //删除下标为pos的元素</span><br><span class="line">    void ErasePos(size_t pos)</span><br><span class="line">    &#123;</span><br><span class="line">        if(pos &lt; 0 || pos &gt;= _size)</span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; &quot;ErasePos: pos error&quot; &lt;&lt; endl;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode&lt;T&gt;* node = FindForPos(pos);</span><br><span class="line">        if(node == nullptr)</span><br><span class="line">        &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode&lt;T&gt;* temp = node-&gt;next;</span><br><span class="line">        node-&gt;next = temp-&gt;next;</span><br><span class="line">        delete temp;</span><br><span class="line">        _size--;</span><br><span class="line">    &#125;</span><br><span class="line">    //尾删</span><br><span class="line">    void Pop_Back()</span><br><span class="line">    &#123;</span><br><span class="line">        ErasePos(_size - 1);</span><br><span class="line">    &#125;</span><br><span class="line">    //头删</span><br><span class="line">    void Pop_Front()</span><br><span class="line">    &#123;</span><br><span class="line">        ErasePos(0);</span><br><span class="line">    &#125;</span><br><span class="line">    //返回链表长度</span><br><span class="line">    size_t Size()</span><br><span class="line">    &#123;</span><br><span class="line">        return _size;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    //返回下标为pos的元素的前一个元素，下标为0的元素则返回头节点</span><br><span class="line">    ListNode&lt;T&gt;* FindForPos(size_t pos)</span><br><span class="line">    &#123;</span><br><span class="line">        ListNode&lt;T&gt; *temp = _head;</span><br><span class="line">        for(int i = 0; i &lt; pos; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            //不存在，长度不够</span><br><span class="line">            if(temp == nullptr)</span><br><span class="line">            &#123;</span><br><span class="line">                cout &lt;&lt; &quot;FindForPos: pos error&quot; &lt;&lt; endl;</span><br><span class="line">                return nullptr;</span><br><span class="line">            &#125;</span><br><span class="line">            temp = temp-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        return temp;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    ListNode&lt;T&gt;* _head;</span><br><span class="line">    size_t _size;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h3 id="链表的优缺点"><a href="#链表的优缺点" class="headerlink" title="链表的优缺点"></a>链表的优缺点</h3><p>&emsp;&emsp;<strong>链表的优点：</strong><br>&emsp;&emsp;1、链表在任意位置插入和删除时时间复杂度都能达到<code>O1</code>。<br>&emsp;&emsp;2、插入一个节点开辟一个空间，不牵扯扩容问题。<br>&emsp;&emsp;<strong>链表的缺点：</strong><br>&emsp;&emsp;1、以节点为单位存储数据，并且还要存储指针可能会浪费更多空间。<br>&emsp;&emsp;2、不支持随机访问，因此在某一位置插入尽管插入只需要<code>O1</code>但是找到这个位置需要<code>On</code>。<br>&emsp;&emsp;3、思路实现略复杂。</p>
-<h3 id="链表反转问题"><a href="#链表反转问题" class="headerlink" title="链表反转问题"></a>链表反转问题</h3><p>&emsp;&emsp;给一个单链表，反转这个单链表。<br><br>&emsp;&emsp;<a href="https://leetcode-cn.com/problems/reverse-linked-list/description/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/reverse-linked-list/description/</a><br><br>&emsp;&emsp;反转链表有很多种方式，我们可以尾删所有结点并同时将他们重新头插回链表，但这样的思路消耗实在太高，我们每次尾插都不得不遍历整张单链表去找到尾，因此对其简化，这里提供两种思路，<br>&emsp;&emsp;第一种，后插头删法。这种方法是通过从第二个节点开始遍历整个链表，依次将节点移向头部的方法。图解如下：<br><br><img src="/2019/10/20/【DS】第二章-顺序表和链表/2.png" alt="链表"><br><br>&emsp;&emsp;题解：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode *next;</span><br><span class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> */</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* reverseList(ListNode* head) &#123;</span><br><span class="line">        if(head == NULL)</span><br><span class="line">        &#123;</span><br><span class="line">            return head;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode* oldHead = head;</span><br><span class="line">        ListNode* temp = oldHead-&gt;next;</span><br><span class="line">        while(oldHead-&gt;next != NULL)</span><br><span class="line">        &#123;</span><br><span class="line">            oldHead-&gt;next = temp-&gt;next;</span><br><span class="line">            temp-&gt;next = head;</span><br><span class="line">            head = temp;</span><br><span class="line">            temp = oldHead-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        return head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;2、第二种：向后转法。第二种思路更为直观，我们就直接将每个结点中的<code>next</code>的指向改变即可。<br><img src="/2019/10/20/【DS】第二章-顺序表和链表/3.png" alt="链表"><br><br>&emsp;&emsp;题解：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode *next;</span><br><span class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> */</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* reverseList(ListNode* head) &#123;</span><br><span class="line">        if(head == NULL)</span><br><span class="line">        &#123;</span><br><span class="line">            return head;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode* prev = head;</span><br><span class="line">        ListNode* cur = head-&gt;next;</span><br><span class="line">        ListNode* next = cur;</span><br><span class="line">        head-&gt;next = NULL;</span><br><span class="line">        while(cur != NULL)</span><br><span class="line">        &#123;</span><br><span class="line">            next = cur-&gt;next;</span><br><span class="line">            cur-&gt;next = prev;</span><br><span class="line">            prev = cur;</span><br><span class="line">            cur = next;</span><br><span class="line">        &#125;</span><br><span class="line">        return prev;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;链表有多种多样的问题，我会另开章节逐个归纳，就不再此继续罗列了。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2099,7 +2106,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2121,7 +2128,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2188,7 +2195,7 @@
       <div class="footer-inner">
         ﻿<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -2218,7 +2225,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共244.7k字</span>
+  <span class="post-count">博客全站共247.8k字</span>
 </div>
 
         ﻿
