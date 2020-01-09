@@ -264,6 +264,179 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/29/【Cpp】第七章-STL-list类/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/29/【Cpp】第七章-STL-list类/" itemprop="url">【Cpp】第七章-STL_list类</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-29T23:12:49+08:00">
+                2019-07-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index">
+                    <span itemprop="name">Cpp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.2k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="list类"><a href="#list类" class="headerlink" title="list类"></a>list类</h1><h2 id="基础介绍"><a href="#基础介绍" class="headerlink" title="基础介绍"></a>基础介绍</h2><p>&emsp;&emsp;<code>list类</code>是STL中封装的链表模板类，并且底层实现是以双向链表作为基础进行封装的。在数据结构中，线性存储结构中主要分为顺序表和链表，前者在物理结构上拥有连续的内存空间和地址，在STL中<code>vector</code>和<code>string</code>都是使用了这种结构，其最大的特点就是方便进行随机访问并且尾插和尾删都能达到O1的时间复杂度并且使用方便，而链表作为物理结构上内存空间不连续的数据结构，其最大的特点就是方便在任何位置就行插入删除，<code>list</code>就是建立在此数据结构上封装出的模板类。</p>
+<h2 id="常用接口"><a href="#常用接口" class="headerlink" title="常用接口"></a>常用接口</h2><h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">list();                                                  //构造空的list</span><br><span class="line">list(size_type n, const value_type &amp;val = value_type()); //构造的list中包含n个值为val的元素</span><br><span class="line">list(const list &amp;x);                                     //拷贝构造函数</span><br><span class="line">list(InputIterator first, InputIterator last);           //用[first, last)区间中的元素构造list</span><br></pre></td></tr></table></figure>
+<h3 id="迭代器相关"><a href="#迭代器相关" class="headerlink" title="迭代器相关"></a>迭代器相关</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">begin();   //返回第一个元素的迭代器</span><br><span class="line">end();     //返回最后一个元素下一个位置的迭代器</span><br><span class="line">rbegin();  //返回第一个元素的reverse_iterator,即end位置</span><br><span class="line">rend();    //返回最后一个元素下一个位置的reverse_iterator,即begin位置</span><br><span class="line">cbegin();  //(C++11) 返回第一个元素的cosnt_iterator</span><br><span class="line">cend();    //(C++11) 返回最后一个元素下一个位置的const_iterator</span><br><span class="line">crbegin(); //(C++11) 即crend()位置</span><br><span class="line">crend();   //(C++11) 即crbegin()位置</span><br></pre></td></tr></table></figure>
+<h3 id="容量相关"><a href="#容量相关" class="headerlink" title="容量相关"></a>容量相关</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bool empty() const;  //检测list是否为空，是返回true，否则返回false</span><br><span class="line">size_t size() const; //返回list中有效节点的个数</span><br></pre></td></tr></table></figure>
+<h3 id="增删查改"><a href="#增删查改" class="headerlink" title="增删查改"></a>增删查改</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">reference front();                      //返回list的第一个节点中值的引用</span><br><span class="line">const_reference front() const;          //返回list的第一个节点中值的const引用</span><br><span class="line">reference back();                       //返回list的最后一个节点中值的引用</span><br><span class="line">const_reference back() const;           //返回list的最后一个节点中值的const引用</span><br><span class="line">void push_front(const value_type &amp;val); //在list首元素前插入值为val的元素</span><br><span class="line">void pop_front();                       //删除list中第一个元素</span><br><span class="line">void push_back;                         //(const value_type&amp; val)在list尾部插入值为val的元素</span><br><span class="line">void pop_back();                        //删除list中最后一个元素</span><br><span class="line">template &lt;class... Args&gt;</span><br><span class="line">void emplace_front(Args &amp;&amp; ... args); //（C++11）在list第一个元素前根据参数直接构造元素</span><br><span class="line">template &lt;class... Args&gt;</span><br><span class="line">void emplace_back(Args &amp;&amp; ... args); //（C++11）在list最后一个元素后根据参数直接构造元素</span><br><span class="line">template &lt;class... Args&gt;</span><br><span class="line">iterator emplace(const_iterator position, Args &amp;&amp; ... args);             //（C++11）在链表的任意位置根据参数直接构造元素</span><br><span class="line">iterator insert(iterator position, const value_type &amp;val);               //在list position 位置中插入值为val的元素</span><br><span class="line">void insert(iterator position, size_type n, const value_type &amp;val);      //在list position位置插入n个值为val的元素</span><br><span class="line">void insert(iterator position, InputIterator first, InputIterator last); //在list position位置插入[first, last)区间中元素</span><br><span class="line">iterator erase(iterator position);                                       //删除list position位置的元素</span><br><span class="line">iterator erase(iterator first, iterator last);                           //删除list中[first, last)区间中的元素</span><br><span class="line">void swap(list &amp; x);                                                     //交换两个list中的元素</span><br><span class="line">void resize(size_type n, value_type val = value_type());                 //将list中有效元素个数改变到n个，多出的元素用val填充</span><br><span class="line">void clear();                                                            //清空list中的有效元素</span><br></pre></td></tr></table></figure>
+<h2 id="emplace与insert"><a href="#emplace与insert" class="headerlink" title="emplace与insert"></a>emplace与insert</h2><p>&emsp;&emsp;在STL很多接口中我们都发现有一个<code>emplace()</code>的接口也是用来进行插入的，那么它与<code>insert()</code>和<code>push_back()</code>有什么区别呢？以下用<code>vector</code>举个例子，从接口调用上就能看出区别。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    struct Foo </span><br><span class="line">    &#123;</span><br><span class="line">        Foo(int n, double x)</span><br><span class="line">            :_n(n)</span><br><span class="line">            ,_x(x)</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        int _n;</span><br><span class="line">        double _x;</span><br><span class="line">    &#125;;</span><br><span class="line">    vector&lt;Foo&gt; v;</span><br><span class="line">    v.emplace(v.begin(), 42, 3.1416);     // 没有临时变量产生</span><br><span class="line">    v.insert(v.begin(), Foo(42, 3.1416)); // 需要产生一个临时变量</span><br><span class="line">    v.insert(v.begin(), &#123;42, 3.1416&#125;);    // 需要产生一个临时变量</span><br><span class="line">    for(int i = 0; i &lt; v.size(); i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; v[i]._n &lt;&lt; &quot; &quot; &lt;&lt; v[i]._x &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">42 3.1416</span><br><span class="line">42 3.1416</span><br><span class="line">42 3.1416</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;在进行内置类型和拥有单参构造函数的类型的插入时我们只传入一个参数往往很难发现区别，但在我们必须传入多个参数才能进行插入时我们就会发现在使用<code>insert()</code>这些接口时我们必须插入与容器中元素类型相同的<strong>元素</strong>才能完成接口调用，这让我们不得不构造一个临时匿名对象，而<code>emplace</code>则不需要，我们只要按照构造一个对象那样给构造元素的参数即可省去了构造匿名对象的过程。而这其中需要用到<code>C++11</code>中的新标准<strong>变参模板</strong>和<strong>完美转发</strong>，因此<code>emplace</code>使用的时候要求编译器支持<code>C++11</code>标准。<br>&emsp;&emsp;<code>emplace</code>不光是调用接口上有所不同，在有的时候也可以提高我们的效率。例如在<code>list</code>中如果利用<code>insert</code>传入一个元素的时候我们就需要先调用元素的构造函数构造元素，然后再调用<code>Node</code>的构造函数以及该元素的拷贝构造函数构造一个拥有该元素值的结点，才能进行插入，而<code>emplace</code>则可以在创建结点时直接利用原本要构造临时元素对象的参数来直接构造结点，并且直接构造结点中的元素对象，<strong>相当于少了一次元素的拷贝构造，并且省去了构造临时对象，效率更高</strong>。</p>
+<h2 id="list迭代器失效"><a href="#list迭代器失效" class="headerlink" title="list迭代器失效"></a>list迭代器失效</h2><p>&emsp;&emsp;对于<code>list</code>这种链式结构，在插入后是不会迭代器失效的，因为原先位置的迭代器依旧指向原来的结点，不会因为添加结点导致指向位置的变动。而在删除后迭代器原本指向的结点内存被释放，因此删除后删除结点的迭代器失效，但是其他结点迭代器指向不变因此不会发生迭代器失效。<br>&emsp;&emsp;总结：<strong>list只有在删除节点后才会发生迭代器失效，并且之后删除结点的迭代器失效</strong>。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>&emsp;&emsp;<code>list</code>采用链式结构存储，因此实现起来要稍微麻烦一些，迭代器也需要额外进行封装。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;assert.h&gt;</span><br><span class="line">//定义结点类</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">struct ListNode</span><br><span class="line">&#123;</span><br><span class="line">    ListNode&lt;T&gt;* _prev;</span><br><span class="line">    ListNode&lt;T&gt;* _next;</span><br><span class="line">    T _data;</span><br><span class="line">    ListNode(const T&amp; data = T())</span><br><span class="line">        :_prev(nullptr)</span><br><span class="line">        ,_next(nullptr)</span><br><span class="line">        ,_data(data)</span><br><span class="line">    &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line">//由于const_iterator与iterator除了在迭代器返回值上不一样外其他要求完全一样</span><br><span class="line">//因此这里要进行实现时可以考虑定义两个类</span><br><span class="line">//但是这里使用一种取巧的方法我们将返回值类型当作模板参数传入模板中</span><br><span class="line">template&lt;class T, class Ref, class Ptr&gt;</span><br><span class="line">struct ListIterator</span><br><span class="line">&#123;</span><br><span class="line">    typedef ListNode&lt;T&gt; Node;</span><br><span class="line">    typedef ListIterator&lt;T, Ref, Ptr&gt; Self;</span><br><span class="line">    //构造函数</span><br><span class="line">    ListIterator(Node* node)</span><br><span class="line">        :_node(node)</span><br><span class="line">    &#123;&#125;</span><br><span class="line">    //operator* 为了让其可以和指针一样使用，返回引用</span><br><span class="line">    Ref operator*()</span><br><span class="line">    &#123;</span><br><span class="line">        return _node-&gt;_data;</span><br><span class="line">    &#125;</span><br><span class="line">    //operator-&gt; 为了让其可以和指针一样使用，返回指针</span><br><span class="line">    //这里实际调用it-&gt;只能取到数据的指针，所以正常来说得写成it-&gt;-&gt;</span><br><span class="line">    //但是经过编译器优化，只用写it-&gt;就可以取到值了</span><br><span class="line">    Ptr operator-&gt;()</span><br><span class="line">    &#123;</span><br><span class="line">        return &amp;(_node-&gt;_data);</span><br><span class="line">    &#125;</span><br><span class="line">    Self operator++()</span><br><span class="line">    &#123;</span><br><span class="line">        _node = _node-&gt;_next;</span><br><span class="line">        return _node;    </span><br><span class="line">    &#125;</span><br><span class="line">    Self operator++(int)</span><br><span class="line">    &#123;</span><br><span class="line">        Self temp(_node);</span><br><span class="line">        _node = _node-&gt;_next;</span><br><span class="line">        return temp;</span><br><span class="line">    &#125; </span><br><span class="line">    Self operator--()</span><br><span class="line">    &#123;</span><br><span class="line">        _node = _node-&gt;_prev;</span><br><span class="line">        return _node;    </span><br><span class="line">    &#125;</span><br><span class="line">    Self operator--(int)</span><br><span class="line">    &#123;</span><br><span class="line">        Self temp(_node);</span><br><span class="line">        _node = _node-&gt;_prev;</span><br><span class="line">        return temp;</span><br><span class="line">    &#125; </span><br><span class="line">    bool operator!=(Self it)</span><br><span class="line">    &#123;</span><br><span class="line">        return _node != it._node;</span><br><span class="line">    &#125;</span><br><span class="line">    Node* _node;</span><br><span class="line">&#125;;</span><br><span class="line">//构建一个带头结点双向循环链表来模拟实现list</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">class List</span><br><span class="line">&#123;</span><br><span class="line">    typedef ListNode&lt;T&gt; Node;</span><br><span class="line">public:</span><br><span class="line">    typedef ListIterator&lt;T, T&amp;, T*&gt; iterator;</span><br><span class="line">    typedef ListIterator&lt;T, const T&amp;, const T*&gt; const_iterator;</span><br><span class="line">    //构造函数j</span><br><span class="line">    List()</span><br><span class="line">    &#123;</span><br><span class="line">        _head = new Node;</span><br><span class="line">        _head-&gt;_next = _head;</span><br><span class="line">        _head-&gt;_prev = _head;</span><br><span class="line">    &#125;</span><br><span class="line">    //拷贝构造</span><br><span class="line">    List(const List&amp; list)</span><br><span class="line">        :_head(new Node)</span><br><span class="line">    &#123;</span><br><span class="line">        _head-&gt;_next = _head;</span><br><span class="line">        _head-&gt;_prev = _head;</span><br><span class="line">        const_iterator it = list.begin();</span><br><span class="line">        while(it != list.end())</span><br><span class="line">        &#123;</span><br><span class="line">            Push_back(*it);</span><br><span class="line">            it++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //operator=重载</span><br><span class="line">    List&amp; operator=(const List&amp; list)</span><br><span class="line">    &#123;</span><br><span class="line">        List listTemp = list;</span><br><span class="line">        Swap(listTemp);</span><br><span class="line">    &#125;</span><br><span class="line">    //交换</span><br><span class="line">    void Swap(List&amp; list)</span><br><span class="line">    &#123;</span><br><span class="line">        std::swap(_head, list._head);</span><br><span class="line">    &#125;</span><br><span class="line">    //析构函数</span><br><span class="line">    ~List()</span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">        while(_head-&gt;_next != _head)</span><br><span class="line">        &#123;</span><br><span class="line">            Pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    iterator begin()</span><br><span class="line">    &#123;</span><br><span class="line">        return _head-&gt;_next;</span><br><span class="line">    &#125;</span><br><span class="line">    const_iterator begin() const</span><br><span class="line">    &#123;</span><br><span class="line">        return _head-&gt;_next;</span><br><span class="line">    &#125;</span><br><span class="line">    iterator end()</span><br><span class="line">    &#123;</span><br><span class="line">        return _head;</span><br><span class="line">    &#125;</span><br><span class="line">    const_iterator end() const</span><br><span class="line">    &#123;</span><br><span class="line">        return _head;</span><br><span class="line">    &#125;</span><br><span class="line">    iterator Erase(iterator&amp; it)</span><br><span class="line">    &#123;</span><br><span class="line">        assert(it._node != nullptr);</span><br><span class="line">        Node* pTemp = it._node;</span><br><span class="line">        Node* pNew = pTemp-&gt;_next;</span><br><span class="line">        //it-&gt;_node = pTemp-&gt;_next;</span><br><span class="line">        pTemp-&gt;_prev-&gt;_next = pTemp-&gt;_next;</span><br><span class="line">        pTemp-&gt;_next-&gt;_prev = pTemp-&gt;_prev;</span><br><span class="line">        delete pTemp;</span><br><span class="line">        return pNew;</span><br><span class="line">    &#125;</span><br><span class="line">    //插入</span><br><span class="line">    iterator Insert(iterator&amp; it, const T&amp; data = T())</span><br><span class="line">    &#123;</span><br><span class="line">        assert(it._node != nullptr);</span><br><span class="line">        Node* newNode = new Node(data);</span><br><span class="line">        newNode-&gt;_next = it._node;</span><br><span class="line">        newNode-&gt;_prev = it._node-&gt;_prev;</span><br><span class="line">        it._node-&gt;_prev-&gt;_next = newNode;</span><br><span class="line">        it._node-&gt;_prev  = newNode;</span><br><span class="line">        return newNode;</span><br><span class="line">    &#125;</span><br><span class="line">    //尾插</span><br><span class="line">    void Push_back(const T&amp; data)</span><br><span class="line">    &#123;</span><br><span class="line">        assert(_head != nullptr);</span><br><span class="line">        Node* tail = _head-&gt;_prev;</span><br><span class="line">        Node* newNode = new Node(data);</span><br><span class="line">        newNode-&gt;_next = _head;</span><br><span class="line">        newNode-&gt;_prev = tail;</span><br><span class="line">        tail-&gt;_next = newNode;</span><br><span class="line">        _head-&gt;_prev = newNode;</span><br><span class="line">    &#125;</span><br><span class="line">    //尾删</span><br><span class="line">    void Pop_back()</span><br><span class="line">    &#123;</span><br><span class="line">        assert(_head != nullptr);</span><br><span class="line">        if(_head-&gt;_next == _head)</span><br><span class="line">        &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        Node* tail = _head-&gt;_prev;</span><br><span class="line">        tail-&gt;_prev-&gt;_next = _head;</span><br><span class="line">        _head-&gt;_prev = tail-&gt;_prev;</span><br><span class="line">        delete tail;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    Node* _head;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/27/【算法】第二章-搜索/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1981,186 +2154,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/12/【Cpp】第二章-类和对象-上/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/12/【Cpp】第二章-类和对象-上/" itemprop="url">【Cpp】第二章-类和对象(上)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-12T20:36:53+08:00">
-                2019-05-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/" itemprop="url" rel="index">
-                    <span itemprop="name">Cpp</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h1><p>&emsp;&emsp;从本章开始我们就要开始学习C++ 中的最为重要的部分，也是让C++ 得以实现面向对象，得以更加方便的进行大型项目编程的最重要的部分——类和对象，类和对象的存在使C++得以完成封装。</p>
-<h2 id="类和对象初步认识"><a href="#类和对象初步认识" class="headerlink" title="类和对象初步认识"></a>类和对象初步认识</h2><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>&emsp;&emsp;什么是类什么是对象呢？ <strong>类</strong>可以看作是一个类别，是一类事物的抽象和归纳。比如在现实世界中类可以是兔子，可以是人，可以是某一个职业，这是一类事物，我们将其抽象出来，而并非具体的。与之相对的是<strong>对象</strong>，对象就是类的实例化，比如说快递员这个类我们可以说快递员是一个类，而假如今天我们点了个外卖，呢么具体的今天来给我们送餐的这个人就是一个对象，对象是属于类的，，是类的具体实例。</p>
-<h2 id="类的定义"><a href="#类的定义" class="headerlink" title="类的定义"></a>类的定义</h2><p>&emsp;&emsp;类在C++ 中的语法更加类似于C语言中结构体的语法，不过在C语言中结构体内部只能定义成员变量，不能定义函数，在C++ 中结构体中可以定义成员函数，使得我们可以讲很多东西封装到类中支持面向对象的编程思想。并且在C++中我们更崇尚于用<code>class</code>来代替<code>struct</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">struct AddStruct  </span><br><span class="line">&#123;  </span><br><span class="line">  int num1;  </span><br><span class="line">  int num2;  </span><br><span class="line">  int AddNum()</span><br><span class="line">  &#123;  </span><br><span class="line">    return num1 + num2;  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;;  </span><br><span class="line">class AddClass  </span><br><span class="line">&#123;  </span><br><span class="line">  int num1;  </span><br><span class="line">  int num2;  </span><br><span class="line">  int AddNum()</span><br><span class="line">  &#123;  </span><br><span class="line">    return num1 + num2;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;以上我们用两种方法定义了两个类，可以看出在C++中<code>struct</code>与<code>class</code>的区别不是很大，但是即使如此它们之间依旧有所区别。其中最主要的区别就是在<code>struct</code>中的成员默认是公有的(<code>public</code>)，而<code>class</code>中成员默认是私有的(<code>private</code>)。</p>
-<h2 id="类的访问限定符及封装"><a href="#类的访问限定符及封装" class="headerlink" title="类的访问限定符及封装"></a>类的访问限定符及封装</h2><h3 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h3><p>&emsp;&emsp;在C++中是如何实现封装的呢？其中最为重要的途径就是利用<strong>类</strong>和它*<em>访问限定符</em>，我们将对象的属性和方法封装在一个类中并为她们加上访问限定符让外界不能随意无序的进行访问我们就完成了封装。</p>
-<h3 id="访问限定符"><a href="#访问限定符" class="headerlink" title="访问限定符"></a>访问限定符</h3><p>&emsp;&emsp;访问限定符一共有三个：<code>private</code>(私有);<code>public</code>(公有);<code>protected</code>(保护)。访问限定符的作用域是从当前访问限定符开始到下一个访问限定符结束或者到整个类的结束。<br><br>&emsp;&emsp;这里重点介绍前两个，<code>protected</code>的主要作用起在类的继承方面，后续再做讨论。</p>
-<h4 id="public"><a href="#public" class="headerlink" title="public"></a>public</h4><p>&emsp;&emsp;公有的访问限定符范围内的成员可以被类外部进行访问，我们可以在类外和类内随意使用类中<code>public</code>的成员，因此我们往往将类向外部提供的接口放在<code>public</code>中。</p>
-<h4 id="private"><a href="#private" class="headerlink" title="private"></a>private</h4><p>&emsp;&emsp;私有的访问限定符范围内的成员不能被类外部进行访问，我们只能在类内调用或使用<code>private</code>的成员，因此<code>private</code>往往有保护类内数据的作用，为了方便起见我们往往将类内的成员变量全部定义为<code>private</code>，如果想要对类内数据机型修改则需要另写接口，这样的安全性更高。<br><br>&emsp;&emsp;之后我们就用类访问限定符改造我们之前定义的<code>Add</code>类。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class AddClass                  </span><br><span class="line">&#123;                               </span><br><span class="line">private:                        </span><br><span class="line">  int _num1;                    </span><br><span class="line">  int _num2;                    </span><br><span class="line">public:                         </span><br><span class="line">  void GetNum1(int num1)        </span><br><span class="line">  &#123;                             </span><br><span class="line">    _num1 = num1;               </span><br><span class="line">  &#125;                             </span><br><span class="line">  void GetNum2(int num2)        </span><br><span class="line">  &#123;                             </span><br><span class="line">    _num2 = num2;               </span><br><span class="line">  &#125;                             </span><br><span class="line">  int AddNum()</span><br><span class="line">  &#123;</span><br><span class="line">    return _num1 + _num2;       </span><br><span class="line">  &#125;                             </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;经过改造的类中的成员变量由于是<code>private</code>类型受到保护因此我们要再向外多提供几个接口以便让外部可以修改内部的值。同时为了将成员变量与函数中的变量加以区分我们往往会用<code>_</code>来修饰成员变量，这不是必须但是会提升代码可读性。</p>
-<h2 id="类的作用域"><a href="#类的作用域" class="headerlink" title="类的作用域"></a>类的作用域</h2><p>&emsp;&emsp;其实类一旦声明再类内就形成了一个域，域外无法访问域内的成员。我们在域内可以直接声明并且定义成员函数，但是<strong>在域内定义的成员函数会默认作为内联函数对待</strong>，而且为了代码的可读性我们也并不能将所有的成员函数都定义在类内，那么如何在类外定义成员函数呢？为此我们再将之前写的类进行改造。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class AddClass  </span><br><span class="line">&#123;  </span><br><span class="line">private:  </span><br><span class="line">  int _num1;  </span><br><span class="line">  int _num2;  </span><br><span class="line">public:</span><br><span class="line">  //默认内联但为了可读性我们还是加上内联的标志</span><br><span class="line">  inline void GetNum1(int num1)</span><br><span class="line">  &#123;                </span><br><span class="line">    _num1 = num1;  </span><br><span class="line">  &#125;                            </span><br><span class="line">  inline void GetNum2(int num2)</span><br><span class="line">  &#123;                                            </span><br><span class="line">    _num2 = num2;                              </span><br><span class="line">  &#125;                                            </span><br><span class="line">  //在类内声明                                 </span><br><span class="line">  int AddNum();                                </span><br><span class="line">&#125;;                                             </span><br><span class="line">//在类外定义                                   </span><br><span class="line">int AddClass::AddNum()                         </span><br><span class="line">&#123;                                              </span><br><span class="line">  return _num1 + _num2;                        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;我们可以通过域限定符来在类外定义函数，这样我们就可以将声明和定义分开，使代码可读性更高。</p>
-<h2 id="类的实例化"><a href="#类的实例化" class="headerlink" title="类的实例化"></a>类的实例化</h2><p>&emsp;&emsp;在定义完类之后我们就需要用类来建立我们真正要使用的对象，我们称这一过程也叫类的实例化。类进行实例化十分方便，和用结构体定义变量无异。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class AddClass</span><br><span class="line">&#123;</span><br><span class="line">private:                                        </span><br><span class="line">  int _num1;</span><br><span class="line">  int _num2;</span><br><span class="line">public:</span><br><span class="line">  //默认内联但为了可读性我们还是加上内联的标志</span><br><span class="line">  inline void GetNum1(int num1)</span><br><span class="line">  &#123;</span><br><span class="line">    _num1 = num1;</span><br><span class="line">  &#125;</span><br><span class="line">  inline void GetNum2(int num2)</span><br><span class="line">  &#123;</span><br><span class="line">    _num2 = num2;</span><br><span class="line">  &#125;</span><br><span class="line">  //在类内声明</span><br><span class="line">  int AddNum();</span><br><span class="line">&#125;;</span><br><span class="line">//在类外定义</span><br><span class="line">int AddClass::AddNum()</span><br><span class="line">&#123;</span><br><span class="line">  return _num1 + _num2;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  AddClass add;</span><br><span class="line">  add.GetNum1(1);</span><br><span class="line">  add.GetNum2(2);</span><br><span class="line">  cout &lt;&lt; add.AddNum() &lt;&lt; endl;</span><br><span class="line">&#125;                               </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost 第二章-类和对象]$ ./Class</span><br><span class="line">3</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;由此即完成了类的实例化即成员调用。</p>
-<h2 id="类的大小计算"><a href="#类的大小计算" class="headerlink" title="类的大小计算"></a>类的大小计算</h2><p>&emsp;&emsp;类的大小计算与结构体无异遵循内存对齐的规则，但有几点需要注意：<br><br>&emsp;&emsp;1、类的大小只计算成员变量的大小，遵循内存对齐规则。<br><br>&emsp;&emsp;2、类中的方法不算做类的大小，为了节省空间将方法存储在公共的区域且只存一个。<br><br>&emsp;&emsp;3、空类的大小为1，这里占一个字节不进行数据存储只是为了在内存上占位。这里包括所有没有成员变量的类，哪怕有再多方法也是只有1字节大小。</p>
-<h2 id="this指针"><a href="#this指针" class="headerlink" title="this指针"></a>this指针</h2><h3 id="什么是this指针"><a href="#什么是this指针" class="headerlink" title="什么是this指针"></a>什么是this指针</h3><p>&emsp;&emsp;既然我们类中的函数都存在同一块区域中，那么编译器使怎么区分是哪个对象调用了成员函数呢？这就牵扯到了每个类中隐藏的成员<code>this</code>指针。<br><br>&emsp;&emsp;实际上这是一个指向类自身的指针。它会默认作为成员函数调用的第一个参数，将调用成员函数的对象地址传入好在函数内部找到对象中的成员。这一切都是隐式进行的都有编译器进行处理。因此实际上我们调用的代码是这样传参的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class AddClass</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">  int _num1;</span><br><span class="line">  int _num2;</span><br><span class="line">public:</span><br><span class="line">  //默认内联但为了可读性我们还是加上内联的标志</span><br><span class="line">  inline void GetNum1(int num1)</span><br><span class="line">  //inline void GetNum1(AddClass* this, int num1)</span><br><span class="line">  &#123;</span><br><span class="line">    _num1 = num1;</span><br><span class="line">  &#125;</span><br><span class="line">  inline void GetNum2(int num2)</span><br><span class="line">  &#123;</span><br><span class="line">    _num2 = num2;</span><br><span class="line">  &#125;</span><br><span class="line">  //在类内声明</span><br><span class="line">  int AddNum();</span><br><span class="line">  //int AddNum(AddClass* this);</span><br><span class="line">&#125;;</span><br><span class="line">//在类外定义</span><br><span class="line">int AddClass::AddNum()                           </span><br><span class="line">&#123;</span><br><span class="line">  return _num1 + _num2;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  AddClass add;</span><br><span class="line">  add.GetNum1(1);</span><br><span class="line">  //add.GetNum1(&amp;add, 1);</span><br><span class="line">  add.GetNum2(2);</span><br><span class="line">  cout &lt;&lt; add.AddNum() &lt;&lt; endl;</span><br><span class="line">  //AddNum(&amp;add);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="this指针特性"><a href="#this指针特性" class="headerlink" title="this指针特性"></a>this指针特性</h3><p>&emsp;&emsp;1、this指针不存储在类中，每个编译器对this指针存储的地方都有所不同，在vs中this指针存储在寄存器中。<br>&emsp;&emsp;2、this指针可以为空，但是一旦调用需要访问对象中成员的函数就会由于this为空发生内存越界而导致崩溃。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2215,7 +2208,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2226,7 +2219,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2237,7 +2230,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2334,7 +2327,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共247.8k字</span>
+  <span class="post-count">博客全站共250.9k字</span>
 </div>
 
         ﻿

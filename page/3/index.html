@@ -264,6 +264,196 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/22/【网络】第四章-传输层协议/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/22/【网络】第四章-传输层协议/" itemprop="url">【网络】第四章-传输层协议</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-22T09:06:42+08:00">
+                2019-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络/" itemprop="url" rel="index">
+                    <span itemprop="name">网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5.8k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="传输层协议"><a href="#传输层协议" class="headerlink" title="传输层协议"></a>传输层协议</h1><p>&emsp;&emsp;传输层负责端与端之间的数据传输，其中典型协议为<code>TCP</code>协议和<code>UDP</code>协议。<br>&emsp;&emsp;<code>TCP</code>协议是TCP/IP协议栈中的传输层的典型协议，叫传输控制协议，面向连接，可靠传输，提供字节流服务。<br>&emsp;&emsp;<code>UDP</code>协议是TCP/IP协议栈中的传输层的典型协议，叫用户数据报协议，无连接，不可靠，提供数据报传输服务。</p>
+<h2 id="UDP协议"><a href="#UDP协议" class="headerlink" title="UDP协议"></a>UDP协议</h2><h3 id="协议字段"><a href="#协议字段" class="headerlink" title="协议字段"></a>协议字段</h3><p>&emsp;&emsp;协议字段都包含在UDP协议数据报的报头中，每次发送数据都会将这些信息和数据一起发出。<br>&emsp;&emsp;<strong>1、16位源端口</strong>：标识数据从哪个进程来。<br>&emsp;&emsp;<strong>2、16位目的端口</strong>：描述数据到哪个进程去。<br>&emsp;&emsp;<strong>3、16位校验和</strong>：对数据的二进制反码求和，用于校验接收到的数据是否和发出的数据一致。<br>&emsp;&emsp;<strong>4、16位数据报长度</strong>：由于数据报长度一共只有16位因此udp一个数据报的最大大小为<strong>64k</strong>，加上udp数据报头部信息一共64位还要占8个字节，因此数据大小不能超过<strong>64k-8</strong>。并且<code>sendto</code>这个接口会将我们传入的数据直接封装报头进行传输，所以我们在使用<code>sendto</code>接口的时候buf的长度最大不能超过<strong>64k-8</strong>。<br>&emsp;&emsp;如果我们要传输的数据大于64-8。则需要用户在应用层进行分包传输。并且udp协议不保证安全也不保证包序，因此在接收数据后我们还需要在应用层进行整理。<br>&emsp;&emsp;根据udp报文中的数据报长度大小，我们的udp协议能且仅能一次收发一条完整的udp报文，不会将报文拆分，报文的长度可以从报头中获得。</p>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>&emsp;&emsp;因为udp无连接不可靠，因此udp不能应用于有安全性要求的传输，但是因为报头短，并且不需要保证安全性因此传输速度快，因此多应用于实时性要求高的场景。<br>&emsp;&emsp;udp在协议栈层面实现了广播机制，通过向一个地址发送信息可以向局域网内所有主机发送信息。<br>&emsp;&emsp;在应用层基于udp协议实现的协议：<code>DNS</code>协议，<code>DHCP</code>协议。</p>
+<h2 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h2><h3 id="协议字段-1"><a href="#协议字段-1" class="headerlink" title="协议字段"></a>协议字段</h3><p>&emsp;&emsp;<strong>1、16位源端口</strong>：标识数据从哪个进程来。<br>&emsp;&emsp;<strong>2、16位目的端口</strong>：标识数据到哪个进程去。<br>&emsp;&emsp;<strong>3、32位序号</strong>：用于进行包序管理。<br>&emsp;&emsp;<strong>4、32位确认序号</strong>：用于进行包序管理。<br>&emsp;&emsp;<strong>5、4位首部长度</strong>：用于描述头部信息长度，单位是4个字节。tcp协议头部长度最小为20字节，最大为当4位首部长度最大时即为<code>15 * 4 = 60字节</code>。<br>&emsp;&emsp;<strong>6、6位保留</strong>：用于保留下来存储新的属性和数据。<br>&emsp;&emsp;<strong>7、6位标志位</strong>：用于标志当前tcp信息的属性和类型，常见的有<code>URG/ACK/PSH/RST/SYN/FIN</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">CWR(Congestion Window Reduce)：拥塞窗口减少标志被发送主机设置，用来表明它接收到了设置ECE标志的TCP包，发送端通过降低发送窗口的大小来降低发送速率</span><br><span class="line"></span><br><span class="line">ECE(ECN Echo)：ECN响应标志被用来在TCP3次握手时表明一个TCP端是具备ECN功能的，并且表明接收到的TCP包的IP头部的ECN被设置为11。更多信息请参考RFC793。</span><br><span class="line"></span><br><span class="line">URG(Urgent)：该标志位置位表示紧急(The urgent pointer) 标志有效。该标志位目前已经很少使用参考后面流量控制和窗口管理部分的介绍。</span><br><span class="line"></span><br><span class="line">ACK(Acknowledgment)：取值1代表Acknowledgment Number字段有效，这是一个确认的TCP包，取值0则不是确认包。后续文章介绍中当ACK标志位有效的时候我们称呼这个包为ACK包，使用大写的ACK称呼。</span><br><span class="line"></span><br><span class="line">PSH(Push)：该标志置位时，一般是表示发送端缓存中已经没有待发送的数据，接收端不将该数据进行队列处理，而是尽可能快将数据转由应用处理。在处理 telnet 或 rlogin 等交互模式的连接时，该标志总是置位的。</span><br><span class="line"></span><br><span class="line">RST(Reset)：用于复位相应的TCP连接。通常在发生异常或者错误的时候会触发复位TCP连接。</span><br><span class="line"></span><br><span class="line">SYN(Synchronize)：同步序列编号(Synchronize Sequence Numbers)有效。该标志仅在三次握手建立TCP连接时有效。它提示TCP连接的服务端检查序列编号，该序列编号为TCP连接初始端(一般是客户端)的初始序列编号。在这里，可以把TCP序列编号看作是一个范围从0到4294967295的32位计数器。通过TCP连接交换的数据中每一个字节都经过序列编号。在TCP报头中的序列编号栏包括了TCP分段中第一个字节的序列编号。类似的后续文章介绍中当这个SYN标志位有效的时候我们称呼这个包为SYN包。</span><br><span class="line"></span><br><span class="line">FIN(Finish)：带有该标志置位的数据包用来结束一个TCP会话，但对应端口仍处于开放状态，准备接收后续数据。当FIN标志有效的时候我们称呼这个包为FIN包。</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;<strong>8、16位窗口大小</strong>：标志传输窗口的大小，这块牵扯到tcp协议的传输特性和机制，在后续进一步讲解。<br>&emsp;&emsp;<strong>9、16位校验和</strong>：校验数据一致性。<br>&emsp;&emsp;<strong>10、16位紧急指针</strong>：带外数据。<br>&emsp;&emsp;<strong>11、40字节选项数据</strong>：有时没有有时有，但长度必须是4的整数倍字节。<br>&emsp;&emsp;除选项外其他头信息一共20字节，这是最小头信息长度。</p>
+<h3 id="TCP连接管理机制"><a href="#TCP连接管理机制" class="headerlink" title="TCP连接管理机制"></a>TCP连接管理机制</h3><h4 id="三次握手建立连接"><a href="#三次握手建立连接" class="headerlink" title="三次握手建立连接"></a>三次握手建立连接</h4><p>&emsp;&emsp;首先客户端处于<code>SYN_SENT</code>状态服务端处于<code>LISTEN</code>状态，客户端会向服务端发送一个<code>SYN</code>包，服务端收到后会转变状态为<code>SYN_REVD</code>状态，成功后向客户端发送<code>SYN+ACK</code>报文表示收到连接请求，之后客户端会再次确认，转换状态为<code>ESTABLISHED</code>并返回<code>ACK</code>包表示连接成功，服务端收到<code>ACK</code>后叶转换状态为<code>ESTABLISHED</code>。<br><br><img src="/2019/09/22/【网络】第四章-传输层协议/1.png" alt="三次握手"><br></p>
+<h4 id="四次挥手断开连接"><a href="#四次挥手断开连接" class="headerlink" title="四次挥手断开连接"></a>四次挥手断开连接</h4><p>&emsp;&emsp;首先客户端（假设客户端先发起断开连接请求）处于<code>FIN_WAIT1</code>状态会发送<code>FIN</code>包请求关闭连接，服务端收到后切换状态为<code>CLOSE_WAIT</code>状态，并且发送<code>ACK</code>包确认收到请求，客户端收到数据包后会会转变状态为<code>FIN_WIAT2</code>状态。随后服务端切换状态为<code>LAST_ACK</code>并且主动发送<code>FIN</code>包确认是否断开连接，客户端收到后切换状态为<code>TIME_WAIT</code>并发送<code>ACK</code>包给服务端，服务端收到后切换状态为<code>CLOSED</code>正式断开连接，但是客户端此时并不会真正断开连接，处在<code>TIME_WAIT</code>状态的客户端会在此继续等待一段时间，之后才会改变状态为<code>CLOSED</code>。<br><img src="/2019/09/22/【网络】第四章-传输层协议/2.png" alt="四次挥手"><br></p>
+<h4 id="为什么？"><a href="#为什么？" class="headerlink" title="为什么？"></a>为什么？</h4><p>&emsp;&emsp;在tcp连接和断开过程中有很多疑问，为什么要三次握手四次挥手？为什么客户端断开连接还要等待？<br>&emsp;&emsp;<strong>为什么握手要三次才能建立连接？两次行不行？四次呢？</strong><br>&emsp;&emsp;我们都注意到握手和挥手都需要客户端和服务端双方各发送一个<code>SYN</code>和收到一个<code>ACK</code>包才能算成功，这是为了防止网络传输过程中由于延迟，丢包等问题对数据造成丢失或延迟，因此客户端和服务端此时都要确认对方此时是在线的是可以连接的。我们可以想象这样的场景，在挥手过程中如果只有两次的话，客户端发送一个连接请求，服务端收到后就表示已经建立连接，这样是十分不安全的，如果这个连接请求因为延迟被耽误了很久，服务端接收到报文的时候客户端此时已经关闭了，那么这个连接就是失败的，但是服务端却表示成功了，那着肯定是不合理不安全的。因此服务端也必须要发送一个<code>SYN</code>包确认此时客户端在线，需要服务端回复后才能确认连接建立成功，因此两次握手是不安全的，但是四次连接也是没有必要的，服务端在建立连接时确认客户端在线的<code>SYN</code>报文是可以和回复报文一起发送的，因此三次即可。<br>&emsp;&emsp;<strong>为什么挥手要四次，三次可以么？</strong><br>&emsp;&emsp;和建立连接同理，服务端和客户端需要各发送一次<code>SYN</code>进行一次确认，但是这里为什么不可以将服务端的<code>SYN</code>和<code>ACK</code>放在一起发送？因为在连接关闭后，连同socket及其相应的缓冲区都会关闭，清空数据，那么如果此时缓冲区中还有信息的话信息也会一起丢失，因此客户端发送<code>FIN</code>包后服务端不能将回应<code>ACK</code>和确认<code>FIN</code>一起发送，服务端会在用户接收缓冲区中所有数据后才会发送<code>SYN</code>确认关闭请求，然后关闭套接字。<br>&emsp;&emsp;<strong>TIME_WAIT有什么用，为什么客户端关闭连接后要等待？要等待多久？</strong><br>&emsp;&emsp;如果没有<code>TIME_WAIT</code>，客户端在发送最后一次<code>ACK</code>后就直接关闭的情况下，如果此时最后一次<code>ACK</code>包文丢失，服务端很久并没有收到包文，它会再次重发最后一次<code>FIN</code>包，如果此时客户端又重启了一个同端口的客户端准备再次建立连接，此时却接收到服务端发来的<code>FIN</code>包就会陷入混乱，因此客户端在此时需要等待。至于等待多久此时需要2个<code>MSL</code>的时间，一个<code>MSL</code>时间表示数据包在网络中的生命周期，它最久只能在网络中存活这么久，如果还没有成功则会销毁这个包，也就是丢包，等待两个<code>MSL</code>时间是为了让客户端自己发送的包以及以及服务端如果重发<code>FIN</code>包都能够要么接收到，要么都消亡在网络中不对后续连接造成影响，等待2个<code>MSL</code>时间已经足够保守极大减少之前连接会影响到之后连接情况。</p>
+<h3 id="保活机制"><a href="#保活机制" class="headerlink" title="保活机制"></a>保活机制</h3><p>&emsp;&emsp;默认情况下，通信双方7200s没有数据往来，每隔75s向对方发送一个保活探测数据包，要求对方进行相应，若是得到相应则认为连接正常，若是连续9次没有得到相应，则认为连接断开，将socket状态置为<code>CLOSE_WAIT</code>。</p>
+<h3 id="确认应答机制"><a href="#确认应答机制" class="headerlink" title="确认应答机制"></a>确认应答机制</h3><p>&emsp;&emsp;TCP给发送的所有数据中的每一字节都进行了编号，假如说客户端首先给服务端发送了1-1000号数据，服务端如果接收到所有数据会返回1001<code>ACK</code>表示前1000字节的数据都已经收到了，但是如果返回的不是1001或者压根没有返回，客户端就会知道中间有丢包，于是为了可靠传输则会重传，于是有了超时重传机制。</p>
+<h3 id="超时重传机制"><a href="#超时重传机制" class="headerlink" title="超时重传机制"></a>超时重传机制</h3><p>&emsp;&emsp;如果在客户端发送了1-1000号数据后服务端返回了1001<code>ACK</code>，此时客户端发送了1001-2000号数据，但是服务端给我们迟迟不见发送<code>ACK</code>确认，于是客户端就会认为1001-2000号数据丢包则会重新发送1001-2000号数据。<br>&emsp;&emsp;当然客户端收不到<code>ACK</code>也有可能是<code>ACK</code>丢包，因此客户端会依然重发数据，此时服务端可能会存在大量重复数据，服务端会根据编号来辨别重复数据，并且如果客户端之后发送了2001-3000号数据，并且收到了3001号<code>ACK</code>则客户端虽然没有收到2001号<code>ACK</code>也会认为之前所有的数据都已经收到。<br>&emsp;&emsp;至于多久才算超时，Linux是以500ms作为一个单位以整数倍作为超时时间，以指数形式增长，当重传到一定次数后还收不到<code>ACK</code>则认为网络出现异常，强制关闭连接。</p>
+<h3 id="确认数据有序和无误"><a href="#确认数据有序和无误" class="headerlink" title="确认数据有序和无误"></a>确认数据有序和无误</h3><p>&emsp;&emsp;超时重传机制和确认应答机制只能保证所有的包都不丢包，但是并不能保证包有序到达并且数据无误，这就要用到TCP头信息中的<strong>序号/确认序号</strong>来对包文进行排序，如果服务端先收到了2001-3000号包但没有收到1001-2000号数据服务端则暂时不会向用户表示自己收到了2001-3000号数据，会在此等待收到1001-2000号数据为止，并且收到数据后对包文进行排序和整理，以及通过<strong>校验和</strong>对包文数据进行校验。</p>
+<h3 id="滑动窗口机制"><a href="#滑动窗口机制" class="headerlink" title="滑动窗口机制"></a>滑动窗口机制</h3><p>&emsp;&emsp;我们之前讨论都是在一次传输一次应答的情况下讨论的，但是这种通信方式过于缓慢，于是TCP是可以同时发送多个数据传输而不用非要每一条传输都接收<code>ACK</code>才会发送下一条数据，这样大大可以提高性能。但是如果发送过快，而网络状况不好，全部丢包，服务端一条都收不到或者只能零零散散接收到一些片段，则会导致客户端大量的重传包文，十分影响效率，因此引入<strong>滑动窗口机制</strong>。<br>&emsp;&emsp;在介绍滑动窗口之前，我们还要知道一个概念即<code>MSS</code>，最大数据长度，这个大小往往是在三次握手期间就已经确定下来的，标识一个包文最大只能传输这么大的数据。知道这个概念后，我们就要开始思考一个问题，TCP允许同时发送多个数据包，但是为了防止大量丢包该怎么做呢？没错，呢就是限制能够同时发送的数据包的数量，这就是滑动窗口成立的基础。<br>&emsp;&emsp;滑动窗口大小决定了能够无需等待确认应答的情况下可以继续发送数据的最大值。假如说我们在三次握手期间确定<code>MSS=1024</code>，滑动窗口<code>win=4096</code>，则表示客户端向服务端可以暂时不等待确认应答最多可以发送<code>4096/1024=4</code>个数据包，假设一开始客户端窗口框住的数据区域为1-4096，并且同时发送4个数据包完毕后，客户端就必须停下来等待确认应答。如果我们的第一个包1-1024号数据已经成功发送并且收到了响应<code>ACK</code>1025则表示一号包中数据发送成功，则客户端的窗口会向后滑动一个<code>MSS</code>大小框住接下来的数据1025-5120(假设滑动窗口大小并没有改变)，然后继续向服务端发送窗口滑动后出现的新的一个数据包，以此类推，直到发出所有数据包并接受所有响应，此时滑动窗口应该已经滑倒了数据末尾。窗口大小越大，网络吞吐量越高。</p>
+<h3 id="快速重传机制"><a href="#快速重传机制" class="headerlink" title="快速重传机制"></a>快速重传机制</h3><p>&emsp;&emsp;因为滑动窗口机制我们知道了TCP允许同时发送多个数据包，但是如果其中发生丢包会怎样呢？假设窗口还是<code>win=4096</code>，<code>MSS=1024</code>我们的第一个包1-1024已经成功接收到了<code>ACK</code>，说明服务端接收到了1-1024的数据，但是服务端此时迟迟收不到1025-2048的数据，尽管后面的数据都已经收到，此时服务端会连续不断发送1025<code>ACK</code>提醒客户端我想要的是1025-2048数据。一旦客户端连续三次收到相同的<code>ACK</code>则会知道对应的数据包丢失重新发送对应的数据包，这个机制叫做<strong>快速重传机制</strong>。</p>
+<h3 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h3><p>&emsp;&emsp;同时得益于滑动窗口，我们可以控制传输数据的速度和大小，控制网络吞吐量。但是滑动窗口的大小并不是一成不变的，服务端在接收数据过程中如果缓冲区满了无法继续接收数据则会造成大量丢包情况，于是此时服务端可以通过改变窗口大小控制数据传输大小。服务端可以将自己缓冲区的大小放进TCP头部信息的窗口大小字段中，告诉客户端自己缓冲区大小，当缓冲区逐渐变满的过程中服务端每次发送<code>ACK</code>都会重新调整滑动窗口大小，告诉客户端你传满点我收不下了，当大小为0时表示缓冲区已满，只有等用户从缓冲区提取信息后服务端才会加大窗口大小继续接收数据，由此做到流量控制。</p>
+<h3 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h3><p>&emsp;&emsp;滑动窗口的大小并不是一开始就是最大的，因为要考虑到网络状况，一开始滑动窗口的大小只有1，用于试探网络状况，当确认网络状况没有问题的时候才会逐渐以<strong>指数</strong>级别增长速度继续增长，但是到达一个阈值后停止继续增长。如果传输过程中出现丢包需要重传情况则会将阈值缩小为原先的一半，并将滑动窗口置回1。这个过程用一句话形容就是<strong>慢启动，快增长</strong>，客户端想尽快将数据发送给对方，但是又要避免网络造成太大压力的折中方案。</p>
+<h3 id="延迟应答机制"><a href="#延迟应答机制" class="headerlink" title="延迟应答机制"></a>延迟应答机制</h3><p>&emsp;&emsp;客户端将数据发送给服务端后，服务端收到数据后并不会立刻回复<code>ACK</code>，因为刚接收完数据存储在缓冲区中用户还没有取走数据，因为流量控制机制此时必然要调小窗口大小，这样会影响传输速度，影响网络吞吐量，于是服务端会稍微在此等待片刻再做应答，这个时间一般是200ms左右，操作系统不同时间也不同，而操作系统也许处理数据速度很快10ms就取走数据，此时缓冲区数据被取走缓冲区又恢复到无数据状态，也就不用调小窗口大小控制传输速度了，这样可以加大网络吞吐量，提高传输效率。</p>
+<h3 id="捎带应答机制"><a href="#捎带应答机制" class="headerlink" title="捎带应答机制"></a>捎带应答机制</h3><p>&emsp;&emsp;不光客户端可以给服务端发送数据，服务端也会给客户端发送数据，假如客户端发送数据<code>你好呀</code>，服务端想要回复<code>我还行</code>，服务端为了传输效率则会将客户端数据的<code>ACK</code>和要发送的<code>我还行</code>数据一起发送给客户端，这就是捎带应答机制。</p>
+<h3 id="TCP面向字节流"><a href="#TCP面向字节流" class="headerlink" title="TCP面向字节流"></a>TCP面向字节流</h3><h4 id="提供字节流服务"><a href="#提供字节流服务" class="headerlink" title="提供字节流服务"></a>提供字节流服务</h4><p>&emsp;&emsp;一个TCP套接字在被创建后，同时在内核中创建一个发送缓冲区和一个接收缓冲区，既可以读数据也可以写数据，这样的模式被称为<strong>全双工</strong>。在调用<code>send</code>发送数据后会将数据先读取到缓冲区中，操作系统会将数据积累到合适的长度在合适的时机进行发送。在接收数据时也是从接收缓冲区中读取数据。正因为缓冲区的存在，使得TCP的数据传输十分自由，写一个数据可以一次写完也可以分段多次写，读也一样，正因为字节流这样灵活的服务导致了接下来的问题——<strong>粘包问题</strong>。</p>
+<h4 id="TCP粘包问题"><a href="#TCP粘包问题" class="headerlink" title="TCP粘包问题"></a>TCP粘包问题</h4><p>&emsp;&emsp;首先要明确一点UDP不会粘包，因为在UDP头信息中就已经存储了数据大小信息，根据这个信息可以分辨出这个包的边界，因此不会出现取数据时取出下一个报文的数据的情况。但是由于TCP面向字节流传输灵活因此无法明确两个包之间的边界。<br>&emsp;&emsp;如何解决呢？<strong>明确两个包之间的边界</strong>。<br>&emsp;&emsp;要想解决粘包问题我们只能通过在应用层对数据的处理来明确数据边界了。有以下几种做法。<br>&emsp;&emsp;1、如果数据是定长的，例如传输的是结构或者类这样的块状结构，只需要每次都保证读取定长的数据即可。<br>&emsp;&emsp;2、如果是边长的数据，可以约定在数据头部添加一个字段，表示这个包数据的长度，获取这个包的话只读取这么长的数据即可。<br>&emsp;&emsp;3、也可以在不影响的数据下在数据末尾添加分割符，标识这个包数据的结束。<br>&emsp;&emsp;以上这些方法都可以区分包与包之间数据的边界，从而解决粘包问题。</p>
+<h3 id="TCP总结"><a href="#TCP总结" class="headerlink" title="TCP总结"></a>TCP总结</h3><p>&emsp;&emsp;以上讲了TCP这么多的机制，我们可以将其分类总结，TCP之所以复杂的原因是它为了保证可靠性但又尽可能的在提升效率。</p>
+<h4 id="可靠性"><a href="#可靠性" class="headerlink" title="可靠性"></a>可靠性</h4><p>&emsp;&emsp;1、校验和。<br>&emsp;&emsp;2、序列号。<br>&emsp;&emsp;3、确认应答机制。<br>&emsp;&emsp;4、超时重传机制。<br>&emsp;&emsp;5、流量控制。<br>&emsp;&emsp;6、拥塞控制。<br>&emsp;&emsp;7、连接管理。</p>
+<h4 id="提高性能"><a href="#提高性能" class="headerlink" title="提高性能"></a>提高性能</h4><p>&emsp;&emsp;1、快速重传。<br>&emsp;&emsp;2、滑动窗口。<br>&emsp;&emsp;3、延迟应答机制。<br>&emsp;&emsp;4、捎带应答机制。</p>
+<h3 id="TCP应用"><a href="#TCP应用" class="headerlink" title="TCP应用"></a>TCP应用</h3><p>&emsp;&emsp;基于TCP的应用层协议：<code>HTTP/HTTPS/SSH/FTP/SMTP</code>。</p>
+<h2 id="TCP与UDP的对比"><a href="#TCP与UDP的对比" class="headerlink" title="TCP与UDP的对比"></a>TCP与UDP的对比</h2><p>&emsp;&emsp;通过对TCP与UDP的介绍，我们现在已经很清楚TCP与UDP各自的特点及各自的优势。<br>&emsp;&emsp;对于TCP协议，适用于要求安全性高，传输可靠的情况下，例如文件传输，重要状态更新等情况。<br>&emsp;&emsp;对于UDP协议，适用于实时性高，速度要求快的情况下，例如视频传输，通信领域等。</p>
+<h2 id="如何用UDP实现可靠传输"><a href="#如何用UDP实现可靠传输" class="headerlink" title="如何用UDP实现可靠传输"></a>如何用UDP实现可靠传输</h2><p>&emsp;&emsp;UDP本身是不可靠的，可能会有大量丢包的情况发生，因此我们想要UDP实现可靠传输可以参考TCP在应用层实现TCP的一些可靠机制，例如在应用层利用序号确定包序，引入确认应答和超时重传保证不丢包等。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/21/【网络】第三章-应用层协议/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1898,179 +2088,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/29/【Cpp】第七章-STL-list类/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/29/【Cpp】第七章-STL-list类/" itemprop="url">【Cpp】第七章-STL_list类</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-29T23:12:49+08:00">
-                2019-07-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/" itemprop="url" rel="index">
-                    <span itemprop="name">Cpp</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.2k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="list类"><a href="#list类" class="headerlink" title="list类"></a>list类</h1><h2 id="基础介绍"><a href="#基础介绍" class="headerlink" title="基础介绍"></a>基础介绍</h2><p>&emsp;&emsp;<code>list类</code>是STL中封装的链表模板类，并且底层实现是以双向链表作为基础进行封装的。在数据结构中，线性存储结构中主要分为顺序表和链表，前者在物理结构上拥有连续的内存空间和地址，在STL中<code>vector</code>和<code>string</code>都是使用了这种结构，其最大的特点就是方便进行随机访问并且尾插和尾删都能达到O1的时间复杂度并且使用方便，而链表作为物理结构上内存空间不连续的数据结构，其最大的特点就是方便在任何位置就行插入删除，<code>list</code>就是建立在此数据结构上封装出的模板类。</p>
-<h2 id="常用接口"><a href="#常用接口" class="headerlink" title="常用接口"></a>常用接口</h2><h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">list();                                                  //构造空的list</span><br><span class="line">list(size_type n, const value_type &amp;val = value_type()); //构造的list中包含n个值为val的元素</span><br><span class="line">list(const list &amp;x);                                     //拷贝构造函数</span><br><span class="line">list(InputIterator first, InputIterator last);           //用[first, last)区间中的元素构造list</span><br></pre></td></tr></table></figure>
-<h3 id="迭代器相关"><a href="#迭代器相关" class="headerlink" title="迭代器相关"></a>迭代器相关</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">begin();   //返回第一个元素的迭代器</span><br><span class="line">end();     //返回最后一个元素下一个位置的迭代器</span><br><span class="line">rbegin();  //返回第一个元素的reverse_iterator,即end位置</span><br><span class="line">rend();    //返回最后一个元素下一个位置的reverse_iterator,即begin位置</span><br><span class="line">cbegin();  //(C++11) 返回第一个元素的cosnt_iterator</span><br><span class="line">cend();    //(C++11) 返回最后一个元素下一个位置的const_iterator</span><br><span class="line">crbegin(); //(C++11) 即crend()位置</span><br><span class="line">crend();   //(C++11) 即crbegin()位置</span><br></pre></td></tr></table></figure>
-<h3 id="容量相关"><a href="#容量相关" class="headerlink" title="容量相关"></a>容量相关</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bool empty() const;  //检测list是否为空，是返回true，否则返回false</span><br><span class="line">size_t size() const; //返回list中有效节点的个数</span><br></pre></td></tr></table></figure>
-<h3 id="增删查改"><a href="#增删查改" class="headerlink" title="增删查改"></a>增删查改</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">reference front();                      //返回list的第一个节点中值的引用</span><br><span class="line">const_reference front() const;          //返回list的第一个节点中值的const引用</span><br><span class="line">reference back();                       //返回list的最后一个节点中值的引用</span><br><span class="line">const_reference back() const;           //返回list的最后一个节点中值的const引用</span><br><span class="line">void push_front(const value_type &amp;val); //在list首元素前插入值为val的元素</span><br><span class="line">void pop_front();                       //删除list中第一个元素</span><br><span class="line">void push_back;                         //(const value_type&amp; val)在list尾部插入值为val的元素</span><br><span class="line">void pop_back();                        //删除list中最后一个元素</span><br><span class="line">template &lt;class... Args&gt;</span><br><span class="line">void emplace_front(Args &amp;&amp; ... args); //（C++11）在list第一个元素前根据参数直接构造元素</span><br><span class="line">template &lt;class... Args&gt;</span><br><span class="line">void emplace_back(Args &amp;&amp; ... args); //（C++11）在list最后一个元素后根据参数直接构造元素</span><br><span class="line">template &lt;class... Args&gt;</span><br><span class="line">iterator emplace(const_iterator position, Args &amp;&amp; ... args);             //（C++11）在链表的任意位置根据参数直接构造元素</span><br><span class="line">iterator insert(iterator position, const value_type &amp;val);               //在list position 位置中插入值为val的元素</span><br><span class="line">void insert(iterator position, size_type n, const value_type &amp;val);      //在list position位置插入n个值为val的元素</span><br><span class="line">void insert(iterator position, InputIterator first, InputIterator last); //在list position位置插入[first, last)区间中元素</span><br><span class="line">iterator erase(iterator position);                                       //删除list position位置的元素</span><br><span class="line">iterator erase(iterator first, iterator last);                           //删除list中[first, last)区间中的元素</span><br><span class="line">void swap(list &amp; x);                                                     //交换两个list中的元素</span><br><span class="line">void resize(size_type n, value_type val = value_type());                 //将list中有效元素个数改变到n个，多出的元素用val填充</span><br><span class="line">void clear();                                                            //清空list中的有效元素</span><br></pre></td></tr></table></figure>
-<h2 id="emplace与insert"><a href="#emplace与insert" class="headerlink" title="emplace与insert"></a>emplace与insert</h2><p>&emsp;&emsp;在STL很多接口中我们都发现有一个<code>emplace()</code>的接口也是用来进行插入的，那么它与<code>insert()</code>和<code>push_back()</code>有什么区别呢？以下用<code>vector</code>举个例子，从接口调用上就能看出区别。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    struct Foo </span><br><span class="line">    &#123;</span><br><span class="line">        Foo(int n, double x)</span><br><span class="line">            :_n(n)</span><br><span class="line">            ,_x(x)</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        int _n;</span><br><span class="line">        double _x;</span><br><span class="line">    &#125;;</span><br><span class="line">    vector&lt;Foo&gt; v;</span><br><span class="line">    v.emplace(v.begin(), 42, 3.1416);     // 没有临时变量产生</span><br><span class="line">    v.insert(v.begin(), Foo(42, 3.1416)); // 需要产生一个临时变量</span><br><span class="line">    v.insert(v.begin(), &#123;42, 3.1416&#125;);    // 需要产生一个临时变量</span><br><span class="line">    for(int i = 0; i &lt; v.size(); i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; v[i]._n &lt;&lt; &quot; &quot; &lt;&lt; v[i]._x &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">42 3.1416</span><br><span class="line">42 3.1416</span><br><span class="line">42 3.1416</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;在进行内置类型和拥有单参构造函数的类型的插入时我们只传入一个参数往往很难发现区别，但在我们必须传入多个参数才能进行插入时我们就会发现在使用<code>insert()</code>这些接口时我们必须插入与容器中元素类型相同的<strong>元素</strong>才能完成接口调用，这让我们不得不构造一个临时匿名对象，而<code>emplace</code>则不需要，我们只要按照构造一个对象那样给构造元素的参数即可省去了构造匿名对象的过程。而这其中需要用到<code>C++11</code>中的新标准<strong>变参模板</strong>和<strong>完美转发</strong>，因此<code>emplace</code>使用的时候要求编译器支持<code>C++11</code>标准。<br>&emsp;&emsp;<code>emplace</code>不光是调用接口上有所不同，在有的时候也可以提高我们的效率。例如在<code>list</code>中如果利用<code>insert</code>传入一个元素的时候我们就需要先调用元素的构造函数构造元素，然后再调用<code>Node</code>的构造函数以及该元素的拷贝构造函数构造一个拥有该元素值的结点，才能进行插入，而<code>emplace</code>则可以在创建结点时直接利用原本要构造临时元素对象的参数来直接构造结点，并且直接构造结点中的元素对象，<strong>相当于少了一次元素的拷贝构造，并且省去了构造临时对象，效率更高</strong>。</p>
-<h2 id="list迭代器失效"><a href="#list迭代器失效" class="headerlink" title="list迭代器失效"></a>list迭代器失效</h2><p>&emsp;&emsp;对于<code>list</code>这种链式结构，在插入后是不会迭代器失效的，因为原先位置的迭代器依旧指向原来的结点，不会因为添加结点导致指向位置的变动。而在删除后迭代器原本指向的结点内存被释放，因此删除后删除结点的迭代器失效，但是其他结点迭代器指向不变因此不会发生迭代器失效。<br>&emsp;&emsp;总结：<strong>list只有在删除节点后才会发生迭代器失效，并且之后删除结点的迭代器失效</strong>。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>&emsp;&emsp;<code>list</code>采用链式结构存储，因此实现起来要稍微麻烦一些，迭代器也需要额外进行封装。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;assert.h&gt;</span><br><span class="line">//定义结点类</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">struct ListNode</span><br><span class="line">&#123;</span><br><span class="line">    ListNode&lt;T&gt;* _prev;</span><br><span class="line">    ListNode&lt;T&gt;* _next;</span><br><span class="line">    T _data;</span><br><span class="line">    ListNode(const T&amp; data = T())</span><br><span class="line">        :_prev(nullptr)</span><br><span class="line">        ,_next(nullptr)</span><br><span class="line">        ,_data(data)</span><br><span class="line">    &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line">//由于const_iterator与iterator除了在迭代器返回值上不一样外其他要求完全一样</span><br><span class="line">//因此这里要进行实现时可以考虑定义两个类</span><br><span class="line">//但是这里使用一种取巧的方法我们将返回值类型当作模板参数传入模板中</span><br><span class="line">template&lt;class T, class Ref, class Ptr&gt;</span><br><span class="line">struct ListIterator</span><br><span class="line">&#123;</span><br><span class="line">    typedef ListNode&lt;T&gt; Node;</span><br><span class="line">    typedef ListIterator&lt;T, Ref, Ptr&gt; Self;</span><br><span class="line">    //构造函数</span><br><span class="line">    ListIterator(Node* node)</span><br><span class="line">        :_node(node)</span><br><span class="line">    &#123;&#125;</span><br><span class="line">    //operator* 为了让其可以和指针一样使用，返回引用</span><br><span class="line">    Ref operator*()</span><br><span class="line">    &#123;</span><br><span class="line">        return _node-&gt;_data;</span><br><span class="line">    &#125;</span><br><span class="line">    //operator-&gt; 为了让其可以和指针一样使用，返回指针</span><br><span class="line">    //这里实际调用it-&gt;只能取到数据的指针，所以正常来说得写成it-&gt;-&gt;</span><br><span class="line">    //但是经过编译器优化，只用写it-&gt;就可以取到值了</span><br><span class="line">    Ptr operator-&gt;()</span><br><span class="line">    &#123;</span><br><span class="line">        return &amp;(_node-&gt;_data);</span><br><span class="line">    &#125;</span><br><span class="line">    Self operator++()</span><br><span class="line">    &#123;</span><br><span class="line">        _node = _node-&gt;_next;</span><br><span class="line">        return _node;    </span><br><span class="line">    &#125;</span><br><span class="line">    Self operator++(int)</span><br><span class="line">    &#123;</span><br><span class="line">        Self temp(_node);</span><br><span class="line">        _node = _node-&gt;_next;</span><br><span class="line">        return temp;</span><br><span class="line">    &#125; </span><br><span class="line">    Self operator--()</span><br><span class="line">    &#123;</span><br><span class="line">        _node = _node-&gt;_prev;</span><br><span class="line">        return _node;    </span><br><span class="line">    &#125;</span><br><span class="line">    Self operator--(int)</span><br><span class="line">    &#123;</span><br><span class="line">        Self temp(_node);</span><br><span class="line">        _node = _node-&gt;_prev;</span><br><span class="line">        return temp;</span><br><span class="line">    &#125; </span><br><span class="line">    bool operator!=(Self it)</span><br><span class="line">    &#123;</span><br><span class="line">        return _node != it._node;</span><br><span class="line">    &#125;</span><br><span class="line">    Node* _node;</span><br><span class="line">&#125;;</span><br><span class="line">//构建一个带头结点双向循环链表来模拟实现list</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">class List</span><br><span class="line">&#123;</span><br><span class="line">    typedef ListNode&lt;T&gt; Node;</span><br><span class="line">public:</span><br><span class="line">    typedef ListIterator&lt;T, T&amp;, T*&gt; iterator;</span><br><span class="line">    typedef ListIterator&lt;T, const T&amp;, const T*&gt; const_iterator;</span><br><span class="line">    //构造函数j</span><br><span class="line">    List()</span><br><span class="line">    &#123;</span><br><span class="line">        _head = new Node;</span><br><span class="line">        _head-&gt;_next = _head;</span><br><span class="line">        _head-&gt;_prev = _head;</span><br><span class="line">    &#125;</span><br><span class="line">    //拷贝构造</span><br><span class="line">    List(const List&amp; list)</span><br><span class="line">        :_head(new Node)</span><br><span class="line">    &#123;</span><br><span class="line">        _head-&gt;_next = _head;</span><br><span class="line">        _head-&gt;_prev = _head;</span><br><span class="line">        const_iterator it = list.begin();</span><br><span class="line">        while(it != list.end())</span><br><span class="line">        &#123;</span><br><span class="line">            Push_back(*it);</span><br><span class="line">            it++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //operator=重载</span><br><span class="line">    List&amp; operator=(const List&amp; list)</span><br><span class="line">    &#123;</span><br><span class="line">        List listTemp = list;</span><br><span class="line">        Swap(listTemp);</span><br><span class="line">    &#125;</span><br><span class="line">    //交换</span><br><span class="line">    void Swap(List&amp; list)</span><br><span class="line">    &#123;</span><br><span class="line">        std::swap(_head, list._head);</span><br><span class="line">    &#125;</span><br><span class="line">    //析构函数</span><br><span class="line">    ~List()</span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">        while(_head-&gt;_next != _head)</span><br><span class="line">        &#123;</span><br><span class="line">            Pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    iterator begin()</span><br><span class="line">    &#123;</span><br><span class="line">        return _head-&gt;_next;</span><br><span class="line">    &#125;</span><br><span class="line">    const_iterator begin() const</span><br><span class="line">    &#123;</span><br><span class="line">        return _head-&gt;_next;</span><br><span class="line">    &#125;</span><br><span class="line">    iterator end()</span><br><span class="line">    &#123;</span><br><span class="line">        return _head;</span><br><span class="line">    &#125;</span><br><span class="line">    const_iterator end() const</span><br><span class="line">    &#123;</span><br><span class="line">        return _head;</span><br><span class="line">    &#125;</span><br><span class="line">    iterator Erase(iterator&amp; it)</span><br><span class="line">    &#123;</span><br><span class="line">        assert(it._node != nullptr);</span><br><span class="line">        Node* pTemp = it._node;</span><br><span class="line">        Node* pNew = pTemp-&gt;_next;</span><br><span class="line">        //it-&gt;_node = pTemp-&gt;_next;</span><br><span class="line">        pTemp-&gt;_prev-&gt;_next = pTemp-&gt;_next;</span><br><span class="line">        pTemp-&gt;_next-&gt;_prev = pTemp-&gt;_prev;</span><br><span class="line">        delete pTemp;</span><br><span class="line">        return pNew;</span><br><span class="line">    &#125;</span><br><span class="line">    //插入</span><br><span class="line">    iterator Insert(iterator&amp; it, const T&amp; data = T())</span><br><span class="line">    &#123;</span><br><span class="line">        assert(it._node != nullptr);</span><br><span class="line">        Node* newNode = new Node(data);</span><br><span class="line">        newNode-&gt;_next = it._node;</span><br><span class="line">        newNode-&gt;_prev = it._node-&gt;_prev;</span><br><span class="line">        it._node-&gt;_prev-&gt;_next = newNode;</span><br><span class="line">        it._node-&gt;_prev  = newNode;</span><br><span class="line">        return newNode;</span><br><span class="line">    &#125;</span><br><span class="line">    //尾插</span><br><span class="line">    void Push_back(const T&amp; data)</span><br><span class="line">    &#123;</span><br><span class="line">        assert(_head != nullptr);</span><br><span class="line">        Node* tail = _head-&gt;_prev;</span><br><span class="line">        Node* newNode = new Node(data);</span><br><span class="line">        newNode-&gt;_next = _head;</span><br><span class="line">        newNode-&gt;_prev = tail;</span><br><span class="line">        tail-&gt;_next = newNode;</span><br><span class="line">        _head-&gt;_prev = newNode;</span><br><span class="line">    &#125;</span><br><span class="line">    //尾删</span><br><span class="line">    void Pop_back()</span><br><span class="line">    &#123;</span><br><span class="line">        assert(_head != nullptr);</span><br><span class="line">        if(_head-&gt;_next == _head)</span><br><span class="line">        &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        Node* tail = _head-&gt;_prev;</span><br><span class="line">        tail-&gt;_prev-&gt;_next = _head;</span><br><span class="line">        _head-&gt;_prev = tail-&gt;_prev;</span><br><span class="line">        delete tail;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    Node* _head;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2125,7 +2142,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2136,7 +2153,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2147,7 +2164,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2244,7 +2261,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共247.8k字</span>
+  <span class="post-count">博客全站共250.9k字</span>
 </div>
 
         ﻿
