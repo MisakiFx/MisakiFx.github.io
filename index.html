@@ -264,6 +264,195 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/07/【操作系统原理】第一章-操作系统概述/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/07/【操作系统原理】第一章-操作系统概述/" itemprop="url">【操作系统原理】第一章-操作系统概述</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-07T17:58:23+08:00">
+                2020-02-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/操作系统原理/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统原理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5.2k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="操作系统概述"><a href="#操作系统概述" class="headerlink" title="操作系统概述"></a>操作系统概述</h1><h2 id="操作系统设计的目标和功能"><a href="#操作系统设计的目标和功能" class="headerlink" title="操作系统设计的目标和功能"></a>操作系统设计的目标和功能</h2><p>&emsp;&emsp;在最早期的计算机中，并没有能够称得上是操作系统的服务管理程序，例如早期的串行处理计算机，就是人们把程序一个一个输入进计算机，设定好预计时间，然后让操作系统进行执行。这样的串行处理存在着调度不合理，准备时间长的问题，并不便于使用。<br>&emsp;&emsp;于是人们想方设法希望可以设计出便于使用的操作系统，而到现代，计算机已经普及，大众对于操作系统的要求更加严格，企业和实验室对操作系统的研究需要从交互性，容错性，安全性等各个方面考虑，这也是操作系统逐渐进步走向智能的道路。但是操作系统的设计一共可以总结为三个大目标：<strong>方便，有效，易扩展</strong>。<br><br><img src="/2020/02/07/【操作系统原理】第一章-操作系统概述/1.png" alt="操作系统概述"><br><br>&emsp;&emsp;如上图，操作系统是连接计算机硬件与用户的桥梁，发展至今其在计算机体系中起着至关重要的作用，我们可以将操作系统视作一个普通的软件，面向普通用户，用户往往不关心计算机硬件，操作系统需要让计算机底层细节对用户透明，提供用户方便的使用体验，包括基本的程序创建，文件管理，I/O控制，内存管理等功能；而对程序员，操作系统需要像程序员隐藏硬件细节，开发通用开发工具、服务、库、接口等。因此操作系统的功能可以列举如下：<strong>程序开发，程序运行，I/O设备访问，文件访问控制，系统访问，错误检测和响应，记账。</strong><br>&emsp;&emsp;对于操作系统的扩展性，有着高度要求，因为操作系统需要不断进步，不断扩展以应对新的服务，新的硬件，或者错误纠正等情况的发生，因此操作系统一般多使用模块化的结构，各个模块组件之间相互配合共同完成工作。</p>
+<h2 id="操作系统的发展"><a href="#操作系统的发展" class="headerlink" title="操作系统的发展"></a>操作系统的发展</h2><h3 id="串行处理"><a href="#串行处理" class="headerlink" title="串行处理"></a>串行处理</h3><p>&emsp;&emsp;最早期的计算机就是利用普通的串行处理完成工作，就是人们把程序一个一个输入进计算机，设定好预计时间，然后让操作系统进行执行，这样的方式有以下两个问题。<br>&emsp;&emsp;1、调度不合理。如果程序没有在预计时间内运行成功则会强制停止，而如果超预期提前执行完毕，用户也不得不等待预计时间结束才可以放入下一个程序。<br>&emsp;&emsp;2、准备时间长。这样的串行处理操作系统需要人们自己加载编译器，源程序，加载目标程序进行连接，在此期间需要安装或拆卸磁带，十分麻烦，一旦失败只能重新来过，因此在程序运行的前期准备阶段要花费大量时间。</p>
+<h3 id="批处理系统"><a href="#批处理系统" class="headerlink" title="批处理系统"></a>批处理系统</h3><p>&emsp;&emsp;批处理操作系统内部使用了一个<strong>监控程序</strong>，人们将想要执行的程序放入输入设备，监控程序则负责依次自动从输入设备中调入程序进入内存，指挥处理器进行执行，当执行完毕或遇到错误时都会停止当前程序执行，进而调入下一个程序进行执行，执行结果将会放入输出设备。<br>&emsp;&emsp;监控程序此时充当了操作系统的角色，当调入程序时指挥权暂时交给程序，当执行结束或者出错指挥权将重新换回监控程序。这里指挥权仅仅代表当前情况下处理器从哪个程序中读取代码进行执行。<br>&emsp;&emsp;批处理系统已经有了些操作系统的雏形，但是此时的操作系统一次只能读入一个程序放入内存，调度模式也只是简单的顺序调入，因此内存管理以及调度方式相对来说十分简单。但是此时的操作系统已经有了现代操作系统的雏形功能。<br>&emsp;&emsp;1、内存保护。程序读入内存不得访问监控程序的内存区域，如果尝试这样做则将控制权转交监控程序停止当前运行程序，报错。这样的模式类似于如今操作系统的用户态（目态）以及内核态（管态）。用户程序运行在目态，在用户态情况下拥有着对内核态内存的绝对保护，当发生中断、异常、系统调用时系统会从用户态切换为内核态进行系统级处理，可以理解为用户态是普通用户，而内核态则是系统管理员，拥有最高权限。<br>&emsp;&emsp;2、定时器。当一个程序开始运行时即开始计时，当时间到程序还未运行成功则会报错终止。<br>&emsp;&emsp;3、特权指令。当程序想要执行一些特殊指令时，例如I/O指令，此时将会发生错误，管理权移交监控程序，由监控程序代替普通程序执行特权指令。当用户想要执行特权指令时只能请求监控程序代替进行执行。这一点十分类似如今操作系统的系统调用库函数的执行方法，也需要由用户态向内核态的切换。</p>
+<h3 id="多道批处理操作系统"><a href="#多道批处理操作系统" class="headerlink" title="多道批处理操作系统"></a>多道批处理操作系统</h3><p>&emsp;&emsp;上述操作系统同一时间内只能将一个程序读入内存进行执行，但是如果当前程序正在进行I/O操作则处理器只能等待程序I/O结束，因此会有大量的处理器空转时间。那么如果我们可以同时向内存中读入多个程序，在一个程序进行I/O时处理器执行另一个程序岂不是会大大提高处理器利用率。因此多道批处理操作系统诞生了。<br>&emsp;&emsp;这种可以同时向内存中读入多个程序的处理称为<strong>多道程序设计</strong>也称为<strong>多任务处理</strong>，是现代操作系统的主要方案。<br>&emsp;&emsp;由于多道操作系统需要向内存中读入多个程序因此其对内存的管理，以及作业调度会更加复杂。</p>
+<h3 id="分时系统"><a href="#分时系统" class="headerlink" title="分时系统"></a>分时系统</h3><p>&emsp;&emsp;分时系统也是多道程序设计的一种，它旨在可以同时完成处理多个交互作业。在这种系统中，多个用户可以通过不同终端登入同一个系统，同时为计算机安排任务，因此可以看作多个用户共享处理器时间，因此称为<strong>分时</strong>。<br>&emsp;&emsp;在分时系统中每个用户的程序在很多的时间内交替执行，若不计系统开销则每个用户平均只能得到计算机有效速度的1/n。第一个分时系统是麻省理工学院开发的<strong>兼容分时系统(CTSS)</strong>。CTSS的工作方式十分简单这里不做过多介绍，但是现代操作系统中的<code>Linux</code>就是典型的分时系统，它允许多个用户通过不同终端连入系统，同时与系统进行交互，但是<code>Windows</code>则不是分时系统。<br>&emsp;&emsp;分时及多道程序设计引发了操作系统中的许多新问题，例如内存管理，进程保护，权限控制资源分配等。</p>
+<h2 id="现代操作系统"><a href="#现代操作系统" class="headerlink" title="现代操作系统"></a>现代操作系统</h2><h3 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h3><p>&emsp;&emsp;操作系统的设计是一门综合性极高的学科，经过几十年的发展，操作系统主要在以下四个方面有了理论进展：<strong>进程，内存管理，信息保护与安全，调度及资源管理</strong>。<br>&emsp;&emsp;在过去数年中操作系统的结构和功能逐步发展，但几年来新一代操作系统引入许多新的设计要素，使得操作系统有了本质的变化，可以分为以下几点。</p>
+<h4 id="微内核体系结构"><a href="#微内核体系结构" class="headerlink" title="微内核体系结构"></a>微内核体系结构</h4><p>&emsp;&emsp;内核是一个操作系统的核心，它负责完成操作系统内控制管理计算机资源的核心功能，例如进程，调度，内存管理，文件，资源管理等，我们常说的<code>Linux</code>操作系统有很多发行版本，但是他们的内核都是<code>Linux</code>内核，<code>Android</code>操作系统它的内核也是<code>Linux内核</code>不过在其基础上进行了改进和优化使其可以进入移动端。<br>&emsp;&emsp;内核是一个操作系统的核心，大多数操作系统都是<strong>单体内核</strong>，及操作系统绝大部分核心功能都由这一个大内核提供，典型情况下这个内核是一个进程。而<strong>微内核体系结构</strong>只给内核分配一些最基本的功能，例如地址空间，进程间通讯，调度。其他的功能都在用户态运行并和普通程序没有什么区别，因此这些进程可以更具特定需要和环境进行定制，这些进程也被成为<strong>服务器</strong>。微内核结构的设计分离了内核和服务程序的开发，使得操作系统的结构设计更加简单、灵活，因此多用于分布式操作系统。</p>
+<h4 id="分布式操作系统"><a href="#分布式操作系统" class="headerlink" title="分布式操作系统"></a>分布式操作系统</h4><p>&emsp;&emsp;在一个分布式系统中，一组独立的计算机展现给用户的是一个统一的整体，就好像是一个系统似的。系统拥<br>有多种通用的物理和逻辑资源，可以动态的分配任务，分散的物理和逻辑资源通过计算机网络实现信息交换。系统中存在一个以全局的方式管理计算机资源的分布式操作系统。<br>&emsp;&emsp;分布式操作系统需要在各个独立计算机之间进行信息交互，但是由于在不同的计算机系统中，因此基于处理机之间的通信技术都无法被使用，因此使用分布式消息传递以及远程过程调用来进行信息交互。</p>
+<h4 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h4><p>&emsp;&emsp;线程是处理器调度的最小单位，在<code>Linux</code>中可以看作是一个轻量化进程，进程则可以看作是若干个线程的集合。在同一进程的不同线程中共享代码段，数据段，I/O状态信息等，但也有自己独立的部分例如栈，errno，调度优先级。<br>&emsp;&emsp;多线程对于许多本质上独立不需要串行处理的应用程序很有用，相比多进程其进行调度和切换所造成的开销也会更小。</p>
+<h4 id="对称多处理"><a href="#对称多处理" class="headerlink" title="对称多处理"></a>对称多处理</h4><p>&emsp;&emsp;对称多处理(SMP)，是指在一个计算机体系中有多个处理器，并且内核可以在任何一个处理器上执行，系统也可以调度任何一个进程或线程到任何一个处理器上执行。相比单处理器体系结构，SMP系统可以让多个线程达到并行执行的特点，因此对SMP系统与多线程结合可以大大提高计算机的运行效率。现在的计算机操作系统大部分都是采用对称多处理的体系结构，因为我们现在所使用的处理器一般都拥有多个核心，也就是拥有多个处理器共同为我们工作。<br>&emsp;&emsp;但是对称多处理的产生也使得操作系统的设计要考虑更多的因素。因为此时操作系统所要管理的绝不仅仅是一个核心。举个例子相比单处理器体系结构对称多处理操作系统可能会面临两个处理器同时调度同一个进程的情况，为了避免这种情况的发生就需要使用更加高级的调度算法进行调度，当然也可能存在多个处理器同时竞争同一资源的情况，而对于内核来说内核也应该设计成可重入的，保证内核可以同时被多个处理器执行。<br>&emsp;&emsp;而良好的使用多核处理器和多线程可以大大提高计算机工作效率，而其中又有几种可以潜在提高并行方式的方法。我们正在进入一个众核时代。</p>
+<h4 id="面向对象设计"><a href="#面向对象设计" class="headerlink" title="面向对象设计"></a>面向对象设计</h4><p>&emsp;&emsp;面向对象技术在操作系统开发方面可以是操作系统开发更具模块化，使得程序员可以定制操作系统，而不会破坏操作系统的完整性，典型的<code>Windows</code>就极大程度的采用了面向对象技术进行开发。</p>
+<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>&emsp;&emsp;<code>Windos</code>操作系统起源于微软应用于个人计算机上的<code>MS-DOS</code>操作系统，在1985年改名为<code>Windows</code>，之后通过不断革新到现在已经推出了<code>Windows10</code>的版本，在每一代操作系统的更新背后都是对操作系统内核结构的改变。</p>
+<h4 id="体系结构"><a href="#体系结构" class="headerlink" title="体系结构"></a>体系结构</h4><p><img src="/2020/02/07/【操作系统原理】第一章-操作系统概述/2.png" alt="操作系统概述"><br><br>&emsp;&emsp;上图显示了<code>Windows8</code>的总体结构。<code>Windows</code>分开了面向应用的软件和操作系统核心软件。在内核组件中包括以下类型：<strong>执行体，内核，硬件抽象层，设备驱动，窗口和图形系统</strong>，其中执行体包括操作系统核心服务，如<strong>I/O管理器，高速缓存管理器，对象管理器，即插即用管理器，电源管理器，安全访问监控程序，虚存管理器，进程/线程管理器，配置管理器，本地过程调用。</strong>在用户模式中可以运行4中基本用户模式进程<strong>特殊系统进程，服务进程，环境子系统，用户应用程序。</strong></p>
+<h4 id="客户-服务器模型"><a href="#客户-服务器模型" class="headerlink" title="客户-服务器模型"></a>客户-服务器模型</h4><p>&emsp;&emsp;这种模型广泛用于分布式计算。但是在<code>Windows</code>中也使用了这种模型进行构建，环境子系统和<code>Windows</code>用户模式服务都已通过<code>RPC</code>与客户端进行通信的进程来实现。客户-服务器体系结构的优点可以简化执行体，提高可靠性，灵活性高，为分布式计算提供基础。</p>
+<h4 id="线程和SMP"><a href="#线程和SMP" class="headerlink" title="线程和SMP"></a>线程和SMP</h4><p>&emsp;&emsp;毫无疑问<code>Windows</code>是典型的支持线程和<code>SMP</code>的操作系统。</p>
+<h4 id="Windows对象"><a href="#Windows对象" class="headerlink" title="Windows对象"></a>Windows对象</h4><p>&emsp;&emsp;<code>Windows</code>内核使用C进行编写，但是其采用的设计原理却与面向对象设计密切相关，拥有面向对象设计的基本特征。因此我们可以将内核中的任何东西看成对象，执行体中的对象也叫内核对象，只能被内核访问，这体现了面向对象的封装特征，将限制对象的访问进行了应用。</p>
+<h3 id="UNIX"><a href="#UNIX" class="headerlink" title="UNIX"></a>UNIX</h3><h4 id="早期UNIX系统"><a href="#早期UNIX系统" class="headerlink" title="早期UNIX系统"></a>早期UNIX系统</h4><p><img src="/2020/02/07/【操作系统原理】第一章-操作系统概述/3.png" alt="操作系统概述"><br><br>&emsp;&emsp;<code>UNIX</code>由贝尔实验室进行开发，是<code>Multics</code>的微缩版，吸收了其很多思想。无疑<code>UNIX</code>有很多发行版本，其中有商业销售<code>UNIX System Ⅲ</code><br>后台这一曹祖西欧i同由进行多次升级变成了<code>UNIX System V</code>。<br>&emsp;&emsp;早期<code>UNIX</code>操作系统体系结构如上图。它被设计成只能在单易处理器上运行，缺乏保护数据结构免受多个处理器同时访问的能力；它的内核不通用，只支持一种文件系统、进程调度策略和可执行文件格式；传统UNIX内核不可扩展，不能重用代码，内核设计巨大，且不是模块化的。</p>
+<h4 id="现代UNIX系统"><a href="#现代UNIX系统" class="headerlink" title="现代UNIX系统"></a>现代UNIX系统</h4><p>&emsp;&emsp;随着<code>UNIX</code>的不断进步升级，现代的<code>UNIX</code>内核有着如下所示的结构，其已经逐渐开始向模块化进展。<br><br><img src="/2020/02/07/【操作系统原理】第一章-操作系统概述/4.png" alt="操作系统概述"><br><br>&emsp;&emsp;<code>System V Release 4(SVR4)</code>是一个经过几乎完全重写<code>System V</code>的内核后而形成的新版本操作系统，这也是最最重要的<code>UNIX</code>变体。<code>BSD</code>广泛应用于高效，是许多商业<code>UNIX</code>产品的基础，应用最广且文档最好的<code>BSD</code>版本是<code>FreeBSD</code>，常用于互联网的服务器，防火墙和嵌入式系统中。<code>Solaris</code>是基于<code>SVR4</code>的<code>UNIX</code>版本，最新版是10，也是使用最为广泛且最成功的商用<code>UNIX</code>版本。</p>
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p>&emsp;&emsp;<code>Linux</code>都不陌生，它最初是<code>IBM PC</code>上所应用的一个<code>UNIX</code>变体，它由芬兰的计算机科学专业学生<code>Linus Torvalds</code>编写。<code>Linux</code>成功的一大部分原因在于其由免费软件基金<code>FSF</code>赞助，<code>Linus</code>在开发内核时使用了<code>GNU</code>工具，后来他在<code>GPL</code>下发布了这个内核，因此今天所有的<code>Linux</code>的发行版都是<code>FSF</code>的<code>GNU</code>项目、<code>Linus</code>的个人努力以及全世界各地很多合作者共同开发的产品。</p>
+<h4 id="模块结构"><a href="#模块结构" class="headerlink" title="模块结构"></a>模块结构</h4><p>&emsp;&emsp;<code>Linux</code>是单体内核，这样的缺点是一大块代码中包含所有的操作系统功能，并作为单个进程运行。这也就使得对操作系统任何部分的修改都要重新连接、重新安装，再重新启动系统，因此任何修改都十分困难，<code>Linux</code>中的这个问题更加尖锐。<br>&emsp;&emsp;但是尽管<code>Linux</code>是单体的，但由于其特殊的模块结构使得这些模块可用由命令自动加载和卸载，这些相对独立的模块称为<strong>可加载模块</strong>。<code>Linux</code>的可加载模块是可以<strong>动态链接</strong>的，并且其也是<strong>可堆叠</strong>的，按照层次有序排列。例如一个文件系统就是一个模块。</p>
+<h4 id="内核组件"><a href="#内核组件" class="headerlink" title="内核组件"></a>内核组件</h4><p><img src="/2020/02/07/【操作系统原理】第一章-操作系统概述/5.png" alt="操作系统概述"><br><br>&emsp;&emsp;如图给出了<code>Linux</code>内核的主要组件。所有内核组件都在CPU上执行，其中包含很多内核组件例如<strong>信号，系统调用，进程和调度器，虚存，文件系统，网络协议，字符设备驱动，块驱动设备，网络设备驱动，陷阱和错误，物理内存，中断</strong>。<br>&emsp;&emsp;顺带一提<code>Linux</code>是典型的分时多用户操作系统，因此十分适合作为服务器进行使用，方便程序员合作开发，现在绝大部分服务器都是采用<code>Linux</code>作为操作系统，但是由于<code>Linux</code>对于用户的交互体验不是很好（应该说并没有<code>Windows</code>的好)，无论是从内核设计还是设计理念来看都是<code>Windows</code>操作起来更加方便因此广泛应用于家用机，如果不是有特殊情况并不建议使用<code>Linux</code>作为家用操作系统。</p>
+<h3 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h3><p>&emsp;&emsp;<code>Android</code>操作系统广泛应用于触屏移动设备，其也是基于此目的进行设计和开发的，其早期由<code>Android</code>公司开发，该公司随后被<code>Google</code>收购，</p>
+<h4 id="软件体系结构"><a href="#软件体系结构" class="headerlink" title="软件体系结构"></a>软件体系结构</h4><p>&emsp;&emsp;<code>Android</code>是一个包括操作系统内核、中间件和关键应用的软件栈。其因该算是一种嵌入式<code>Linux</code>，基本框架如图所示。<br><br><img src="/2020/02/07/【操作系统原理】第一章-操作系统概述/6.png" alt="操作系统概述"><br></p>
+<h4 id="系统体系结构"><a href="#系统体系结构" class="headerlink" title="系统体系结构"></a>系统体系结构</h4><p>&emsp;&emsp;体系结构如上图所示，在进行开发时，开发者最关心应用及框架，他们通常使用<code>Java</code>进行开发，在这一层有着访问底层服务的API。对于<code>Android</code>系统服务，框架中大部分能够调用系统服务的接口都已经向开发者开放，而系统服务分为两部分，媒体服务以及系统服务。<br>&emsp;&emsp;对于<code>Android</code>的内核是对原生<code>Linux</code>进行了裁剪，并且针对移动设备提高了内核的功能，可以说<code>Android</code>有着一颗<code>Mini Linux</code>内核。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>&emsp;&emsp;综上我们通过操作系统设计目标，设计重点，操作系统发展历史，以及现代操作系统中新加入的设计元素以及常用现代操作系统对操作系统进行了概述，当然这只是粗略了，甚至只能说是大体上进行了了解，本系列会重点对操作系统原理进行进一步梳理和归纳。参考资料及图均来自《操作系统-精髓与设计原理（第八版）》。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/08/【DS】第五章-排序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1850,175 +2039,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/24/【Linux】请问下面的程序一共输出多少个“-”？/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/10/24/【Linux】请问下面的程序一共输出多少个“-”？/" itemprop="url">【Linux】请问下面的程序一共输出多少个“-”？</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-24T11:35:16+08:00">
-                2019-10-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.1k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="请问下面的程序一共输出多少个“-”？"><a href="#请问下面的程序一共输出多少个“-”？" class="headerlink" title="请问下面的程序一共输出多少个“-”？"></a>请问下面的程序一共输出多少个“-”？</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">    int i;</span><br><span class="line">    for (i = 0; i &lt; 2; i++) &#123; </span><br><span class="line">        fork(); </span><br><span class="line">        printf(&quot;-&quot;); </span><br><span class="line">    &#125; </span><br><span class="line">    return 0; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[misaki@localhost test]$ ./main </span><br><span class="line">--------</span><br></pre></td></tr></table></figure>
-<h2 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h2><p>&emsp;&emsp;为啥会有8个’-‘呢？我们把这个程序稍微修改一下再看下结果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">  int i;</span><br><span class="line">  for (i = 0; i &lt; 2; i++) </span><br><span class="line">  &#123;                          </span><br><span class="line">    fork();      </span><br><span class="line">    printf(&quot;-&quot;);   </span><br><span class="line">    fflush(stdout);</span><br><span class="line">  &#125;        </span><br><span class="line">  sleep(1);</span><br><span class="line">  return 0;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./main</span><br><span class="line">------</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;现在又变成了6个’-‘，我们先从以上这段程序开始分析。我们分别打印各个进程的pid和他们的ppid来让我们看的更清楚一些，并且查看以下进程树。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">  int i;</span><br><span class="line">  for (i = 0; i &lt; 2; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    fork();</span><br><span class="line">    printf(&quot;ppid:%d, pid:%d\n&quot;, getppid(), getpid());</span><br><span class="line">    fflush(stdout);</span><br><span class="line">  &#125;</span><br><span class="line">  sleep(10);                                         </span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./main</span><br><span class="line">ppid:2221, pid:4846</span><br><span class="line">ppid:4846, pid:4847</span><br><span class="line">ppid:2221, pid:4846</span><br><span class="line">ppid:4846, pid:4848</span><br><span class="line">ppid:4846, pid:4847</span><br><span class="line">ppid:4847, pid:4849</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost ~]$ pstree -ap misaki</span><br><span class="line">sshd,2220</span><br><span class="line">  ├─bash,2221</span><br><span class="line">  │   └─main,4846</span><br><span class="line">  │       ├─main,4847</span><br><span class="line">  │       │   └─main,4849</span><br><span class="line">  │       └─main,4848</span><br><span class="line">  └─bash,3571</span><br><span class="line">      └─pstree,4850 -ap misaki</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;<code>fork()</code>执行后子进程会赋值父进程的代码段，以及<code>PCB</code>中的部分数据其中包括程序计数器，上下文数据等来保证自己会按照父进程当前的执行流和代码继续执行下去。<br>&emsp;&emsp;我们的父进程<code>4846</code>进入循环后首先创建了子进程<code>4847</code>然后打印一次，然后再次执行一次循环有创建了一个子进程<code>4848</code>然后又打印一次，至此父进程执行完毕循环进入<code>sleep()</code>，于是父进程会打印两次。<br>&emsp;&emsp;子进程<code>4847</code>在创建后先打印一次，然后继续执行流再次执行循环又会创建一个子进程<code>4849</code>，然后再打印一次，随后循环结束，于是子进程<code>4847</code>也会打印两次。<br>&emsp;&emsp;子进程<code>4848</code>是在父进程<code>4846</code>第二次循环创建出来的，于是只打印一次退出循环，子进程<code>4848</code>只会打印一次。<br>&emsp;&emsp;孙子进程<code>4849</code>是在子进程<code>4847</code>第二次循环创建出来的，于是也只打印一次便结束了循环，子进程<code>4849</code>也只打印一次。<br>&emsp;&emsp;至此一共打印六次全部完毕。<br>&emsp;&emsp;我们回到最初的问题，那么这道题为什么会是8次，而我每次打印后刷新一次缓冲区结果就变成了6次.<br>&emsp;&emsp;其实我们的子进程会复制父进程的缓冲区。关于缓冲区，Unix下的设备<strong>块设备</strong>和<strong>字符设备</strong>的概念，所谓块设备，就是以一块一块的数据存取的设备，字符设备是一次存取一个字符的设备。磁盘、内存都是块设备，字符设备如键盘和串口。块设备一般都有缓存，而字符设备一般都没有缓存。<br>&emsp;&emsp;程序遇到“\n”，或是EOF，或是缓冲区满，或是文件描述符关闭，或是主动<code>flush</code>，或是程序退出，就会把数据刷出缓冲区。需要注意的是，标准输出是行缓冲，所以遇到“\n”的时候会刷出缓冲区，但对于磁盘这个块设备来说，“\n”并不会引起缓冲区刷出的动作，那是全缓冲，你可以使用setvbuf来设置缓冲区大小，或是用fflush刷缓存。<br>&emsp;&emsp;我们的子进程在创建时复制了父进程的缓冲区，而此时的父进程的标准输入的缓冲区并没有刷新，就会导致在<code>printf</code>后面创建的子进程复制的缓冲区中还存有父进程打印的’-‘，以上的例子中的<code>4848</code>和<code>4849</code>这两个进程如果在没有刷新缓冲区的情况下就会复制上父进程输出的’-‘导致多打出两个’-‘，于是这样就解释的通为什么会打印8个了。<br>&emsp;&emsp;这道题还是有一点坑的，需要对<code>fork()</code>创建子进程的底层实现有清楚的认识和了解，也需要对缓冲区相关的知识有一定了解。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2073,7 +2093,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-count">84</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2084,7 +2104,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2095,7 +2115,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2192,7 +2212,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共250.9k字</span>
+  <span class="post-count">博客全站共256.1k字</span>
 </div>
 
         ﻿
