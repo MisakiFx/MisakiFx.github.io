@@ -264,6 +264,175 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/24/【Linux】Linux基础-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/24/【Linux】Linux基础-3/" itemprop="url">【Linux】Linux基础-3</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-24T22:25:12+08:00">
+                2019-03-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  701
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Linux基础"><a href="#Linux基础" class="headerlink" title="Linux基础"></a>Linux基础</h1><h2 id="第3节"><a href="#第3节" class="headerlink" title="第3节"></a>第3节</h2><h3 id="Linux文件相关命令"><a href="#Linux文件相关命令" class="headerlink" title="Linux文件相关命令"></a>Linux文件相关命令</h3><p>&emsp;&emsp;在Linux中文件分为以下几种：<br><br>&emsp;&emsp;<code>-</code>:普通文件<br><br>&emsp;&emsp;<code>d</code>:目录文件<br><br>&emsp;&emsp;<code>l</code>:符号链接文件<br><br>&emsp;&emsp;<code>p</code>:管道文件<br><br>&emsp;&emsp;<code>c</code>:字符设备文件<br><br>&emsp;&emsp;<code>b</code>:块设备文件<br><br>&emsp;&emsp;<code>s</code>:套接字文件<br><br>&emsp;&emsp;以下文件相关命令以作补充。<br><br>&emsp;&emsp;<code>tac</code>:逆序显示文件内容。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/1.jpg" alt="tac"><br><br>&emsp;&emsp;<code>more</code>:分页显示文件内容，键入命令后可以用<code>空格</code>向下翻页，<code>b</code>向上翻页，<code>回车</code>按行向下移动，<code>q</code>退出。<br><br>&emsp;&emsp;<code>less</code>:分页显示内容（功能比<code>more</code>更全面），可用<code>/</code>向下匹配字符串也可用<code>?</code>向上匹配字符串。<br><br>&emsp;&emsp;<code>head</code>:默认显示文件的前10行。<code>-n</code>选项显示文件前<code>n</code>行。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/2.jpg" alt="head"><br><br>&emsp;&emsp;<code>tail</code>:默认显示文件末尾10行。<code>-n</code>选项显示文件末尾<code>n</code>行.<code>-f</code>选项刷新文件末尾数据，用于实时查看更新日志。<br><br>&emsp;&emsp;<code>|</code>:管道符，连接两个命令，将前一个命令的结果作为第二个命令的输入。<br><br>&emsp;&emsp;例：打印文件第10行的内容。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/3.jpg" alt="例子"><br><br>&emsp;&emsp;<code>&gt;&gt;</code>:重定向符，改变数据流向，并流向文件末尾。<br><br>&emsp;&emsp;<code>&gt;</code>:重定向符，改变数据流向，将原本数据消除，再将 数据导入。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/4.jpg" alt="重定向"><br></p>
+<h3 id="Linux压缩-打包相关命令"><a href="#Linux压缩-打包相关命令" class="headerlink" title="Linux压缩/打包相关命令"></a>Linux压缩/打包相关命令</h3><p>&emsp;&emsp;1、<code>zip//unzip</code>:<code>zip</code>压缩格式。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/5.jpg" alt="压缩"><br><br>&emsp;&emsp;2、<code>gzip/gunzip</code>:<code>gzip</code>压缩格式。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/6.jpg" alt="压缩"><br><br>&emsp;&emsp;3、<code>bzip2/bunzip2</code>:<code>bzip2</code>压缩格式。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/7.jpg" alt="压缩"><br><br>&emsp;&emsp;4、<code>tar</code>:打包。<code>-c</code>打包指令，<code>-v</code>显示打包文件，<code>-f</code>指定包名，<code>-x</code>拆包命令，<code>-z</code>压缩/解压缩转<code>gzip</code>压缩格式，<code>-j</code>压缩/解压缩转<code>bzip2</code>压缩格式。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/8.jpg" alt="打包"><br></p>
+<h3 id="时间相关命令"><a href="#时间相关命令" class="headerlink" title="时间相关命令"></a>时间相关命令</h3><p>&emsp;&emsp;1、<code>cal</code>:查看日历。<code>-3</code>查看相邻三个月的日历，<code>-y</code>查看全年的日历，<code>-j</code>以一年的第多少天来 显示日历。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/9.jpg" alt="日历"><br><br><img src="/2019/03/24/【Linux】Linux基础-3/10.jpg" alt="日历"><br><br>&emsp;&emsp;2、<code>date</code>:显示时间。<code>+&quot;格式符串&quot;</code>按照一定的格式打印时间，<code>-s</code>在<strong>root</strong>用户下修改时间。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/11.jpg" alt="打印时间"><br><br><img src="/2019/03/24/【Linux】Linux基础-3/12.jpg" alt="设置时间"><br></p>
+<h3 id="匹配搜索命令"><a href="#匹配搜索命令" class="headerlink" title="匹配搜索命令"></a>匹配搜索命令</h3><p>&emsp;&emsp;1、<code>grep</code>:文件字符串匹配，<code>-i</code>忽略大小写匹配，<code>-v</code>反向匹配，<code>-R</code>递归目录下所有文件进行匹配。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/13.jpg" alt="grep"><br><br>&emsp;&emsp;<br>2、<code>find</code>:文件查找。<code>-name</code>按文件名查找，<code>-type</code>按类型查找，<code>-size +/-</code>按大小查找，<code>-exec</code>，连接其他命令对找到的文件进行处理。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/14.jpg" alt="find"><br></p>
+<h3 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h3><p>&emsp;&emsp;1、<code>du</code>:显示每个文件或目录的磁盘使用空间。<code>-s</code>仅显示总计大小，<code>-h</code>分别列出各个目录的空间。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/15.jpg" alt="du"><br><br>&emsp;&emsp;2、<code>df</code>:列出文件系统整体磁盘的使用情况。<code>-a</code>显示所有文件系统<br><br><img src="/2019/03/24/【Linux】Linux基础-3/16.jpg" alt="df"><br><br>&emsp;&emsp;3、<code>top</code>:用来实时监控进程信息和状态<br><br>&emsp;&emsp;4、<code>free</code>:用来查看系统内存的使用情况。<br><br><img src="/2019/03/24/【Linux】Linux基础-3/17.jpg" alt="df"><br></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/19/【DS】第一章-初数识据结构/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1896,199 +2065,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/【MySQL】第五章-表的约束/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/26/【MySQL】第五章-表的约束/" itemprop="url">【MySQL】第五章-表的约束</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T18:06:10+08:00">
-                2019-01-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index">
-                    <span itemprop="name">MySQL</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.6k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第五章-表的约束"><a href="#第五章-表的约束" class="headerlink" title="第五章 表的约束"></a>第五章 表的约束</h1><p>&emsp;&emsp;在之前的章节我们有提到过约束，所谓约束是在建表时对表的某一字段进行的特殊限定或者特殊功能附加，在MySQL中有着广泛应用。</p>
-<h2 id="空属性"><a href="#空属性" class="headerlink" title="空属性"></a>空属性</h2><p>&emsp;&emsp;首先要说的的是在MySQL中，空也用<code>null</code>进行表示，我们可以看到在很多数据暂未赋值时，它们的默认值会为空，不过MySQL中的<code>null</code>与C语言中的<code>NULL</code>有着较大区别。在C语言中空表示着值为<code>0</code>或者不存在值等等意思，而在MySQL中空表示着<strong>不知道此处的值，不确定此处的值</strong>，并且空不能直接参与运算，因此我们在建表时一般要求值都不为空。因此我们需要在字段后加上<code>not null</code>约束。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; create table student (</span><br><span class="line">    -&gt;     id int not null,</span><br><span class="line">    -&gt;     name varchar(20)</span><br><span class="line">    -&gt; );</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; desc student;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| id    | int(11)     | NO   |     | NULL    |       |</span><br><span class="line">| name  | varchar(20) | YES  |     | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">2 rows in set (0.02 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;由此即可看出通过我们添加了<code>not null</code>约束，<code>id</code>字段已经要求不能为空了，那么如果我们在添加数据时没有给<code>id</code>字段值会出现什么情况呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; insert into student(name) values(&quot;张三&quot;);</span><br><span class="line">ERROR 1364 (HY000): Field &apos;id&apos; doesn&apos;t have a default value</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;当我们在要求<code>id</code>不能为空但是又没有为它设置其他默认值时就会报错。</p>
-<h2 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h2><p>&emsp;&emsp;我们可以给某一字段设置默认值，一般情况下默认值为<code>null</code>，要想设置默认值利用<code>default</code>约束即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; create table student (</span><br><span class="line">    -&gt;     id int not null default 1, </span><br><span class="line">    -&gt;     name varchar(20)</span><br><span class="line">    -&gt; );</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; desc student;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| id    | int(11)     | NO   |     | 1       |       |</span><br><span class="line">| name  | varchar(20) | YES  |     | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;在此次建表时我们要求<code>id</code>字段不为空，并且默认值设置为1，我们再插入一条数据看看。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; insert into student(name) values(&quot;张三&quot;);</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; select * from student;</span><br><span class="line">+----+--------+</span><br><span class="line">| id | name   |</span><br><span class="line">+----+--------+</span><br><span class="line">|  1 | 张三   |</span><br><span class="line">+----+--------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这次我们同样没有给<code>id</code>赋值，但是根据默认值它的值变为了1。</p>
-<h2 id="列描述"><a href="#列描述" class="headerlink" title="列描述"></a>列描述</h2><p>&emsp;&emsp;所谓描述是添加一种类似于注释一样的约束，实际上不会对字段产生任何影响。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; create table student (</span><br><span class="line">    -&gt;     id int not null default 1 comment &apos;编号&apos;, </span><br><span class="line">    -&gt;     name varchar(20)</span><br><span class="line">    -&gt; );</span><br><span class="line">Query OK, 0 rows affected (0.08 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; desc student;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| id    | int(11)     | NO   |     | 1       |       |</span><br><span class="line">| name  | varchar(20) | YES  |     | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这样就已经为<code>id</code>字段添加了注释，但是我们发现查看表信息里面却没有显示，这是因为这个注释只会在我们使用查看建表信息时才会显示。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; show create table student;</span><br><span class="line">+---------+----------------------------------------------------------------+</span><br><span class="line">| Table   | Create Table                                                   |</span><br><span class="line">+---------+----------------------------------------------------------------+</span><br><span class="line">| student | CREATE TABLE `student` (</span><br><span class="line">  `id` int(11) NOT NULL DEFAULT &apos;1&apos; COMMENT &apos;编号&apos;,</span><br><span class="line">  `name` varchar(20) DEFAULT NULL</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8   |</span><br><span class="line">+---------+----------------------------------------------------------------+</span><br><span class="line">1 row in set (0.01 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这样我们以后我们可以给每个字段都加上描述，对表字段信息做进一步描述。</p>
-<h2 id="zerofill"><a href="#zerofill" class="headerlink" title="zerofill"></a>zerofill</h2><p>&emsp;&emsp;这个约束是填充约束，对于字段空位用<code>0</code>进行填充。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; create table student (</span><br><span class="line">    -&gt;     id int(5) zerofill default 1 comment &apos;编号&apos;, </span><br><span class="line">    -&gt;     name varchar(20)</span><br><span class="line">    -&gt; );</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; insert into student values(1,&quot;张三&quot;);</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; select * from student;</span><br><span class="line">+-------+--------+</span><br><span class="line">| id    | name   |</span><br><span class="line">+-------+--------+</span><br><span class="line">| 00001 | 张三   |</span><br><span class="line">+-------+--------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;在我们添加<code>zerofill</code>字段后根据我们对字段类型大小对所有空位进行了填充<code>0</code>的操作。</p>
-<h2 id="主键"><a href="#主键" class="headerlink" title="主键"></a>主键</h2><p>&emsp;&emsp;主键是约束中十分重要的约束，主键作为一种索引，可以用于对数据的排列查找等，因此一个表中最多只能拥有一个主键，同时因为一个键值就唯一了一个数据因此主键不能为空同时不能重复。因此它自带<code>not null</code>约束。我们对有个字段使用<code>primary key</code>约束将其约束为主键，通常主键选做使用<code>int</code>类型的数据。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; create table student (</span><br><span class="line">    -&gt;     id int(5) primary key default 1 comment &apos;不能为空&apos;,</span><br><span class="line">    -&gt;     name varchar(20) not null comment &apos;姓名&apos;</span><br><span class="line">    -&gt; );</span><br><span class="line">Query OK, 0 rows affected (0.02 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; desc student;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| id    | int(5)      | NO   | PRI | 1       |       |</span><br><span class="line">| name  | varchar(20) | NO   |     | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">2 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这样我们就把<code>id</code>字段设置为了主键，同时我们可以将多个字段都设置为主键，成为复合主键。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; create table student (</span><br><span class="line">    -&gt;     id int(5) default 1 comment &apos;不能为空&apos;, </span><br><span class="line">    -&gt;     name varchar(20) not null comment &apos;姓名&apos;,</span><br><span class="line">    -&gt;     primary key(id,name)</span><br><span class="line">    -&gt; );</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; desc student;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| id    | int(5)      | NO   | PRI | 1       |       |</span><br><span class="line">| name  | varchar(20) | NO   | PRI | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">2 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这样<code>name</code>和<code>id</code>字段就形成了一个复合主键。同时如果我们插入主键完全相同的数据就会报错。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; insert into student values(1,&apos;张三&apos;);</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; insert into student values(2,&apos;张三&apos;);</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; insert into student values(1,&apos;张三&apos;);</span><br><span class="line">ERROR 1062 (23000): Duplicate entry &apos;1-张三&apos; for key &apos;PRIMARY&apos;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;我们也可以删除主键。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; alter table student drop primary key;</span><br><span class="line">Query OK, 2 rows affected (0.01 sec)               </span><br><span class="line">Records: 2  Duplicates: 0  Warnings: 0</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; desc student;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| id    | int(5)      | NO   |     | 1       |       |</span><br><span class="line">| name  | varchar(20) | NO   |     | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;我们也可以在表建完后再添加主键。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; alter table student add primary key(id);</span><br><span class="line">Query OK, 0 rows affected (0.80 sec)</span><br><span class="line">Records: 0  Duplicates: 0  Warnings: 0</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; desc student;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| id    | int(5)      | NO   | PRI | 1       |       |</span><br><span class="line">| name  | varchar(20) | NO   |     | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;主键的操作十分重要，可以帮我们排序数据，查找数据等，是不可或缺的约束之一。</p>
-<h2 id="自增长"><a href="#自增长" class="headerlink" title="自增长"></a>自增长</h2><p>&emsp;&emsp;当我们想要将我们插入的数据的序号自动增长时我们就可以使用这个约束。并且如果我们想要一个对一个字段使用自增长，这个字段前提必须是一个索引（key一栏有值），并且是整数类型。使用<code>auto_increment</code>添加自增长约束。同时添加了自增长的字段不能再设置默认值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; create table student (</span><br><span class="line">    -&gt;     id int primary key auto_increment comment &apos;不能为空&apos;, </span><br><span class="line">    -&gt;     name varchar(20)</span><br><span class="line">    -&gt; );</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; desc student;</span><br><span class="line">+-------+-------------+------+-----+---------+----------------+</span><br><span class="line">| Field | Type        | Null | Key | Default | Extra          |</span><br><span class="line">+-------+-------------+------+-----+---------+----------------+</span><br><span class="line">| id    | int(11)     | NO   | PRI | NULL    | auto_increment |</span><br><span class="line">| name  | varchar(20) | YES  |     | NULL    |                |</span><br><span class="line">+-------+-------------+------+-----+---------+----------------+</span><br><span class="line">2 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这样我就设置完毕了自增长，我们添加几个数据看看。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; select * from student;</span><br><span class="line">+----+--------+</span><br><span class="line">| id | name   |</span><br><span class="line">+----+--------+</span><br><span class="line">|  1 | 张三   |</span><br><span class="line">|  2 | 李四   |</span><br><span class="line">+----+--------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;我们可以看我并不需我们再对<code>id</code>字段赋值，<code>id</code>字段便可以自动从1开始自动对数据进行编号同时我们可以查看目前自增长的数值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; show create table student;</span><br><span class="line">+---------+---------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| Table   | Create Table                                                                                                                          |</span><br><span class="line">+---------+---------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| student | CREATE TABLE `student` (</span><br><span class="line">  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT &apos;不能为空&apos;,</span><br><span class="line">  `name` varchar(20) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`id`)</span><br><span class="line">) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8     |</span><br><span class="line">+---------+---------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;下面的<code>AUTO_INCREMENT=3</code>则表示了目前自增长数值到3了。</p>
-<h2 id="唯一键"><a href="#唯一键" class="headerlink" title="唯一键"></a>唯一键</h2><p>&emsp;&emsp;往往表中有多个数据需要唯一性，但是主键一个表中只能最多有一个，因此唯一键诞生了。唯一键可以很好的帮助表中各自段的数据确立唯一性，因此被唯一键约束的字段可以为空但并不能重复，其他特性都与主键类似。唯一键使用<code>unique</code>进行约束。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; create table student (</span><br><span class="line">    id int unique</span><br><span class="line">    name varchar(20) unique</span><br><span class="line">);</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; desc student;</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">| id    | int(11)     | YES  | UNI | NULL    |       |</span><br><span class="line">| name  | varchar(20) | YES  | UNI | NULL    |       |</span><br><span class="line">+-------+-------------+------+-----+---------+-------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;对字段进行唯一键约束后如果插入重复数据会如何呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; insert into student values(1, &apos;张三&apos;);</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; insert into student values(1, &apos;张三&apos;);</span><br><span class="line">ERROR 1062 (23000): Duplicate entry &apos;1&apos; for key &apos;id&apos;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;很明显在这里报错了。</p>
-<h2 id="外键"><a href="#外键" class="headerlink" title="外键"></a>外键</h2><p>&emsp;&emsp;有时候我们的数据一张表往往是无法完全进行表示的，比如说对于一个学生表，我们要想将其与另外一张班级表进行连接，在他们间建立联系，就要依靠到外键这个约束。比如说接下来这个例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; create table class(</span><br><span class="line">    -&gt;     id int primary key,</span><br><span class="line">    -&gt;     name varchar(20)</span><br><span class="line">    -&gt; );</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;首先我们创建了主表，我们将班级表作为主表，这个表要求必须要有主键或唯一键进行约束，也就是说各个数据要求是不重复的，不然从表与之建立联系时会产生矛盾。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; create table student (</span><br><span class="line">    -&gt;     id int primary key auto_increment,</span><br><span class="line">    -&gt;     name varchar(20),</span><br><span class="line">    -&gt;     class_id int comment &apos;班级id&apos;,</span><br><span class="line">    -&gt;     foreign key (class_id) references class(id)</span><br><span class="line">    -&gt; );</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;以上建立的这个表我们称之为从表，注意在最后我们加入了外键的语法，使之<code>class_id</code>字段与主表的<code>id</code>字段相互对应。接下来我们插入几个数据看看效果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [student]&gt; insert into class value(1,&apos;C++&apos;), (2,&apos;java&apos;);</span><br><span class="line">Query OK, 2 rows affected (0.00 sec)</span><br><span class="line">Records: 2  Duplicates: 0  Warnings: 0</span><br><span class="line">MariaDB [student]&gt; insert into student values(1,&apos;张三&apos;,1);</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; insert into student values(2,&apos;李四&apos;,2);</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [student]&gt; insert into student values(3,&apos;老王&apos;,3);</span><br><span class="line">ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`student`.`student`, CONSTRAINT `student_ibfk_1` FOREIGN KEY (`class_id`) REFERENCES `class` (`id`))</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;从这个例子可以看出我们先给班级表插入了两个班级数据，在从表如果我们正常插入存在对应班级编号数据的学生数据时会正常插入，但是如果我们给老王插入了一个不存在班级id就会报错，同时如果我们给班级id赋值为空也是允许的。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2143,7 +2119,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">84</span>
+                  <span class="site-state-item-count">85</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2165,7 +2141,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2262,7 +2238,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共256.1k字</span>
+  <span class="post-count">博客全站共265.8k字</span>
 </div>
 
         ﻿
