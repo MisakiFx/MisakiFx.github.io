@@ -264,6 +264,187 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/31/【C语言】第十章-字符串及内存函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/31/【C语言】第十章-字符串及内存函数/" itemprop="url">【C语言】第十章-字符串及内存函数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-31T20:45:08+08:00">
+                2019-01-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C语言进阶/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言进阶</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第十章-字符串及内存操作函数"><a href="#第十章-字符串及内存操作函数" class="headerlink" title="第十章 字符串及内存操作函数"></a>第十章 字符串及内存操作函数</h1><p>&emsp;&emsp;在这一章我们重点讲解几个字符串及内存的标准库函数，这些函数都是标准库中提前准备好了的，但是我们有必要了解它们的功能，并且模拟它们的实现，这对我们将来的程序编写有很多指导性意义。</p>
+<h2 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h2><h3 id="strlen"><a href="#strlen" class="headerlink" title="strlen()"></a>strlen()</h3><p>&emsp;&emsp;这个函数我相信大家再熟悉不过了，就是普通的计算字符串长度的函数，不过我们要注意这个函数传入的参数必须是一个以<strong>空字符</strong>结尾的字符串。不然就会出现未定义行为。这个函数返回的长度是字符串<strong>不包含末尾空字符的长度</strong>。这点很重要，很多同学都会在这点上出错。接下来我们对这个函数进行基本实现。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;assert.h&gt;</span><br><span class="line">size_t Strlen(const char* str)</span><br><span class="line">&#123;</span><br><span class="line">  assert(str != NULL);//有效性检验 </span><br><span class="line">  size_t i = 0;</span><br><span class="line">  while(str[i] != &apos;\0&apos;)</span><br><span class="line">  &#123;</span><br><span class="line">    ++i;</span><br><span class="line">  &#125;</span><br><span class="line">  return i;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  char str[] = &quot;123&quot;;</span><br><span class="line">  printf(&quot;%d\n&quot;, Strlen(str));     </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">3</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;我们在实现函数的时候一定要注意有效性检验，这里只做了最基本的检验，在实际开发中要注意的远远要多余此。</p>
+<h3 id="strcpy"><a href="#strcpy" class="headerlink" title="strcpy()"></a>strcpy()</h3><p>&emsp;&emsp;这个函数是字符串复制函数，可以将两个参数中第二个字符串的值完全赋值给第一个字符串，但是要注意第一个字符串一定要有足够大小的空间。接下来提供一种实现思路。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;assert.h&gt;</span><br><span class="line">char* Strcpy(char* destination, const char* source)</span><br><span class="line">&#123;</span><br><span class="line">  assert(destination != NULL);</span><br><span class="line">  assert(source != NULL);</span><br><span class="line">  size_t i;</span><br><span class="line">  for(i = 0; i &lt; strlen(source); i++)</span><br><span class="line">  &#123;</span><br><span class="line">    destination[i] = source[i];</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  destination[i] = &apos;\0&apos;;</span><br><span class="line">  return destination;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  char str[10] = &#123;0&#125;;</span><br><span class="line">  char str2[] = &quot;12314524&quot;;</span><br><span class="line">  Strcpy(str, str2);</span><br><span class="line">  printf(&quot;str2 = %s\n&quot;, str2);</span><br><span class="line">  printf(&quot;str = %s\n&quot;, str);                  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">str2 = 12314524</span><br><span class="line">str = 12314524</span><br></pre></td></tr></table></figure></p>
+<h3 id="strcat"><a href="#strcat" class="headerlink" title="strcat()"></a>strcat()</h3><p>&emsp;&emsp;这个是字符串拼接函数，功能是可以将第二个字符串拼接到第一个字符串的末尾，不过要注意第一个字符串要有足够大的空间。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;assert.h&gt;</span><br><span class="line">char* Strcat(char* destination, const char* source  )</span><br><span class="line">&#123;</span><br><span class="line">  size_t a = strlen(destination);</span><br><span class="line">  size_t b = strlen(source) + 1;</span><br><span class="line">  for(size_t i = 0; i &lt; b; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    destination[a] = source[i];</span><br><span class="line">    a++;</span><br><span class="line">  &#125;</span><br><span class="line">  return destination;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  char str[1024] = &quot;abc&quot;;</span><br><span class="line">  char str2[] = &quot;12314524&quot;;</span><br><span class="line">  printf(&quot;str = %s, str2 = %s\n&quot;, str, str2);</span><br><span class="line">  Strcat(str, str2);                                 </span><br><span class="line">  printf(&quot;拼接后：str = %s, str2 = %s\n&quot;, str, str2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main </span><br><span class="line">str = abc, str2 = 12314524</span><br><span class="line">拼接后：str = abc12314524, str2 = 12314524</span><br></pre></td></tr></table></figure></p>
+<h3 id="strcmp"><a href="#strcmp" class="headerlink" title="strcmp()"></a>strcmp()</h3><p>&emsp;&emsp;这个是字符串比较函数，比较前后两个字符串的大小，如果前一个大于后一个则返回正数，相等返回0，小于返回负数。然而比较字符串的时候则是通过两个字符串从前致后每个字符串的字符的ASCII码的大小来进行比较的，如何相同则比较下一个字符知道出现第一个不相等的字符位置，然后再返回相应的结果。这点从下面的实现代码上可以明确看出。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;                            </span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;                 </span><br><span class="line">#include &lt;assert.h&gt;</span><br><span class="line">int Strcmp(const char* str1, const char* str2)</span><br><span class="line">&#123;  </span><br><span class="line">  assert(str1 != NULL);             </span><br><span class="line">  assert(str2 != NULL);</span><br><span class="line">  while(*str1 != &apos;\0&apos; &amp;&amp; *str2 != &apos;\0&apos;)</span><br><span class="line">  &#123;</span><br><span class="line">    if(*str1 &lt; *str2)</span><br><span class="line">    &#123;     </span><br><span class="line">      return -1;</span><br><span class="line">    &#125;                    </span><br><span class="line">    else if(*str1 &gt; *str2) </span><br><span class="line">    &#123;                      </span><br><span class="line">      return 1;</span><br><span class="line">    &#125;                      </span><br><span class="line">    else</span><br><span class="line">    &#123;                            </span><br><span class="line">      ++str1;</span><br><span class="line">      ++str2;               </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;   </span><br><span class="line">  if(*str1 == &apos;\0&apos; &amp;&amp; *str2 != &apos;\0&apos;)</span><br><span class="line">  &#123;                        </span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  if(*str1 != &apos;\0&apos; &amp;&amp; *str2 == &apos;\0&apos;)</span><br><span class="line">  &#123;</span><br><span class="line">    return 1;</span><br><span class="line">  &#125;</span><br><span class="line">  if(*str1 == &apos;\0&apos; &amp;&amp; *str2 == &apos;\0&apos;)</span><br><span class="line">  &#123;</span><br><span class="line">    return 0;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  char str[1024] = &quot;abc&quot;;</span><br><span class="line">  char str2[] = &quot;12314524&quot;;</span><br><span class="line">  if(Strcmp(str, str2) &gt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;str &gt; str2\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  else if(Strcmp(str, str2) == 0)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;str == str2\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;str &lt; str2\n&quot;);</span><br><span class="line">  &#125;                                 </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">str &gt; str2</span><br></pre></td></tr></table></figure></p>
+<h3 id="strncpy"><a href="#strncpy" class="headerlink" title="strncpy()"></a>strncpy()</h3><p>&emsp;&emsp;这个函数与<code>strcpy()</code>类似，不过它的功能增加了可以将指定数量的字符复制到目标字符串中，同时这个函数在一些处理上有一些变化。当我们给出的数字大于原字符串的长度，则目标字符串要用空字符补充多出来长度，如果小于或原字符串的长度则末尾不会自动添加空字符，因此我们尤其要除以这一点，然而这些规则都是C的标准中进行规定的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;assert.h&gt;</span><br><span class="line">char* Strncpy(char* destination, const char* source, size_t num)</span><br><span class="line">&#123;</span><br><span class="line">  assert(destination != NULL);</span><br><span class="line">  assert(source != NULL);</span><br><span class="line">  size_t i = 0;</span><br><span class="line">  while(i &lt; num &amp;&amp; source[i] != &apos;\0&apos;)</span><br><span class="line">  &#123;</span><br><span class="line">    destination[i] = source[i];</span><br><span class="line">    i++;</span><br><span class="line">  &#125;</span><br><span class="line">  if(i == num)</span><br><span class="line">  &#123;</span><br><span class="line">    return destination;</span><br><span class="line">  &#125;</span><br><span class="line">  if(source[i] == &apos;\0&apos;)</span><br><span class="line">  &#123;</span><br><span class="line">    for(; i &lt; num; i++)</span><br><span class="line">    &#123;</span><br><span class="line">      destination[i] = &apos;\0&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">    return destination;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  char str[1024] = &#123;0&#125;;</span><br><span class="line">  char str2[] = &quot;12314524&quot;;</span><br><span class="line">  printf(&quot;str2 = %s\n&quot;, str2);</span><br><span class="line">  Strncpy(str, str2, 3);</span><br><span class="line">  printf(&quot;复制三个字符后str = %s\n&quot;, str);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">str2 = 12314524</span><br><span class="line">复制三个字符后str = 123</span><br></pre></td></tr></table></figure></p>
+<h3 id="strncat"><a href="#strncat" class="headerlink" title="strncat()"></a>strncat()</h3><p>&emsp;&emsp;<code>strncat()</code>函数与<code>strncpy()</code>函数类似，也是同样加入了可以指定字符数量地将源字符串拼接致目标字符串的末尾。至于其中的特殊情况，比如num参数大于小于或等于原字符串的处理在官方文档上有明确要求和规定，这里不再赘述。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;                                              </span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;assert.h&gt;</span><br><span class="line">char* Strncat(char* destination, const char* source, size_t num)</span><br><span class="line">&#123;</span><br><span class="line">  assert(destination != NULL);</span><br><span class="line">  assert(source != NULL);</span><br><span class="line">  size_t i = 0;</span><br><span class="line">  while(destination[i] != &apos;\0&apos;)</span><br><span class="line">  &#123;</span><br><span class="line">    i++;</span><br><span class="line">  &#125;</span><br><span class="line">  size_t j = 0;</span><br><span class="line">  while(j &lt; num &amp;&amp; source[j] != &apos;\0&apos;)</span><br><span class="line">  &#123;</span><br><span class="line">    destination[i] = source[j];</span><br><span class="line">    j++;</span><br><span class="line">    i++;</span><br><span class="line">  &#125;</span><br><span class="line">  destination[i] = &apos;\0&apos;;</span><br><span class="line">  return destination;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  char str[1024] = &quot;abc&quot;;</span><br><span class="line">  char str2[] = &quot;12314524&quot;;</span><br><span class="line">  printf(&quot;str = %s\n&quot;, str);</span><br><span class="line">  printf(&quot;str2 = %s\n&quot;, str2);</span><br><span class="line">  Strncat(str, str2, 3);</span><br><span class="line">  printf(&quot;拼接三个字符后：str = %s\n&quot;, str);</span><br><span class="line">&#125;                                           </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">str = abc</span><br><span class="line">str2 = 12314524</span><br><span class="line">拼接三个字符后：str = abc123</span><br></pre></td></tr></table></figure></p>
+<h3 id="strncmp"><a href="#strncmp" class="headerlink" title="strncmp()"></a>strncmp()</h3><p>&emsp;&emsp;<code>strncmp()</code>与<code>strcmp()</code>类似，也是字符串比较函数，同样的也是将第一个字符串中的指定数量的字符与第二个字符串进行比较，返回规则也是完全一致。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;                                                          </span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;assert.h&gt;</span><br><span class="line">int Strncmp(const char* str1, const char* str2, size_t num)</span><br><span class="line">&#123;</span><br><span class="line">  assert(str1 != NULL);</span><br><span class="line">  assert(str2 != NULL);</span><br><span class="line">  size_t i = 0;</span><br><span class="line">  while(str1[i] == str2[i] &amp;&amp; i &lt; num &amp;&amp; str1[i] != &apos;\0&apos; &amp;&amp; str2[i] != &apos;\0&apos;)</span><br><span class="line">  &#123;</span><br><span class="line">    i++;</span><br><span class="line">  &#125;</span><br><span class="line">  if(i == num)</span><br><span class="line">  &#123;</span><br><span class="line">    return 0;</span><br><span class="line">  &#125;</span><br><span class="line">  if(str1[i] == &apos;\0&apos; &amp;&amp; str2[i] == &apos;\0&apos;)</span><br><span class="line">  &#123;</span><br><span class="line">    return 0;</span><br><span class="line">  &#125;</span><br><span class="line">  if(str1[i] &gt; str2[i])</span><br><span class="line">  &#123;</span><br><span class="line">    return 1;</span><br><span class="line">  &#125;</span><br><span class="line">  if(str1[i] &lt; str2[i])</span><br><span class="line">  &#123;</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  char str[1024] = &quot;abc&quot;;</span><br><span class="line">  char str2[] = &quot;12314524&quot;;</span><br><span class="line">  int a = Strncmp(str, str2, 3);</span><br><span class="line">  int b = Strncmp(str, str2, 0);</span><br><span class="line">  printf(&quot;str = %s\n&quot;, str);</span><br><span class="line">  printf(&quot;str2 = %s\n&quot;, str2);</span><br><span class="line">  printf(&quot;比较前三个字符串的结果是：%d\n&quot;, a);</span><br><span class="line">  printf(&quot;比较前零个字符串的结果是：%d\n&quot;, b);</span><br><span class="line">&#125;                                             </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">str = abc</span><br><span class="line">str2 = 12314524</span><br><span class="line">比较前三个字符串的结果是：1</span><br><span class="line">比较前零个字符串的结果是：0</span><br></pre></td></tr></table></figure></p>
+<h3 id="strstr"><a href="#strstr" class="headerlink" title="strstr()"></a>strstr()</h3><p>&emsp;&emsp;这个函数的功能相比之前的就较为复杂，是在<code>str1</code>查找为<code>str2</code>的子串。这里的内容与数据结构略有相关，简单来说就是在第一个字符串中找是否存在一串和第二个字符串完全一致的串，如果存在则返回第一次出现的首字符的指针，如果不存在返回<code>NULL</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;                                                       </span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;assert.h&gt;</span><br><span class="line">const char* Strstr(const char* str1, const char* str2)</span><br><span class="line">&#123;</span><br><span class="line">  assert(str1 != NULL);</span><br><span class="line">  assert(str2 != NULL);</span><br><span class="line">  if(*str1 == &apos;\0&apos; || *str2 == &apos;\0&apos;)</span><br><span class="line">  &#123;</span><br><span class="line">    return NULL;</span><br><span class="line">  &#125;</span><br><span class="line">  const char* black_ptr = str1;</span><br><span class="line">  while(*black_ptr != &apos;\0&apos;)</span><br><span class="line">  &#123;</span><br><span class="line">    const char* red_ptr = black_ptr;</span><br><span class="line">    const char* sub_ptr = str2;</span><br><span class="line">    while(*red_ptr != &apos;\0&apos; &amp;&amp; *sub_ptr != &apos;\0&apos; &amp;&amp; (*red_ptr == *sub_ptr))</span><br><span class="line">    &#123;</span><br><span class="line">      ++red_ptr;</span><br><span class="line">      ++sub_ptr;</span><br><span class="line">    &#125;</span><br><span class="line">    if(*sub_ptr == &apos;\0&apos;)</span><br><span class="line">    &#123;</span><br><span class="line">      //找到了</span><br><span class="line">      return black_ptr;    </span><br><span class="line">    &#125;</span><br><span class="line">    ++black_ptr;</span><br><span class="line">  &#125;</span><br><span class="line">  //没找到</span><br><span class="line">  return NULL;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  char str[1024] = &quot;123456&quot;;</span><br><span class="line">  char str2[] = &quot;234&quot;;</span><br><span class="line">  const char* str3 = Strstr(str, str2);</span><br><span class="line">  printf(&quot;str = %s\n&quot;, str);</span><br><span class="line">  printf(&quot;str2 = %s\n&quot;, str2);</span><br><span class="line">  printf(&quot;str2中存在str并打印：%s\n&quot;,str3);</span><br><span class="line">&#125;                                          </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">str = 123456</span><br><span class="line">str2 = 234</span><br><span class="line">str2中存在str并打印：23456</span><br></pre></td></tr></table></figure></p>
+<h3 id="strtok"><a href="#strtok" class="headerlink" title="strtok()"></a>strtok()</h3><p>&emsp;&emsp;这个函数是字符串分割函数，它可以将指定的字符串以指定的字符进行分割，并且随着参数的该表可以记录上次分割结果并且继续上一次分割进度继续进行分割，这个字符串函数使用和实现较为复杂，这里不做细致讲解。</p>
+<h3 id="strerror"><a href="#strerror" class="headerlink" title="strerror()"></a>strerror()</h3><p>&emsp;&emsp;<code>strerror()</code>是错误信息报告函数，根据错误返回的错误码可以将其使用对应的错误信息并且打印。这里举个例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;errno.h&gt;//要使用错误码我们需要引入这个头文件</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  FILE* file;</span><br><span class="line">  file = fopen(&quot;1.txt&quot;, &quot;r&quot;);//打开这个文件实际上我的目录下并没有这个文件因此就会产生错误，</span><br><span class="line">  if(file == NULL)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;%s\n&quot;, strerror(errno));//打印最后一个错误码的错误信息</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">No such file or directory</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;不难发现打印的错误信息和我们编译错误信息十分相似，是的我们可以通过这种方式提醒用户哪里出现错误，但是目前这种报错方式十分落后。</p>
+<h2 id="内存操作函数"><a href="#内存操作函数" class="headerlink" title="内存操作函数"></a>内存操作函数</h2><p>&emsp;&emsp;常用的内存操作函数有很多，这里重点介绍两个，并且加以实现。</p>
+<h3 id="memcpy"><a href="#memcpy" class="headerlink" title="memcpy()"></a>memcpy()</h3><p>&emsp;&emsp;这个函数与<code>strncpy()</code>十分类似，不过此时复制的已经不仅仅只能是字符串了，而是任何类型的数据都可以进行复制，最后一个参数<code>num</code>给出的则是目标复制的字节数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;                                   </span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;assert.h&gt;</span><br><span class="line">void* Memcpy(void* dest, const void* src, size_t num)</span><br><span class="line">&#123;</span><br><span class="line">  assert(dest != NULL);</span><br><span class="line">  assert(src != NULL);</span><br><span class="line">  char* pdest = (char*)dest;</span><br><span class="line">  char* psrc = (char*)src;</span><br><span class="line">  for(size_t i = 0; i &lt; num; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    pdest[i] = psrc[i];</span><br><span class="line">  &#125;</span><br><span class="line">  return dest;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int arr[] = &#123;11,14,26&#125;;</span><br><span class="line">  int arr2[3];</span><br><span class="line">  for(int i = 0; i &lt; 3; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;%d\t&quot;, arr[i]);</span><br><span class="line">  &#125;</span><br><span class="line">  printf(&quot;\n&quot;);</span><br><span class="line">  Memcpy(arr2, arr, sizeof(arr));</span><br><span class="line">  for(int i = 0; i &lt; 3; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;%d\t&quot;, arr2[i]);</span><br><span class="line">  &#125;</span><br><span class="line">  printf(&quot;\n&quot;);</span><br><span class="line">&#125;                                 </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">11	14	26	</span><br><span class="line">11	14	26</span><br></pre></td></tr></table></figure></p>
+<h3 id="memmove"><a href="#memmove" class="headerlink" title="memmove()"></a>memmove()</h3><p>&emsp;&emsp;这个函数与<code>memcpy()</code>类似，不过这个函数解决了<code>memcpy()</code>中两个缓冲区重叠可能会导致复制错误的问题，因此相比于<code>memcpy()</code>我更推荐于使用这个函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;                          </span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;assert.h&gt;</span><br><span class="line">#include &lt;stdint.h&gt;</span><br><span class="line">void* Memcpy(void* dest, const void* src, size_t num)</span><br><span class="line">&#123;</span><br><span class="line">  assert(dest != NULL);</span><br><span class="line">  assert(src != NULL);</span><br><span class="line">  char* pdest = (char*)dest;</span><br><span class="line">  char* psrc = (char*)src;</span><br><span class="line">  for(size_t i = 0; i &lt; num; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    pdest[i] = psrc[i];</span><br><span class="line">  &#125;</span><br><span class="line">  return dest;</span><br><span class="line">&#125;</span><br><span class="line">void* Memmove(void* dest, const void* src, size_t num)</span><br><span class="line">&#123;</span><br><span class="line">  assert(dest != NULL);</span><br><span class="line">  assert(src != NULL);</span><br><span class="line">  char* pdest = (char*)dest;</span><br><span class="line">  char* psrc = (char*)src;</span><br><span class="line">  if(pdest &gt; psrc &amp;&amp; pdest &lt; psrc + num)//缓冲区重叠，特殊处理</span><br><span class="line">  &#123;</span><br><span class="line">    for(int64_t i = num - 1; i &gt;= 0; i--)</span><br><span class="line">    &#123;</span><br><span class="line">      pdest[i] = psrc[i];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    Memcpy(dest, src, num);</span><br><span class="line">  &#125;</span><br><span class="line">  return dest;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int arr[] = &#123;11,14,26&#125;;</span><br><span class="line">  int arr2[3];</span><br><span class="line">  for(int i = 0; i &lt; 3; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;%d\t&quot;, arr[i]);</span><br><span class="line">  &#125;</span><br><span class="line">  printf(&quot;\n&quot;);</span><br><span class="line">  Memmove(arr2, arr, sizeof(arr));</span><br><span class="line">  for(int i = 0; i &lt; 3; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot;%d\t&quot;, arr2[i]);</span><br><span class="line">  &#125;</span><br><span class="line">  printf(&quot;\n&quot;);</span><br><span class="line">&#125;                                 </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost test]$ ./Main</span><br><span class="line">11	14	26	</span><br><span class="line">11	14	26</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;除了以上这些字符串函数和内存操作函数，在C语言中还有比较常用的字符处理及数学函数函数，都包含在标准库中，这些函数十分简单，容易上手，但是在开发中会给我们带来很多方便，这里不再详细介绍。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/【MySQL】第五章-表的约束/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1900,176 +2081,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/【Linux】Linux编程-基础/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MisakiFx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Misaki`s blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/05/【Linux】Linux编程-基础/" itemprop="url">【Linux】Linux编程-基础</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-05T22:32:16+08:00">
-                2018-12-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.6k
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Linux编程-基础"><a href="#Linux编程-基础" class="headerlink" title="Linux编程 基础"></a>Linux编程 基础</h1><p>&emsp;&emsp;我们学习Linux的主要目的就是为了在让我们所写的代码可以在Linux环境下稳定运行，因为作为一个服务端程序员，我们将来所接触的服务器的系统内核全部都为Linux，也就是说我们所写的所有代码都要求在Linux服务器上依然可以稳定运行，这是作为服务端程序员的基本素养。因此Linux环境下的编程也是我们必须要学习的。</p>
-<h2 id="第1节"><a href="#第1节" class="headerlink" title="第1节"></a>第1节</h2><h3 id="Linux编程准备材料"><a href="#Linux编程准备材料" class="headerlink" title="Linux编程准备材料"></a>Linux编程准备材料</h3><p>&emsp;&emsp;我们将来并不是直接在服务器上对Linux服务器进行编程，更多的是用远程链接的方式来操作服务器，因此作为远程链接的桥梁有一款软件是我们今后会经常使用的，也是之前我所提过的<strong>Xshell</strong>。其实在Linux系统内核外壳有一门独到的脚本编程语言，我们利用这款脚本语言来控制Linux，这款语言就叫<strong>shell</strong>。我们之前所说的Linux基本命令其实就是在利用shell脚本语言来控制Linux系统。而在这里所说的<strong>Xshell</strong>这么一款模拟Linux终端的模拟软件，在Xshell里链接到我们的Linux系统后的操作就与直接在Linux终端里的操作几乎完全一样了（<del>实际上还是有一些区别</del>）。因此我们之后的所有操作都会利用Xshell来远程控制我们的虚拟机。因此在Linux编程中<strong>Xshell</strong>是必不可少的。<br><br>&emsp;&emsp;Xshell下载地址：<a href="https://gitee.com/HGtz2222/xshell_install_package/raw/master/Xshell-6.0.0082p.exe" target="_blank" rel="noopener">https://gitee.com/HGtz2222/xshell_install_package/raw/master/Xshell-6.0.0082p.exe</a></p>
-<h3 id="将Xshell连接到Linux"><a href="#将Xshell连接到Linux" class="headerlink" title="将Xshell连接到Linux"></a>将Xshell连接到Linux</h3><p>&emsp;&emsp;1、打开Linux虚拟机和Xshell。我们要将Linux连接到Xshell首先当然肯定是要先打开我们的虚拟机啦,当然Xshell也要打开<br><br>&emsp;&emsp;2、在Linux终端输入<code>ifconfig</code>指令，然后在下图红框处找到自己的ip地址。<br><br><img src="/2018/12/05/【Linux】Linux编程-基础/1.png" alt="Xshell连接"><br><br>&emsp;&emsp;然后在Xshell中输入如下图的命令。<br><br><img src="/2018/12/05/【Linux】Linux编程-基础/2.png" alt="Xshell连接"><br><br>&emsp;&emsp;之后按要求输入Linux中的用户名及密码即可连接上虚拟机。<br><br><img src="/2018/12/05/【Linux】Linux编程-基础/3.png" alt="Xshell连接"><br><br>&emsp;&emsp;连接上之后的操作都和Linux终端中的一致了。同时Xshell比Linux的终端好看了不止一点，可以改变界面透明度和背景，使用起来心情舒畅多了。</p>
-<h3 id="如何在Linux中编程"><a href="#如何在Linux中编程" class="headerlink" title="如何在Linux中编程"></a>如何在Linux中编程</h3><p>&emsp;&emsp;正如我们之前在Windows中使用的vs2017这个ide一样，在Windows中我们大多使用类如这样方便的集成式ide来进行编程，ide将我们编写程序所需要用到的工具进行整合，合为一体供我们使用，十分方便快捷。<br><br>&emsp;&emsp;而在Linux中不同于Windows的是，Linux这类操作系统更崇尚的是利用简而精的软件而并非Windows使用所崇尚的这种一站集成式的软件，因此在Linux中编程我们并不会接触到类似于vs2017这样的集成式的开发环境，而是将其打散成多个小软件分别使用。这样的方式是类Windows操作系统与类Unix操作系统关键性的区别。<br><br>&emsp;&emsp;那么在vs2017这个继承开发环境中都包含了哪些基本的功能供我们使用呢？可以大致分为以下四种，并且我们在Linux中都找到了对应的软件来代替vs2017中这一功能，我也一并将其列出来。<br><br>&emsp;&emsp;1、代码编辑器 —— vim。<br><br>&emsp;&emsp;2、编译器 —— gcc。<br><br>&emsp;&emsp;3、调试器 —— gdb。<br><br>&emsp;&emsp;4、项目组织 —— makefile。<br><br>&emsp;&emsp;以上这四款基本软件我们今后在Linux编程中会经常使用，可以说只要是在Linux下编程就必定会用到这四款软件。那么我们怎么在Linux下找到这四款软件呢？<br></p>
-<h3 id="yum使用"><a href="#yum使用" class="headerlink" title="yum使用"></a>yum使用</h3><p>&emsp;&emsp;在Linux中内置了一个类似于应用商店的东西，我们称之为<strong>包管理器</strong>。在这个应用商店中我们可以找到一些我们常用的包，来提供给我们的Linux一些新的扩展功能。接下来我会以在yum下载<strong>rzsz</strong>这个软件包为例讲解如何使用yum。<strong><em>以下流程均需虚拟机联网</em></strong>。<br><br>&emsp;&emsp;1、我们先利用yum来搜索rzsz的软件包。输入<code>yum list | grep rzsz</code>命令，稍等即可出现搜索结果。如果过长时间未出现结果可取消重试或检查网络连接后重试。(<code>ctrl+c</code>取消命令)<br><br><img src="/2018/12/05/【Linux】Linux编程-基础/4.png" alt="Xshell连接"><br><br>&emsp;&emsp;2、切换到root管理员下载安装rzsz既可。确保自己在root管理员权限下输入<code>yum install 包名</code>即可自动安装，其中包名为我们刚刚搜索出来的软件包的名称。<br><br>&emsp;&emsp;<strong>注意</strong>：在Linux下安装删除软件均需切换到root管理员才可执行。<br><br>&emsp;&emsp;（输入<code>su</code>命令后输入root密码后即可切换为root管理员。）<br><br><img src="/2018/12/05/【Linux】Linux编程-基础/5.png" alt="Xshell连接"><br><br>&emsp;&emsp;之后我们的rzsz就安装成功了，如果需要删除这个包，则也需要在root管理员权限下，输入<code>yum erase 包名</code>即可。当操作结束后最好退出root权限（输入<code>exit</code>即可退出）。<del>毕竟还是用普通用户比较安全。</del><br><br>&emsp;&emsp;虽说我们安装好了rzsz但是这个包到底有什么用处呢？大致作用可以解释为让Windows和Linux两个系统上的文件可以自由快速传输，如果没有这个软件包纯粹利用FTP进行文件传输有着极高的延迟，而且不够方便，而有了rzsz这可以大大改善这一点，是我们将来工作的必备软件包之一。</p>
-<h3 id="之后的准备"><a href="#之后的准备" class="headerlink" title="之后的准备"></a>之后的准备</h3><p>&emsp;&emsp;在介绍完yum的使用后，我们平时使用的很多软件包都可以直接从yum上进行下载，但也并非所有东西yum里都有。<br><br>&emsp;&emsp;但是在Linux编程上我们要经常使用<strong>vim、gcc、gdb、makefile</strong>这四款软件，但是好消息是这四款软件有的在Linux上已经提前安装好了，我们直接使用即可。关于这四款软件的具体使用会在<strong>Linux编程</strong>的其他章节继续介绍。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    <div>
-    
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2124,7 +2135,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-count">86</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2243,7 +2254,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共265.8k字</span>
+  <span class="post-count">博客全站共273.4k字</span>
 </div>
 
         ﻿

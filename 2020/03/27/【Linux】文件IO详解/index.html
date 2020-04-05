@@ -1,0 +1,892 @@
+﻿<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Linux文件结构文件描述符&amp;emsp;&amp;emsp;文件描述符已经不陌生了，在一个进程中一个打开的文件就是用一个文件描述符所表征的，可以看作是一个句柄，就是所谓的遥控器。但是这个遥控器到底怎么来控制具体的文件呢？接下来会依此讲解文件描述符背后的在UNIX环境下实现相关的数据结构。 UNIX环境下的文件共享&amp;emsp;&amp;emsp;文件描述符用来表征一个文件，但是为什么操作系统要用这么一个整数来表征一">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Linux】文件IO详解">
+<meta property="og:url" content="http://yoursite.com/2020/03/27/【Linux】文件IO详解/index.html">
+<meta property="og:site_name" content="Misaki`s blog">
+<meta property="og:description" content="Linux文件结构文件描述符&amp;emsp;&amp;emsp;文件描述符已经不陌生了，在一个进程中一个打开的文件就是用一个文件描述符所表征的，可以看作是一个句柄，就是所谓的遥控器。但是这个遥控器到底怎么来控制具体的文件呢？接下来会依此讲解文件描述符背后的在UNIX环境下实现相关的数据结构。 UNIX环境下的文件共享&amp;emsp;&amp;emsp;文件描述符用来表征一个文件，但是为什么操作系统要用这么一个整数来表征一">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2020/03/27/【Linux】文件IO详解/1.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/27/【Linux】文件IO详解/2.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/27/【Linux】文件IO详解/3.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/27/【Linux】文件IO详解/4.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/27/【Linux】文件IO详解/5.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/27/【Linux】文件IO详解/6.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/27/【Linux】文件IO详解/7.png">
+<meta property="og:updated_time" content="2020-04-05T10:55:52.310Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【Linux】文件IO详解">
+<meta name="twitter:description" content="Linux文件结构文件描述符&amp;emsp;&amp;emsp;文件描述符已经不陌生了，在一个进程中一个打开的文件就是用一个文件描述符所表征的，可以看作是一个句柄，就是所谓的遥控器。但是这个遥控器到底怎么来控制具体的文件呢？接下来会依此讲解文件描述符背后的在UNIX环境下实现相关的数据结构。 UNIX环境下的文件共享&amp;emsp;&amp;emsp;文件描述符用来表征一个文件，但是为什么操作系统要用这么一个整数来表征一">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/27/【Linux】文件IO详解/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/03/27/【Linux】文件IO详解/"/>
+
+
+
+
+
+  <title>【Linux】文件IO详解 | Misaki`s blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+<a href="https://github.com/MisakiFx" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Misaki`s blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习是一种态度</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/27/【Linux】文件IO详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MisakiFx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Misaki`s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【Linux】文件IO详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-27T22:24:03+08:00">
+                2020-03-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  7.7k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Linux文件结构"><a href="#Linux文件结构" class="headerlink" title="Linux文件结构"></a>Linux文件结构</h1><h2 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h2><p>&emsp;&emsp;文件描述符已经不陌生了，在一个进程中一个打开的文件就是用一个文件描述符所表征的，可以看作是一个句柄，就是所谓的遥控器。但是这个遥控器到底怎么来控制具体的文件呢？接下来会依此讲解文件描述符背后的在UNIX环境下实现相关的数据结构。</p>
+<h2 id="UNIX环境下的文件共享"><a href="#UNIX环境下的文件共享" class="headerlink" title="UNIX环境下的文件共享"></a>UNIX环境下的文件共享</h2><p>&emsp;&emsp;文件描述符用来表征一个文件，但是为什么操作系统要用这么一个整数来表征一个文件呢？这就操作系统底层实现有莫大的关系。<br>&emsp;&emsp;在进程PCB中有着这么一个部分，IO状态信息，说的再具体点，在PCB中存在着一张表，我们可以叫它<strong>文件描述符表</strong>也可以叫做<strong>打开文件描述符表</strong>，这张表每个进程都会有且为进程独有，所以它是<strong>进程级</strong>的。这张表上的每一个表项都有两个部分组成，<strong>文件描述符标志</strong>以及一个<strong>文件指针</strong>。其中文件描述符标志也就是我们所使用的文件描述符<code>fd</code>，当然我们也可以将其看做是这张表的下标。这张表长这样。<br><br><img src="/2020/03/27/【Linux】文件IO详解/1.png" alt="文件描述符表"><br><br>&emsp;&emsp;这张表中每一项都有一个文件指针，那么这个指针又指向哪里呢？这就要提到另一张表<strong>打开文件表</strong>，注意这张表由操作系统管理，且系统中只有唯一一张这样的表，因此这张表是<strong>系统级的</strong>。这张表中的每一项都存储着一个进程与这个文件相关的一些信息，其中主要分为三个部分：<strong>文件状态标志，文件当前偏移量，v-node结点指针</strong>。<br>&emsp;&emsp;文件状态标志就是文件在打开时的状态标志，例如可读，可写，可读写，阻塞等都会记录在其中，这些状态标志也可以使用<code>fcntl</code>函数修改。<br>&emsp;&emsp;文件当前偏移量就是文件指针当前在文件中指向的位置，我们可以用<code>lseek</code>函数修改。<br>&emsp;&emsp;<code>v-node</code>结点指针我们稍后再谈，现在我们要详细讲讲这张表的工作过程。这张表属于系统级的，系统中任何进程打开任何文件都会在其中添加一个记录项，按照一般情况下来说两个不同的进程打开相同的文件也会在表中创建两个不同的表项，因此两个进程对同一个文件可以有不同的状态标志以及文件当前偏移量，一个进程中不同的文件描述符所代表的文件描述符表项中的文件指针也该指向不同的打开文件表项，但是在某些情况下文件描述符表中不同表项的指针却又有可能指向系统级打开文件表中的同一个表项。例如我们在<code>fork</code>子进程时，子进程复制父进程PCB中的大部分信息包括IO状态信息时会复制文件描述符表，因此两个不同的进程此时就会打开同一个文件，并且文件指针的指向也不会改变会指向相同的打开文件表表项；在使用<code>dup</code>函数重定向时一个进程中不同文件描述符表项中的文件指针也会指向同一个打开文件表中的表项。<br>&emsp;&emsp;这张表中的每个表项长这样。<br><img src="/2020/03/27/【Linux】文件IO详解/2.png" alt="打开文件表"><br><br>&emsp;&emsp;最后还剩一个问题，这个<code>v-node</code>结点指针干嘛用的？<code>v-node</code>节点指针当然指向<code>v-node</code>节点的啊。那么什么是<code>v-node</code>节点？说到<code>v-node</code>就不得不提起<code>i-node</code>节点，在<code>UNIX</code>操作系统中操作系统管理文件的方式是通过使用<code>v-node</code>和<code>i-node</code>节点的方式进行管理的，每个文件都会有这样的节点用于保存相关的文件信息，例如<code>v-node</code>节点上保存了文件类型，对这个文件进行操作的函数指针以及对应的<code>i-node</code>节点的指针；而<code>i-node</code>节点上保存了文件长度，文件数据存储在磁盘的位置，文件所属者等。这些文件信息平时存储在磁盘上，当一个文件倍打开时系统会将这些信息读入内存，并且相同的文件的<code>i-node</code>及<code>v-node</code>节点在内存中只会存在一份。这两个节点长这样。<br><img src="/2020/03/27/【Linux】文件IO详解/3.png" alt="v-node"><br><br>&emsp;&emsp;那么为什么要用两个节点保存这些信息呢？这是为了在一个操作系统上对多文件系统进行支持。把与文件系统无关的文件信息存储在<code>v-node</code>节点上，其余信息存在<code>i-node</code>上，分开存储，这样的系统也叫做<strong>虚拟文件系统</strong>。而<code>Linux</code>比较特殊，他其中没有<code>v-node</code>节点而是用了两个不同的<code>i-node</code>节点，但是结果而言大同小异。<br>&emsp;&emsp;综上所述，把以上集中数据结构连接起来就构成了一个进程对文件进行控制的完整脉络，进程也就得到了和文件控制有关的所有信息，可见并不是所有文件信息都保存在PCB中的。<br><br><img src="/2020/03/27/【Linux】文件IO详解/4.png" alt="文件系统"><br><br>&emsp;&emsp;对于两个不同的进程打开同一个文件，他们的文件指针可能指向不同的打开文件表项，但是最终都会指向同一个<code>v-node</code>和<code>i-node</code>节点，正如之前所说，相同文件的有关信息在内存中只会存在一份。如下图。<br><img src="/2020/03/27/【Linux】文件IO详解/5.png" alt="文件系统"><br></p>
+<h1 id="打开关闭文件"><a href="#打开关闭文件" class="headerlink" title="打开关闭文件"></a>打开关闭文件</h1><h2 id="open"><a href="#open" class="headerlink" title="open()"></a>open()</h2><p>&emsp;&emsp;<code>open()</code>函数用于打开一个文件，函数声明如下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int open(const char *pathname, int flags, mode_t mode);</span><br><span class="line"> Arguments:</span><br><span class="line"> path:打开文件或创建文件的名字，</span><br><span class="line"> flags:表示选项，用|连接多个选项</span><br><span class="line"> flags选项宏的定义文件在每个系统中有所不同，Linux中定义在fcntl-linux.h文件中</span><br><span class="line"> mode参数仅在使用部分选项时才用到，例如O_CREAT在mode中需要给定文件初始权限</span><br><span class="line"> Return Value:打开的文件描述符，失败返回-1</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;返回的文件描述符符合<strong>最小未使用</strong>分配原则。<br>&emsp;&emsp;其中flags选项有几个比较常用选项，介绍如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//以下这五个选项只能五选其一</span><br><span class="line">O_RDONLY:只读</span><br><span class="line">O_WRONLY:只写</span><br><span class="line">O_RDWR:可读可写</span><br><span class="line">O_EXEC:可执行</span><br><span class="line">O_SEARCH:只搜索（应用于目录）</span><br><span class="line">//剩下这些选项可以同时存在多个</span><br><span class="line">O_APPEND:追加写，打开文件时将文件当前偏移量置为文件长度，建议要是要想像文件末尾追加数据都加上这个选项，原因后面解释。</span><br><span class="line">O_CREAT:文件不存在则创建，全线由mode给出</span><br><span class="line">O_CLOEXEC:当前进程如果发生进程替换，自动关闭当前文件</span><br><span class="line">O_DIRECTORY:打开的不是目录则报错</span><br><span class="line">O_EXCL:同时存在O_CREAT时如果文件存在则报错</span><br><span class="line">O_NOFOLLOW:如果打开的是一个符号链接则出错</span><br><span class="line">O_NONBLOCK:非阻塞打开文件</span><br><span class="line">O_SYNC:非延迟写，即同步写，每次都等待物理写磁盘成功后再返回</span><br><span class="line">O_TRUNC:打开文件则截断文件</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;以上这些宏定义在<code>fcntl.h</code>中，但是根据操作系统不同具体定义的位置也各不相同。</p>
+<h2 id="openat"><a href="#openat" class="headerlink" title="openat()"></a>openat()</h2><p>&emsp;&emsp;<code>openat()</code>和<code>open()</code>参数及功能和返回值都很类似，其函数声明和主要区别如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">int openat(int dirfd, const char *pathname, int flags);</span><br><span class="line">int openat(int dirfd, const char *pathname, int flags, mode_t mode);</span><br><span class="line">openat函数与open函数功能类似，唯独多出dirfd参数用以区分功能</span><br><span class="line">openat函数解决的主要问题是</span><br><span class="line">1、可以让同一进程下的多个线程之间拥有不同的当前工作目录，从而可以使用同样的相对路径打开绝对路径可能不同的文件</span><br><span class="line">2、解决TOCTTOU(Time Of Check To Time Of Use)。如果两个文件相关的系统调用互相依赖，则这个系统是脆弱的</span><br><span class="line">openat函数主要特性</span><br><span class="line">1、如果pathname是绝对路径，那么此时dirfd参数毫无意义，功能则与open一致</span><br><span class="line">2、如果pathname是相对路径，且dirfd参数不是特殊宏AT_FDCWD，则将dirfd所在的目录作为此时的当前工作目录，以此打开相对路径的文件</span><br><span class="line">3、如果pathname是相对路径，且dirfd参数未特殊宏AT_FDCWD，则就以当前工作目录打开相对路径的文件，功能与open无异</span><br></pre></td></tr></table></figure></p>
+<h2 id="文件名截断"><a href="#文件名截断" class="headerlink" title="文件名截断"></a>文件名截断</h2><p>&emsp;&emsp;在我们利用<code>open()</code>函数创建新文件时如果文件名过长会怎样呢？<br>&emsp;&emsp;在UNIX系统中，有这么一个宏提前定义在系统中即<code>NAME_MAX</code>，它标识了当前系统中一个文件名最大的字符长度。假设一个系统中此值为255但是我们想要创建一个文件名为256长度的文件时操作系统会怎么处理呢？此时有两种做法。<br>&emsp;&emsp;第一种做法为截断。即既然只支持最长255那么你可以创建新文件，但是我只截取前255个字符作为新文件的文件名，文件照样会创建成功。这种处理方法在DOS系统上十分常见。<br>&emsp;&emsp;第二种做法为报错返回-1。即文件名超出系统限制，那么文件创建失败返回-1并且修改errno为<code>ENAMETOOLONG</code>，这种做法在<code>BSD</code>系统和<code>Linux</code>上十分常见。<br>&emsp;&emsp;如果我们想要知道我们当前系统对于这个问题的处理方法是怎样的我们可以使用<code>pathconf()</code>函数或者<code>fpathconf()</code>查看系统系统限制，如果返回为真则表示当前系统的处理为出错返回而不是截断。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">int main()</span><br><span class="line">&#123;                            </span><br><span class="line">  //测试文件是否截断                             </span><br><span class="line">  //如果使用一个系统调用如open创建一个新文件的文件名大于NAME_MAX，有的系统会选择截断，而有的系统选择返回-1报错</span><br><span class="line">  //如果_POSIX_NO_TRUNC值为真则返回-1报错，为假则对文件名进行截断，并且成功创建</span><br><span class="line">  std::cout &lt;&lt; pathconf(&quot;.&quot;, _PC_NO_TRUNC) &lt;&lt; std::endl;         </span><br><span class="line">  //Linux操作系统下的处理为报错返回，并将errno置为ENAMETOOLONG          </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">1</span><br></pre></td></tr></table></figure></p>
+<h2 id="creat"><a href="#creat" class="headerlink" title="creat()"></a>creat()</h2><p>&emsp;&emsp;这个函数可以用于创建一个文件，因为在早期版本中<code>open()</code>函数的选项并没有现在这样丰富，无法创建文件，所以出现了这个函数。函数原型及介绍如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int creat(const char *pathname, mode_t mode);</span><br><span class="line">用于新建一个文件，功能与open(pathname, O_CREAT | O_WRONLY | O_TRUNC, mode)完全一致</span><br><span class="line">成功返回文件描述符，失败返回-1</span><br></pre></td></tr></table></figure></p>
+<h2 id="close"><a href="#close" class="headerlink" title="close()"></a>close()</h2><p>&emsp;&emsp;<code>close()</code>用于关闭一个文件，函数介绍及原型如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int close(int fd);</span><br><span class="line">close用于关闭一个文件，成功返回0，失败返回-1</span><br></pre></td></tr></table></figure></p>
+<h1 id="lseek"><a href="#lseek" class="headerlink" title="lseek()"></a>lseek()</h1><h2 id="文件当前偏移量"><a href="#文件当前偏移量" class="headerlink" title="文件当前偏移量"></a>文件当前偏移量</h2><p>&emsp;&emsp;每个文件在打开后都会一个文件当前偏移量的概念存在，也可以叫做文件指针，它指向文件中某一位置，并且之后的读写操作会全部从此处开始，一般来说文件当前偏移量一般来说是一个非负整数，但是在某些情况下我们获取的偏移量有可能为负值或者大于文章长度。每个文件当前偏移量存储在系统级的<strong>打开文件表</strong>当中。<br>&emsp;&emsp;当一个文件被打开时文件当前偏移量被置为0，如果使用了<code>O_APPEND</code>选项则置为文章长度，方便追加。</p>
+<h2 id="lseek-1"><a href="#lseek-1" class="headerlink" title="lseek()"></a>lseek()</h2><h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>&emsp;&emsp;<code>lseek()</code>用于修改文件当前偏移量，函数原型及介绍如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">off_t lseek(int fd, off_t offset, int whence);</span><br><span class="line">Arguments:</span><br><span class="line">fd:操作的文件描述符</span><br><span class="line">whence:可以有三种参数，SEEK_SET，SEEK_CUR，SEEK_END，分别代表相对位置文件开头，当前文件偏移量，文件结尾位置</span><br><span class="line">offset:表示移动距离，offset可正可负</span><br><span class="line">Return Value:成功返回更改后的文件当前偏移量，失败返回-1，如果当前fd是一个管道，套接字等不可修改的会将errno置为ESPIPE</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;注意其中的<code>off_t</code>类型，这个类型为偏移量类型，虽然偏移量为非负，但是这里的类型却是个有符号整型，因此它可正可负，并且它也代表了一个文件的最大长度，如果它是32位的，则文章最大长度为<code>2^31 - 1</code>，在Linux操作系统下它是8个字节的即64位，但是否能创建一个大于2G的文件取决于底层文件系统。<br>&emsp;&emsp;我们也可以使用<code>lseek()</code>获取当前文件偏移量，方式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">void PrintOffset()</span><br><span class="line">&#123;</span><br><span class="line">  int fd = open(&quot;test.txt&quot;, O_CREAT | O_TRUNC | O_RDWR, 0664);</span><br><span class="line">  if(fd == -1)</span><br><span class="line">  &#123;</span><br><span class="line">    perror(&quot;error:&quot;);</span><br><span class="line">    return;</span><br><span class="line">  &#125;</span><br><span class="line">  //通过以下这种方法可以获取当前的偏移量</span><br><span class="line">  off_t curOffset = -1;</span><br><span class="line">  curOffset = lseek(fd, 0, SEEK_CUR);</span><br><span class="line">  //打印0，可知文件默认打开偏移量为0</span><br><span class="line">  std::cout &lt;&lt; curOffset &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  PrintOffset();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">0</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;以上方法还可以用来检测一个文件支不支持更改偏移量，例如管道套接字等文件不支持更改，则会返回-1，errno置为<code>ESPIPE</code>。<br>&emsp;&emsp;还要注意一点，<code>lseek()</code>只更改文件当前偏移量，不涉及IO。</p>
+<h3 id="lseek-引起空洞"><a href="#lseek-引起空洞" class="headerlink" title="lseek()引起空洞"></a>lseek()引起空洞</h3><p>&emsp;&emsp;之前有提到过文件当前偏移量是可以大于当前文件长度的，如果在这种情况下还进行文件写入是允许的，但是会形成文件<strong>空洞</strong>。空洞的部分用<code>\0</code>代替，但是空洞并不占用磁盘块。</p>
+<h1 id="文件读写"><a href="#文件读写" class="headerlink" title="文件读写"></a>文件读写</h1><h2 id="read"><a href="#read" class="headerlink" title="read()"></a>read()</h2><p>&emsp;&emsp;函数声明及介绍如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">size_t read(int fildes, void *buf, size_t nbyte);</span><br><span class="line">从文件中读取数据</span><br><span class="line">Arguments:</span><br><span class="line">fildes:读取的文件描述符</span><br><span class="line">buf:数据存放的目标缓冲区</span><br><span class="line">nbyte:最多读取的数据长度，16位无符号整型，一次读取最多为65535个字节</span><br><span class="line">Return Value:</span><br><span class="line">返回实际读取的数据长度，大部分情况下目标文件中有多少数据则读取多少数据并且返回读取长度；</span><br><span class="line">如果是管道或者套接字目前暂无数据则会阻塞</span><br><span class="line">如果是普通文件，读到文件结尾返回0</span><br><span class="line">可以设置非阻塞读取，如果暂无数据则不会阻塞而回返回-1并将errno置为EAGAIN</span><br><span class="line">返回值ssize_t是一个带符号整形</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;<code>read()</code>函数读取出错返回-1，对于不同类型的文件有着不同的处理。</p>
+<h2 id="write"><a href="#write" class="headerlink" title="write()"></a>write()</h2><p>&emsp;&emsp;函数声明及介绍如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ssize_t write(int fildes, const void *buf, size_t nbyte);</span><br><span class="line">向文件中写入数据</span><br><span class="line">Argumentes:</span><br><span class="line">fildes:文件描述符</span><br><span class="line">buf:写入数据存放的缓冲区</span><br><span class="line">nbyte:写入的最长数据长度</span><br><span class="line">Return Value:</span><br><span class="line">返回实际写入的数据长度，如果数据长度小于nbyte则在后补&apos;\0&apos;；如果文件剩余容量小于nbyte则返回能写入的最大数据长度</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;同样的，<code>write()</code>函数读取出错返回-1，对于不同类型的文件有着不同的处理。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">void Test1()</span><br><span class="line">&#123;                                                             </span><br><span class="line">  int fd = open(&quot;test.txt&quot;, O_CREAT | O_RDWR | O_TRUNC, 0664);</span><br><span class="line">  if(fd &lt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">    perror(&quot;error:&quot;);</span><br><span class="line">    return;</span><br><span class="line">  &#125;</span><br><span class="line">  //末尾补\0</span><br><span class="line">  int ret = write(fd, &quot;Misaki&quot;, 7);</span><br><span class="line">  std::cout &lt;&lt; ret &lt;&lt; std::endl;</span><br><span class="line">  lseek(fd, 0, SEEK_SET);</span><br><span class="line">  char buf[1024] = &#123;0&#125;;</span><br><span class="line">  ret = read(fd, buf, 1024);</span><br><span class="line">  std::cout &lt;&lt; ret &lt;&lt; std::endl;</span><br><span class="line">  std::cout &lt;&lt; buf &lt;&lt; std::endl;</span><br><span class="line">  //可以发现末尾确实补了\0</span><br><span class="line">  for(int i = 0; i &lt; ret; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    std::cout &lt;&lt; (int)buf[i] &lt;&lt; &quot; &quot;;</span><br><span class="line">  &#125;                </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">int main()   </span><br><span class="line">&#123;  </span><br><span class="line">  Test1();   </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">7</span><br><span class="line">7</span><br><span class="line">Misaki</span><br><span class="line">77 105 115 97 107 105 0</span><br></pre></td></tr></table></figure></p>
+<h2 id="IO效率问题"><a href="#IO效率问题" class="headerlink" title="IO效率问题"></a>IO效率问题</h2><p>&emsp;&emsp;首先看以下一段读取文件常用的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#define BUFSIZE 4096</span><br><span class="line">bool Test2()</span><br><span class="line">&#123;</span><br><span class="line">  int n = 0;</span><br><span class="line">  char buf[BUFSIZE];</span><br><span class="line">  while((n = read(STDIN_FILENO, buf, 4096)) &gt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">    if(write(STDOUT_FILENO, buf, n) != n)</span><br><span class="line">    &#123;</span><br><span class="line">      perror(&quot;write error:&quot;);</span><br><span class="line">      return false;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  if(n &lt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">    perror(&quot;read error:&quot;);</span><br><span class="line">    return false;</span><br><span class="line">  &#125;</span><br><span class="line">  return true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  if(Test2() == false)</span><br><span class="line">  &#123;</span><br><span class="line">    std::cerr &lt;&lt; &quot;copy error&quot; &lt;&lt; std::endl;</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;                                        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这段代码是很普通的一段从标准输入读取数据写入标准输出的文件读取写入代码，但是其中有一个重要的问题，我们在用文件读取的时候往往需要在程序内开辟一块缓冲区用作数据暂存，问题来了，这块buffer开多大呢？<br>&emsp;&emsp;这里跟文件系统相关了，我们都知道数据在磁盘上是按照扇区读取的，但是操作系统读取磁盘数据的最小单位是<strong>磁盘块</strong>，也就是说我们每次读取数据最小都要读取一个磁盘块大小的数据，如果读取数据长度小于磁盘块操作系统也要把整个磁盘块数据先读进来然后再拿其中一部分剩下的丢掉，这样就导致一个问题如果我们读取的数据小于一个磁盘块就会导致效率低下，造成性能浪费，而在<code>Linux</code>操作系统上一个磁盘块大小为<code>4K</code>，所以我们一次读取数据大于等于<code>4K</code>并且为<code>4K</code>整数倍的话效率是最高的。不过现在的操作系统为了提高效率使用了<strong>预读</strong>技术，这使得不带缓冲的文件IO在使用较小缓冲区读取大的连续存储的文件时也能有较高地效率，我们可以从下图看出：<br><br><img src="/2020/03/27/【Linux】文件IO详解/6.png" alt="IO效率"><br></p>
+<h2 id="原子性操作"><a href="#原子性操作" class="headerlink" title="原子性操作"></a>原子性操作</h2><p>&emsp;&emsp;考虑这么一种场景，两个不同的进程同时打开了一个文件，要对文件进行追加写，但是问题来了，两个进程这里都使用了<code>lseek</code>的方式将当前文件偏移量置为文件末尾处再写，这样的操作并不是一个原子性操作，很有可能导致两个进程同时先将偏移量移到末尾，然后一个写文件结束，另一个再继续在之前的偏移量接着写，这时的偏移量并不在文章末尾，会导致将第一个进程写的数据覆盖。举个例子，假设一个文件目前长度为1500，进程都将偏移量置为了1500，然后第一个线程先写400的数据，之后第二个进程接着准备写400数据，但是第二个进程的偏移量还在1500处，并没有更新为1900，此时再写入数据就会把之前进程写入的数据覆盖。<br>&emsp;&emsp;以上的问题想要解决也很容易，有两个办法，第一个就是使用<code>O_APPEND</code>选项，在打开文件加入这个选项后，每次写入数据都会自动将偏移量置为文件末尾处再写，不用<code>lseek</code>保证了原子性；第二个办法就是使用<code>pread()</code>和<code>pwrite()</code>函数，这两个函数与<code>read()</code>和<code>write()</code>几乎无异，不同的是它多了一个参数，可以原子性的帮助我们在读写之前修改文件偏移量，但是要注意这里的文件偏移量修改只对这一次操作有效，以下是函数声明及介绍：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">ssize_t pread(int fildes, void *buf, size_t nbyte, off_t offset);</span><br><span class="line">ssize_t pwrite(int fildes, const void *buf, size_t nbyte,off_t offset);</span><br><span class="line">这两个函数与read和write参数功能以及返回值一致，主要区别在第四个参数offset</span><br><span class="line">这两个函数会将偏移量置为offset在进行读写操作，期间是原子性的，并且不可打断。操作完成后也不会修改原有的偏移量的值。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;                                                            </span><br><span class="line">  int fd = open(&quot;test.txt&quot;, O_CREAT | O_RDWR, 0664);         </span><br><span class="line">  if(fd &lt; 0)                                   </span><br><span class="line">  &#123;                                             </span><br><span class="line">    perror(&quot;open error:&quot;);                </span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  char buf[4096];</span><br><span class="line">  lseek(fd, 1, SEEK_SET);</span><br><span class="line">  //从这里可以看出pread是将偏移量置为offset，而不是加上offset</span><br><span class="line">  int ret = pread(fd, buf, 4096, 1);</span><br><span class="line">  std::cout &lt;&lt; ret &lt;&lt; std::endl;</span><br><span class="line">  buf[ret] = &apos;\0&apos;;        </span><br><span class="line">  std::cout &lt;&lt; buf;</span><br><span class="line">  //事实打印出来的当前偏移量并没有发生改变</span><br><span class="line">  std::cout &lt;&lt; lseek(fd, 0, SEEK_CUR) &lt;&lt; std::endl;;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">7</span><br><span class="line">Misaki</span><br><span class="line">1</span><br></pre></td></tr></table></figure></p>
+<h1 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h1><h2 id="dup"><a href="#dup" class="headerlink" title="dup()"></a>dup()</h2><p>&emsp;&emsp;<code>dup()</code>函数用于重定向，传入一个描述符，系统会将当前最小未使用的文件描述符中的文件指针指向这个描述符所指向的系统级打开文件表项，因此<strong>在重定向后新文件描述符将和旧文件描述符拥有相同的文件状态和当前文件偏移量以及v-node节点指针</strong>，因为这些信息都是存储在系统级打开文件表中的。<br>&emsp;&emsp;函数介绍及声明如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">int dup(int oldfd);</span><br><span class="line">Arguments:</span><br><span class="line">oldfd:旧文件描述符</span><br><span class="line">Return Value:成功返回新文件描述符，失败返回-1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  //一个进程执行时自动打开0,1,2三个文件描述符，作为标准输入标准输出标准错误</span><br><span class="line">  //在这里我们重定向的新文件描述符自动更新为3</span><br><span class="line">  //并且文件描述符重定向旧文件描述符依然可以用，且指向文件不变</span><br><span class="line">  int newfd = dup(1);</span><br><span class="line">  std::cout &lt;&lt; newfd &lt;&lt; std::endl;</span><br><span class="line">  write(newfd, &quot;123\n&quot;, 4);</span><br><span class="line">  write(STDOUT_FILENO, &quot;123\n&quot;, 4);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">3</span><br><span class="line">123</span><br><span class="line">123</span><br></pre></td></tr></table></figure></p>
+<h2 id="dup2"><a href="#dup2" class="headerlink" title="dup2()"></a>dup2()</h2><p>&emsp;&emsp;功能比<code>dup()</code>更加强大，传入两个参数，可以指定让新文件描述符中的文件指针拷贝为旧文件描述符的文件指针，也就是在<code>dup()</code>的基础上我们可以指定将哪个文件描述符作为新新文件描述符，而不是最小未使用。如果新文件描述符已经打开文件则将其关闭。<br>&emsp;&emsp;函数声明及介绍如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">int dup2(int oldfd, int newfd);</span><br><span class="line">让文件描述符表中newfd的项中的文件表项指针更改为oldfd项中文件表项指针</span><br><span class="line">若newfd原先有指向文件并且已经打开则关闭，若newfd == oldfd则直接返回newfd</span><br><span class="line">Arguments:</span><br><span class="line">oldfd:旧文件描述符</span><br><span class="line">newfd:新文件描述符</span><br><span class="line">Return Value:成功返回新文件描述符，失败返回-1</span><br><span class="line">dup和dup2都是原子性的，其相当于调用了close函数和fcntl函数</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;<code>dup</code>和<code>dup2</code>的功能相当于调用了<code>functl</code>实现，实现方法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dup:</span><br><span class="line">fcntl(oldfd, F_DUPFD, 0);</span><br><span class="line">dup2:</span><br><span class="line">close(newfd);</span><br><span class="line">fcntl(oldfd, F_DUPFD, newfd);</span><br></pre></td></tr></table></figure></p>
+<h1 id="内核缓冲与同步写"><a href="#内核缓冲与同步写" class="headerlink" title="内核缓冲与同步写"></a>内核缓冲与同步写</h1><h2 id="内核缓冲"><a href="#内核缓冲" class="headerlink" title="内核缓冲"></a>内核缓冲</h2><p>&emsp;&emsp;即使我们说文件IO是没有缓冲区的，但是其实并不尽然，我们应该说文件IO是不会维护进程缓冲区，但是Unix操作系统为了提高读写效率会在内核中存在一块缓冲区，我们称之为<strong>内核缓冲</strong>。以写为例，我们每次调用<code>write()</code>写数据到达文件的时候并不是直接将数据写入文件，因为如果要写入的数据非常多则会因为IO占用非常多的时间，导致阻塞严重。系统在这里的处理时先将要写入的数据写入每个文件的内核缓冲区，然后随后再将它们真正写入文件，这样的写入模式称之为<strong>延迟写</strong>。<br>&emsp;&emsp;但是这样会导致问题，对一些需要即时写入即时使用的数据来说会导致文件数据与缓冲区的数据不相符，原因是缓冲区中的数据还没来得及更新，于是这里牵扯到了<strong>同步写</strong>。</p>
+<h2 id="sync"><a href="#sync" class="headerlink" title="sync()"></a>sync()</h2><p>&emsp;&emsp;<code>sync()</code>通常由系统利用守护进程<code>update</code>每隔30秒周期性调用，它的作用是将系统中所有修改过的内核缓冲区加入<strong>写队列</strong>，从而让其可以更新到真正的文件中，但是这个函数并不等待真正的写入就会返回。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void sync(void)</span><br></pre></td></tr></table></figure></p>
+<h2 id="同步写"><a href="#同步写" class="headerlink" title="同步写"></a>同步写</h2><p>&emsp;&emsp;因为系统默认是不会等待真正数据写入文件，对于要求立即写入文件的程序来说这样并不靠谱，于是系统也为我们提供了可以同步写的方法。同步写一般应用于数据库文件当中。</p>
+<h3 id="fsync"><a href="#fsync" class="headerlink" title="fsync()"></a>fsync()</h3><p>&emsp;&emsp;<code>fsync()</code>会传入一个文件描述符，并且等待此文件缓冲区中的数据真正写入到磁盘后才会返回，达到同步写。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int fsync(int fd);</span><br></pre></td></tr></table></figure></p>
+<h3 id="fdatasync"><a href="#fdatasync" class="headerlink" title="fdatasync()"></a>fdatasync()</h3><p>&emsp;&emsp;<code>fdatasync()</code>与<code>fsync()</code>类似，唯一不同的是它只等待文件数据更新到磁盘上即可返回，并不文件的属性信息更新，因此调用它返回会更快。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int fdatasync(int fd);</span><br></pre></td></tr></table></figure></p>
+<h1 id="修改文件属性"><a href="#修改文件属性" class="headerlink" title="修改文件属性"></a>修改文件属性</h1><p>&emsp;&emsp;在打开文件时可以指定文件状态以及一些附加选项，当然既然可以指定那么就可以修改，而<code>fcntl()</code>就向我们提供了这一功能。</p>
+<h2 id="fcntl"><a href="#fcntl" class="headerlink" title="fcntl()"></a>fcntl()</h2><p>&emsp;&emsp;函数声明及介绍：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">int fcntl(int fd, int cmd, ...);</span><br><span class="line">fcntl函数可以更改已经打开的文件的属性 </span><br><span class="line">Arguments:</span><br><span class="line">fd:文件描述符      </span><br><span class="line">cmd:执行命令</span><br><span class="line">...:不定参数，后面有可能会根据cmd的不同有着不同的需要传递的参数</span><br><span class="line">Return Value:返回值根据cmd的不同也不同，但是失败都会返回-1，大部分设置为主的模式成功会返回0</span><br><span class="line">常用cmd:  </span><br><span class="line">F_DUPFD:赋值文件描述符，dup底层就是用这个参数进行实现的，它会将第三个参数起最小未使用的描述符复制为fd所指文件</span><br><span class="line">F_DUPFD_CLOEXEC:这里涉及一个文件描述符标志，FD_CLOEXEC，这也是唯一一个文件描述符标志，当被定义了这个文件描述符标志的文件</span><br><span class="line">当当前进程在exec进程替换时会自动关闭这个文件，防止子进程一直占用，多用于只需要父进程可以使用这个文件而子进程关闭这个文件的文件上</span><br><span class="line">FD_CLOEXEC也可以通过F_SETFD模式进行设置，F_DUPFD_CLOEXEC则与F_DUPFD功能以及参数类似，不同的是会自动为newfd设置FD_CLOEXEC标志</span><br><span class="line">F_GETFD:获得对应于fd的文件描述符标志FD_CLOEXEC作为返回值返回</span><br><span class="line">F_SETFD:对于fd设置新的文件描述符标志，新标志作为第三个参数传入</span><br><span class="line">F_GETFL:对于fd获得文件状态标志，例如O_RDWR之类的称为文件状态标志，但是一个文件中的O_RDWR,O_WRONLY,O_RDONLY,O_EXEC,o_SEARCH是互斥的</span><br><span class="line">因此可以使用O_ACCMODE获得访问方式屏蔽位</span><br><span class="line">F_SETFL:对于fd设置文件状态标志</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这里要区分两个概念，<strong>文件描述符标志</strong>和<strong>文件状态标志</strong>。目前文件描述符标志最常用的标志就一个<code>FD_CLOEXEC</code>标志，这个标志也可以在打开文件时加上，也可以通过<code>fcntl()</code>的<code>FD_SETFD</code>选项加上这个标志。这个标志的作用就是当前进程在放生进程替换时会自动关闭有这个标志的文件，主要解决的问题是父进程创建子进程，子进程拷贝了父进程文件描述符表因此有着和父进程相同的打开文件以及偏移量，如果子进程发生进程替换，可能会导致文件无意篡改的情况，所以关闭不用的描述符防止数据无意篡改。文件状态标志就是一些文件相关的状态信息及打开时的选项，常见有如下选项：<br><img src="/2020/03/27/【Linux】文件IO详解/7.png" alt="fcntl"><br><br>&emsp;&emsp;以下是使用示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">//打印文件状态标志</span><br><span class="line">void GetState(int fd)</span><br><span class="line">&#123;</span><br><span class="line">  int flags = fcntl(fd, F_GETFL);</span><br><span class="line">  if(flags &lt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">    perror(&quot;fcntl error:&quot;);</span><br><span class="line">    return;</span><br><span class="line">  &#125;</span><br><span class="line">  //用屏蔽字获取当前状态标志</span><br><span class="line">  switch(flags &amp; O_ACCMODE)</span><br><span class="line">  &#123;</span><br><span class="line">    case O_WRONLY:</span><br><span class="line">      std::cout &lt;&lt; &quot;write only&quot; &lt;&lt; std::endl;</span><br><span class="line">      break;</span><br><span class="line">    case O_RDONLY:</span><br><span class="line">      std::cout &lt;&lt; &quot;read only&quot; &lt;&lt; std::endl;</span><br><span class="line">      break;</span><br><span class="line">    case O_RDWR:</span><br><span class="line">      std::cout &lt;&lt; &quot;read write&quot; &lt;&lt; std::endl;</span><br><span class="line">      break;</span><br><span class="line">    default:</span><br><span class="line">      std::cerr &lt;&lt; &quot;unknow mode&quot; &lt;&lt; std::endl;</span><br><span class="line">      break;</span><br><span class="line">  &#125;</span><br><span class="line">  if(flags &amp; O_NONBLOCK)</span><br><span class="line">  &#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;nonblock&quot; &lt;&lt; std::endl;</span><br><span class="line">  &#125;</span><br><span class="line">  if(flags &amp; O_APPEND)</span><br><span class="line">  &#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;append&quot; &lt;&lt; std::endl;</span><br><span class="line">  &#125;</span><br><span class="line">  //一个文件描述符就算设置了SYNC同时写系统也不一定一定会按照预期进行同时写，因此程序员有必要调用fsync()函数</span><br><span class="line">  if(flags &amp; O_SYNC)</span><br><span class="line">  &#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;sync&quot; &lt;&lt; std::endl;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(int argc, char* argv[])</span><br><span class="line">&#123;</span><br><span class="line">  if(argc != 2)</span><br><span class="line">  &#123;</span><br><span class="line">    std::cerr &lt;&lt; &quot;use ./main &lt;fd&gt; &lt;&lt; std::endl&quot;;</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  GetState(atoi(argv[1]));</span><br><span class="line">&#125;          </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost BaseIO]$ ./main 0 &lt; /dev/tty</span><br><span class="line">read only</span><br><span class="line">[misaki@localhost BaseIO]$ ./main 1 &gt; test.txt</span><br><span class="line">[misaki@localhost BaseIO]$ cat test.txt </span><br><span class="line">write only</span><br><span class="line">[misaki@localhost BaseIO]$ ./main 2 2&gt;&gt;test.txt</span><br><span class="line">write only</span><br><span class="line">append</span><br><span class="line">[misaki@localhost BaseIO]$ ./main 5 5&lt;&gt;test.txt</span><br><span class="line">read write</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这里要注意的一个文件状态是<code>O_SYNC</code>和<code>O_DSYNC</code>同步写状态，这里就算给一个文件加上了这个标志，操作系统为了优化也不一定会同步写，要想百分百同步写还是需要调用<code>fsync()</code>和<code>fdatasync()</code>函数。</p>
+<h1 id="dev-fd"><a href="#dev-fd" class="headerlink" title="dev/fd"></a>dev/fd</h1><p>&emsp;&emsp;打开<code>dev/fd</code>中的文件描述符意义基本上等同于重新打开一份已经在进程中打开过的文件，基本上和<code>dup(fd)</code>的作用是差不多的，我们可以这样使用:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int fd = open(&quot;/dev/fd/0&quot;, mode);</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这样的写法等同于<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int fd = dup(0);</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;并且要求mode必须是事先打开文件选项的子集，但是Linux平台是个例外，在Linux上打开<code>/dev/fd</code>的文件等同于打开了一份新的文件，与原来打开的文件无关。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  int fd = open(&quot;test.txt&quot;, O_CREAT | O_RDWR, 0664);</span><br><span class="line">  if(fd &lt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">    perror(&quot;open error:&quot;);</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  write(fd, &quot;Misaki0&quot;, 7);</span><br><span class="line">  dup2(fd, 1);</span><br><span class="line">  std::cout &lt;&lt; &quot;Misaki1&quot; &lt;&lt; std::endl;</span><br><span class="line">  int stdOut = open(&quot;/dev/fd/1&quot;, O_RDWR);</span><br><span class="line">  if(stdOut &lt; 0)</span><br><span class="line">  &#123;</span><br><span class="line">    perror(&quot;open stdOut error:&quot;);</span><br><span class="line">    return -1;</span><br><span class="line">  &#125;</span><br><span class="line">  dup2(stdOut, 1);</span><br><span class="line">  lseek(1, 14, SEEK_DATA);                               </span><br><span class="line">  std::cout &lt;&lt; &quot;Misaki2&quot; &lt;&lt; std::endl;</span><br><span class="line">  close(stdOut);</span><br><span class="line">  close(fd);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[misaki@localhost BaseIO]$ cat test.txt </span><br><span class="line">Misaki0Misaki1Misaki2</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这个例子可以看出来利用<code>/dev/fd</code>打开的文件有着自己独有的文件偏移量。<br>&emsp;&emsp;<code>/dev/fd</code>这种用法一般在<code>shell</code>语句中用于获取一个进程的标准输入标准输出比较多。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+    
+    <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读!-------------</div>
+    
+    </div>
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>记录学习每一分，感谢您的赞助</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="MisakiFx 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="MisakiFx 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/17/【操作系统原理】第二章-进程和线程/" rel="next" title="【操作系统原理】第二章-进程和线程">
+                <i class="fa fa-chevron-left"></i> 【操作系统原理】第二章-进程和线程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="MisakiFx" />
+            
+              <p class="site-author-name" itemprop="name">MisakiFx</p>
+              <p class="site-description motion-element" itemprop="description">Hard working or giving up!!!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">86</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/MisakiFx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1761607418@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope-open"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://music.163.com/#/user/home?id=432551242" target="_blank" title="网易云音乐">
+                      
+                        <i class="fa fa-fw fa-music"></i>网易云音乐</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/qq_41669298" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-crosshairs"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux文件结构"><span class="nav-number">1.</span> <span class="nav-text">Linux文件结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件描述符"><span class="nav-number">1.1.</span> <span class="nav-text">文件描述符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UNIX环境下的文件共享"><span class="nav-number">1.2.</span> <span class="nav-text">UNIX环境下的文件共享</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#打开关闭文件"><span class="nav-number">2.</span> <span class="nav-text">打开关闭文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#open"><span class="nav-number">2.1.</span> <span class="nav-text">open()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#openat"><span class="nav-number">2.2.</span> <span class="nav-text">openat()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件名截断"><span class="nav-number">2.3.</span> <span class="nav-text">文件名截断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#creat"><span class="nav-number">2.4.</span> <span class="nav-text">creat()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#close"><span class="nav-number">2.5.</span> <span class="nav-text">close()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lseek"><span class="nav-number">3.</span> <span class="nav-text">lseek()</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件当前偏移量"><span class="nav-number">3.1.</span> <span class="nav-text">文件当前偏移量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lseek-1"><span class="nav-number">3.2.</span> <span class="nav-text">lseek()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本使用"><span class="nav-number">3.2.1.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lseek-引起空洞"><span class="nav-number">3.2.2.</span> <span class="nav-text">lseek()引起空洞</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件读写"><span class="nav-number">4.</span> <span class="nav-text">文件读写</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#read"><span class="nav-number">4.1.</span> <span class="nav-text">read()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#write"><span class="nav-number">4.2.</span> <span class="nav-text">write()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IO效率问题"><span class="nav-number">4.3.</span> <span class="nav-text">IO效率问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原子性操作"><span class="nav-number">4.4.</span> <span class="nav-text">原子性操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重定向"><span class="nav-number">5.</span> <span class="nav-text">重定向</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#dup"><span class="nav-number">5.1.</span> <span class="nav-text">dup()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dup2"><span class="nav-number">5.2.</span> <span class="nav-text">dup2()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内核缓冲与同步写"><span class="nav-number">6.</span> <span class="nav-text">内核缓冲与同步写</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内核缓冲"><span class="nav-number">6.1.</span> <span class="nav-text">内核缓冲</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sync"><span class="nav-number">6.2.</span> <span class="nav-text">sync()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步写"><span class="nav-number">6.3.</span> <span class="nav-text">同步写</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fsync"><span class="nav-number">6.3.1.</span> <span class="nav-text">fsync()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fdatasync"><span class="nav-number">6.3.2.</span> <span class="nav-text">fdatasync()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改文件属性"><span class="nav-number">7.</span> <span class="nav-text">修改文件属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#fcntl"><span class="nav-number">7.1.</span> <span class="nav-text">fcntl()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dev-fd"><span class="nav-number">8.</span> <span class="nav-text">dev/fd</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        ﻿<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MisakiFx</span>
+
+  
+</div>
+
+
+<div class="powered-by">
+  <i class="fa fa-user-md"></i>
+  <span id="busuanzi_container_site_uv">
+    我的网站的访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+</div>
+
+
+
+<span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共273.4k字</span>
+</div>
+
+        ﻿
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+        <script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
